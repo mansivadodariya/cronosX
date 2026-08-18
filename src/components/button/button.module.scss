@@ -1,0 +1,43 @@
+@use '../../scss/main.scss' as *;
+@use '../../scss/breakpoints/breakpoints.scss' as *;
+@use '../../scss/font/font.scss' as *;
+
+.button {
+    display: inline-block;
+
+    button {
+        background: linear-gradient(90deg, #C1902E 0%, #F4D17A 100%);
+        color: #0A0807;
+        padding: 14px 30px;
+        border: none;
+        outline: none;
+        @include font-semibold;
+        font-size: 15px;
+        cursor: pointer;
+        border-radius: 99px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-transform: uppercase;
+        font-weight: 700;
+        position: relative;
+        overflow: hidden;
+
+        .btnText {
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+
+        .iconWrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                width: 14px;
+                height: 14px;
+                display: block;
+            }
+        }
+    }
+}

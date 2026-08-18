@@ -1,0 +1,44 @@
+@font-face {
+    font-family: "Euclid-Bold";
+    src: url("/assets/font/Euclid\ Circular\ A\ Bold.ttf");
+}
+
+
+@font-face {
+    font-family: "Euclid-Medium";
+    src: url("/assets/font/Euclid\ Circular\ A\ Medium.ttf");
+}
+
+@font-face {
+    font-family: "Euclid-Regular";
+    src: url("/assets/font/Euclid\ Circular\ A\ Regular.ttf");
+}
+
+@font-face {
+    font-family: "Euclid-SemiBold";
+    src: url("/assets/font/Euclid\ Circular\ A\ SemiBold.ttf");
+}
+
+
+@mixin font-normal {
+    font-family: "Euclid-Regular";
+}
+
+@mixin font-medium {
+    font-family: "Euclid-Medium";
+}
+
+@mixin font-bold {
+    font-family: "Euclid-Bold";
+}
+
+@mixin font-semibold {
+    font-family: "Euclid-SemiBold";
+}
+
+@mixin text-gradient {
+    background: var(--Logo-Blue, linear-gradient(180deg, #149EF5 3.23%, #057FDA 38.93%, #046FC9 66.97%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
