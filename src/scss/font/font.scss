@@ -37,7 +37,18 @@
 }
 
 @mixin text-gradient {
-    background: var(--Logo-Blue, linear-gradient(180deg, #149EF5 3.23%, #057FDA 38.93%, #046FC9 66.97%));
+    background: linear-gradient(180deg, #FFE79A 0%, #E5B248 40%, #B87E1B 80%, #E5B248 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@mixin heading-white-gradient {
+    color: #fff;
+}
+
+@mixin heading-gold-gradient {
+    background: linear-gradient(180deg, #FFE693 0%, #D8A23B 45%, #9E6B17 85%, #E2AE48 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

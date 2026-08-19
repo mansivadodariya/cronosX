@@ -32,7 +32,7 @@
         }
 
         h2 {
-            color: #ffffff;
+            @include heading-white-gradient;
             font-size: 52px;
             font-weight: 800;
             line-height: 1.15;
@@ -42,7 +42,8 @@
             @include font-bold;
 
             span {
-                color: #C1902E;
+                @include heading-gold-gradient;
+                display: inline-block;
             }
 
             @include respond-to("tab") {
@@ -105,7 +106,8 @@
             @include font-bold;
 
             span {
-                color: #C1902E;
+                @include heading-gold-gradient;
+                display: inline-block;
             }
         }
 
@@ -181,21 +183,23 @@
                 flex-direction: column;
 
                 h4 {
-                    color: #ffffff;
+                    @include heading-white-gradient;
                     font-size: 17px;
                     font-weight: 800;
                     margin: 0 0 2px 0;
                     letter-spacing: 0.5px;
                     @include font-bold;
+                    display: inline-block;
                 }
 
                 h5 {
-                    color: #C1902E;
+                    @include heading-gold-gradient;
                     font-size: 17px;
                     font-weight: 800;
                     margin: 0 0 8px 0;
                     letter-spacing: 0.5px;
                     @include font-bold;
+                    display: inline-block;
                 }
 
                 p {

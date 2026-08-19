@@ -57,17 +57,19 @@
         }
 
         h2 {
-            color: #ffffff;
+            @include heading-white-gradient;
             font-size: 56px;
             font-weight: 800;
             line-height: 1.15;
             text-transform: uppercase;
+            text-align: center;
             letter-spacing: -0.5px;
             margin: 0;
             @include font-bold;
 
             span {
-                color: #C1902E;
+                @include heading-gold-gradient;
+                display: inline-block;
             }
 
             @include respond-to("tab") {
