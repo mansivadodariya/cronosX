@@ -6,10 +6,12 @@ import { authNavigate } from '@/lib/authRedirect';
 import styles from './herobanner.module.scss';
 import Button from '../../../components/button';
 import RightIcon from '@/icons/rightIcon';
+import SideRays from '@/components/sideRays';
 
 const SparkleIcon = '/assets/icons/sparkle.svg';
 const RightArrow = '/assets/icons/right.svg';
 const UsersIcon = '/assets/icons/users.svg';
+const Video = '/assets/video/video.mp4';
 
 const gridData = [
   {
@@ -34,22 +36,43 @@ export default function Herobanner() {
 
   return (
     <div className={styles.herobanner}>
-      <div className='container'>
-        <motion.div 
-          className={styles.contentstyle}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <motion.div 
+      <video
+        className={styles.bgVideo}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+      >
+        <source src="/assets/video/video.mp4" type="video/mp4" />
+      </video>
+      <div className={styles.videoOverlay}></div>
+      <SideRays
+        rayColor1="#c1902e"
+        rayColor2="#f4d17a"
+        origin="top-left"
+        spread={3}
+        tilt={43}
+        blend={0.52}
+        speed={2.5}
+        intensity={2}
+      />
+      <motion.div
+        className={styles.contentstyle}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+      >
+        <div className='container'>
+          <motion.div
             className={styles.badge}
             variants={{
               hidden: { opacity: 0, y: -20, scale: 0.9 },
-              visible: { 
-                opacity: 1, 
-                y: 0, 
+              visible: {
+                opacity: 1,
+                y: 0,
                 scale: 1,
-                transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } 
+                transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
               }
             }}
           >
@@ -60,8 +83,8 @@ export default function Herobanner() {
           <motion.h1
             variants={{
               hidden: { opacity: 0, y: 35 },
-              visible: { 
-                opacity: 1, 
+              visible: {
+                opacity: 1,
                 y: 0,
                 transition: { duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }
               }
@@ -74,8 +97,8 @@ export default function Herobanner() {
           <motion.p
             variants={{
               hidden: { opacity: 0, y: 25 },
-              visible: { 
-                opacity: 1, 
+              visible: {
+                opacity: 1,
                 y: 0,
                 transition: { duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }
               }
@@ -86,64 +109,31 @@ export default function Herobanner() {
             for smarter trading.
           </motion.p>
 
-          <motion.div 
+          <motion.div
             className={styles.actionRow}
             variants={{
               hidden: { opacity: 0, y: 20 },
-              visible: { 
-                opacity: 1, 
+              visible: {
+                opacity: 1,
                 y: 0,
                 transition: { duration: 0.7, delay: 0.45, ease: [0.22, 1, 0.36, 1] }
               }
             }}
           >
-            <Button 
-              text="GET STARTED" 
-              icon={RightArrow} 
-              onClick={() => authNavigate(router, '/dashboard')} 
+            <Button
+              text="GET STARTED"
+              icon={RightArrow}
+              onClick={() => authNavigate(router, '/dashboard')}
             />
             <div className={styles.trusted}>
               <img src={UsersIcon} alt="Users" />
               <span>Trusted by 20K+ Traders</span>
             </div>
           </motion.div>
-        </motion.div>
-
-        <div className={styles.grid}>
-          {gridData.map((item, index) => (
-            <motion.div 
-              key={index} 
-              className={styles.card}
-              initial={{ opacity: 0, y: 50, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.7,
-                delay: 0.3 + index * 0.15,
-                ease: [0.22, 1, 0.36, 1]
-              }}
-              whileHover={{ 
-                y: -8,
-                transition: { duration: 0.3, ease: "easeOut" }
-              }}
-              onClick={() => authNavigate(router, '/dashboard')}
-              style={{ cursor: 'pointer' }}
-            >
-              <div className={styles.iconWrapper}>
-                <img src={item.icon} alt={item.title} />
-              </div>
-              <div className={styles.cardInfo}>
-                <h3>{item.title}</h3>
-                <div className={styles.line}></div>
-                <p>{item.desc}</p>
-              </div>
-              <button className={styles.arrowBtn} onClick={(e) => { e.stopPropagation(); authNavigate(router, '/dashboard'); }}>
-                <RightIcon />
-              </button>
-            </motion.div>
-          ))}
         </div>
-      </div>
-    </div>
+      </motion.div>
+
+
+    </div >
   );
 }

@@ -14,18 +14,19 @@
         align-items: center;
         justify-content: space-between;
         border-radius: 60px;
-        padding: 8px 30px;
-        background: linear-gradient(180deg, #191515 0%, #040304 100%);
+        padding: 16px 30px;
+        border-radius: 10px;
+        background: rgba(35, 27, 20, 0.40);
         position: relative;
 
         &::before {
             content: "";
             position: absolute;
             inset: 0;
-            border-radius: 60px;
+            border-radius: 10px;
             padding: 1px;
             /* Border thickness */
-            background: linear-gradient(180deg, rgba(194, 145, 47, 0.7) 7.59%, rgba(243, 208, 121, 0.7) 100%);
+            background: linear-gradient(180deg, rgba(194, 145, 47, 0.4) 7.59%, rgba(243, 208, 121, 0.4) 100%);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
@@ -66,7 +67,7 @@
                     &::after {
                         content: '';
                         position: absolute;
-                        bottom: -32px;
+                        bottom: -30px;
                         left: 50%;
                         transform: translateX(-50%);
                         width: 0;

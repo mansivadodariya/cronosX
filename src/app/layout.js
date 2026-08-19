@@ -1,4 +1,4 @@
-import { Inter_Tight, Plus_Jakarta_Sans, Roboto } from "next/font/google";
+import { Anton, Inter_Tight, Plus_Jakarta_Sans, Roboto } from "next/font/google";
 import "./globals.css";
 import { ToastProvider } from "@/components/toast";
 import WhatsappButton from "@/components/whatsappButton";
@@ -37,8 +37,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${interSans.variable} ${robotoSans.variable} ${plusSans.variable}`} suppressHydrationWarning>
-      <head>
+    <html lang="en" className={`${antonSans.variable} ${robotoSans.variable} ${plusSans.variable}`} suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <script
           id="theme-initializer"
           dangerouslySetInnerHTML={{
@@ -60,8 +60,6 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
-      </head>
-      <body>
         <LanguageProvider>
           <ToastProvider>
             {children}

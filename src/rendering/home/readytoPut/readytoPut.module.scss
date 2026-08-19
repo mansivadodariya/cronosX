@@ -3,9 +3,8 @@
 @use '../../../scss/font/font.scss' as *;
 
 .readytoPut {
-    padding: 60px 0 120px 0;
+    padding: 60px 0 0 0;
     position: relative;
-    background-color: #040304;
 
     .bannerCard {
         position: relative;
@@ -27,13 +26,21 @@
             right: 0;
             bottom: 0;
             width: 50%;
-            background-image: url('/assets/images/chart-wave-right.svg');
-            background-repeat: no-repeat;
-            background-position: right center;
-            background-size: contain;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
             pointer-events: none;
-            opacity: 0.6;
             z-index: 1;
+            overflow: hidden;
+
+            img {
+                height: 90%;
+                max-height: 380px;
+                width: auto;
+                object-fit: contain;
+                filter: drop-shadow(0 0 30px rgba(193, 144, 46, 0.25));
+                user-select: none;
+            }
 
             @include respond-to("md") {
                 display: none;
@@ -49,17 +56,19 @@
             max-width: 750px;
 
             h2 {
-                color: #ffffff;
+                @include heading-white-gradient;
                 font-size: 52px;
-                font-weight: 800;
+                font-family: var(--font-anton);
+
                 line-height: 1.15;
                 text-transform: uppercase;
-                letter-spacing: -0.5px;
+
                 margin: 0 0 16px 0;
-                @include font-bold;
+                font-weight: 400;
 
                 span {
-                    color: #C1902E;
+                    @include heading-gold-gradient;
+                    display: inline-block;
                 }
 
                 @include respond-to("tab") {
@@ -88,11 +97,7 @@
             z-index: 3;
 
             img {
-                height: 28px;
-                width: auto;
-                object-fit: contain;
-                display: block;
-                opacity: 0.9;
+                max-width: 210px;
             }
 
             @include respond-to("tab") {

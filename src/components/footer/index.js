@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './footer.module.scss';
 import Link from 'next/link';
+const Logo = '/assets/logo/logo.png';
 
 const socialLinks = [
   { icon: '/assets/icons/twitter.svg', href: '#', label: 'Twitter' },
@@ -18,8 +19,7 @@ export default function Footer() {
           {/* Brand Info */}
           <div className={styles.brandCol}>
             <div className={styles.brandLogo}>
-              <img src="/assets/icons/brand-mark.svg" alt="AI Trading Signal" />
-              <span>AI TRADING SIGNAL</span>
+              <img src={Logo} alt='Logo' />
             </div>
             <p>
               AI-powered forex trading signals, market analysis, and
@@ -48,8 +48,9 @@ export default function Footer() {
           <div className={styles.navCol}>
             <h4>LEGAL</h4>
             <ul>
-              <li><Link href="#privacy">Privacy</Link></li>
-              <li><Link href="#terms">Terms</Link></li>
+              <li><Link href="#privacy">Privacy Policy</Link></li>
+              <li><Link href="#terms">Terms & Conditions</Link></li>
+              <li><Link href="#terms">Risk Disclosure</Link></li>
             </ul>
           </div>
         </div>

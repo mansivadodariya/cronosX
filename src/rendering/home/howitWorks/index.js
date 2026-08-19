@@ -75,10 +75,6 @@ export default function HowitWorks() {
                   delay: index * 0.15,
                   ease: [0.22, 1, 0.36, 1]
                 }}
-                whileHover={{ 
-                  y: -8,
-                  transition: { duration: 0.3, ease: "easeOut" }
-                }}
               >
                 <div className={styles.card}>
                   <div className={styles.numberBadge}>{item.step}</div>

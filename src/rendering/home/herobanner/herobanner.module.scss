@@ -3,18 +3,40 @@
 @use '../../../scss/font/font.scss' as *;
 
 .herobanner {
-    background-image: url('/assets/images/hero.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: right top;
+    position: relative;
     width: 100%;
     padding: 180px 0 90px 0;
+    overflow: hidden;
+    height: 100dvh;
+
+    .bgVideo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.75;
+    }
+
+
+
+    :global(.container) {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+    }
 
     .contentstyle {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        max-width: 850px;
+        position: absolute;
+        top: 55%;
+        transform: translateY(-50%);
+        left: 0;
+        width: 100%;
+        z-index: 99;
 
         .badge {
             display: inline-flex;
@@ -40,21 +62,22 @@
         }
 
         h1 {
-            color: #ffffff;
+            @include heading-white-gradient;
             font-size: 72px;
             line-height: 1.1;
-            font-weight: 800;
+            font-weight: 400;
             text-transform: uppercase;
+            font-family: var(--font-anton);
             margin: 0 0 24px 0;
-            letter-spacing: -1px;
 
             span {
-                color: #C1902E;
+                @include heading-gold-gradient;
+                display: inline-block;
             }
         }
 
         p {
-            color: #B7B7B7;
+            color: #fff;
             @include font-medium;
             font-weight: 500;
             font-size: 18px;
@@ -72,7 +95,7 @@
                 display: flex;
                 align-items: center;
                 gap: 12px;
-                color: #d1d1d1;
+                color: #fff;
                 font-size: 16px;
                 @include font-medium;
 
@@ -84,106 +107,5 @@
         }
     }
 
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 24px;
-        margin-top: 80px;
 
-        .card {
-            position: relative;
-            display: flex;
-            align-items: flex-start;
-            gap: 24px;
-            padding: 32px;
-            border-radius: 16px;
-            background: linear-gradient(180deg, rgba(16, 13, 11, 0.8) 0%, rgba(8, 6, 5, 0.95) 100%);
-            border: 1px solid rgba(193, 144, 46, 0.2);
-            box-shadow: 0px 10px 40px rgba(194, 145, 47, 0.08), inset 0px 0px 30px rgba(194, 145, 47, 0.05);
-            overflow: hidden;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-
-            &:hover {
-                transform: translateY(-5px);
-                border-color: rgba(193, 144, 46, 0.6);
-                box-shadow: 0px 15px 50px rgba(194, 145, 47, 0.15), inset 0px 0px 40px rgba(194, 145, 47, 0.1);
-            }
-
-            .iconWrapper {
-                flex-shrink: 0;
-                width: 64px;
-                height: 64px;
-                border-radius: 50%;
-                border: 1px solid rgba(193, 144, 46, 0.5);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: rgba(193, 144, 46, 0.05);
-                box-shadow: inset 0 0 10px rgba(193, 144, 46, 0.2), 0 0 20px rgba(193, 144, 46, 0.1);
-
-                img {
-                    width: 32px;
-                    height: 32px;
-                }
-            }
-
-            .cardInfo {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-
-                h3 {
-                    color: #ffffff;
-                    font-size: 20px;
-                    font-weight: 700;
-                    margin: 0 0 12px 0;
-                }
-
-                .line {
-                    width: 36px;
-                    height: 2px;
-                    background: #C1902E;
-                    margin-bottom: 16px;
-                }
-
-                p {
-                    color: #B7B7B7;
-                    font-size: 15px;
-                    line-height: 1.6;
-                    margin: 0;
-                    padding-bottom: 20px;
-                }
-            }
-
-            .arrowBtn {
-                position: absolute;
-                bottom: 24px;
-                right: 24px;
-                width: 36px;
-                height: 36px;
-                border-radius: 50%;
-                border: 1px solid rgba(193, 144, 46, 0.3);
-                background: #0A0807;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                transition: all 0.3s ease;
-
-                svg {
-                    width: 14px;
-                    height: 14px;
-
-                    path {
-                        fill: #fff;
-                    }
-                }
-
-                &:hover {
-                    background: rgba(193, 144, 46, 0.2);
-                    box-shadow: 0 0 15px rgba(193, 144, 46, 0.4);
-                }
-            }
-        }
-    }
 }

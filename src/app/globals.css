@@ -3,14 +3,12 @@ input,
 button,
 ::placeholder,
 textarea {
-  <<<<<<< HEAD font-family: "Euclid-Medium";
-  =======font-family: var(--font-inter-tight), var(--font-roboto), sans-serif;
-  >>>>>>>4eac09748a8acc104c63424f96a455a0ec5f5930
+  font-family: "Euclid-Regular";
 }
 
 body {
   margin: 0;
-  background: #100D0B;
+  background: #000000;
   color: #8E8E8E;
   padding: 0;
 }

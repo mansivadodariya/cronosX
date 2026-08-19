@@ -23,7 +23,29 @@ export default function ReadytoPut() {
           transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* Background candlestick & wave ambient graphic */}
-          <div className={styles.bgGraphic}></div>
+          <motion.div 
+            className={styles.bgGraphic}
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <motion.img 
+              src="/assets/images/chart-wave-right.svg" 
+              alt="Trading Wave Chart"
+              animate={{
+                y: [0, -14, 0],
+                x: [0, 6, 0],
+                scale: [1, 1.04, 1],
+                opacity: [0.55, 0.85, 0.55]
+              }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+          </motion.div>
 
           <div className={styles.content}>
             <motion.h2

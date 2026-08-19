@@ -3,10 +3,28 @@
 @use '../../scss/font/font.scss' as *;
 
 .footer {
-    padding: 80px 0 40px 0;
+    padding: 140px 0 40px 0;
     position: relative;
-    background-color: #040304;
-    border-top: 1px solid #232121;
+
+    &::before {
+        background-color: #C1902E;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 1200px;
+        width: 100%;
+        content: '';
+        height: 120px;
+        opacity: .3;
+        z-index: 1;
+        filter: blur(100px);
+    }
+
+    :global(.container) {
+        position: relative;
+        z-index: 9;
+    }
 
     .topSection {
         display: grid;
@@ -36,19 +54,12 @@
                 margin-bottom: 20px;
 
                 img {
-                    width: 20px;
-                    height: 20px;
                     display: block;
+                    max-width: 210px;
+                    cursor: pointer;
                 }
 
-                span {
-                    color: #C1902E;
-                    font-size: 18px;
-                    font-weight: 800;
-                    letter-spacing: 1.5px;
-                    text-transform: uppercase;
-                    @include font-bold;
-                }
+              
             }
 
             p {

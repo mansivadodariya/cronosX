@@ -3,17 +3,54 @@
 @use '../../../scss/font/font.scss' as *;
 
 .teamUp {
-    padding: 100px 0 120px 0;
+    padding: 100px 0 100px 0;
     position: relative;
-    background-color: #040304;
-    border-top: 1px solid #232121;
     overflow: hidden;
+
+    &::before {
+        background-color: #C1902E;
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 1200px;
+        width: 100%;
+        content: '';
+        height: 100px;
+        opacity: .3;
+        z-index: 1;
+        filter: blur(100px);
+    }
+
+    :global(.container) {
+        position: relative;
+        z-index: 9;
+    }
+
+    .topBorderSvgWrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 32px;
+        pointer-events: none;
+        z-index: 5;
+        overflow: visible;
+
+        svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    }
+
 
     .gridWrapper {
         display: grid;
         grid-template-columns: 1fr 530px;
         gap: 60px;
         align-items: flex-start;
+        padding: 60px 0 0 0;
 
         @include respond-to("md") {
             grid-template-columns: 1fr;
@@ -32,17 +69,17 @@
         }
 
         h2 {
-            color: #ffffff;
+            @include heading-white-gradient;
             font-size: 52px;
-            font-weight: 800;
+            font-weight: 400;
             line-height: 1.15;
             text-transform: uppercase;
-            letter-spacing: -0.5px;
+            font-family: var(--font-anton);
             margin: 0 0 20px 0;
-            @include font-bold;
 
             span {
-                color: #C1902E;
+                @include heading-gold-gradient;
+                display: inline-block;
             }
 
             @include respond-to("tab") {
@@ -86,13 +123,68 @@
     }
 
     .rightCard {
-        border-radius: 28px;
+        border-radius: 10px;
         padding: 36px 32px 32px 32px;
-        background: radial-gradient(130% 90% at 50% 0%, #1c1611 0%, #0d0a08 60%, #050403 100%);
-        border: 1.5px solid #F4D17A;
-        box-shadow: 0 0 35px rgba(193, 144, 46, 0.2), 0 10px 40px rgba(0, 0, 0, 0.9), inset 0 1px 1px rgba(244, 209, 122, 0.3);
         display: flex;
         flex-direction: column;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        background-color: #ffffff05;
+        overflow: hidden;
+
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+
+        &::before {
+            content: "";
+            -webkit-mask-composite: xor;
+            pointer-events: none;
+            background: linear-gradient(#ffffff1a 0%, #9990 100%);
+            border-radius: 16px;
+            padding: 1.5px;
+            transition: background .35s, opacity .35s;
+            position: absolute;
+            inset: 0;
+            -webkit-mask-image: linear-gradient(#fff 0 0), linear-gradient(#fff 0 0);
+            -webkit-mask-position: 0 0, 0 0;
+            -webkit-mask-size: auto, auto;
+            -webkit-mask-repeat: repeat, repeat;
+            -webkit-mask-clip: content-box, border-box;
+            -webkit-mask-origin: content-box, border-box;
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            -webkit-mask-source-type: auto, auto;
+            mask-mode: match-source, match-source;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 1.5px;
+            background: linear-gradient(0deg, #C1902E 0%, rgba(244, 209, 122, 0.6) 30%, rgba(193, 144, 46, 0.15) 60%, transparent 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px -10px rgba(193, 144, 46, 0.2), inset 0 -4px 15px rgba(193, 144, 46, 0.08);
+
+            &::before {
+                opacity: 0.25;
+            }
+
+            &::after {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         .cardHeader {
             font-size: 13px;
@@ -105,7 +197,8 @@
             @include font-bold;
 
             span {
-                color: #C1902E;
+                @include heading-gold-gradient;
+                display: inline-block;
             }
         }
 
@@ -181,21 +274,23 @@
                 flex-direction: column;
 
                 h4 {
-                    color: #ffffff;
+                    @include heading-white-gradient;
                     font-size: 17px;
                     font-weight: 800;
                     margin: 0 0 2px 0;
                     letter-spacing: 0.5px;
                     @include font-bold;
+                    display: inline-block;
                 }
 
                 h5 {
-                    color: #C1902E;
+                    @include heading-gold-gradient;
                     font-size: 17px;
                     font-weight: 800;
                     margin: 0 0 8px 0;
                     letter-spacing: 0.5px;
                     @include font-bold;
+                    display: inline-block;
                 }
 
                 p {

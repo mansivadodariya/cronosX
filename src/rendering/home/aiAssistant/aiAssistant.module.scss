@@ -5,8 +5,7 @@
 .aiAssistant {
     padding: 100px 0;
     position: relative;
-    background-color: #040304;
-    border-top: 1px solid #232121;
+
 
     .gridWrapper {
         display: grid;
@@ -31,17 +30,18 @@
         }
 
         h2 {
-            color: #ffffff;
+            @include heading-white-gradient;
             font-size: 52px;
-            font-weight: 800;
+            font-weight: 400;
             line-height: 1.15;
             text-transform: uppercase;
-            letter-spacing: -0.5px;
             margin: 0 0 20px 0;
-            @include font-bold;
+            font-family: var(--font-anton);
+
 
             span {
-                color: #C1902E;
+                @include heading-gold-gradient;
+                display: inline-block;
             }
 
             @include respond-to("tab") {
