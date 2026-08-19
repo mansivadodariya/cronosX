@@ -3,7 +3,9 @@ input,
 button,
 ::placeholder,
 textarea {
-  font-family: "Euclid-Medium";
+  <<<<<<< HEAD font-family: "Euclid-Medium";
+  =======font-family: var(--font-inter-tight), var(--font-roboto), sans-serif;
+  >>>>>>>4eac09748a8acc104c63424f96a455a0ec5f5930
 }
 
 body {
@@ -39,9 +41,12 @@ a {
   text-decoration: none;
 }
 
-
 html {
   scroll-behavior: smooth;
+}
+
+.heading {
+  font-family: var(--font-plus-jakarta), var(--font-inter-tight), sans-serif;
 }
 
 .container {
@@ -50,6 +55,161 @@ html {
   margin: 0 auto;
 }
 
-.ass {
+.asas {
   font-family: var(--font-anton);
+}
+
+.container-xs {
+  max-width: calc(1360px + 40px);
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.container-xl {
+  max-width: calc(1474px + 40px);
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.container-xs2 {
+  max-width: calc(1240px + 40px);
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.container-xs4 {
+  max-width: calc(1185px + 40px);
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.container-xs3 {
+  max-width: calc(1588px + 40px);
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+/* User Dashboard Layout */
+.user-layout {
+  display: flex;
+}
+
+.sidebar-wrapper {
+  width: 270px;
+  position: relative;
+  z-index: 90;
+  overflow: visible !important;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-wrapper.collapsed {
+  width: 64px;
+}
+
+.children-wrapper {
+  width: calc(100% - 270px);
+  position: relative;
+  z-index: 1;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-wrapper.collapsed~.children-wrapper,
+.user-layout.collapsed .children-wrapper {
+  width: calc(100% - 64px);
+}
+
+.children-spacing {
+  padding: 16px;
+}
+
+.nsm7Bb-HzV7m-LgbsSe {
+  border: none !important;
+}
+
+.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-BPrWId {
+  font-weight: 500;
+  font-style: bold;
+  font-size: 16px;
+  text-align: center;
+}
+
+.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-bN97Pc-sM5MNb {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  height: 100%;
+  position: relative;
+  width: 100% !important;
+}
+
+/* Dark Mode Core Theme */
+html.dark,
+html.dark body {
+  background-color: #0f0f11;
+  color: #f3f4f6;
+}
+
+html.dark .children-wrapper {
+  background-color: #0f0f11;
+}
+
+/* Mixed Language (Arabic & English Bidi) Rules */
+.message,
+[dir="auto"],
+.bidi-auto {
+  unicode-bidi: plaintext;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  text-align: start;
+}
+
+/* Force LTR direction and left alignment for English content inside RTL dashboard */
+[dir="rtl"] .message[lang="en"],
+[dir="rtl"] .message[data-lang="en"],
+.message.ltr,
+.bidi-ltr,
+[dir="auto"].bidi-ltr,
+[dir="auto"][data-dir="ltr"] {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Force RTL direction and right alignment for Arabic content */
+[dir="rtl"] .message[lang="ar"],
+[dir="rtl"] .message[data-lang="ar"],
+.message.rtl,
+.bidi-rtl,
+[dir="auto"].bidi-rtl,
+[dir="auto"][data-dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Table Cell Auto Directionality & Column Alignment */
+table th,
+table td,
+table td [dir="auto"],
+table td .bidi-auto,
+table td .bidi-ltr,
+table td .bidi-rtl,
+table th [dir="auto"],
+table th .bidi-auto,
+table th .bidi-ltr,
+table th .bidi-rtl {
+  text-align: start !important;
+  unicode-bidi: plaintext;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }

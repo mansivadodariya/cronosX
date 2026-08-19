@@ -1,0 +1,619 @@
+@use '../../scss/main.scss' as *;
+@use '../../scss/breakpoints/breakpoints.scss' as *;
+
+$newera-navy: #0F2240;
+$newera-red: #D92D20;
+$newera-bg-light: #F8FAFC;
+$newera-border: #E2E8F0;
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 21, 32, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.box {
+    max-width: 620px !important;
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid rgba(15, 34, 64, 0.15);
+    border-radius: 20px !important;
+    box-shadow: 0 25px 60px rgba(15, 34, 64, 0.15);
+    position: relative;
+    padding: 32px 24px 24px !important;
+    overflow: hidden;
+    animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+    .accentLayer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: linear-gradient(90deg, $newera-navy 0%, #3b5275 50%, $newera-red 100%);
+    }
+}
+
+.brandHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px !important;
+}
+
+.logoWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    padding: 4px;
+}
+
+.logoImg {
+    width: 200px !important;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    clip-path: inset(0 0 0 4.5%); // Crop the vertical starting line on the left
+    margin-left: -9px; // Shift left to offset the cropped area
+}
+
+.brandBlue {
+    fill: $newera-navy;
+}
+
+.brandRed {
+    fill: $newera-red;
+}
+
+.brandText {
+    font-family: var(--font-plus-jakarta) !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    color: $newera-navy;
+    letter-spacing: 2px;
+}
+
+.content {
+    text-align: center !important;
+}
+
+.title {
+    font-family: var(--font-plus-jakarta) !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    color: #1A1A1A !important;
+    margin: 0 0 8px !important;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 8px;
+
+    svg {
+        flex-shrink: 0;
+        color: $newera-red;
+    }
+}
+
+.welcomeText {
+    margin-bottom: 20px !important;
+    text-align: center !important;
+
+    span {
+        display: block;
+        color: $newera-red;
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        margin-bottom: 6px;
+        font-family: var(--font-plus-jakarta) !important;
+        text-align: center !important;
+    }
+
+    p {
+        font-size: 13px !important;
+        color: rgba(26, 26, 26, 0.65) !important;
+        font-weight: 500 !important;
+        margin: 0;
+        text-align: center !important;
+    }
+}
+
+.optionsContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px !important;
+    text-align: left;
+    margin-bottom: 8px !important;
+
+    @include respond-to('sm') {
+        grid-template-columns: 1fr;
+        gap: 14px !important;
+    }
+}
+
+.optionCard {
+    background: $newera-bg-light;
+    border: 1px solid $newera-border;
+    border-radius: 16px !important;
+    padding: 20px !important;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 24px rgba(15, 34, 64, 0.04);
+        border-color: rgba(15, 34, 64, 0.2);
+    }
+}
+
+.optionHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px !important;
+
+    h3 {
+        font-family: var(--font-plus-jakarta) !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        color: #1A1A1A !important;
+        margin: 0;
+        line-height: 1.3 !important;
+    }
+}
+
+.badgeStep {
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 50% !important;
+    background: $newera-navy;
+    color: #ffffff !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.optionDesc {
+    font-size: 12.5px !important;
+    line-height: 1.45 !important;
+    color: rgba(26, 26, 26, 0.6) !important;
+    margin: 0 0 16px !important;
+}
+
+.registerBtn {
+    margin-top: auto;
+    width: 100%;
+    background: #000000; /* Matching the black buttons in Newera's layout */
+    color: #ffffff !important;
+    border: none;
+    border-radius: 12px !important;
+    padding: 11px 16px !important;
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+
+    &:hover {
+        background: #222222;
+        transform: translateY(-1px);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+
+    svg {
+        transition: transform 0.2s ease;
+    }
+
+    &:hover svg {
+        transform: translate(2px, -2px);
+    }
+}
+
+.linkForm {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px !important;
+}
+
+.inputWrapper {
+    :global(.input) {
+        margin: 0;
+
+        label {
+            display: none;
+        }
+
+        :global(.inputWrapper) {
+            border-radius: 12px !important;
+            background: #ffffff;
+            border-color: $newera-border;
+            padding: 2px 8px !important;
+
+            input {
+                font-size: 12.5px !important;
+                height: 36px !important;
+                color: #1A1A1A !important;
+            }
+        }
+    }
+}
+
+.submitBtn {
+    width: 100%;
+    background: $newera-navy;
+    color: #ffffff !important;
+    border: none;
+    border-radius: 12px !important;
+    padding: 11px 16px !important;
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+
+    &:hover:not(:disabled) {
+        background: #1B355A;
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+}
+
+.spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #ffffff;
+    animation: spin 0.8s linear infinite;
+}
+
+.loadingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    gap: 16px;
+
+    p {
+        font-size: 14px;
+        color: rgba(26, 26, 26, 0.65);
+        font-weight: 500;
+        margin: 0;
+    }
+}
+
+.spinnerLarge {
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(15, 34, 64, 0.15);
+    border-radius: 50%;
+    border-top-color: $newera-navy;
+    animation: spin 0.8s linear infinite;
+}
+
+.error {
+    color: $newera-red;
+    font-size: 12px;
+    font-weight: 500;
+    margin: 4px 0 0;
+    text-align: left;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(26, 26, 26, 0.05);
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 14px;
+    cursor: pointer;
+    color: rgba(26, 26, 26, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: rgba(26, 26, 26, 0.1);
+        color: #1A1A1A;
+        transform: rotate(90deg);
+    }
+}
+
+.phaseContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+}
+
+.autoStatusCard {
+    background: $newera-bg-light;
+    border: 1px solid $newera-border;
+    border-radius: 18px;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+}
+
+.accountInfoBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(15, 34, 64, 0.06);
+    border: 1px solid rgba(15, 34, 64, 0.12);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: $newera-navy;
+
+    svg {
+        color: $newera-navy;
+    }
+}
+
+.statusMessage {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #2D3748;
+    font-weight: 500;
+    margin: 0;
+
+    strong {
+        color: $newera-navy;
+        font-weight: 700;
+    }
+}
+
+.statusIndicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(26, 26, 26, 0.6);
+    background: #ffffff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid $newera-border;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    flex-wrap: wrap;
+    justify-content: center;
+
+    svg {
+        color: #10B981;
+        flex-shrink: 0;
+    }
+}
+
+.recheckBtn {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    color: #2563EB;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 12px;
+    padding: 3px 10px;
+    margin-left: 4px;
+    transition: all 0.2s ease;
+
+    &:hover:not(:disabled) {
+        background: rgba(59, 130, 246, 0.2);
+        color: #1D4ED8;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+.pulseDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #3B82F6;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(59, 130, 246, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+}
+
+/* Dark Mode Overrides */
+:global(.dark) {
+    .overlay {
+        background: rgba(10, 12, 18, 0.85);
+    }
+
+    .box {
+        background: #111318;
+        border-color: rgba(255, 255, 255, 0.06);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+
+        .closeBtn {
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.6);
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.12);
+                color: #ffffff;
+            }
+        }
+    }
+
+    .brandText {
+        color: #ffffff !important;
+    }
+
+    .title {
+        color: #ffffff !important;
+    }
+
+    .welcomeText {
+        p {
+            color: rgba(243, 244, 246, 0.7) !important;
+        }
+    }
+
+    .optionCard {
+        background: #181B22;
+        border-color: rgba(255, 255, 255, 0.05);
+
+        &:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    .optionHeader {
+        h3 {
+            color: #ffffff !important;
+        }
+    }
+
+    .badgeStep {
+        background: #ffffff !important;
+        color: #111318 !important;
+    }
+
+    .optionDesc {
+        color: rgba(243, 244, 246, 0.5) !important;
+    }
+
+    .registerBtn {
+        background: #ffffff !important;
+        color: #111318 !important;
+
+        &:hover {
+            background: #e2e8f0 !important;
+        }
+    }
+
+    .submitBtn {
+        background: #2b4875 !important;
+        color: #ffffff !important;
+
+        &:hover:not(:disabled) {
+            background: #3b5e96 !important;
+        }
+    }
+
+    .autoStatusCard {
+        background: #181B22;
+        border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .accountInfoBadge {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.15);
+        color: #60A5FA;
+
+        svg {
+            color: #60A5FA;
+        }
+    }
+
+    .statusMessage {
+        color: rgba(243, 244, 246, 0.85);
+
+        strong {
+            color: #ffffff;
+        }
+    }
+
+    .statusIndicator {
+        background: #1E222B;
+        border-color: rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .loadingContainer {
+        p {
+            color: rgba(243, 244, 246, 0.7);
+        }
+    }
+
+    .spinnerLarge {
+        border-color: rgba(255, 255, 255, 0.15);
+        border-top-color: #60A5FA;
+    }
+
+    .inputWrapper {
+        :global(.input) {
+            :global(.inputWrapper) {
+                background: #1E222B;
+                border-color: rgba(255, 255, 255, 0.15);
+
+                input {
+                    color: #ffffff;
+                    &::placeholder {
+                        color: rgba(255, 255, 255, 0.35);
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

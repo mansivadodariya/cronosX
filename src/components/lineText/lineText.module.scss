@@ -1,0 +1,62 @@
+@use '../../scss/main.scss' as *;
+@use '../../scss/breakpoints/breakpoints.scss' as *;
+
+
+.lineText {
+    display: flex;
+    justify-content: center;
+
+    &.start {
+        justify-content: flex-start;
+
+        @include respond-to("sm") {
+            justify-content: center;
+        }
+    }
+
+    button {
+        border: none;
+        background: linear-gradient(90deg, rgba(11, 86, 219, 0.24) 0%, rgba(255, 255, 255, 0.00) 49.15%, rgba(11, 86, 219, 0.24) 100%);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: #0B56DB;
+        text-align: center;
+        font-size: 16px;
+        font-style: normal;
+        padding: 7px 26px;
+        border-left: 3px solid #0B56DB;
+        border-right: 3px solid #0B56DB;
+        font-weight: 500;
+        line-height: normal;
+
+        @include respond-to("sm") {
+            border-left: 2px solid #0B56DB;
+            border-right: 2px solid #0B56DB;
+            padding: 7px 20px;
+            font-size: 14px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: #0B56DB;
+            border-radius: 8px;
+        }
+    }
+}
+
+:global(.dark) {
+    .lineText {
+        button {
+            color: #FFFFFF;
+            background: linear-gradient(90deg, rgba(11, 86, 219, 0.4) 0%, rgba(15, 23, 42, 0.00) 49.15%, rgba(11, 86, 219, 0.4) 100%);
+            border-left-color: #0B56DB;
+            border-right-color: #0B56DB;
+
+            .dot {
+                background-color: #FFFFFF;
+            }
+        }
+    }
+}

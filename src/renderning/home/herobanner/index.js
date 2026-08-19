@@ -1,6 +1,8 @@
 "use client";
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import { authNavigate } from '@/lib/authRedirect';
 import styles from './herobanner.module.scss';
 import Button from '../../../components/button';
 import RightIcon from '@/icons/rightIcon';
@@ -29,6 +31,8 @@ const gridData = [
 ];
 
 export default function Herobanner() {
+  const router = useRouter();
+
   return (
     <div className={styles.herobanner}>
       <SideRays
@@ -104,7 +108,11 @@ export default function Herobanner() {
               }
             }}
           >
-            <Button text="GET STARTED" icon={RightArrow} />
+            <Button 
+              text="GET STARTED" 
+              icon={RightArrow} 
+              onClick={() => authNavigate(router, '/dashboard')} 
+            />
             <div className={styles.trusted}>
               <img src={UsersIcon} alt="Users" />
               <span>Trusted by 20K+ Traders</span>
@@ -129,6 +137,8 @@ export default function Herobanner() {
                 y: -8,
                 transition: { duration: 0.3, ease: "easeOut" }
               }}
+              onClick={() => authNavigate(router, '/dashboard')}
+              style={{ cursor: 'pointer' }}
             >
               <div className={styles.iconWrapper}>
                 <img src={item.icon} alt={item.title} />
@@ -138,7 +148,7 @@ export default function Herobanner() {
                 <div className={styles.line}></div>
                 <p>{item.desc}</p>
               </div>
-              <button className={styles.arrowBtn}>
+              <button className={styles.arrowBtn} onClick={(e) => { e.stopPropagation(); authNavigate(router, '/dashboard'); }}>
                 <RightIcon />
               </button>
             </motion.div>
