@@ -5,7 +5,7 @@
 .footer {
     padding: 80px 0 40px 0;
     position: relative;
-     background-color: #040304;
+    background-color: #040304;
     border-top: 1px solid #232121;
 
     .topSection {
@@ -43,7 +43,7 @@
 
                 span {
                     color: #C1902E;
-                    font-size: 14px;
+                    font-size: 18px;
                     font-weight: 800;
                     letter-spacing: 1.5px;
                     text-transform: uppercase;
@@ -53,7 +53,7 @@
 
             p {
                 color: #9c9a96;
-                font-size: 14px;
+                font-size: 16px;
                 line-height: 1.6;
                 margin: 0;
                 max-width: 320px;
@@ -70,7 +70,7 @@
 
             h4 {
                 color: #C1902E;
-                font-size: 13px;
+                font-size: 16px;
                 font-weight: 700;
                 letter-spacing: 1.5px;
                 text-transform: uppercase;
@@ -89,7 +89,7 @@
                 li {
                     a {
                         color: #9c9a96;
-                        font-size: 14px;
+                        font-size: 16px;
                         text-decoration: none;
                         transition: color 0.2s ease;
                         @include font-normal;
@@ -123,7 +123,7 @@
 
         p {
             color: #7a7772;
-            font-size: 13.5px;
+            font-size: 16px;
             margin: 0;
             @include font-normal;
         }

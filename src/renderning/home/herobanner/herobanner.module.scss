@@ -40,7 +40,7 @@
         }
 
         h1 {
-            color: #ffffff;
+            @include heading-white-gradient;
             font-size: 72px;
             line-height: 1.1;
             font-weight: 800;
@@ -49,7 +49,8 @@
             letter-spacing: -1px;
 
             span {
-                color: #C1902E;
+                @include heading-gold-gradient;
+                display: inline-block;
             }
         }
 
