@@ -1,0 +1,166 @@
+@use '../../scss/main.scss' as *;
+@use '../../scss/breakpoints/breakpoints.scss' as *;
+
+.continueWithGoogle {
+    padding: 20px 0 0;
+
+    .error {
+        color: #d32f2f;
+        font-size: 13px;
+        text-align: center;
+        margin: 0 0 10px;
+    }
+
+    .pending {
+        color: #1a6b2a;
+        background: #e8f5e9;
+        border-radius: 6px;
+        font-size: 13px;
+        text-align: center;
+        padding: 10px 12px;
+        margin: 0 0 10px;
+    }
+
+    .loading {
+        color: #0b56db;
+        font-size: 13px;
+        text-align: center;
+        margin: 0 0 10px;
+    }
+
+    .googleBtnWrapper {
+        position: relative;
+        width: 100%;
+        min-height: 48px;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    // Visible label — same on local and live (not Google's "Sign in as …" chip)
+    .customGoogleBtn {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        pointer-events: none;
+        color: var(--Color, #25292b);
+        font-size: 18px;
+        font-weight: 500;
+        line-height: normal;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        background: #fff;
+        border-radius: 8px;
+
+        img {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+    }
+
+    // Native Google button — transparent overlay captures clicks
+    .googleNativeBtn {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        display: flex;
+        align-items: stretch;
+        justify-content: stretch;
+        opacity: 0.011;
+        cursor: pointer;
+
+        > div {
+            width: 100% !important;
+            max-width: 100% !important;
+            height: 100% !important;
+
+            iframe {
+                width: 100% !important;
+                max-width: 100% !important;
+                height: 48px !important;
+                min-height: 48px !important;
+            }
+        }
+    }
+
+    .modalOverlay {
+        position: absolute;
+        inset: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #FFFFFF;
+        padding: 32px 24px;
+        animation: fadeIn 0.25s ease-out;
+        border-radius: 24px;
+
+        @include respond-to('sm') {
+            border-radius: 12px;
+            padding: 24px 16px;
+        }
+    }
+
+    .modalContent {
+        background: #FFFFFF;
+        width: 100%;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+
+        .logoWrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 24px;
+
+            .logo {
+                height: 48px;
+                width: auto;
+                display: block;
+            }
+        }
+
+        h3 {
+            color: #1A1A1A;
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0 0 8px;
+            text-align: center;
+        }
+
+        .modalSub {
+            color: rgba(26, 26, 26, 0.7);
+            font-size: 15px;
+            margin: 0 0 24px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .modalActions {
+            margin-top: 24px;
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleUp {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
