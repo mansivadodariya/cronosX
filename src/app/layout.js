@@ -1,12 +1,12 @@
-import { Inter_Tight } from "next/font/google";
+import { Anton, Inter_Tight } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 
-const interSans = Inter_Tight({
-  variable: "--font-inter-tight",
+const antonSans = Anton({
+  variable: "--font-anton",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["400"],
   display: 'swap',
 });
 
@@ -22,7 +22,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${interSans.variable} `}>
+    <html lang="en" className={`${antonSans.variable} `}>
       <body>
         <Header />
         {children}

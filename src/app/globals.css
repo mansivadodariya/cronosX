@@ -3,12 +3,12 @@ input,
 button,
 ::placeholder,
 textarea {
-  font-family: var(--font-inter-tight);
+  font-family: "Euclid-Medium";
 }
 
 body {
   margin: 0;
-  background: #020203;
+  background: #100D0B;
   color: #8E8E8E;
   padding: 0;
 }
@@ -48,4 +48,8 @@ html {
   max-width: calc(1280px + 40px);
   padding: 0 20px;
   margin: 0 auto;
+}
+
+.ass {
+  font-family: var(--font-anton);
 }

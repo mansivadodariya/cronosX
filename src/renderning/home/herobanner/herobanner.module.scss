@@ -3,12 +3,19 @@
 @use '../../../scss/font/font.scss' as *;
 
 .herobanner {
+    position: relative;
     background-image: url('/assets/images/hero.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: right top;
     width: 100%;
     padding: 180px 0 90px 0;
+    overflow: hidden;
+
+    :global(.container) {
+        position: relative;
+        z-index: 2;
+    }
 
     .contentstyle {
         display: flex;
@@ -43,10 +50,10 @@
             @include heading-white-gradient;
             font-size: 72px;
             line-height: 1.1;
-            font-weight: 800;
+            font-weight: 400;
             text-transform: uppercase;
+            font-family: var(--font-anton);
             margin: 0 0 24px 0;
-            letter-spacing: -1px;
 
             span {
                 @include heading-gold-gradient;

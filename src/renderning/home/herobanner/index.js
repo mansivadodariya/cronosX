@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import styles from './herobanner.module.scss';
 import Button from '../../../components/button';
 import RightIcon from '@/icons/rightIcon';
+import SideRays from '@/components/sideRays';
 
 const SparkleIcon = '/assets/icons/sparkle.svg';
 const RightArrow = '/assets/icons/right.svg';
@@ -30,6 +31,16 @@ const gridData = [
 export default function Herobanner() {
   return (
     <div className={styles.herobanner}>
+      <SideRays
+        rayColor1="#c1902e"
+        rayColor2="#f4d17a"
+        origin="top-left"
+        spread={3}
+        tilt={43}
+        blend={0.52}
+        speed={2.5}
+        intensity={2}
+      />
       <div className='container'>
         <motion.div 
           className={styles.contentstyle}
