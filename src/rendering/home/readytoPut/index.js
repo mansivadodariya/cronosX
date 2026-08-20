@@ -64,7 +64,7 @@ export default function ReadytoPut() {
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
             >
-              Claim smarter, and start using AI Trading Signal in just a few minutes.
+              Claim smarter, and start using ChronosX in just a few minutes.
             </motion.p>
 
             <motion.div 

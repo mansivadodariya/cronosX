@@ -9,12 +9,12 @@ const steps = [
     step: '01',
     icon: '/assets/icons/user.svg',
     title: 'Create Your Account',
-    desc: 'Sign up and create your AI Trading Signal account.'
+    desc: 'Sign up and create your ChronosX account.'
   },
   {
     step: '02',
     icon: '/assets/icons/link.svg',
-    title: 'Link AI Trading Signal Account',
+    title: 'Link ChronosX Account',
     desc: 'Connect your trading account and access AI-powered insights.'
   },
   {

@@ -59,7 +59,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className={styles.bottomSection}>
-          <p>© 2026 AI Trading Signal. All rights reserved.</p>
+          <p>© 2026 ChronosX. All rights reserved.</p>
 
           <div className={styles.socialList}>
             {socialLinks.map((item, index) => (
