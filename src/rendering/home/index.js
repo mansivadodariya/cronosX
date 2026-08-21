@@ -23,7 +23,7 @@ export default function HomePage() {
             <AiAssistant />
             <HowitWorks />
             <ChartAnalysis />
-            <BreakoutDetection />
+            {/* <BreakoutDetection /> */}
             <AiAnalyst />
             <TeamUp />
             <Testimonials />
