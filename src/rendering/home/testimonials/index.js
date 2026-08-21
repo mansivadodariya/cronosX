@@ -55,7 +55,7 @@ export default function Testimonials() {
           </h2>
 
           <p className={styles.subtext}>
-            Real reviews from active traders using AI Trading Signal.
+            Real reviews from active traders using ChronosX.
           </p>
         </motion.div>
 

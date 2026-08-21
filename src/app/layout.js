@@ -26,7 +26,7 @@ const robotoSans = Roboto({
 });
 
 export const metadata = {
-  title: "AI Trading Signal | ChronosX",
+  title: "ChronosX",
   description: "Trade smarter with AI that never sleeps. Real-time AI trading signals, instant insights, and market analysis.",
   icons: {
     icon: "/favicon.png",
