@@ -6,7 +6,6 @@ import { authNavigate } from '@/lib/authRedirect';
 import styles from './readytoPut.module.scss';
 import Button from '@/components/button';
 
-const Logo = '/assets/logo/logo.png';
 const RightArrow = '/assets/icons/right.svg';
 
 export default function ReadytoPut() {
@@ -83,17 +82,6 @@ export default function ReadytoPut() {
               />
             </motion.div>
           </div>
-
-          {/* Logo on bottom left */}
-          <motion.div 
-            className={styles.brandLogo}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 0.9 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-          >
-            <img src={Logo} alt="ChronosX" />
-          </motion.div>
         </motion.div>
       </div>
     </div>

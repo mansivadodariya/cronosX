@@ -25,10 +25,34 @@ const testimonialsData = [
     initials: 'MV',
     name: 'Marcus Vela',
     role: 'Prop Firm Trader'
+  },
+  {
+    rating: 5,
+    quote: '"The breakout confirmation alerts caught the entire gold surge before the London open. Absolute game changer."',
+    initials: 'LV',
+    name: 'Liam Vance',
+    role: 'Commodities Trader'
+  },
+  {
+    rating: 5,
+    quote: '"Having institutional heat list rankings mapped alongside raw price action completely eliminated second-guessing."',
+    initials: 'ER',
+    name: 'Elena Rostova',
+    role: 'Quant Trader'
+  },
+  {
+    rating: 5,
+    quote: '"Backtesting my custom ICT strategies against 5 years of tick data gave me the edge I needed to get funded."',
+    initials: 'LT',
+    name: 'Lucas Thorne',
+    role: 'Funded Account Trader'
   }
 ];
 
 export default function Testimonials() {
+  // Triple array for perfectly seamless continuous scroll
+  const marqueeItems = [...testimonialsData, ...testimonialsData, ...testimonialsData];
+
   return (
     <div className={styles.testimonials}>
       <div className='container'>
@@ -59,41 +83,32 @@ export default function Testimonials() {
           </p>
         </motion.div>
 
-        <div className={styles.grid}>
-          {testimonialsData.map((item, index) => (
-            <motion.div 
-              key={index} 
-              className={styles.card}
-              initial={{ opacity: 0, y: 50, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.7,
-                delay: index * 0.16,
-                ease: [0.22, 1, 0.36, 1]
-              }}
-              whileHover={{ 
-                y: -8,
-                transition: { duration: 0.3, ease: "easeOut" }
-              }}
-            >
-              <div className={styles.stars}>
-                {[...Array(item.rating)].map((_, i) => (
-                  <img key={i} src="/assets/icons/star.svg" alt="star" />
-                ))}
-              </div>
+        {/* Standard Width Marquee with Foggy Edge Layers */}
+        <div className={styles.marqueeWrapper}>
+          <div className={styles.fogLeft}></div>
+          <div className={styles.fogRight}></div>
 
-              <p className={styles.quote}>{item.quote}</p>
+          <div className={styles.marqueeTrack}>
+            {marqueeItems.map((item, index) => (
+              <div key={index} className={styles.card}>
+                <div className={styles.stars}>
+                  {[...Array(item.rating)].map((_, i) => (
+                    <img key={i} src="/assets/icons/star.svg" alt="star" />
+                  ))}
+                </div>
 
-              <div className={styles.author}>
-                <div className={styles.avatar}>{item.initials}</div>
-                <div className={styles.authorInfo}>
-                  <h4>{item.name}</h4>
-                  <span>{item.role}</span>
+                <p className={styles.quote}>{item.quote}</p>
+
+                <div className={styles.author}>
+                  <div className={styles.avatar}>{item.initials}</div>
+                  <div className={styles.authorInfo}>
+                    <h4>{item.name}</h4>
+                    <span>{item.role}</span>
+                  </div>
                 </div>
               </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
