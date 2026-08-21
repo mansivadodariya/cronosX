@@ -3,211 +3,276 @@
 @use '../../../scss/font/font.scss' as *;
 
 .testimonials {
-    padding: 100px 0;
-    position: relative;
+  padding: 100px 0;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
 
-    text-align: center;
+  &::before {
+    background-color: #C1902E;
+    position: absolute;
+    top: 17%;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 1200px;
+    width: 100%;
+    content: '';
+    height: 100px;
+    opacity: 0.3;
+    z-index: 1;
+    filter: blur(100px);
+  }
+
+  :global(.container) {
+    position: relative;
+    z-index: 9;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+
+    .badgeWrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      @include heading-white-gradient;
+      font-size: 56px;
+      font-weight: 400;
+      line-height: 1.15;
+      text-transform: uppercase;
+      font-family: var(--font-anton);
+      margin: 0 0 16px 0;
+
+      span {
+        @include heading-gold-gradient;
+        display: inline-block;
+      }
+
+      @include respond-to("tab") {
+        font-size: 38px;
+      }
+
+      @include respond-to("sm") {
+        font-size: 30px;
+      }
+    }
+
+    .subtext {
+      color: #9c9a96;
+      font-size: 17px;
+      line-height: 1.5;
+      margin: 0;
+      max-width: 600px;
+      @include font-normal;
+
+      @include respond-to("tab") {
+        font-size: 15px;
+      }
+    }
+  }
+
+  /* Standard Width Marquee Container with Foggy Edge Overlays */
+  .marqueeWrapper {
+    width: 100%;
     overflow: hidden;
+    position: relative;
+    padding: 18px 0;
+    z-index: 5;
+    mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  }
+
+  /* Foggy Overlay Layers on Left & Right */
+  .fogLeft {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 140px;
+    background: linear-gradient(to right, #000000 0%, rgba(0, 0, 0, 0.95) 20%, rgba(0, 0, 0, 0.4) 65%, transparent 100%);
+    z-index: 10;
+    pointer-events: none;
+
+    @include respond-to("sm") {
+      width: 60px;
+    }
+  }
+
+  .fogRight {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 140px;
+    background: linear-gradient(to left, #000000 0%, rgba(0, 0, 0, 0.95) 20%, rgba(0, 0, 0, 0.4) 65%, transparent 100%);
+    z-index: 10;
+    pointer-events: none;
+
+    @include respond-to("sm") {
+      width: 60px;
+    }
+  }
+
+  .marqueeTrack {
+    display: flex;
+    gap: 24px;
+    width: max-content;
+    animation: marqueeContinuous 36s linear infinite;
+
+    &:hover {
+      animation-play-state: paused;
+    }
+  }
+
+  .card {
+    width: 380px;
+    flex-shrink: 0;
+    padding: 28px 24px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 250px;
+    overflow: hidden;
+    position: relative;
+    background-color: #ffffff05;
+    border-radius: 18px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    cursor: default;
+
+    @include respond-to("sm") {
+      width: 310px;
+      padding: 22px 18px;
+    }
 
     &::before {
-        background-color: #C1902E;
-        position: absolute;
-        top: 17%;
-        left: 50%;
-        transform: translateX(-50%);
-        max-width: 1200px;
-        width: 100%;
-        content: '';
-        height: 100px;
-        opacity: .3;
-        z-index: 1;
-        filter: blur(100px);
+      content: "";
+      -webkit-mask-composite: xor;
+      pointer-events: none;
+      background: linear-gradient(#ffffff1a 0%, #9990 100%);
+      border-radius: 18px;
+      padding: 1.5px;
+      transition: background .35s, opacity .35s;
+      position: absolute;
+      inset: 0;
+      -webkit-mask-image: linear-gradient(#fff 0 0), linear-gradient(#fff 0 0);
+      -webkit-mask-position: 0 0, 0 0;
+      -webkit-mask-size: auto, auto;
+      -webkit-mask-repeat: repeat, repeat;
+      -webkit-mask-clip: content-box, border-box;
+      -webkit-mask-origin: content-box, border-box;
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      -webkit-mask-source-type: auto, auto;
+      mask-mode: match-source, match-source;
     }
 
-    :global(.container) {
-        position: relative;
-        z-index: 9;
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      padding: 1.5px;
+      background: linear-gradient(0deg, #C1902E 0%, rgba(244, 209, 122, 0.6) 30%, rgba(193, 144, 46, 0.15) 60%, transparent 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
     }
 
-    .header {
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px -10px rgba(193, 144, 46, 0.25), inset 0 -4px 15px rgba(193, 144, 46, 0.1);
+
+      &::before {
+        opacity: 0.25;
+      }
+
+      &::after {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .stars {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 20px;
+
+      img {
+        width: 17px;
+        height: 17px;
+        display: block;
+      }
+    }
+
+    .quote {
+      color: #B7B7B7;
+      font-size: 15.5px;
+      line-height: 1.6;
+      margin: 0 0 24px 0;
+      flex-grow: 1;
+      @include font-normal;
+    }
+
+    .author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+
+      .avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: linear-gradient(145deg, #f7d686 0%, #c1902e 100%);
+        color: #0c0907;
+        font-size: 13px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        @include font-bold;
+        box-shadow: 0 2px 8px rgba(193, 144, 46, 0.3);
+      }
+
+      .authorInfo {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        margin-bottom: 60px;
 
-        .badgeWrapper {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 24px;
+        h4 {
+          color: #ffffff;
+          font-size: 15px;
+          font-weight: 700;
+          margin: 0 0 2px 0;
+          @include font-bold;
         }
 
-        h2 {
-            @include heading-white-gradient;
-            font-size: 56px;
-            font-weight: 400;
-            line-height: 1.15;
-            text-transform: uppercase;
-            font-family: var(--font-anton);
-            margin: 0 0 16px 0;
-
-
-            span {
-                @include heading-gold-gradient;
-                display: inline-block;
-            }
-
-            @include respond-to("tab") {
-                font-size: 38px;
-            }
+        span {
+          color: #9c9a96;
+          font-size: 13px;
+          @include font-normal;
         }
-
-        .subtext {
-            color: #9c9a96;
-            font-size: 17px;
-            line-height: 1.5;
-            margin: 0;
-            max-width: 600px;
-            @include font-normal;
-        }
+      }
     }
+  }
 
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 28px;
-
-        @include respond-to("md") {
-            grid-template-columns: 1fr;
-            gap: 24px;
-        }
-
-        .card {
-            padding: 24px;
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 250px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            overflow: hidden;
-            position: relative;
-            background-color: #ffffff05;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-
-            &::before {
-                content: "";
-                -webkit-mask-composite: xor;
-                pointer-events: none;
-                background: linear-gradient(#ffffff1a 0%, #9990 100%);
-                border-radius: 16px;
-                padding: 1.5px;
-                transition: background .35s, opacity .35s;
-                position: absolute;
-                inset: 0;
-                -webkit-mask-image: linear-gradient(#fff 0 0), linear-gradient(#fff 0 0);
-                -webkit-mask-position: 0 0, 0 0;
-                -webkit-mask-size: auto, auto;
-                -webkit-mask-repeat: repeat, repeat;
-                -webkit-mask-clip: content-box, border-box;
-                -webkit-mask-origin: content-box, border-box;
-                -webkit-mask-composite: xor;
-                mask-composite: exclude;
-                -webkit-mask-source-type: auto, auto;
-                mask-mode: match-source, match-source;
-            }
-
-            &::after {
-                content: "";
-                position: absolute;
-                inset: 0;
-                border-radius: 16px;
-                padding: 1.5px;
-                background: linear-gradient(0deg, #C1902E 0%, rgba(244, 209, 122, 0.6) 30%, rgba(193, 144, 46, 0.15) 60%, transparent 100%);
-                -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-                -webkit-mask-composite: xor;
-                mask-composite: exclude;
-                pointer-events: none;
-                opacity: 0;
-                transform: translateY(4px);
-                transition: opacity 0.4s ease, transform 0.4s ease;
-            }
-
-            &:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 15px 40px -10px rgba(193, 144, 46, 0.2), inset 0 -4px 15px rgba(193, 144, 46, 0.08);
-
-                &::before {
-                    opacity: 0.25;
-                }
-
-                &::after {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            .stars {
-                display: flex;
-                align-items: center;
-                gap: 5px;
-                margin-bottom: 20px;
-
-                img {
-                    width: 17px;
-                    height: 17px;
-                    display: block;
-                }
-            }
-
-            .quote {
-                color: #B7B7B7;
-                font-size: 16px;
-                line-height: 1.6;
-                margin: 0 0 28px 0;
-                flex-grow: 1;
-                @include font-normal;
-            }
-
-            .author {
-                display: flex;
-                align-items: center;
-                gap: 14px;
-
-                .avatar {
-                    width: 38px;
-                    height: 38px;
-                    border-radius: 50%;
-                    background: linear-gradient(145deg, #f7d686 0%, #c1902e 100%);
-                    color: #0c0907;
-                    font-size: 13px;
-                    font-weight: 800;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    flex-shrink: 0;
-                    @include font-bold;
-                    box-shadow: 0 2px 8px rgba(193, 144, 46, 0.3);
-                }
-
-                .authorInfo {
-                    display: flex;
-                    flex-direction: column;
-
-                    h4 {
-                        color: #ffffff;
-                        font-size: 15px;
-                        font-weight: 700;
-                        margin: 0 0 2px 0;
-                        @include font-bold;
-                    }
-
-                    span {
-                        color: #9c9a96;
-                        font-size: 13px;
-                        @include font-normal;
-                    }
-                }
-            }
-        }
+  @keyframes marqueeContinuous {
+    0% {
+      transform: translateX(0);
     }
+    100% {
+      transform: translateX(-33.333%);
+    }
+  }
 }

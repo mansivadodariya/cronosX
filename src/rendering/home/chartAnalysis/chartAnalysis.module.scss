@@ -162,6 +162,14 @@
                 z-index: 3;
                 margin-bottom: -15px;
 
+                .interactiveSvg {
+                    max-height: 180px;
+                    width: auto;
+                    display: block;
+                    filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.85));
+                    overflow: visible;
+                }
+
                 img {
                     max-height: 180px;
                     width: auto;

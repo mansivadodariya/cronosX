@@ -89,21 +89,5 @@
                 justify-content: center;
             }
         }
-
-        .brandLogo {
-            position: absolute;
-            bottom: 28px;
-            left: 36px;
-            z-index: 3;
-
-            img {
-                max-width: 210px;
-            }
-
-            @include respond-to("tab") {
-                position: static;
-                margin-top: 40px;
-            }
-        }
     }
 }
