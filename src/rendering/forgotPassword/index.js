@@ -9,10 +9,8 @@ import { authApi } from '@/lib/api';
 import { validateForgotPassword } from '@/lib/validation';
 import { toast } from '@/components/toast';
 import { useLanguage } from '@/context/LanguageContext';
-import LanguageToggle from '@/components/languageToggle';
 
-const LineImage = '/assets/images/line.png';
-const AuthIcon = '/assets/icons/auth.svg';
+const EmailIcon = '/assets/icons/sms.svg';
 const ArrowIcon = '/assets/icons/arrow.svg';
 
 const ForgotPassword = () => {
@@ -54,14 +52,7 @@ const ForgotPassword = () => {
     return (
         <div className={styles.page}>
             <div className={styles.box}>
-                <div className={styles.layer}></div>
-                <div className={styles.lineimage}>
-                    <img src={LineImage} alt="" aria-hidden="true" />
-                </div>
                 <div className={styles.relative}>
-                    <div className={styles.icon} onClick={() => router.push("/")}>
-                        <img src={AuthIcon} alt="" aria-hidden="true" />
-                    </div>
                     <div className={styles.text}>
                         <h2>{t('auth.forgotPasswordTitle', 'Forgot Password')}</h2>
                         <p>{t('auth.forgotPasswordDesc', "Enter your email and we'll send you a link to reset your password. Please check your spam folder as well.")}</p>
@@ -70,22 +61,37 @@ const ForgotPassword = () => {
                         <div className={styles.success} role="status">
                             <p>{t('auth.checkResetEmail', "Check your email for a reset link. Please check your spam folder if you don't see it in your inbox.")}</p>
                             <div className={styles.accountText}>
-                                <Link href="/login">{t('auth.backToLogin', 'Back to Log in')}</Link>
+                                <p><Link href="/login">{t('auth.backToLogin', 'Back to Log in')}</Link></p>
                             </div>
                         </div>
                     ) : (
-                        <form onSubmit={handleSubmit} noValidate>
-                            <div className={styles.spacingGrid}>
-                                <Input label={t('auth.emailLabel', 'Email')} placeholder={t('auth.emailPlaceholder', 'Email')} type="email" name="email" value={email} onChange={handleEmailChange} error={emailError} maxLength={100} />
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    text={loading ? t('auth.sending', 'Sending...') : t('auth.sendResetBtn', 'Send Reset Link')}
-                                    icon={ArrowIcon}
-                                    disabled={loading}
-                                />
+                        <>
+                            <form onSubmit={handleSubmit} noValidate autoComplete="off">
+                                <div className={styles.spacingGrid}>
+                                    <Input
+                                        label={t('auth.emailLabel', 'EMAIL')}
+                                        icon={EmailIcon}
+                                        placeholder={t('auth.emailPlaceholder', 'Enter your email')}
+                                        type="email"
+                                        name="email"
+                                        value={email}
+                                        onChange={handleEmailChange}
+                                        error={emailError}
+                                        maxLength={100}
+                                        autoComplete="off"
+                                    />
+                                    <Button
+                                        type="submit"
+                                        text={loading ? t('auth.sending', 'Sending...') : t('auth.sendResetBtn', 'Send Reset Link')}
+                                        icon={ArrowIcon}
+                                        disabled={loading}
+                                    />
+                                </div>
+                            </form>
+                            <div className={styles.accountText}>
+                                <p><Link href="/login">{t('auth.backToLogin', 'Back to Log in')}</Link></p>
                             </div>
-                        </form>
+                        </>
                     )}
                 </div>
             </div>

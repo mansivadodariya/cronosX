@@ -22,6 +22,7 @@ const LineImage = '/assets/images/line.png';
 const AuthIcon = '/assets/icons/auth.svg';
 const ArrowIcon = '/assets/icons/arrow.svg';
 const EmailIcon = '/assets/icons/sms.svg';
+const UserIcon = '/assets/icons/user.svg';
 const Lock = '/assets/icons/lock.svg';
 
 const Login = () => {
@@ -217,14 +218,12 @@ const Login = () => {
     return (
         <div className={styles.loginpage}>
             <div className={styles.box}>
-                <div className={styles.layer}></div>
-                <div className={styles.lineimage}>
-                    <img src={LineImage} alt="" aria-hidden="true" />
-                </div>
+
+
                 <div className={styles.relative}>
-                    <div className={styles.icon} onClick={() => router.push("/")}>
+                    {/* <div className={styles.icon} onClick={() => router.push("/")}>
                         <img src={AuthIcon} alt="" aria-hidden="true" />
-                    </div>
+                    </div> */}
                     {pendingPhoneUserId ? (
                         <>
                             <div className={styles.text}>
@@ -269,10 +268,32 @@ const Login = () => {
                                 <h2>{t('auth.loginHeader', 'Log In')}</h2>
                                 <p>{t('auth.loginDesc', 'Log in to your account to access AI strategy tools and market analysis.')}</p>
                             </div>
-                            <form onSubmit={handleSubmit} noValidate>
+                            <form onSubmit={handleSubmit} noValidate autoComplete="off">
                                 <div className={styles.spacingGrid}>
-                                    <Input icon={EmailIcon} placeholder={t('auth.emailPlaceholder', 'Email')} type="email" name="email" value={form.email} onChange={set('email')} error={errors.email} maxLength={100} />
-                                    <Input icon={Lock} placeholder={t('auth.passwordPlaceholder', 'Password')} type="password" name="password" value={form.password} onChange={set('password')} error={errors.password} maxLength={50} />
+                                    <Input
+                                        label={t('auth.emailOrUsername', 'EMAIL OR USERNAME')}
+                                        icon={UserIcon}
+                                        placeholder={t('auth.emailPlaceholder', 'Enter your email or username')}
+                                        type="email"
+                                        name="email"
+                                        value={form.email}
+                                        onChange={set('email')}
+                                        error={errors.email}
+                                        maxLength={100}
+                                        autoComplete="off"
+                                    />
+                                    <Input
+                                        label={t('auth.passwordLabel', 'PASSWORD')}
+                                        icon={Lock}
+                                        placeholder={t('auth.passwordPlaceholder', 'Enter your password')}
+                                        type="password"
+                                        name="password"
+                                        value={form.password}
+                                        onChange={set('password')}
+                                        error={errors.password}
+                                        maxLength={50}
+                                        autoComplete="new-password"
+                                    />
                                     <div className={styles.forgotRow}>
                                         <Link href="/forgot-password">{t('auth.forgotPasswordQuestion', 'Forgot password?')}</Link>
                                     </div>

@@ -24,7 +24,7 @@ import LanguageToggle from '@/components/languageToggle';
 const LineImage = '/assets/images/line.png';
 const AuthIcon = '/assets/icons/auth.svg';
 const ArrowIcon = '/assets/icons/arrow.svg';
-const Profile = '/assets/icons/profile.svg';
+const UserIcon = '/assets/icons/user.svg';
 const EmailIcon = '/assets/icons/sms.svg';
 const Lock = '/assets/icons/lock.svg';
 
@@ -266,11 +266,7 @@ const Signup = () => {
         return (
             <div className={styles.signuppage}>
                 <div className={styles.box}>
-                    <div className={styles.layer}></div>
                     <div className={styles.relative}>
-                        <div className={styles.icon}>
-                            <img src={AuthIcon} alt="" aria-hidden="true" onClick={() => router.push("/")} />
-                        </div>
                         <div className={styles.text}>
                             <h2>{t('auth.checkEmail', 'Check your email')}</h2>
                             <p>{t('auth.verificationSent', `We sent a verification link to ${form.email}. Click the link to activate your account.`)}</p>
@@ -290,14 +286,11 @@ const Signup = () => {
     return (
         <div className={styles.signuppage}>
             <div className={styles.box}>
-                <div className={styles.layer}></div>
-                <div className={styles.lineimage}>
-                    <img src={LineImage} alt="" aria-hidden="true" />
-                </div>
+
                 <div className={styles.relative}>
-                    <div className={styles.icon}>
+                    {/* <div className={styles.icon}>
                         <img src={AuthIcon} alt="" aria-hidden="true" onClick={() => router.push("/")} />
-                    </div>
+                    </div> */}
                     {pendingPhoneUserId ? (
                         <>
                             <div className={styles.text}>
@@ -342,37 +335,91 @@ const Signup = () => {
                                 <h2>{t('auth.signupHeader', 'Sign Up')}</h2>
                                 <p>{t('auth.signupDesc', 'Get set up so you can start your trading experience.')}</p>
                             </div>
-                            <form onSubmit={handleSubmit} noValidate>
+                            <form onSubmit={handleSubmit} noValidate autoComplete="off">
                                 <div className={styles.spacingGrid}>
                                     <div className={styles.twoCol}>
-                                        <Input icon={Profile} placeholder={t('auth.firstNameLabel', 'First Name')} name="first_name" value={form.first_name} onChange={set('first_name')} error={errors.first_name} maxLength={50} />
-                                        <Input icon={Profile} placeholder={t('auth.lastNameLabel', 'Last Name')} name="last_name" value={form.last_name} onChange={set('last_name')} error={errors.last_name} maxLength={50} />
+                                        <Input
+                                            label={t('auth.firstNameLabel', 'FIRST NAME')}
+                                            icon={UserIcon}
+                                            placeholder={t('auth.firstNamePlaceholder', 'Enter first name')}
+                                            name="first_name"
+                                            value={form.first_name}
+                                            onChange={set('first_name')}
+                                            error={errors.first_name}
+                                            maxLength={50}
+                                            autoComplete="off"
+                                        />
+                                        <Input
+                                            label={t('auth.lastNameLabel', 'LAST NAME')}
+                                            icon={UserIcon}
+                                            placeholder={t('auth.lastNamePlaceholder', 'Enter last name')}
+                                            name="last_name"
+                                            value={form.last_name}
+                                            onChange={set('last_name')}
+                                            error={errors.last_name}
+                                            maxLength={50}
+                                            autoComplete="off"
+                                        />
                                     </div>
-                                    <Input icon={EmailIcon} placeholder={t('auth.emailPlaceholder', 'Email')} type="email" name="email" value={form.email} onChange={set('email')} error={errors.email} maxLength={100} />
+                                    <Input
+                                        label={t('auth.emailLabel', 'EMAIL')}
+                                        icon={EmailIcon}
+                                        placeholder={t('auth.emailPlaceholder', 'Enter email')}
+                                        type="email"
+                                        name="email"
+                                        value={form.email}
+                                        onChange={set('email')}
+                                        error={errors.email}
+                                        maxLength={100}
+                                        autoComplete="off"
+                                    />
                                     <PhoneInput
-                                        label=""
-                                        placeholder={t('profile.phoneLabel', 'Phone no')}
+                                        label={t('profile.phoneLabel', 'PHONE NUMBER')}
+                                        placeholder={t('profile.phoneLabel', 'Phone number')}
                                         value={form.phone_number}
                                         onChange={setPhone}
                                         error={errors.phone_number}
                                         defaultCountry="AE"
                                     />
                                     <div className={styles.twoCol}>
-                                        <Input icon={Lock} placeholder={t('auth.passwordPlaceholder', 'Password')} type="password" name="password" value={form.password} onChange={set('password')} error={errors.password} maxLength={50} />
-                                        <Input icon={Lock} placeholder={t('auth.confirmPasswordPlaceholder', 'Confirm Password')} type="password" name="confirmPassword" value={form.confirmPassword} onChange={set('confirmPassword')} error={errors.confirmPassword} maxLength={50} />
+                                        <Input
+                                            label={t('auth.passwordLabel', 'PASSWORD')}
+                                            icon={Lock}
+                                            placeholder={t('auth.passwordPlaceholder', 'Enter password')}
+                                            type="password"
+                                            name="password"
+                                            value={form.password}
+                                            onChange={set('password')}
+                                            error={errors.password}
+                                            maxLength={50}
+                                            autoComplete="new-password"
+                                        />
+                                        <Input
+                                            label={t('auth.confirmPasswordLabel', 'CONFIRM PASSWORD')}
+                                            icon={Lock}
+                                            placeholder={t('auth.confirmPasswordPlaceholder', 'Confirm password')}
+                                            type="password"
+                                            name="confirmPassword"
+                                            value={form.confirmPassword}
+                                            onChange={set('confirmPassword')}
+                                            error={errors.confirmPassword}
+                                            maxLength={50}
+                                            autoComplete="new-password"
+                                        />
                                     </div>
                                     <Input
-                                        icon={Profile}
-                                        placeholder={t('auth.referralOptional', 'Referral Code (Optional)')}
+                                        label={t('auth.referralOptional', 'REFERRAL CODE (OPTIONAL)')}
+                                        icon={UserIcon}
+                                        placeholder={t('auth.referralOptionalPlaceholder', 'Enter referral code')}
                                         name="referral_code"
                                         value={form.referral_code}
                                         onChange={set('referral_code')}
                                         error={errors.referral_code}
                                         maxLength={50}
+                                        autoComplete="off"
                                     />
                                     <Button
                                         type="submit"
-                                        fullWidth
                                         text={loading ? t('auth.signingUpBtn', 'Signing up...') : t('auth.signupHeader', 'Sign up')}
                                         icon={ArrowIcon}
                                         disabled={loading}
