@@ -1,57 +1,191 @@
 @use '../../scss/main.scss' as *;
 @use '../../scss/breakpoints/breakpoints.scss' as *;
 
-$primary: #0B56DB;
-$border: rgba(18, 18, 18, 0.10);
+$primary: #F4D17A;
+$primaryDark: #C1902E;
+$bgDark: #060706;
+$cardDark: #0D0E13;
+$border: rgba(193, 144, 46, 0.35);
+$borderSubtle: rgba(193, 144, 46, 0.18);
+$text: #FFFFFF;
+$textMuted: rgba(255, 255, 255, 0.65);
+$success: #34D399;
+$danger: #F87171;
 
 .container {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
     width: 100%;
+    max-width: 100%;
+    padding-bottom: 30px;
 }
 
+/* 1. Page Header */
 .header {
-    h1 {
-        font-size: 22px;
-        font-weight: 700;
-        color: #1a1a1a;
-        margin: 0 0 4px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 2px;
+
+    .headerIconCircle {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(244, 209, 122, 0.12);
+        border: 1px solid rgba(244, 209, 122, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
     }
 
-    p {
-        font-size: 14px;
-        color: rgba(26, 26, 26, 0.55);
-        margin: 0;
+    .headerTitleMeta {
+        h1 {
+            color: #FFFFFF;
+            font-size: 24px;
+            font-weight: 700;
+            font-family: "Euclid-Bold", sans-serif;
+            margin: 0 0 2px;
+            letter-spacing: 0.2px;
+        }
+
+        p {
+            color: $textMuted;
+            font-size: 13.5px;
+            font-family: "Euclid-Regular", sans-serif;
+            margin: 0;
+        }
     }
 }
 
-.card {
-    background: #fff;
-    border: 1px solid $border;
-    padding: 28px;
-    display: flex;
-    flex-direction: column;
+/* 2. Top Stats Grid */
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
 
     @include respond-to('sm') {
-        padding: 20px;
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+}
+
+.statCard {
+    background: #060706;
+    border: 1px solid $border;
+    border-radius: 14px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+        border-color: rgba(244, 209, 122, 0.6);
+        transform: translateY(-2px);
     }
 
+    .statIconBox {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        background: rgba(244, 209, 122, 0.12);
+        border: 1px solid rgba(244, 209, 122, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        &.iconGreen {
+            background: rgba(16, 185, 129, 0.12);
+            border-color: rgba(16, 185, 129, 0.35);
+        }
+
+        &.iconRed {
+            background: rgba(239, 68, 68, 0.12);
+            border-color: rgba(239, 68, 68, 0.35);
+        }
+    }
+
+    .statMeta {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+        .statLabel {
+            font-size: 11.5px;
+            color: rgba(255, 255, 255, 0.55);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .statValue {
+            color: #FFFFFF;
+            font-size: 20px;
+            font-weight: 700;
+            font-family: "Euclid-Bold", sans-serif;
+
+            &.textGreen {
+                color: $success;
+            }
+
+            &.textRed {
+                color: $danger;
+            }
+        }
+    }
+}
+
+/* 3. Main History Table Card */
+.card {
+    background: #060706;
+    border: 1px solid $border;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
     gap: 20px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+
+    @include respond-to('sm') {
+        padding: 16px;
+    }
 }
 
 .historyHeader {
-    margin-bottom: 8px;
-    h2 {
-        font-size: 18px;
-        font-weight: 700;
-        color: #1a1a1a;
-        margin: 0 0 4px;
-    }
-    p {
-        font-size: 13px;
-        color: rgba(26, 26, 26, 0.55);
-        margin: 0;
+    .historyHeaderLeft {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        .cardHeaderIcon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(244, 209, 122, 0.12);
+            border: 1px solid rgba(244, 209, 122, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        h2 {
+            font-size: 17px;
+            font-weight: 700;
+            font-family: "Euclid-Bold", sans-serif;
+            color: #FFFFFF;
+            margin: 0 0 2px;
+        }
+
+        p {
+            font-size: 12.5px;
+            color: rgba(255, 255, 255, 0.55);
+            margin: 0;
+        }
     }
 }
 
@@ -59,40 +193,41 @@ $border: rgba(18, 18, 18, 0.10);
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 200px;
-}
+    height: 220px;
 
-.spinner {
-    width: 32px;
-    height: 32px;
-    border: 3px solid rgba(11, 86, 219, 0.15);
-    border-radius: 50%;
-    border-top-color: $primary;
-    animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
+    .spinner {
+        width: 36px;
+        height: 36px;
+        border: 3px solid rgba(244, 209, 122, 0.2);
+        border-radius: 50%;
+        border-top-color: $primary;
+        animation: spin 0.8s linear infinite;
     }
 }
 
 .emptyState {
     text-align: center;
     padding: 60px 20px;
-    color: rgba(26, 26, 26, 0.55);
-    font-size: 15px;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 14.5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
 }
 
 .tableWrapper {
     width: 100%;
     overflow-x: auto;
+    border: 1px solid $borderSubtle;
+    border-radius: 12px;
+    background: #080705;
 }
 
 .historyTable {
     width: 100%;
     border-collapse: collapse;
-    min-width: 500px;
+    min-width: 600px;
 
     th, td {
         text-align: start !important;
@@ -106,176 +241,136 @@ $border: rgba(18, 18, 18, 0.10);
         }
     }
 
+    thead {
+        background: rgba(22, 19, 14, 0.95);
+    }
+
     th {
-        padding: 12px 16px;
-        font-size: 13px;
-        font-weight: 600;
-        color: rgba(26, 26, 26, 0.45);
-        border-bottom: 1px solid $border;
+        padding: 14px 18px;
+        font-size: 12px;
+        font-weight: 700;
+        font-family: "Euclid-Bold", sans-serif;
+        color: #F4D17A;
+        border-bottom: 1px solid rgba(193, 144, 46, 0.25);
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
 
     td {
-        padding: 16px;
-        font-size: 14px;
-        color: #1a1a1a;
-        border-bottom: 1px solid rgba(18, 18, 18, 0.05);
+        padding: 16px 18px;
+        font-size: 13.5px;
+        color: #FFFFFF;
+        border-bottom: 1px solid rgba(193, 144, 46, 0.12);
         vertical-align: middle;
     }
 
     .tableRow {
-        transition: background-color 0.2s ease;
+        transition: background-color 0.15s ease;
         &:hover {
-            background-color: rgba(18, 18, 18, 0.02);
+            background-color: rgba(244, 209, 122, 0.04);
+        }
+
+        &:last-child td {
+            border-bottom: none;
         }
     }
 
     .dateTimeCell {
-        font-weight: 500;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.85);
         white-space: nowrap;
+        font-size: 13px;
+    }
+
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 11.5px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+    }
+
+    .badgeAdd {
+        background: rgba(16, 185, 129, 0.15);
+        border: 1px solid rgba(16, 185, 129, 0.35);
+        color: $success;
+    }
+
+    .badgeDeduct {
+        background: rgba(239, 68, 68, 0.15);
+        border: 1px solid rgba(239, 68, 68, 0.35);
+        color: $danger;
     }
 
     .amountCell {
         font-weight: 700;
         white-space: nowrap;
+        font-family: "Euclid-Bold", sans-serif;
+        font-size: 14.5px;
     }
 
     .amountAdd {
-        color: #10B981;
+        color: $success;
     }
 
     .amountDeduct {
-        color: #EF4444;
+        color: $danger;
     }
 
     .descCell {
-        color: rgba(26, 26, 26, 0.7);
-        max-width: 350px;
-        word-wrap: break-word;
+        color: rgba(255, 255, 255, 0.85);
+        font-weight: 500;
     }
 }
 
-.badge {
-    display: inline-flex;
-    align-items: center;
-    padding: 4px 10px;
-    font-size: 11px;
-    font-weight: 600;
-    border-radius: 12px;
-    text-transform: uppercase;
-}
-
-.badgeAdd {
-    background-color: rgba(16, 185, 129, 0.1);
-    color: #10B981;
-}
-
-.badgeDeduct {
-    background-color: rgba(239, 68, 68, 0.1);
-    color: #EF4444;
-}
-
+/* Pagination */
 .pagination {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding-top: 20px;
-    border-top: 1px solid $border;
-    margin-top: 12px;
+    justify-content: flex-end;
+    gap: 14px;
+    padding-top: 8px;
 
     .paginationButton {
-        padding: 8px 16px;
-        font-size: 13px;
+        background: rgba(22, 19, 14, 0.95);
+        border: 1px solid rgba(193, 144, 46, 0.4);
+        color: #F4D17A;
+        border-radius: 8px;
+        padding: 8px 18px;
+        font-size: 12.5px;
         font-weight: 600;
-        color: rgba(26, 26, 26, 0.65);
-        background-color: transparent;
-        border: 1px solid $border;
-        border-radius: 6px;
+        font-family: "Euclid-Medium", sans-serif;
         cursor: pointer;
         transition: all 0.2s ease;
 
         &:hover:not(:disabled) {
-            background-color: rgba(18, 18, 18, 0.04);
-            color: #1a1a1a;
-            border-color: rgba(18, 18, 18, 0.2);
+            background: linear-gradient(180deg, #7A5620 0%, #3F2C0E 100%);
+            color: #FFFFFF;
+            border-color: #F4D17A;
+            box-shadow: 0 0 12px rgba(244, 209, 122, 0.3);
         }
 
         &:disabled {
             opacity: 0.4;
             cursor: not-allowed;
+            border-color: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.4);
         }
     }
 
     .paginationInfo {
+        color: rgba(255, 255, 255, 0.65);
         font-size: 13px;
-        font-weight: 500;
-        color: rgba(26, 26, 26, 0.55);
+        font-weight: 600;
     }
 }
 
-:global(.dark) {
-    .container {
-        .header {
-            h1 {
-                color: #ffffff;
-            }
-            p {
-                color: rgba(255, 255, 255, 0.6);
-            }
-        }
-    }
-
-    .card {
-        background: #1a1a1e;
-        border-color: #2d2d34;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .historyHeader {
-        h2 {
-            color: #ffffff;
-        }
-        p {
-            color: rgba(255, 255, 255, 0.6);
-        }
-    }
-
-    .emptyState {
-        color: rgba(255, 255, 255, 0.5);
-    }
-
-    .historyTable {
-        th {
-            color: rgba(255, 255, 255, 0.5);
-            border-color: #2d2d34;
-        }
-        td {
-            color: #ffffff;
-            border-color: rgba(255, 255, 255, 0.05);
-        }
-        .tableRow:hover {
-            background-color: rgba(255, 255, 255, 0.02);
-        }
-        .descCell {
-            color: rgba(255, 255, 255, 0.7);
-        }
-    }
-
-    .pagination {
-        border-color: #2d2d34;
-        .paginationButton {
-            color: rgba(255, 255, 255, 0.7);
-            border-color: #2d2d34;
-
-            &:hover:not(:disabled) {
-                background-color: rgba(255, 255, 255, 0.05);
-                color: #ffffff;
-                border-color: rgba(255, 255, 255, 0.2);
-            }
-        }
-        .paginationInfo {
-            color: rgba(255, 255, 255, 0.5);
-        }
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
     }
 }

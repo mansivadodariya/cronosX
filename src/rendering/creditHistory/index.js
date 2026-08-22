@@ -4,9 +4,7 @@ import { useRouter } from 'next/navigation';
 import styles from './creditHistory.module.scss';
 import { supabase } from '@/lib/supabaseClient';
 import { toast } from '@/components/toast';
-
 import { useLanguage } from '@/context/LanguageContext';
-import { getBidiProps } from '@/lib/bidi';
 
 function getUserFromStorage() {
     try {
@@ -62,7 +60,7 @@ export default function CreditHistory({ embedMode = false }) {
 
     const formatDateTime = (dateLike) => {
         const d = dateLike ? new Date(dateLike) : null;
-        if (!d || Number.isNaN(d.getTime())) return '';
+        if (!d || Number.isNaN(d.getTime())) return '—';
 
         const day = String(d.getDate()).padStart(2, '0');
         const month = String(d.getMonth() + 1).padStart(2, '0');
@@ -78,6 +76,15 @@ export default function CreditHistory({ embedMode = false }) {
         return `${day}/${month}/${year} ${hours}:${minutes} ${ampm}`;
     };
 
+    // Calculate totals
+    const totalCreditsAdded = creditHistory
+        .filter(item => item.transaction_type === 'add')
+        .reduce((sum, item) => sum + (Number(item.amount) || 0), 0);
+
+    const totalCreditsUsed = creditHistory
+        .filter(item => item.transaction_type !== 'add')
+        .reduce((sum, item) => sum + (Number(item.amount) || 0), 0);
+
     // Pagination calculations
     const totalPages = Math.ceil(creditHistory.length / itemsPerPage);
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -88,15 +95,75 @@ export default function CreditHistory({ embedMode = false }) {
         <div className={styles.container}>
             {!embedMode && (
                 <div className={styles.header}>
-                    <h1>{t('creditHistory.title', 'Credit History')}</h1>
-                    <p>{t('creditHistory.subtitle', 'Track your credit usage, deposits, and rewards')}</p>
+                    <div className={styles.headerIconCircle}>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="2" y="5" width="20" height="14" rx="2" />
+                            <line x1="2" y1="10" x2="22" y2="10" />
+                        </svg>
+                    </div>
+                    <div className={styles.headerTitleMeta}>
+                        <h1>{t('creditHistory.title', 'Credit History')}</h1>
+                        <p>{t('creditHistory.subtitle', 'Track your credit usage, deposits, and rewards')}</p>
+                    </div>
                 </div>
             )}
 
+            {/* Top Summary Stats */}
+            <div className={styles.statsGrid}>
+                <div className={styles.statCard}>
+                    <div className={styles.statIconBox}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
+                            <rect x="2" y="5" width="20" height="14" rx="2" />
+                            <line x1="2" y1="10" x2="22" y2="10" />
+                        </svg>
+                    </div>
+                    <div className={styles.statMeta}>
+                        <span className={styles.statLabel}>{t('creditHistory.totalTransactions', 'Total Transactions')}</span>
+                        <strong className={styles.statValue}>{creditHistory.length}</strong>
+                    </div>
+                </div>
+
+                <div className={styles.statCard}>
+                    <div className={`${styles.statIconBox} ${styles.iconGreen}`}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34D399" strokeWidth="2.5">
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                    </div>
+                    <div className={styles.statMeta}>
+                        <span className={styles.statLabel}>{t('creditHistory.totalCredited', 'Total Credited')}</span>
+                        <strong className={`${styles.statValue} ${styles.textGreen}`}>+{totalCreditsAdded.toLocaleString()}</strong>
+                    </div>
+                </div>
+
+                <div className={styles.statCard}>
+                    <div className={`${styles.statIconBox} ${styles.iconRed}`}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F87171" strokeWidth="2.5">
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                    </div>
+                    <div className={styles.statMeta}>
+                        <span className={styles.statLabel}>{t('creditHistory.totalUsed', 'Total Used / Deducted')}</span>
+                        <strong className={`${styles.statValue} ${styles.textRed}`}>-{totalCreditsUsed.toLocaleString()}</strong>
+                    </div>
+                </div>
+            </div>
+
+            {/* Main History Table Card */}
             <div className={styles.card}>
                 <div className={styles.historyHeader}>
-                    <h2>{t('creditHistory.transactionHistory', 'Transaction History')}</h2>
-                    <p>{t('creditHistory.detailsDesc', 'Details of all your credit transactions')}</p>
+                    <div className={styles.historyHeaderLeft}>
+                        <div className={styles.cardHeaderIcon}>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2>{t('creditHistory.transactionHistory', 'Transaction History')}</h2>
+                            <p>{t('creditHistory.detailsDesc', 'Details of all your credit transactions')}</p>
+                        </div>
+                    </div>
                 </div>
 
                 {loading ? (
@@ -105,7 +172,11 @@ export default function CreditHistory({ embedMode = false }) {
                     </div>
                 ) : creditHistory.length === 0 ? (
                     <div className={styles.emptyState}>
-                        {t('creditHistory.noTransactions', 'No credit transactions found.')}
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(244, 209, 122, 0.4)" strokeWidth="1.5">
+                            <rect x="2" y="5" width="20" height="14" rx="2" />
+                            <line x1="2" y1="10" x2="22" y2="10" />
+                        </svg>
+                        <p>{t('creditHistory.noTransactions', 'No credit transactions found.')}</p>
                     </div>
                 ) : (
                     <>

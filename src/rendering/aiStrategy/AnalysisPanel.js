@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import styles from './aiStrategy.module.scss';
 import { useLanguage } from '@/context/LanguageContext';
 import { getBidiProps } from '@/lib/bidi';
@@ -18,7 +19,7 @@ const ChevronIcon = ({ isOpen, className }) => (
         strokeLinejoin="round"
         style={{
             transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-            transition: 'transform 0.2s ease',
+            transition: 'transform 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
             flexShrink: 0
         }}
         className={className}
@@ -153,6 +154,11 @@ function formatVolVal(val) {
     return val.toString();
 }
 
+const accordionVariants = {
+    collapsed: { opacity: 0, height: 0, transition: { duration: 0.25, ease: [0.4, 0, 0.2, 1] } },
+    expanded: { opacity: 1, height: 'auto', transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] } }
+};
+
 export default function AnalysisPanel({ symbol, strategyId, activeAnalysis, onAnalysisLoaded }) {
     const { language, t } = useLanguage();
     const [analysis, setAnalysis] = useState(null);
@@ -281,129 +287,151 @@ export default function AnalysisPanel({ symbol, strategyId, activeAnalysis, onAn
                     <span>TECHNICAL SCORE</span>
                     <ChevronIcon isOpen={expandedAccordions.score} />
                 </div>
-                {expandedAccordions.score && (
-                    <div className={styles.premiumAccordionBody}>
-                        {/* Score Top Grid */}
-                        <div className={styles.scoreTopRow}>
-                            <div className={styles.scoreTextGroup}>
-                                <div className={styles.largeScoreText}>
-                                    <span style={{ color: scoreColor }}>{technical_score.total}</span>
-                                    <span className={styles.scoreDivider}>/100</span>
-                                </div>
-                                <span className={styles.scoreTextLabel} style={{ color: scoreColor }}>
-                                    {(technical_score.label || 'NEUTRAL').toUpperCase()}
-                                </span>
-                            </div>
-                            <div className={styles.confidenceGroup}>
-                                <span className={styles.confLabel}>CONFIDENCE</span>
-                                <span className={styles.confValue}>{technical_score.confidence || '-'}</span>
-                            </div>
-                        </div>
-
-                        {/* Breakdown Progress Bars */}
-                        <div className={styles.breakdownProgressList}>
-                            {technical_score.breakdown && Object.entries(technical_score.breakdown).map(([key, item]) => {
-                                const pct = Math.round((item.score / item.max) * 100);
-                                const isSubOpen = scoreSubToggles[key];
-                                const itemColor = getScoreColor(item.label);
-
-                                return (
-                                    <div key={key} className={styles.progressRowContainer}>
-                                        <div className={styles.progressBarRow} onClick={(e) => toggleScoreSub(key, e)}>
-                                            <div className={styles.progressBarLabelGroup}>
-                                                <IndicatorIcon type={key} />
-                                                <span className={styles.progressBarTitle}>{key.charAt(0).toUpperCase() + key.slice(1)}</span>
-                                            </div>
-
-                                            {/* Outer track & fill */}
-                                            <div className={styles.progressOuterTrack}>
-                                                <div
-                                                    className={styles.progressFillBar}
-                                                    style={{ width: `${pct}%`, backgroundColor: itemColor }}
-                                                />
-                                            </div>
-
-                                            <div className={styles.progressValueGroup}>
-                                                <span className={styles.progressScoreText}>{item.score}/{item.max}</span>
-                                                <ChevronIcon isOpen={isSubOpen} className={styles.subChevron} />
-                                            </div>
+                <AnimatePresence initial={false}>
+                    {expandedAccordions.score && (
+                        <motion.div
+                            key="score-content"
+                            initial="collapsed"
+                            animate="expanded"
+                            exit="collapsed"
+                            variants={accordionVariants}
+                            style={{ overflow: 'hidden' }}
+                        >
+                            <div className={styles.premiumAccordionBody}>
+                                {/* Score Top Grid */}
+                                <div className={styles.scoreTopRow}>
+                                    <div className={styles.scoreTextGroup}>
+                                        <div className={styles.largeScoreText}>
+                                            <span style={{ color: scoreColor }}>{technical_score.total}</span>
+                                            <span className={styles.scoreDivider}>/100</span>
                                         </div>
-
-                                        {/* Sub-details nested collapse */}
-                                        {isSubOpen && (
-                                            <div className={styles.progressSubDetailsCollapse}>
-                                                {key === 'trend' && (
-                                                    <div className={styles.subDetailTableGrid}>
-                                                        {Object.entries(trend_indicators).slice(0, 6).map(([indKey, ind]) => (
-                                                            <div key={indKey} className={styles.subDetailMetricRow}>
-                                                                <span className={styles.metricName}>{indKey}</span>
-                                                                <span className={styles.metricVal}>{formatValue(ind.value)}</span>
-                                                                <span className={styles.metricAction} style={{ color: getScoreColor(ind.action) }}>
-                                                                    {ind.action}
-                                                                </span>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                )}
-                                                {key === 'momentum' && (
-                                                    <div className={styles.subDetailTableGrid}>
-                                                        {Object.entries(momentum_indicators).slice(0, 5).map(([indKey, ind]) => (
-                                                            <div key={indKey} className={styles.subDetailMetricRow}>
-                                                                <span className={styles.metricName}>{indKey}</span>
-                                                                <span className={styles.metricVal}>{formatValue(ind.value)}</span>
-                                                                <span className={styles.metricAction} style={{ color: getScoreColor(ind.action) }}>
-                                                                    {ind.action}
-                                                                </span>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                )}
-                                                {key === 'volume' && (
-                                                    <div className={styles.subDetailSimpleRows}>
-                                                        <div className={styles.simpleRowItem}>
-                                                            <span>Relative Volume:</span>
-                                                            <strong>{volume_analysis.relative_volume || '0'}x</strong>
-                                                        </div>
-                                                        <div className={styles.simpleRowItem}>
-                                                            <span>Buying/Selling Ratio:</span>
-                                                            <strong style={{ color: scoreColor }}>
-                                                                {volume_analysis.pressure?.buy_pct}% Buy / {volume_analysis.pressure?.sell_pct}% Sell
-                                                            </strong>
-                                                        </div>
-                                                    </div>
-                                                )}
-                                                {key === 'structure' && (
-                                                    <div className={styles.subDetailSimpleRows}>
-                                                        <div className={styles.simpleRowItem}>
-                                                            <span>Support Level:</span>
-                                                            <strong>{formatValue(levels.nearest_support)}</strong>
-                                                        </div>
-                                                        <div className={styles.simpleRowItem}>
-                                                            <span>Resistance Level:</span>
-                                                            <strong>{formatValue(levels.nearest_resistance)}</strong>
-                                                        </div>
-                                                        <div className={styles.simpleRowItem}>
-                                                            <span>Pivot standard:</span>
-                                                            <strong>{formatValue(pivot_points?.standard?.P)}</strong>
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        )}
+                                        <span className={styles.scoreTextLabel} style={{ color: scoreColor }}>
+                                            {(technical_score.label || 'NEUTRAL').toUpperCase()}
+                                        </span>
                                     </div>
-                                );
-                            })}
-                        </div>
+                                    <div className={styles.confidenceGroup}>
+                                        <span className={styles.confLabel}>CONFIDENCE</span>
+                                        <span className={styles.confValue}>{technical_score.confidence || '-'}</span>
+                                    </div>
+                                </div>
 
-                        {/* Formula Summary Row */}
-                        <div className={styles.scoreFormulaRow}>
-                            <span className={styles.formulaTitle}>TOTAL</span>
-                            <span className={styles.formulaEquation} style={{ color: scoreColor }}>
-                                {technical_score.formula || `${technical_score.total}/100`}
-                            </span>
-                        </div>
-                    </div>
-                )}
+                                {/* Breakdown Progress Bars */}
+                                <div className={styles.breakdownProgressList}>
+                                    {technical_score.breakdown && Object.entries(technical_score.breakdown).map(([key, item]) => {
+                                        const pct = Math.round((item.score / item.max) * 100);
+                                        const isSubOpen = scoreSubToggles[key];
+                                        const itemColor = getScoreColor(item.label);
+
+                                        return (
+                                            <div key={key} className={styles.progressRowContainer}>
+                                                <div className={styles.progressBarRow} onClick={(e) => toggleScoreSub(key, e)}>
+                                                    <div className={styles.progressBarLabelGroup}>
+                                                        <IndicatorIcon type={key} />
+                                                        <span className={styles.progressBarTitle}>{key.charAt(0).toUpperCase() + key.slice(1)}</span>
+                                                    </div>
+
+                                                    {/* Outer track & fill */}
+                                                    <div className={styles.progressOuterTrack}>
+                                                        <div
+                                                            className={styles.progressFillBar}
+                                                            style={{ width: `${pct}%`, backgroundColor: itemColor }}
+                                                        />
+                                                    </div>
+
+                                                    <div className={styles.progressValueGroup}>
+                                                        <span className={styles.progressScoreText}>{item.score}/{item.max}</span>
+                                                        <ChevronIcon isOpen={isSubOpen} className={styles.subChevron} />
+                                                    </div>
+                                                </div>
+
+                                                {/* Sub-details nested collapse with Animation */}
+                                                <AnimatePresence initial={false}>
+                                                    {isSubOpen && (
+                                                        <motion.div
+                                                            key={`sub-${key}`}
+                                                            initial="collapsed"
+                                                            animate="expanded"
+                                                            exit="collapsed"
+                                                            variants={accordionVariants}
+                                                            style={{ overflow: 'hidden' }}
+                                                        >
+                                                            <div className={styles.progressSubDetailsCollapse}>
+                                                                {key === 'trend' && (
+                                                                    <div className={styles.subDetailTableGrid}>
+                                                                        {Object.entries(trend_indicators).slice(0, 6).map(([indKey, ind]) => (
+                                                                            <div key={indKey} className={styles.subDetailMetricRow}>
+                                                                                <span className={styles.metricName}>{indKey}</span>
+                                                                                <span className={styles.metricVal}>{formatValue(ind.value)}</span>
+                                                                                <span className={styles.metricAction} style={{ color: getScoreColor(ind.action) }}>
+                                                                                    {ind.action}
+                                                                                </span>
+                                                                            </div>
+                                                                        ))}
+                                                                    </div>
+                                                                )}
+                                                                {key === 'momentum' && (
+                                                                    <div className={styles.subDetailTableGrid}>
+                                                                        {Object.entries(momentum_indicators).slice(0, 5).map(([indKey, ind]) => (
+                                                                            <div key={indKey} className={styles.subDetailMetricRow}>
+                                                                                <span className={styles.metricName}>{indKey}</span>
+                                                                                <span className={styles.metricVal}>{formatValue(ind.value)}</span>
+                                                                                <span className={styles.metricAction} style={{ color: getScoreColor(ind.action) }}>
+                                                                                    {ind.action}
+                                                                                </span>
+                                                                            </div>
+                                                                        ))}
+                                                                    </div>
+                                                                )}
+                                                                {key === 'volume' && (
+                                                                    <div className={styles.subDetailSimpleRows}>
+                                                                        <div className={styles.simpleRowItem}>
+                                                                            <span>Relative Volume:</span>
+                                                                            <strong>{volume_analysis.relative_volume || '0'}x</strong>
+                                                                        </div>
+                                                                        <div className={styles.simpleRowItem}>
+                                                                            <span>Buying/Selling Ratio:</span>
+                                                                            <strong style={{ color: scoreColor }}>
+                                                                                {volume_analysis.pressure?.buy_pct}% Buy / {volume_analysis.pressure?.sell_pct}% Sell
+                                                                            </strong>
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+                                                                {key === 'structure' && (
+                                                                    <div className={styles.subDetailSimpleRows}>
+                                                                        <div className={styles.simpleRowItem}>
+                                                                            <span>Support Level:</span>
+                                                                            <strong>{formatValue(levels.nearest_support)}</strong>
+                                                                        </div>
+                                                                        <div className={styles.simpleRowItem}>
+                                                                            <span>Resistance Level:</span>
+                                                                            <strong>{formatValue(levels.nearest_resistance)}</strong>
+                                                                        </div>
+                                                                        <div className={styles.simpleRowItem}>
+                                                                            <span>Pivot standard:</span>
+                                                                            <strong>{formatValue(pivot_points?.standard?.P)}</strong>
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        </motion.div>
+                                                    )}
+                                                </AnimatePresence>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+
+                                {/* Formula Summary Row */}
+                                <div className={styles.scoreFormulaRow}>
+                                    <span className={styles.formulaTitle}>TOTAL</span>
+                                    <span className={styles.formulaEquation} style={{ color: scoreColor }}>
+                                        {technical_score.formula || `${technical_score.total}/100`}
+                                    </span>
+                                </div>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
 
             {/* 2. EVIDENCE ACCORDION */}
@@ -412,48 +440,70 @@ export default function AnalysisPanel({ symbol, strategyId, activeAnalysis, onAn
                     <span>{t('aiStrategy.evidenceTitle', 'EVIDENCE')}</span>
                     <ChevronIcon isOpen={expandedAccordions.evidence} />
                 </div>
-                {expandedAccordions.evidence && (
-                    <div className={styles.premiumAccordionBody}>
-                        {Object.entries(evidence).map(([key, data]) => {
-                            if (!data.details || data.details.length === 0) return null;
-                            const isSubOpen = evidenceSubToggles[key];
-                            const itemColor = getScoreColor(data.label);
+                <AnimatePresence initial={false}>
+                    {expandedAccordions.evidence && (
+                        <motion.div
+                            key="evidence-content"
+                            initial="collapsed"
+                            animate="expanded"
+                            exit="collapsed"
+                            variants={accordionVariants}
+                            style={{ overflow: 'hidden' }}
+                        >
+                            <div className={styles.premiumAccordionBody}>
+                                {Object.entries(evidence).map(([key, data]) => {
+                                    if (!data.details || data.details.length === 0) return null;
+                                    const isSubOpen = evidenceSubToggles[key];
+                                    const itemColor = getScoreColor(data.label);
 
-                            return (
-                                <div
-                                    key={key}
-                                    className={`${styles.evidenceOutlinedGroup} ${styles[key]}`}
-                                >
-                                    <div
-                                        className={styles.evidenceGroupClickableHeader}
-                                        onClick={(e) => toggleEvidenceSub(key, e)}
-                                    >
-                                        <div className={styles.evidenceTitleGroup}>
-                                            <span className={styles.groupTypeTitle}>{key.toUpperCase()}</span>
-                                            <span className={styles.groupTypeAction} style={{ color: itemColor }}>
-                                                {data.label}
-                                            </span>
-                                        </div>
-                                        <ChevronIcon isOpen={isSubOpen} className={styles.subChevron} />
-                                    </div>
+                                    return (
+                                        <div
+                                            key={key}
+                                            className={`${styles.evidenceOutlinedGroup} ${styles[key] || ''}`}
+                                        >
+                                            <div
+                                                className={styles.evidenceGroupClickableHeader}
+                                                onClick={(e) => toggleEvidenceSub(key, e)}
+                                            >
+                                                <div className={styles.evidenceTitleGroup}>
+                                                    <span className={styles.groupTypeTitle}>{key.toUpperCase()}</span>
+                                                    <span className={styles.groupTypeAction} style={{ color: itemColor }}>
+                                                        {data.label}
+                                                    </span>
+                                                </div>
+                                                <ChevronIcon isOpen={isSubOpen} className={styles.subChevron} />
+                                            </div>
 
-                                    {isSubOpen && (
-                                        <div className={styles.evidenceCollapsedBulletArea}>
-                                            <ul className={styles.evidenceOutlineBulletList}>
-                                                {data.details.map((detail, idx) => (
-                                                    <li key={idx} className={styles.evidenceBulletItem}>
-                                                        <CircleCheckIcon color={itemColor} />
-                                                        <span>{detail}</span>
-                                                    </li>
-                                                ))}
-                                            </ul>
+                                            <AnimatePresence initial={false}>
+                                                {isSubOpen && (
+                                                    <motion.div
+                                                        key={`evidence-sub-${key}`}
+                                                        initial="collapsed"
+                                                        animate="expanded"
+                                                        exit="collapsed"
+                                                        variants={accordionVariants}
+                                                        style={{ overflow: 'hidden' }}
+                                                    >
+                                                        <div className={styles.evidenceCollapsedBulletArea}>
+                                                            <ul className={styles.evidenceOutlineBulletList}>
+                                                                {data.details.map((detail, idx) => (
+                                                                    <li key={idx} className={styles.evidenceBulletItem}>
+                                                                        <CircleCheckIcon color={itemColor} />
+                                                                        <span>{detail}</span>
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        </div>
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
                                         </div>
-                                    )}
-                                </div>
-                            );
-                        })}
-                    </div>
-                )}
+                                    );
+                                })}
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
 
             {/* 3. TREND ANALYSIS ACCORDION */}
@@ -462,76 +512,87 @@ export default function AnalysisPanel({ symbol, strategyId, activeAnalysis, onAn
                     <span>{t('aiStrategy.trendTitle', 'TREND ANALYSIS')}</span>
                     <ChevronIcon isOpen={expandedAccordions.trend} />
                 </div>
-                {expandedAccordions.trend && (
-                    <div className={styles.premiumAccordionBody}>
-                        <div className={styles.trendRowHeader}>
-                            <TrendBoxIcon isBullish={trend_analysis.direction?.toLowerCase().includes('bull') || trend_analysis.direction?.toLowerCase().includes('buy')} />
-                            <div className={styles.trendHeaderText}>
-                                <h4>{trend_analysis.direction || 'Neutral'}</h4>
-                                <span>{trend_analysis.strength || '-'}</span>
-                            </div>
-                        </div>
+                <AnimatePresence initial={false}>
+                    {expandedAccordions.trend && (
+                        <motion.div
+                            key="trend-content"
+                            initial="collapsed"
+                            animate="expanded"
+                            exit="collapsed"
+                            variants={accordionVariants}
+                            style={{ overflow: 'hidden' }}
+                        >
+                            <div className={styles.premiumAccordionBody}>
+                                <div className={styles.trendRowHeader}>
+                                    <TrendBoxIcon isBullish={trend_analysis.direction?.toLowerCase().includes('bull') || trend_analysis.direction?.toLowerCase().includes('buy')} />
+                                    <div className={styles.trendHeaderText}>
+                                        <h4>{trend_analysis.direction || 'Neutral'}</h4>
+                                        <span>{trend_analysis.strength || '-'}</span>
+                                    </div>
+                                </div>
 
-                        {/* EMA Grid list */}
-                        <div className={styles.indicatorMetricGrid}>
-                            <div className={styles.metricGridItem}>
-                                <div className={styles.indicatorLabelBox}>
-                                    <span className={`${styles.dotDot} ${styles.ema20}`} />
-                                    <span>EMA 20</span>
-                                </div>
-                                <div className={styles.indicatorValueAction}>
-                                    <span className={styles.positionTxt} style={{ color: trend_analysis.ema_20?.position === 'Above' ? '#10b981' : '#ef4444' }}>
-                                        {trend_analysis.ema_20?.position || 'Below'}
-                                    </span>
-                                    <TrendArrowIcon direction={trend_analysis.ema_20?.position} />
-                                </div>
-                            </div>
+                                {/* EMA Grid list */}
+                                <div className={styles.indicatorMetricGrid}>
+                                    <div className={styles.metricGridItem}>
+                                        <div className={styles.indicatorLabelBox}>
+                                            <span className={`${styles.dotDot} ${styles.ema20}`} />
+                                            <span>EMA 20</span>
+                                        </div>
+                                        <div className={styles.indicatorValueAction}>
+                                            <span className={styles.positionTxt} style={{ color: trend_analysis.ema_20?.position === 'Above' ? '#10b981' : '#ef4444' }}>
+                                                {trend_analysis.ema_20?.position || 'Below'}
+                                            </span>
+                                            <TrendArrowIcon direction={trend_analysis.ema_20?.position} />
+                                        </div>
+                                    </div>
 
-                            <div className={styles.metricGridItem}>
-                                <div className={styles.indicatorLabelBox}>
-                                    <span className={`${styles.dotDot} ${styles.ema50}`} />
-                                    <span>EMA 50</span>
-                                </div>
-                                <div className={styles.indicatorValueAction}>
-                                    <span className={styles.positionTxt} style={{ color: trend_analysis.ema_50?.position === 'Above' ? '#10b981' : '#ef4444' }}>
-                                        {trend_analysis.ema_50?.position || 'Below'}
-                                    </span>
-                                    <TrendArrowIcon direction={trend_analysis.ema_50?.position} />
-                                </div>
-                            </div>
+                                    <div className={styles.metricGridItem}>
+                                        <div className={styles.indicatorLabelBox}>
+                                            <span className={`${styles.dotDot} ${styles.ema50}`} />
+                                            <span>EMA 50</span>
+                                        </div>
+                                        <div className={styles.indicatorValueAction}>
+                                            <span className={styles.positionTxt} style={{ color: trend_analysis.ema_50?.position === 'Above' ? '#10b981' : '#ef4444' }}>
+                                                {trend_analysis.ema_50?.position || 'Below'}
+                                            </span>
+                                            <TrendArrowIcon direction={trend_analysis.ema_50?.position} />
+                                        </div>
+                                    </div>
 
-                            <div className={styles.metricGridItem}>
-                                <div className={styles.indicatorLabelBox}>
-                                    <span className={`${styles.dotDot} ${styles.supertrend}`} />
-                                    <span>SuperTrend</span>
+                                    <div className={styles.metricGridItem}>
+                                        <div className={styles.indicatorLabelBox}>
+                                            <span className={`${styles.dotDot} ${styles.supertrend}`} />
+                                            <span>SuperTrend</span>
+                                        </div>
+                                        <div className={styles.indicatorValueAction}>
+                                            <span className={styles.positionTxt} style={{ color: trend_analysis.supertrend?.direction === 'BULLISH' ? '#10b981' : '#ef4444' }}>
+                                                {trend_analysis.supertrend?.direction === 'BULLISH' ? 'Above' : 'Below'}
+                                            </span>
+                                            <TrendArrowIcon direction={trend_analysis.supertrend?.direction === 'BULLISH' ? 'Above' : 'Below'} />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className={styles.indicatorValueAction}>
-                                    <span className={styles.positionTxt} style={{ color: trend_analysis.supertrend?.direction === 'BULLISH' ? '#10b981' : '#ef4444' }}>
-                                        {trend_analysis.supertrend?.direction === 'BULLISH' ? 'Above' : 'Below'}
-                                    </span>
-                                    <TrendArrowIcon direction={trend_analysis.supertrend?.direction === 'BULLISH' ? 'Above' : 'Below'} />
-                                </div>
-                            </div>
-                        </div>
 
-                        {/* Trend Confidence Fill */}
-                        <div className={styles.trendConfidenceContainer}>
-                            <div className={styles.confidenceTexts}>
-                                <span>Trend Confidence</span>
-                                <strong>{trend_analysis.trend_confidence || '-'}</strong>
+                                {/* Trend Confidence Fill */}
+                                <div className={styles.trendConfidenceContainer}>
+                                    <div className={styles.confidenceTexts}>
+                                        <span>Trend Confidence</span>
+                                        <strong>{trend_analysis.trend_confidence || '-'}</strong>
+                                    </div>
+                                    <div className={styles.confidenceTrack}>
+                                        <div
+                                            className={styles.confidenceFill}
+                                            style={{
+                                                width: trend_analysis.trend_confidence || '0%',
+                                                backgroundColor: scoreColor
+                                            }}
+                                        />
+                                    </div>
+                                </div>
                             </div>
-                            <div className={styles.confidenceTrack}>
-                                <div
-                                    className={styles.confidenceFill}
-                                    style={{
-                                        width: trend_analysis.trend_confidence || '0%',
-                                        backgroundColor: scoreColor
-                                    }}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                )}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
 
             {/* 4. MOMENTUM ACCORDION */}
@@ -540,102 +601,113 @@ export default function AnalysisPanel({ symbol, strategyId, activeAnalysis, onAn
                     <span>{t('aiStrategy.momentumTitle', 'MOMENTUM')}</span>
                     <ChevronIcon isOpen={expandedAccordions.momentum} />
                 </div>
-                {expandedAccordions.momentum && (
-                    <div className={styles.premiumAccordionBody}>
-                        {/* RSI Slider Range */}
-                        <div className={styles.momentumSliderContainer}>
-                            <div className={styles.sliderLabelRow}>
-                                <span className={styles.sliderName}>RSI (14)</span>
-                                <span className={styles.sliderValTxt}>{formatValue(momentum.rsi?.value)}</span>
-                            </div>
+                <AnimatePresence initial={false}>
+                    {expandedAccordions.momentum && (
+                        <motion.div
+                            key="momentum-content"
+                            initial="collapsed"
+                            animate="expanded"
+                            exit="collapsed"
+                            variants={accordionVariants}
+                            style={{ overflow: 'hidden' }}
+                        >
+                            <div className={styles.premiumAccordionBody}>
+                                {/* RSI Slider Range */}
+                                <div className={styles.momentumSliderContainer}>
+                                    <div className={styles.sliderLabelRow}>
+                                        <span className={styles.sliderName}>RSI (14)</span>
+                                        <span className={styles.sliderValTxt}>{formatValue(momentum.rsi?.value)}</span>
+                                    </div>
 
-                            {/* Gradient Track & Pin Pointer */}
-                            <div className={styles.gradientTrackBg}>
-                                <div
-                                    className={styles.sliderPinPointer}
-                                    style={{ left: `${Math.min(100, Math.max(0, momentum.rsi?.value || 50))}%` }}
-                                >
-                                    <div className={styles.pinDot} />
-                                    <div className={styles.pinLine} />
-                                </div>
-                                <span className={styles.axisMarker} style={{ left: '30%' }}>30</span>
-                                <span className={styles.axisMarker} style={{ left: '70%' }}>70</span>
-                            </div>
+                                    {/* Gradient Track & Pin Pointer */}
+                                    <div className={styles.gradientTrackBg}>
+                                        <div
+                                            className={styles.sliderPinPointer}
+                                            style={{ left: `${Math.min(100, Math.max(0, momentum.rsi?.value || 50))}%` }}
+                                        >
+                                            <div className={styles.pinDot} />
+                                            <div className={styles.pinLine} />
+                                        </div>
+                                        <span className={styles.axisMarker} style={{ left: '30%' }}>30</span>
+                                        <span className={styles.axisMarker} style={{ left: '70%' }}>70</span>
+                                    </div>
 
-                            <span className={styles.sliderStatusLabel}>
-                                {momentum.rsi?.value < 30 ? 'Oversold' : momentum.rsi?.value > 70 ? 'Overbought' : 'Neutral'}
-                            </span>
-                        </div>
-
-                        {/* MACD Histogram Zero Center Bar */}
-                        {momentum.macd && (
-                            <div className={styles.macdMetricsContainer}>
-                                <div className={styles.macdHeaderRow}>
-                                    <span className={styles.macdTitle}>MACD ({momentum.macd.params})</span>
-                                    <span
-                                        className={styles.macdLabelValue}
-                                        style={{ color: getScoreColor(momentum.macd.direction) }}
-                                    >
-                                        {momentum.macd.direction}
+                                    <span className={styles.sliderStatusLabel}>
+                                        {momentum.rsi?.value < 30 ? 'Oversold' : momentum.rsi?.value > 70 ? 'Overbought' : 'Neutral'}
                                     </span>
                                 </div>
 
-                                {/* Histogram Center Alignment Track */}
-                                <div className={styles.macdHistogramTrack}>
-                                    <div className={styles.centerLine} />
-                                    {momentum.macd.histogram !== undefined && (
-                                        <div
-                                            className={styles.histogramFillBar}
-                                            style={{
-                                                left: momentum.macd.histogram >= 0 ? '50%' : `calc(50% - ${Math.min(48, Math.abs(momentum.macd.histogram) * 2.5)}%)`,
-                                                width: `${Math.min(48, Math.abs(momentum.macd.histogram) * 2.5)}%`,
-                                                backgroundColor: momentum.macd.histogram >= 0 ? '#10b981' : '#ef4444'
-                                            }}
-                                        />
-                                    )}
-                                </div>
-                                <div className={styles.macdSubDetailsRow}>
-                                    <span>Line: {formatValue(momentum.macd.line)}</span>
-                                    <span>Signal: {formatValue(momentum.macd.signal)}</span>
-                                    <span>Hist: {formatValue(momentum.macd.histogram)}</span>
-                                </div>
-                            </div>
-                        )}
+                                {/* MACD Histogram Zero Center Bar */}
+                                {momentum.macd && (
+                                    <div className={styles.macdMetricsContainer}>
+                                        <div className={styles.macdHeaderRow}>
+                                            <span className={styles.macdTitle}>MACD ({momentum.macd.params})</span>
+                                            <span
+                                                className={styles.macdLabelValue}
+                                                style={{ color: getScoreColor(momentum.macd.direction) }}
+                                            >
+                                                {momentum.macd.direction}
+                                            </span>
+                                        </div>
 
-                        {/* Stochastic %K and %D progress rows */}
-                        {momentum.stochastic && (
-                            <div className={styles.stochasticSubProgressList}>
-                                <div className={styles.stochProgressRow}>
-                                    <span className={styles.stochLabel}>Stoch %K</span>
-                                    <div className={styles.stochTrackBg}>
-                                        <div
-                                            className={styles.stochFillBar}
-                                            style={{
-                                                width: `${momentum.stochastic.k || 0}%`,
-                                                backgroundColor: getScoreColor(momentum.stochastic.direction)
-                                            }}
-                                        />
+                                        {/* Histogram Center Alignment Track */}
+                                        <div className={styles.macdHistogramTrack}>
+                                            <div className={styles.centerLine} />
+                                            {momentum.macd.histogram !== undefined && (
+                                                <div
+                                                    className={styles.histogramFillBar}
+                                                    style={{
+                                                        left: momentum.macd.histogram >= 0 ? '50%' : `calc(50% - ${Math.min(48, Math.abs(momentum.macd.histogram) * 2.5)}%)`,
+                                                        width: `${Math.min(48, Math.abs(momentum.macd.histogram) * 2.5)}%`,
+                                                        backgroundColor: momentum.macd.histogram >= 0 ? '#10b981' : '#ef4444'
+                                                    }}
+                                                />
+                                            )}
+                                        </div>
+                                        <div className={styles.macdSubDetailsRow}>
+                                            <span>Line: {formatValue(momentum.macd.line)}</span>
+                                            <span>Signal: {formatValue(momentum.macd.signal)}</span>
+                                            <span>Hist: {formatValue(momentum.macd.histogram)}</span>
+                                        </div>
                                     </div>
-                                    <span className={styles.stochValText}>{Math.round(momentum.stochastic.k || 0)}</span>
-                                </div>
+                                )}
 
-                                <div className={styles.stochProgressRow}>
-                                    <span className={styles.stochLabel}>Stoch %D</span>
-                                    <div className={styles.stochTrackBg}>
-                                        <div
-                                            className={styles.stochFillBar}
-                                            style={{
-                                                width: `${momentum.stochastic.d || 0}%`,
-                                                backgroundColor: getScoreColor(momentum.stochastic.direction)
-                                            }}
-                                        />
+                                {/* Stochastic %K and %D progress rows */}
+                                {momentum.stochastic && (
+                                    <div className={styles.stochasticSubProgressList}>
+                                        <div className={styles.stochProgressRow}>
+                                            <span className={styles.stochLabel}>Stoch %K</span>
+                                            <div className={styles.stochTrackBg}>
+                                                <div
+                                                    className={styles.stochFillBar}
+                                                    style={{
+                                                        width: `${momentum.stochastic.k || 0}%`,
+                                                        backgroundColor: getScoreColor(momentum.stochastic.direction)
+                                                    }}
+                                                />
+                                            </div>
+                                            <span className={styles.stochValText}>{Math.round(momentum.stochastic.k || 0)}</span>
+                                        </div>
+
+                                        <div className={styles.stochProgressRow}>
+                                            <span className={styles.stochLabel}>Stoch %D</span>
+                                            <div className={styles.stochTrackBg}>
+                                                <div
+                                                    className={styles.stochFillBar}
+                                                    style={{
+                                                        width: `${momentum.stochastic.d || 0}%`,
+                                                        backgroundColor: getScoreColor(momentum.stochastic.direction)
+                                                    }}
+                                                />
+                                            </div>
+                                            <span className={styles.stochValText}>{Math.round(momentum.stochastic.d || 0)}</span>
+                                        </div>
                                     </div>
-                                    <span className={styles.stochValText}>{Math.round(momentum.stochastic.d || 0)}</span>
-                                </div>
+                                )}
                             </div>
-                        )}
-                    </div>
-                )}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
 
             {/* 5. VOLUME ANALYSIS ACCORDION */}
@@ -644,71 +716,82 @@ export default function AnalysisPanel({ symbol, strategyId, activeAnalysis, onAn
                     <span>VOLUME ANALYSIS</span>
                     <ChevronIcon isOpen={expandedAccordions.volume} />
                 </div>
-                {expandedAccordions.volume && (
-                    <div className={styles.premiumAccordionBody}>
-                        {/* Relative Volume Track */}
-                        <div className={styles.relativeVolumeContainer}>
-                            <div className={styles.volHeaderRow}>
-                                <span>Relative Volume</span>
-                                <strong>{volume_analysis.relative_volume || '0'}x</strong>
-                            </div>
-                            <div className={styles.relativeVolumeTrack}>
-                                <div
-                                    className={styles.relativeVolPointer}
-                                    style={{ left: `${Math.min(100, (volume_analysis.relative_volume || 0) * 33.3)}%` }}
-                                />
-                                <span className={styles.volMarker} style={{ left: '0%' }}>0x</span>
-                                <span className={styles.volMarker} style={{ left: '33.3%' }}>1x</span>
-                                <span className={styles.volMarker} style={{ left: '66.6%' }}>2x</span>
-                                <span className={styles.volMarker} style={{ left: '100%' }}>3x+</span>
-                            </div>
-                        </div>
-
-                        {/* Current vs 20D Avg Cards Grid */}
-                        <div className={styles.volumeCompareGrid}>
-                            <div className={styles.volCompareCard}>
-                                <span className={styles.volCompareLabel}>Current</span>
-                                <strong className={styles.volCompareValue}>{formatVolVal(volume_analysis.current_volume)}</strong>
-                            </div>
-                            <div className={styles.volCompareCard}>
-                                <span className={styles.volCompareLabel}>20D Avg</span>
-                                <strong className={styles.volCompareValue}>{formatVolVal(volume_analysis.avg_volume_20d)}</strong>
-                            </div>
-                        </div>
-
-                        {/* Buying/Selling Pressure segments */}
-                        {volume_analysis.pressure && (
-                            <div className={styles.volumePressureContainer}>
-                                <div className={styles.pressureHeaderRow}>
-                                    <span>Pressure</span>
-                                    <strong style={{ color: getScoreColor(volume_analysis.pressure.label) }}>
-                                        {volume_analysis.pressure.label}
-                                    </strong>
-                                </div>
-
-                                {/* Segmented Bar Fill */}
-                                <div className={styles.segmentedPressureBar}>
-                                    <div
-                                        className={styles.buySegment}
-                                        style={{ width: `${volume_analysis.pressure.buy_pct || 50}%` }}
-                                    >
-                                        <span>{volume_analysis.pressure.buy_pct}%</span>
+                <AnimatePresence initial={false}>
+                    {expandedAccordions.volume && (
+                        <motion.div
+                            key="volume-content"
+                            initial="collapsed"
+                            animate="expanded"
+                            exit="collapsed"
+                            variants={accordionVariants}
+                            style={{ overflow: 'hidden' }}
+                        >
+                            <div className={styles.premiumAccordionBody}>
+                                {/* Relative Volume Track */}
+                                <div className={styles.relativeVolumeContainer}>
+                                    <div className={styles.volHeaderRow}>
+                                        <span>Relative Volume</span>
+                                        <strong>{volume_analysis.relative_volume || '0'}x</strong>
                                     </div>
-                                    <div
-                                        className={styles.sellSegment}
-                                        style={{ width: `${volume_analysis.pressure.sell_pct || 50}%` }}
-                                    >
-                                        <span>{volume_analysis.pressure.sell_pct}%</span>
+                                    <div className={styles.relativeVolumeTrack}>
+                                        <div
+                                            className={styles.relativeVolPointer}
+                                            style={{ left: `${Math.min(100, (volume_analysis.relative_volume || 0) * 33.3)}%` }}
+                                        />
+                                        <span className={styles.volMarker} style={{ left: '0%' }}>0x</span>
+                                        <span className={styles.volMarker} style={{ left: '33.3%' }}>1x</span>
+                                        <span className={styles.volMarker} style={{ left: '66.6%' }}>2x</span>
+                                        <span className={styles.volMarker} style={{ left: '100%' }}>3x+</span>
                                     </div>
                                 </div>
-                                <div className={styles.pressureLabelsRow}>
-                                    <span className={styles.buyText}>Buy</span>
-                                    <span className={styles.sellText}>Sell</span>
+
+                                {/* Current vs 20D Avg Cards Grid */}
+                                <div className={styles.volumeCompareGrid}>
+                                    <div className={styles.volCompareCard}>
+                                        <span className={styles.volCompareLabel}>Current</span>
+                                        <strong className={styles.volCompareValue}>{formatVolVal(volume_analysis.current_volume)}</strong>
+                                    </div>
+                                    <div className={styles.volCompareCard}>
+                                        <span className={styles.volCompareLabel}>20D Avg</span>
+                                        <strong className={styles.volCompareValue}>{formatVolVal(volume_analysis.avg_volume_20d)}</strong>
+                                    </div>
                                 </div>
+
+                                {/* Buying/Selling Pressure segments */}
+                                {volume_analysis.pressure && (
+                                    <div className={styles.volumePressureContainer}>
+                                        <div className={styles.pressureHeaderRow}>
+                                            <span>Pressure</span>
+                                            <strong style={{ color: getScoreColor(volume_analysis.pressure.label) }}>
+                                                {volume_analysis.pressure.label}
+                                            </strong>
+                                        </div>
+
+                                        {/* Segmented Bar Fill */}
+                                        <div className={styles.segmentedPressureBar}>
+                                            <div
+                                                className={styles.buySegment}
+                                                style={{ width: `${volume_analysis.pressure.buy_pct || 50}%` }}
+                                            >
+                                                <span>{volume_analysis.pressure.buy_pct}%</span>
+                                            </div>
+                                            <div
+                                                className={styles.sellSegment}
+                                                style={{ width: `${volume_analysis.pressure.sell_pct || 50}%` }}
+                                            >
+                                                <span>{volume_analysis.pressure.sell_pct}%</span>
+                                            </div>
+                                        </div>
+                                        <div className={styles.pressureLabelsRow}>
+                                            <span className={styles.buyText}>Buy</span>
+                                            <span className={styles.sellText}>Sell</span>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
-                        )}
-                    </div>
-                )}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
 
             {/* 6. AI SUMMARY ACCORDION */}
@@ -717,40 +800,51 @@ export default function AnalysisPanel({ symbol, strategyId, activeAnalysis, onAn
                     <span>{t('aiStrategy.intelligenceSummary', 'AI INTELLIGENCE SUMMARY')}</span>
                     <ChevronIcon isOpen={expandedAccordions.ai} />
                 </div>
-                {expandedAccordions.ai && (
-                    <div className={styles.premiumAccordionBody}>
-                        <div className={styles.purpleAiSummaryCard}>
-                            <div className={styles.purpleAiHeader}>
-                                <BrainRobotIcon />
-                                <h5>AI ANALYSIS</h5>
-                            </div>
-                            <h4 {...getBidiProps(ai_summary.headline, styles.purpleAiHeadline)}>
-                                {ai_summary.headline}
-                            </h4>
+                <AnimatePresence initial={false}>
+                    {expandedAccordions.ai && (
+                        <motion.div
+                            key="ai-content"
+                            initial="collapsed"
+                            animate="expanded"
+                            exit="collapsed"
+                            variants={accordionVariants}
+                            style={{ overflow: 'hidden' }}
+                        >
+                            <div className={styles.premiumAccordionBody}>
+                                <div className={styles.purpleAiSummaryCard}>
+                                    <div className={styles.purpleAiHeader}>
+                                        <BrainRobotIcon />
+                                        <h5>AI ANALYSIS</h5>
+                                    </div>
+                                    <h4 {...getBidiProps(ai_summary.headline, styles.purpleAiHeadline)}>
+                                        {ai_summary.headline}
+                                    </h4>
 
-                            <div className={styles.purpleAiBulletsList}>
-                                {ai_summary.trend && (
-                                    <div className={styles.aiBulletSection}>
-                                        <span className={styles.sectionLabel} style={{ color: '#0B56DB' }}>TREND</span>
-                                        <p {...getBidiProps(ai_summary.trend)}>{ai_summary.trend}</p>
+                                    <div className={styles.purpleAiBulletsList}>
+                                        {ai_summary.trend && (
+                                            <div className={styles.aiBulletSection}>
+                                                <span className={styles.sectionLabel} style={{ color: '#F4D17A' }}>TREND</span>
+                                                <p {...getBidiProps(ai_summary.trend)}>{ai_summary.trend}</p>
+                                            </div>
+                                        )}
+                                        {ai_summary.momentum && (
+                                            <div className={styles.aiBulletSection}>
+                                                <span className={styles.sectionLabel} style={{ color: '#C084FC' }}>MOMENTUM</span>
+                                                <p {...getBidiProps(ai_summary.momentum)}>{ai_summary.momentum}</p>
+                                            </div>
+                                        )}
+                                        {ai_summary.volume && (
+                                            <div className={styles.aiBulletSection}>
+                                                <span className={styles.sectionLabel} style={{ color: '#F59E0B' }}>VOLUME</span>
+                                                <p {...getBidiProps(ai_summary.volume)}>{ai_summary.volume}</p>
+                                            </div>
+                                        )}
                                     </div>
-                                )}
-                                {ai_summary.momentum && (
-                                    <div className={styles.aiBulletSection}>
-                                        <span className={styles.sectionLabel} style={{ color: '#a855f7' }}>MOMENTUM</span>
-                                        <p {...getBidiProps(ai_summary.momentum)}>{ai_summary.momentum}</p>
-                                    </div>
-                                )}
-                                {ai_summary.volume && (
-                                    <div className={styles.aiBulletSection}>
-                                        <span className={styles.sectionLabel} style={{ color: '#fbbf24' }}>VOLUME</span>
-                                        <p {...getBidiProps(ai_summary.volume)}>{ai_summary.volume}</p>
-                                    </div>
-                                )}
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                )}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     );
