@@ -9,21 +9,27 @@ const UsersIcon = '/assets/icons/users.svg';
 
 const gridData = [
     {
-        icon: '/assets/icons/analysis.svg',
-        title: 'AI Market Analysis',
-        desc: 'Real-time AI-powered market insights and analysis.'
-    },
-    {
         icon: '/assets/icons/signals.svg',
-        title: 'Smart Trade Signals',
-        desc: 'Get intelligent AI-generated signals and trading opportunities.'
+        title: 'AI TRADE',
+        desc: 'AI-powered market analysis and trading signals.'
     },
     {
-        icon: '/assets/icons/risk.svg',
-        title: 'Risk Management',
-        desc: 'Make smarter decisions with intelligent risk management tools.'
+        icon: '/assets/icons/chat-square.svg',
+        title: 'AI CHAT',
+        desc: 'Ask AI about markets, strategies, signals, and trading decisions.'
+    },
+    {
+        icon: '/assets/icons/strategy-builder.svg',
+        title: 'AI STRATEGY',
+        desc: 'Build and analyze smarter trading strategies with AI.'
+    },
+    {
+        icon: '/assets/icons/analysis.svg',
+        title: 'AI TRADE ANALYSIS',
+        desc: 'Deep algorithmic trade breakdown, liquidity tracking, and risk metrics.'
     }
 ];
+
 export default function CardList() {
     return (
         <div className={styles.cardList}>

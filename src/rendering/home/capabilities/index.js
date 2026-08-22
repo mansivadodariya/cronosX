@@ -10,7 +10,7 @@ export default function Capabilities() {
   return (
     <section className={styles.capabilitiesSection}>
       <div className="container">
-        
+
         {/* Section Header */}
         <div className={styles.headerLayout}>
           <div className={styles.titleColumn}>
@@ -25,14 +25,14 @@ export default function Capabilities() {
 
           <div className={styles.descColumn}>
             <p>
-              Four flagship tools, designed to chain. The Heat List narrows the universe down to what’s moving. Indicators time the entry. Breakout alerts catch the moment a level snaps. Backtesting proves the rule before you risk capital on it.
+              Four flagship tools, designed to chain. The Heat List narrows the universe down to what’s moving. Indicators time the entry. Breakout alerts catch the moment a level snaps. AI TRADE ANALYSIS proves the rule before you risk capital on it.
             </p>
           </div>
         </div>
 
         {/* Connected Cockpit Grid Container */}
         <div className={styles.cockpitContainer}>
-          
+
           {/* Card 1: Heat List Algorithm (AI Trade) */}
           <div
             className={`${styles.cockpitCard} ${hoveredIndex === 0 ? styles.cardActive : ''} ${hoveredIndex !== null && hoveredIndex !== 0 ? styles.cardDimmed : ''}`}
@@ -41,7 +41,8 @@ export default function Capabilities() {
           >
             <div className={styles.cardHeaderMeta}>
               <span className={styles.capNumber}>01 — CAPABILITY</span>
-              <h3>Heat List Algorithm</h3>
+              <h3>AI TRADE
+              </h3>
             </div>
 
             {/* Widget 1: Heat List Conviction */}
@@ -51,15 +52,15 @@ export default function Capabilities() {
                   <span className={styles.goldBeacon}></span>
                   LIVE CONVICTION
                 </div>
-                <span className={styles.subMeta}>1,080 STOCKS</span>
+                <span className={styles.subMeta}>1,080 FOREX PAIRS</span>
               </div>
 
               <div className={styles.convictionList}>
                 {[
-                  { rank: '01', sym: 'NVDA', score: 94, width: '94%' },
-                  { rank: '02', sym: 'AMD', score: 87, width: '87%' },
-                  { rank: '03', sym: 'TSLA', score: 72, width: '72%' },
-                  { rank: '04', sym: 'AAPL', score: 58, width: '58%' }
+                  { rank: '01', sym: 'XAU/USD', score: 96, width: '96%' },
+                  { rank: '02', sym: 'EUR/USD', score: 89, width: '89%' },
+                  { rank: '03', sym: 'GBP/USD', score: 78, width: '78%' },
+                  { rank: '04', sym: 'USD/JPY', score: 64, width: '64%' }
                 ].map((item, i) => (
                   <div key={i} className={styles.convRow}>
                     <span className={styles.rankNum}>{item.rank}</span>
@@ -87,7 +88,7 @@ export default function Capabilities() {
 
             <div className={styles.cardFooter}>
               <p className={styles.cardDesc}>
-                1,000 stocks, re-ranked every 5–10 minutes. AI Score 0–100 from technicals, volume, and sentiment.
+                AI-powered market analysis and trading signals.
               </p>
               <span className={styles.watermarkNum}>01</span>
             </div>
@@ -101,15 +102,16 @@ export default function Capabilities() {
           >
             <div className={styles.cardHeaderMeta}>
               <span className={styles.capNumber}>02 — CAPABILITY</span>
-              <h3>TradingView Indicators</h3>
+              <h3>AI CHAT</h3>
             </div>
 
             {/* Widget 2: Big Candlesticks & Growing Animation in Gold Theme */}
             <div className={`${styles.widgetBox} ${hoveredIndex === 1 ? styles.widgetActive : ''}`}>
               <div className={styles.widgetTopRow}>
-                <span className={styles.tickerText}>NVDA · 1H</span>
+                <span className={styles.tickerText}>XAU/USD · 1H</span>
                 <span className={styles.proTag}>BUY/SELL · PRO</span>
               </div>
+
 
               <div className={styles.candlestickArea}>
                 {/* Floating BUY Badge */}
@@ -122,6 +124,19 @@ export default function Capabilities() {
                   {hoveredIndex === 1 ? (
                     // Hovered state: Tall Big Candlesticks Growing from Base in Gold & Trend Curve
                     <g>
+                      {/* Ascending Trend Curve Rendered Behind Candles */}
+                      <motion.path
+                        d="M 28 104 Q 90 84 152 50 T 208 24"
+                        fill="none"
+                        stroke="#FFE693"
+                        strokeWidth="3.2"
+                        strokeLinecap="round"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ duration: 0.55, ease: "easeOut" }}
+                        filter="drop-shadow(0 0 10px rgba(255, 230, 147, 0.95))"
+                      />
+
                       {/* Candle 1 (Red) */}
                       <g className={styles.growingCandle}>
                         <line x1="28" y1="84" x2="28" y2="124" stroke="#EF4444" strokeWidth="1.5" />
@@ -224,21 +239,11 @@ export default function Capabilities() {
                         />
                       </g>
 
-                      {/* Ascending Trend Curve Through Candles in Gold */}
-                      <motion.path
-                        d="M 28 104 Q 90 84 152 50 T 208 24"
-                        fill="none"
-                        stroke="#FFE693"
-                        strokeWidth="3.2"
-                        strokeLinecap="round"
-                        initial={{ pathLength: 0 }}
-                        animate={{ pathLength: 1 }}
-                        transition={{ duration: 0.55, ease: "easeOut" }}
-                        filter="drop-shadow(0 0 10px rgba(255, 230, 147, 0.95))"
-                      />
+                      {/* Peak Tip Node */}
                       <circle cx="208" cy="24" r="5" fill="#FFE693" />
                       <circle cx="208" cy="24" r="2.5" fill="#FFFFFF" />
                     </g>
+
                   ) : (
                     // Inactive state: Muted Trendline with Soft Baseline
                     <g>
@@ -262,13 +267,13 @@ export default function Capabilities() {
 
             <div className={styles.cardFooter}>
               <p className={styles.cardDesc}>
-                26+ indicators with zero repainting and no lag — straight into TradingView.
+                Ask AI about markets, strategies, signals, and trading decisions.
               </p>
               <span className={styles.watermarkNum}>02</span>
             </div>
           </div>
 
-          {/* Card 3: Breakout Detection (AI Strategy) */}
+          {/* Card 3: AI STRATEGY (AI Strategy) */}
           <div
             className={`${styles.cockpitCard} ${hoveredIndex === 2 ? styles.cardActive : ''} ${hoveredIndex !== null && hoveredIndex !== 2 ? styles.cardDimmed : ''}`}
             onMouseEnter={() => setHoveredIndex(2)}
@@ -276,7 +281,7 @@ export default function Capabilities() {
           >
             <div className={styles.cardHeaderMeta}>
               <span className={styles.capNumber}>03 — CAPABILITY</span>
-              <h3>Breakout Detection</h3>
+              <h3>AI STRATEGY</h3>
             </div>
 
             {/* Widget 3: Resistance Break in Gold Theme */}
@@ -300,7 +305,7 @@ export default function Capabilities() {
 
                   {/* Resistance Level Dashed Line */}
                   <line x1="6" y1="74" x2="234" y2="74" stroke="rgba(216, 162, 59, 0.45)" strokeDasharray="4 4" strokeWidth="1.2" />
-                  
+
                   {hoveredIndex === 2 ? (
                     <g>
                       {/* Luminous Area Under Upward Breakout Curve in Gold */}
@@ -326,22 +331,22 @@ export default function Capabilities() {
                       />
 
                       {/* Breakout Node on Resistance Level */}
-                      <motion.circle 
-                        cx="120" 
-                        cy="74" 
-                        r="8" 
-                        fill="none" 
-                        stroke="#FFE693" 
+                      <motion.circle
+                        cx="120"
+                        cy="74"
+                        r="8"
+                        fill="none"
+                        stroke="#FFE693"
                         strokeWidth="1.2"
                         initial={{ scale: 0.5, opacity: 0 }}
                         animate={{ scale: 1.5, opacity: [0, 0.8, 0] }}
                         transition={{ duration: 1.2, repeat: Infinity, ease: "easeOut" }}
                         style={{ transformOrigin: "120px 74px" }}
                       />
-                      <motion.circle 
-                        cx="120" 
-                        cy="74" 
-                        r="4.5" 
+                      <motion.circle
+                        cx="120"
+                        cy="74"
+                        r="4.5"
                         fill="#FFE693"
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
@@ -349,10 +354,10 @@ export default function Capabilities() {
                       />
 
                       {/* Peak Tip Dot at Top */}
-                      <motion.circle 
-                        cx="215" 
-                        cy="28" 
-                        r="5.5" 
+                      <motion.circle
+                        cx="215"
+                        cy="28"
+                        r="5.5"
                         fill="#FFFFFF"
                         initial={{ scale: 0, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
@@ -374,7 +379,7 @@ export default function Capabilities() {
                   )}
                 </svg>
 
-                <motion.div 
+                <motion.div
                   className={`${styles.breakoutToast} ${hoveredIndex === 2 ? styles.toastActive : ''}`}
                   animate={hoveredIndex === 2 ? { y: [8, 0], opacity: 1 } : { opacity: 0.6 }}
                   transition={{ duration: 0.35, delay: 0.2 }}
@@ -389,13 +394,13 @@ export default function Capabilities() {
 
             <div className={styles.cardFooter}>
               <p className={styles.cardDesc}>
-                Resistance and support breaks the second they happen. Ranked by momentum so you know which to trust.
+                Build and analyze smarter trading strategies with AI.
               </p>
               <span className={styles.watermarkNum}>03</span>
             </div>
           </div>
 
-          {/* Card 4: Backtesting (Economic Calendar) */}
+          {/* Card 4: AI TRADE ANALYSIS (Economic Calendar) */}
           <div
             className={`${styles.cockpitCard} ${hoveredIndex === 3 ? styles.cardActive : ''} ${hoveredIndex !== null && hoveredIndex !== 3 ? styles.cardDimmed : ''}`}
             onMouseEnter={() => setHoveredIndex(3)}
@@ -406,7 +411,7 @@ export default function Capabilities() {
                 <span className={styles.capNumber}>04 — CAPABILITY</span>
                 <span className={styles.comingBadge}>COMING SOON</span>
               </div>
-              <h3>Backtesting</h3>
+              <h3>AI TRADE ANALYSIS</h3>
             </div>
 
             {/* Widget 4: Equity Curve & Rich Stats in Gold Theme */}
@@ -451,10 +456,10 @@ export default function Capabilities() {
                       />
 
                       {/* Peak Tip Dot at Top */}
-                      <motion.circle 
-                        cx="232" 
-                        cy="20" 
-                        r="5.5" 
+                      <motion.circle
+                        cx="232"
+                        cy="20"
+                        r="5.5"
                         fill="#FFFFFF"
                         initial={{ scale: 0, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
@@ -476,7 +481,7 @@ export default function Capabilities() {
                   )}
                 </svg>
 
-                <motion.div 
+                <motion.div
                   className={styles.statBoxesRow}
                   animate={hoveredIndex === 3 ? { y: [6, 0], opacity: 1 } : { opacity: 0.7 }}
                   transition={{ duration: 0.35, delay: 0.2 }}
@@ -499,7 +504,7 @@ export default function Capabilities() {
 
             <div className={styles.cardFooter}>
               <p className={styles.cardDesc}>
-                Test any strategy on years of historical data. Win rate, drawdown, equity curve — before risking capital.
+               Win rate, drawdown, equity curve — before risking capital.
               </p>
               <span className={styles.watermarkNum}>04</span>
             </div>

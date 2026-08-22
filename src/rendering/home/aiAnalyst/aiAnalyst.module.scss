@@ -28,7 +28,7 @@
   /* Left Column: Live Interactive AI Chat Box */
   .chatWrapper {
     flex: 1 1 48%;
-    max-width: 520px;
+    max-width: 540px;
     width: 100%;
 
     @include respond-to("md") {
@@ -39,71 +39,99 @@
   .chatCard {
     position: relative;
     width: 100%;
-    min-height: 540px;
+    min-height: 570px;
     display: flex;
     flex-direction: column;
-    background: radial-gradient(circle at 50% 10%, rgba(216, 162, 59, 0.08) 0%, transparent 60%), #110D05;
-    border: 1px solid rgba(216, 162, 59, 0.32);
-    border-radius: 22px;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.88), inset 0 0 0 1px rgba(255, 230, 147, 0.1);
+    background: radial-gradient(circle at 50% 10%, rgba(216, 162, 59, 0.12) 0%, transparent 70%), rgba(10, 8, 4, 0.92);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(216, 162, 59, 0.35);
+    border-radius: 24px;
+    box-shadow: 0 28px 75px rgba(0, 0, 0, 0.95), 0 0 40px rgba(216, 162, 59, 0.12), inset 0 0 0 1px rgba(255, 230, 147, 0.12);
     overflow: hidden;
-    padding: 24px;
+    padding: 22px 24px;
 
     @include respond-to("sm") {
       padding: 16px;
-      min-height: 480px;
+      min-height: 500px;
     }
   }
 
-  /* Chat Header */
+  /* Sleek Terminal Chrome Header */
   .chatHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 18px;
-    border-bottom: 1px solid rgba(216, 162, 59, 0.15);
-    margin-bottom: 18px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(216, 162, 59, 0.16);
+    margin-bottom: 16px;
 
-    .aiProfile {
+    .headerLeftCluster {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
 
-      .avatarOrb {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(255, 230, 147, 0.3) 0%, rgba(216, 162, 59, 0.1) 70%), #1A1407;
-        border: 1px solid rgba(255, 230, 147, 0.4);
+      .windowDots {
         display: flex;
         align-items: center;
-        justify-content: center;
+        gap: 5px;
 
-        .pulseCore {
-          width: 10px;
-          height: 10px;
+        span {
+          width: 8.5px;
+          height: 8.5px;
           border-radius: 50%;
-          background: #FFE693;
-          box-shadow: 0 0 10px #FFE693;
-          animation: pulseCoreAnim 2s infinite ease-in-out;
+          display: inline-block;
+        }
+
+        .dotRed {
+          background: #EF4444;
+          opacity: 0.8;
+        }
+
+        .dotYellow {
+          background: #F59E0B;
+          opacity: 0.8;
+        }
+
+        .dotGreen {
+          background: #10B981;
+          opacity: 0.8;
         }
       }
 
-      .aiMeta {
-        h4 {
-          font-size: 15px;
-          font-weight: 700;
-          color: #FFFFFF;
-          margin: 0 0 2px 0;
-          letter-spacing: -0.2px;
+      .aiProfile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .avatarLogoBox {
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .headerLogoImg {
+            height: 28px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(255, 230, 147, 0.4));
+          }
         }
 
-        span {
-          font-family: monospace, sans-serif;
-          font-size: 10px;
-          font-weight: 600;
-          color: #9CA3AF;
-          letter-spacing: 0.8px;
+        .aiMeta {
+          h4 {
+            @include font-bold;
+            font-size: 14.5px;
+            color: #FFFFFF;
+            margin: 0 0 1px 0;
+            letter-spacing: -0.2px;
+          }
+
+          span {
+            @include font-semibold;
+            font-size: 9.5px;
+            color: #D8A23B;
+            letter-spacing: 0.8px;
+          }
         }
       }
     }
@@ -112,9 +140,8 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-family: monospace, sans-serif;
-      font-size: 11px;
-      font-weight: 700;
+      @include font-bold;
+      font-size: 10px;
       color: #34D399;
       background: rgba(52, 211, 153, 0.12);
       border: 1px solid rgba(52, 211, 153, 0.3);
@@ -123,8 +150,8 @@
       letter-spacing: 0.5px;
 
       .greenDot {
-        width: 6px;
-        height: 6px;
+        width: 5.5px;
+        height: 5.5px;
         border-radius: 50%;
         background: #34D399;
         box-shadow: 0 0 6px #34D399;
@@ -138,11 +165,11 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 16px;
     overflow-y: auto;
     padding-right: 4px;
-    margin-bottom: 16px;
-    max-height: 320px;
+    margin-bottom: 14px;
+    max-height: 350px;
 
     &::-webkit-scrollbar {
       width: 4px;
@@ -153,7 +180,7 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background: rgba(216, 162, 59, 0.2);
+      background: rgba(216, 162, 59, 0.25);
       border-radius: 4px;
     }
   }
@@ -165,29 +192,29 @@
   }
 
   .userBubble {
-    max-width: 85%;
+    max-width: 88%;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     gap: 4px;
 
     .userSenderLabel {
-      font-family: monospace, sans-serif;
+      @include font-semibold;
       font-size: 9px;
-      font-weight: 700;
       letter-spacing: 0.8px;
       color: #9CA3AF;
     }
 
     .userText {
-      background: rgba(216, 162, 59, 0.18);
-      border: 1px solid rgba(255, 230, 147, 0.3);
-      border-radius: 14px 14px 2px 14px;
+      @include font-normal;
+      background: linear-gradient(135deg, rgba(216, 162, 59, 0.24) 0%, rgba(30, 22, 10, 0.9) 100%);
+      border: 1px solid rgba(255, 230, 147, 0.38);
+      border-radius: 16px 16px 3px 16px;
       padding: 10px 16px;
       color: #FFFFFF;
-      font-size: 14px;
+      font-size: 13.5px;
       line-height: 1.5;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
     }
   }
 
@@ -198,40 +225,57 @@
   }
 
   .botBubble {
-    max-width: 95%;
+    max-width: 96%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 6px;
+    gap: 5px;
 
-    .botSenderLabel {
-      font-family: monospace, sans-serif;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      color: #FFE693;
+    .botHeaderLabelRow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .botSenderLabel {
+        @include font-bold;
+        font-size: 9.5px;
+        letter-spacing: 0.8px;
+        color: #FFE693;
+      }
+
+      .botBadge {
+        @include font-semibold;
+        font-size: 8.5px;
+        color: #10B981;
+        background: rgba(16, 185, 129, 0.15);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        padding: 1px 6px;
+        border-radius: 4px;
+      }
     }
 
     .botContent {
-      background: rgba(22, 17, 7, 0.85);
-      border: 1px solid rgba(216, 162, 59, 0.22);
-      border-radius: 14px 14px 14px 2px;
+      background: linear-gradient(135deg, rgba(20, 15, 7, 0.92) 0%, rgba(12, 9, 4, 0.95) 100%);
+      border: 1px solid rgba(216, 162, 59, 0.28);
+      border-radius: 16px 16px 16px 3px;
       padding: 14px 18px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
       display: flex;
       flex-direction: column;
       gap: 8px;
+      width: 100%;
     }
 
     .botLine {
+      @include font-normal;
       font-size: 13.5px;
-      line-height: 1.6;
-      color: #E5E7EB;
+      line-height: 1.55;
+      color: #E2E8F0;
       margin: 0;
 
       &:first-child {
         color: #FFE693;
-        font-weight: 600;
+        @include font-semibold;
       }
 
       .typeCursor {
@@ -240,6 +284,87 @@
         font-weight: 300;
         margin-left: 2px;
         animation: blinkCursor 0.75s infinite ease-in-out;
+      }
+    }
+  }
+
+  /* Embedded Mini Trend Sparkline Graph Card */
+  .miniGraphCard {
+    margin-top: 6px;
+    background: rgba(6, 4, 2, 0.9);
+    border: 1px solid rgba(255, 230, 147, 0.35);
+    border-radius: 12px;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 0 16px rgba(216, 162, 59, 0.15);
+
+    .miniGraphHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .miniTickerGroup {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .tickerTag {
+          @include font-bold;
+          font-size: 11.5px;
+          color: #FFFFFF;
+          background: rgba(255, 255, 255, 0.08);
+          padding: 2px 7px;
+          border-radius: 5px;
+        }
+
+        .trendStatus {
+          @include font-semibold;
+          font-size: 10px;
+          color: #34D399;
+        }
+      }
+
+      .rrPill {
+        @include font-semibold;
+        font-size: 10px;
+        color: #FFE693;
+        background: rgba(216, 162, 59, 0.2);
+        border: 1px solid rgba(255, 230, 147, 0.4);
+        padding: 2px 7px;
+        border-radius: 5px;
+      }
+    }
+
+    .svgSparklineWrapper {
+      width: 100%;
+      height: 52px;
+      position: relative;
+
+      .sparklineSvg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+    }
+
+    .miniGraphFooter {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      @include font-medium;
+      font-size: 10px;
+      color: #94A3B8;
+
+      .slText {
+        color: #F87171;
+        @include font-bold;
+      }
+
+      .tpText {
+        color: #34D399;
+        @include font-bold;
       }
     }
   }
@@ -257,9 +382,8 @@
     align-items: flex-start;
 
     .botSenderLabel {
-      font-family: monospace, sans-serif;
-      font-size: 9px;
-      font-weight: 700;
+      @include font-bold;
+      font-size: 9.5px;
       letter-spacing: 0.8px;
       color: #FFE693;
     }
@@ -269,7 +393,7 @@
       align-items: center;
       gap: 6px;
       background: rgba(216, 162, 59, 0.12);
-      border: 1px solid rgba(216, 162, 59, 0.28);
+      border: 1px solid rgba(216, 162, 59, 0.3);
       border-radius: 12px;
       padding: 8px 14px;
 
@@ -286,9 +410,8 @@
       .dot3 { animation-delay: 0.4s; }
 
       .thinkingText {
-        font-family: monospace, sans-serif;
+        @include font-bold;
         font-size: 10px;
-        font-weight: 700;
         letter-spacing: 0.8px;
         color: #FFE693;
         margin-left: 2px;
@@ -305,21 +428,22 @@
     flex-wrap: wrap;
 
     .promptChip {
-      background: rgba(216, 162, 59, 0.08);
-      border: 1px solid rgba(216, 162, 59, 0.22);
+      background: rgba(216, 162, 59, 0.1);
+      border: 1px solid rgba(216, 162, 59, 0.28);
       border-radius: 20px;
-      padding: 4px 12px;
-      color: #D1D5DB;
+      padding: 5px 13px;
+      color: #E2E8F0;
       font-size: 11.5px;
-      font-weight: 500;
+      @include font-medium;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
 
       &:hover {
-        background: rgba(216, 162, 59, 0.2);
+        background: rgba(216, 162, 59, 0.25);
         border-color: #FFE693;
         color: #FFFFFF;
-        transform: translateY(-1px);
+        box-shadow: 0 0 12px rgba(255, 230, 147, 0.3);
+        transform: translateY(-1.5px);
       }
     }
   }
@@ -329,15 +453,15 @@
     position: relative;
     display: flex;
     align-items: center;
-    background: rgba(18, 14, 6, 0.9);
-    border: 1px solid rgba(216, 162, 59, 0.28);
+    background: rgba(16, 12, 5, 0.95);
+    border: 1px solid rgba(216, 162, 59, 0.32);
     border-radius: 14px;
     padding: 4px 6px 4px 16px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
 
     &:focus-within {
       border-color: #FFE693;
-      box-shadow: 0 0 16px rgba(255, 230, 147, 0.2);
+      box-shadow: 0 0 18px rgba(255, 230, 147, 0.25);
     }
 
     .chatInput {
@@ -347,11 +471,11 @@
       outline: none;
       color: #FFFFFF;
       font-size: 13.5px;
-      font-family: inherit;
+      @include font-normal;
       padding: 10px 0;
 
       &::placeholder {
-        color: #6B7280;
+        color: #64748B;
       }
     }
 
@@ -359,19 +483,19 @@
       width: 36px;
       height: 36px;
       border-radius: 10px;
-      background: rgba(216, 162, 59, 0.18);
-      border: 1px solid rgba(216, 162, 59, 0.35);
+      background: rgba(216, 162, 59, 0.2);
+      border: 1px solid rgba(216, 162, 59, 0.4);
       color: #FFE693;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
 
       &:hover {
         background: #D8A23B;
-        color: #110D05;
-        box-shadow: 0 0 12px rgba(255, 230, 147, 0.5);
+        color: #0E0A04;
+        box-shadow: 0 0 14px rgba(255, 230, 147, 0.6);
       }
     }
   }
@@ -418,6 +542,7 @@
       font-size: 16px;
       line-height: 1.65;
       margin: 0;
+      @include font-normal;
 
       @include respond-to("tab") {
         font-size: 14.5px;
@@ -437,9 +562,8 @@
     gap: 18px;
 
     .numBadge {
-      font-family: monospace, sans-serif;
+      @include font-bold;
       font-size: 13px;
-      font-weight: 700;
       color: #FFE693;
       background: rgba(216, 162, 59, 0.16);
       border: 1px solid rgba(216, 162, 59, 0.3);
@@ -452,7 +576,7 @@
     .featureContent {
       h3 {
         font-size: 18px;
-        font-weight: 700;
+        @include font-bold;
         color: #FFFFFF;
         margin: 0 0 6px 0;
         letter-spacing: -0.2px;
@@ -463,6 +587,7 @@
         line-height: 1.6;
         color: #9CA3AF;
         margin: 0;
+        @include font-normal;
       }
     }
   }

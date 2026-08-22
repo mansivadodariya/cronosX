@@ -4,9 +4,78 @@ import { motion, AnimatePresence } from 'framer-motion';
 import styles from './aiAnalyst.module.scss';
 import Textbutton from '@/components/textbutton';
 
+// Embedded Mini Sparkline Chart Component inside Bot Response
+function MiniTrendGraph({ symbol = "PLTR", entry = "85.80", target = "94.20", rr = "1:3.4" }) {
+  return (
+    <motion.div 
+      className={styles.miniGraphCard}
+      initial={{ opacity: 0, y: 8, scale: 0.96 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.4, delay: 0.2 }}
+    >
+      <div className={styles.miniGraphHeader}>
+        <div className={styles.miniTickerGroup}>
+          <span className={styles.tickerTag}>{symbol}</span>
+          <span className={styles.trendStatus}>▲ BREAKOUT (+6.72%)</span>
+        </div>
+        <span className={styles.rrPill}>R:R {rr}</span>
+      </div>
+
+      {/* SVG Neon Mini Sparkline Graph */}
+      <div className={styles.svgSparklineWrapper}>
+        <svg viewBox="0 0 320 64" className={styles.sparklineSvg} preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="sparklineGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#FFE693" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#10B981" stopOpacity="0.0" />
+            </linearGradient>
+            <filter id="neonGlowSpark" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="0" stdDeviation="2.5" floodColor="#FFE693" floodOpacity="0.8" />
+            </filter>
+          </defs>
+
+          {/* Target Baseline Dotted Line */}
+          <line x1="10" y1="12" x2="310" y2="12" stroke="#10B981" strokeDasharray="3 3" strokeWidth="1" opacity="0.6" />
+          {/* Stop Loss Baseline Dotted Line */}
+          <line x1="10" y1="52" x2="310" y2="52" stroke="#EF4444" strokeDasharray="3 3" strokeWidth="1" opacity="0.6" />
+
+          {/* Area Fill under curve */}
+          <path
+            d="M 10 48 Q 60 46, 110 38 T 210 28 T 280 16 L 305 14 L 305 60 L 10 60 Z"
+            fill="url(#sparklineGrad)"
+          />
+
+          {/* Glowing Curve Line */}
+          <path
+            d="M 10 48 Q 60 46, 110 38 T 210 28 T 280 16 L 305 14"
+            fill="none"
+            stroke="#FFE693"
+            strokeWidth="2"
+            strokeLinecap="round"
+            filter="url(#neonGlowSpark)"
+          />
+
+          {/* Glowing Target Pulsing Dot */}
+          <circle cx="305" cy="14" r="3.5" fill="#FFE693" />
+          <circle cx="305" cy="14" r="6" fill="none" stroke="#FFE693" strokeWidth="1" opacity="0.8">
+            <animate attributeName="r" values="3.5;8;3.5" dur="1.8s" repeatCount="indefinite" />
+            <animate attributeName="opacity" values="0.8;0;0.8" dur="1.8s" repeatCount="indefinite" />
+          </circle>
+        </svg>
+      </div>
+
+      <div className={styles.miniGraphFooter}>
+        <span>SL Target: <strong className={styles.slText}>${entry}</strong></span>
+        <span>TP Target: <strong className={styles.tpText}>${target}</strong></span>
+      </div>
+    </motion.div>
+  );
+}
+
 const conversationFlow = [
   {
     user: "Top 3 names with breakouts this hour?",
+    showGraph: false,
     bot: [
       "Here are the top 3 breakout leaders with >2.4x volume surge:",
       "1. PLTR ($88.41) — Broke 20-day resistance at $86.20 with +6.72% candle close.",
@@ -16,6 +85,8 @@ const conversationFlow = [
   },
   {
     user: "What's the risk-to-reward on PLTR right now?",
+    showGraph: true,
+    graphData: { symbol: "PLTR", entry: "85.80", target: "94.20", rr: "1:3.4" },
     bot: [
       "Stop loss recommended at $85.80 (below previous resistance turned support).",
       "Current Risk/Reward ratio is 1:3.4 with initial target at $94.20 on strong volume confirmation."
@@ -23,9 +94,11 @@ const conversationFlow = [
   },
   {
     user: "Any volume divergence on BTC 4H chart?",
+    showGraph: true,
+    graphData: { symbol: "BTC/USD", entry: "64,200", target: "68,900", rr: "1:3.8" },
     bot: [
       "RSI bullish divergence detected at $64,200 support.",
-      "Selling pressure has dropped 42% over the last 3 candles while price holds above the 50 EMA."
+      "Selling pressure dropped 42% over last 3 candles while price holds above 50 EMA."
     ]
   }
 ];
@@ -48,11 +121,12 @@ const featurePoints = [
   }
 ];
 
-// Typewriter Bot Message Streamer
-function TypewriterBotMessage({ lines, onComplete }) {
+// Typewriter Bot Message Streamer with embedded mini chart
+function TypewriterBotMessage({ lines, showGraph, graphData, onComplete }) {
   const [displayedLines, setDisplayedLines] = useState([""]);
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
+  const [isTypingDone, setIsTypingDone] = useState(false);
 
   useEffect(() => {
     if (!lines || lines.length === 0) return;
@@ -67,24 +141,28 @@ function TypewriterBotMessage({ lines, onComplete }) {
             return next;
           });
           setCurrentCharIndex((prev) => prev + 1);
-        }, 12);
+        }, 10);
         return () => clearTimeout(timeout);
       } else {
         const timeout = setTimeout(() => {
           setDisplayedLines((prev) => [...prev, ""]);
           setCurrentLineIndex((prev) => prev + 1);
           setCurrentCharIndex(0);
-        }, 70);
+        }, 60);
         return () => clearTimeout(timeout);
       }
     } else {
+      setIsTypingDone(true);
       if (onComplete) onComplete();
     }
   }, [lines, currentLineIndex, currentCharIndex, onComplete]);
 
   return (
     <div className={styles.botBubble}>
-      <span className={styles.botSenderLabel}>CHRONOSX</span>
+      <div className={styles.botHeaderLabelRow}>
+        <span className={styles.botSenderLabel}>CHRONOSX AI</span>
+        <span className={styles.botBadge}>VERIFIED SIGNAL</span>
+      </div>
       <div className={styles.botContent}>
         {displayedLines.map((line, idx) => (
           <p key={idx} className={styles.botLine}>
@@ -94,6 +172,16 @@ function TypewriterBotMessage({ lines, onComplete }) {
             )}
           </p>
         ))}
+
+        {/* Embedded Mini Sparkline Chart on Completion */}
+        {showGraph && isTypingDone && (
+          <MiniTrendGraph 
+            symbol={graphData?.symbol || "PLTR"} 
+            entry={graphData?.entry || "85.80"} 
+            target={graphData?.target || "94.20"} 
+            rr={graphData?.rr || "1:3.4"} 
+          />
+        )}
       </div>
     </div>
   );
@@ -133,9 +221,14 @@ export default function AiAnalyst() {
           setIsThinking(false);
           setMessages([
             { role: 'user', text: currentConv.user },
-            { role: 'bot', lines: currentConv.bot }
+            { 
+              role: 'bot', 
+              lines: currentConv.bot,
+              showGraph: currentConv.showGraph,
+              graphData: currentConv.graphData
+            }
           ]);
-        }, 1600);
+        }, 1400);
       }, 1000);
     }
 
@@ -148,7 +241,7 @@ export default function AiAnalyst() {
     setTimeout(() => {
       setMessages([]);
       setFlowIndex((prev) => (prev + 1) % conversationFlow.length);
-    }, 5500);
+    }, 6000);
   };
 
   // Handle manual user submission
@@ -165,13 +258,18 @@ export default function AiAnalyst() {
     setTimeout(() => {
       setIsThinking(false);
       const responses = [
-        "Analyzing real-time institutional order flow and volume delta...",
-        `Bullish structure confirmed for ${query.toUpperCase()}. Volume is 1.8x average with key support holding.`,
-        "Risk/Reward profile is favorable. Target 1: +4.2%, Invalidation: -1.4%."
+        `Analyzing institutional order flow and pattern structure for ${query.toUpperCase()}...`,
+        "Bullish setup validated with +6.4% target projection. Key support level holding with high volume.",
+        "Risk/Reward ratio optimal at 1:3.4 with trailing stop protection active."
       ];
       setMessages((prev) => [
         ...prev,
-        { role: 'bot', lines: responses }
+        { 
+          role: 'bot', 
+          lines: responses,
+          showGraph: true,
+          graphData: { symbol: query.toUpperCase().slice(0, 5), entry: "86.50", target: "95.00", rr: "1:3.4" }
+        }
       ]);
 
       // Resume auto loop after 10s
@@ -193,7 +291,7 @@ export default function AiAnalyst() {
       <div className="container">
         <div className={styles.mainGrid}>
           
-          {/* Left Column: Live Interactive AI Chat Box */}
+          {/* Left Column: Ultra-Beautiful Live Interactive AI Chatbot Window */}
           <motion.div 
             className={styles.chatWrapper}
             initial={{ opacity: 0, x: -30 }}
@@ -202,16 +300,22 @@ export default function AiAnalyst() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className={styles.chatCard}>
-              {/* Chat Card Header (Clean header without live symbol) */}
+              
+              {/* Sleek Terminal Header */}
               <div className={styles.chatHeader}>
-                <div className={styles.aiProfile}>
-                  <div className={styles.avatarOrb}>
-                    <span className={styles.pulseCore}></span>
+                <div className={styles.headerLeftCluster}>
+         
+                  <div className={styles.aiProfile}>
+                    <div className={styles.avatarLogoBox}>
+                      <img src="/assets/logo/logo.png" alt="ChronosX Logo" className={styles.headerLogoImg} />
+                    </div>
+               
                   </div>
-                  <div className={styles.aiMeta}>
-                    <h4>ChronosX</h4>
-                    <span>AI · ALWAYS ON</span>
-                  </div>
+                </div>
+
+                <div className={styles.liveBadge}>
+                  <span className={styles.greenDot} />
+                  <span>NEURAL-v4.2</span>
                 </div>
               </div>
 
@@ -234,6 +338,8 @@ export default function AiAnalyst() {
                       ) : (
                         <TypewriterBotMessage
                           lines={msg.lines}
+                          showGraph={msg.showGraph}
+                          graphData={msg.graphData}
                           onComplete={handleBotTypingComplete}
                         />
                       )}
@@ -249,12 +355,12 @@ export default function AiAnalyst() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
                   >
-                    <span className={styles.botSenderLabel}>CHRONOSX</span>
+                    <span className={styles.botSenderLabel}>CHRONOSX AI</span>
                     <div className={styles.thinkingPill}>
-                      <span className={styles.dot1}></span>
-                      <span className={styles.dot2}></span>
-                      <span className={styles.dot3}></span>
-                      <span className={styles.thinkingText}>THINKING</span>
+                      <span className={styles.dot1} />
+                      <span className={styles.dot2} />
+                      <span className={styles.dot3} />
+                      <span className={styles.thinkingText}>ANALYZING MARKET PATTERNS...</span>
                     </div>
                   </motion.div>
                 )}
@@ -267,18 +373,25 @@ export default function AiAnalyst() {
                   onClick={() => handleQuickPrompt("Top 3 breakouts this hour")}
                   className={styles.promptChip}
                 >
-                  ⚡ Top Breakouts
+                  Top Breakouts
                 </button>
                 <button 
                   type="button" 
                   onClick={() => handleQuickPrompt("Check BTC support level")}
                   className={styles.promptChip}
                 >
-                  📊 BTC Support
+                  BTC Support
+                </button>
+                <button 
+                  type="button" 
+                  onClick={() => handleQuickPrompt("PLTR Risk to Reward")}
+                  className={styles.promptChip}
+                >
+                  PLTR R:R
                 </button>
               </div>
 
-              {/* Interactive Chat Input Box */}
+              {/* Interactive Chat Input Form */}
               <form onSubmit={handleSendMessage} className={styles.chatInputForm}>
                 <input
                   type="text"
@@ -289,11 +402,12 @@ export default function AiAnalyst() {
                 />
                 <button type="submit" className={styles.sendButton} aria-label="Send message">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M22 2L11 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M22 2L11 13" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </button>
               </form>
+
             </div>
           </motion.div>
 

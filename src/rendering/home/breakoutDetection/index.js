@@ -42,15 +42,28 @@ export default function BreakoutDetection() {
       const rect = containerRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // Track scroll progress inside container
-      if (rect.top <= windowHeight * 0.4 && rect.bottom >= windowHeight * 0.2) {
-        stepRefs.current.forEach((el, index) => {
-          if (!el) return;
-          const stepRect = el.getBoundingClientRect();
-          if (stepRect.top <= windowHeight * 0.55 && stepRect.bottom >= windowHeight * 0.3) {
-            setActiveStep(index);
-          }
-        });
+      // 1. Initial Scroll Lock: If section is above or just entering the viewport, stay strictly on Step 01
+      const stickyThreshold = windowHeight * 0.15;
+      if (rect.top > stickyThreshold) {
+        setActiveStep(0);
+        return;
+      }
+
+      // 2. Trigger point: Center of viewport
+      const triggerLine = windowHeight * 0.50;
+
+      const step2El = stepRefs.current[1];
+      const step3El = stepRefs.current[2];
+
+      if (step3El && step3El.getBoundingClientRect().top <= triggerLine) {
+        // Step 03 has scrolled into the center reading zone
+        setActiveStep(2);
+      } else if (step2El && step2El.getBoundingClientRect().top <= triggerLine) {
+        // Step 02 has scrolled into the center reading zone
+        setActiveStep(1);
+      } else {
+        // Step 01 remains firmly active until Step 02 reaches the center
+        setActiveStep(0);
       }
     };
 
@@ -58,6 +71,7 @@ export default function BreakoutDetection() {
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
 
   const handleStepClick = (index) => {
     setActiveStep(index);
@@ -69,11 +83,14 @@ export default function BreakoutDetection() {
   const currentStep = stepsData[activeStep];
 
   return (
-    <section className={styles.breakoutSection} ref={containerRef}>
+    <section className={styles.breakoutSection} ref={containerRef} aria-label="Breakout Detection Section">
+      {/* Background ambient lighting */}
+      <div className={styles.ambientGlow} aria-hidden="true" />
+
       <div className="container">
         <div className={styles.mainLayout}>
           
-          {/* Left Column: Sticky Container with Heading & Interactive Chart */}
+          {/* Left Column: Pinned Sticky Container with Heading & Interactive Chart */}
           <div className={styles.stickyColumn}>
             <div className={styles.stickyContent}>
               <motion.div 
@@ -88,7 +105,7 @@ export default function BreakoutDetection() {
                 </div>
                 <h2>
                   CATCH THE MOVE THE <br />
-                  <span>SECOND IT HAPPENS.</span>
+                  <span className={styles.goldText}>SECOND IT HAPPENS.</span>
                 </h2>
                 <p className={styles.subtext}>
                   Scroll through one trade idea: from approach to confirmation to alert. The chart pins; the narrative scrolls past it.
@@ -99,19 +116,18 @@ export default function BreakoutDetection() {
               <div className={styles.chartCard}>
                 <div className={styles.cardHeader}>
                   <div className={styles.tickerTag}>
-                    <span className={styles.liveGreenDot}></span>
+                    <span className={styles.liveGreenDot} />
                     {currentStep.ticker}
                   </div>
-                  <div className={styles.statusTag}>
+                  <div className={`${styles.statusTag} ${activeStep >= 1 ? styles.statusBroken : ''}`}>
                     {currentStep.status}
                   </div>
                 </div>
 
                 {/* SVG Real-time Candle & Trajectory Graphic */}
                 <div className={styles.svgWrapper}>
-                  <svg viewBox="0 0 540 280" xmlns="http://www.w3.org/2000/svg" className={styles.chartSvg}>
+                  <svg viewBox="0 0 580 290" xmlns="http://www.w3.org/2000/svg" className={styles.chartSvg}>
                     <defs>
-                      {/* Rich Title Gold Gradients */}
                       <linearGradient id="goldLineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                         <stop offset="0%" stopColor="#D8A23B" stopOpacity="0.9" />
                         <stop offset="100%" stopColor="#FFE693" stopOpacity="1" />
@@ -141,41 +157,41 @@ export default function BreakoutDetection() {
                     </defs>
 
                     {/* Subtle Horizontal Grid lines */}
-                    <line x1="20" y1="230" x2="520" y2="230" stroke="rgba(216, 162, 59, 0.08)" strokeWidth="1" />
-                    <line x1="20" y1="120" x2="520" y2="120" stroke="rgba(216, 162, 59, 0.08)" strokeWidth="1" />
+                    <line x1="20" y1="240" x2="560" y2="240" stroke="rgba(216, 162, 59, 0.08)" strokeWidth="1" />
+                    <line x1="20" y1="125" x2="560" y2="125" stroke="rgba(216, 162, 59, 0.08)" strokeWidth="1" />
 
                     {/* Dashed Resistance Line (R · $86.20) */}
                     <g className={styles.resistanceLineGroup}>
                       <line 
                         x1="20" 
-                        y1="175" 
-                        x2="450" 
-                        y2="175" 
+                        y1="180" 
+                        x2="480" 
+                        y2="180" 
                         className={`${styles.resistanceLine} ${activeStep >= 1 ? styles.resistanceBroken : ''}`}
                       />
-                      <text x="515" y="178" textAnchor="end" className={styles.resistanceLabel}>
+                      <text x="555" y="183" textAnchor="end" className={styles.resistanceLabel}>
                         R · $86.20
                       </text>
                     </g>
 
                     {/* Approach Path Segment (Stage 1 base) */}
                     <path
-                      d="M 25 240 L 55 248 L 90 226 L 125 238 L 160 215 L 195 228 L 230 200 L 265 212 L 300 185 L 340 175"
+                      d="M 25 248 L 58 256 L 95 232 L 132 245 L 170 220 L 208 234 L 246 205 L 284 218 L 322 190 L 365 180"
                       className={styles.basePathLine}
                     />
 
                     {/* Base Area Fill */}
                     <path
-                      d="M 25 240 L 55 248 L 90 226 L 125 238 L 160 215 L 195 228 L 230 200 L 265 212 L 300 185 L 340 175 L 340 270 L 25 270 Z"
+                      d="M 25 248 L 58 256 L 95 232 L 132 245 L 170 220 L 208 234 L 246 205 L 284 218 L 322 190 L 365 180 L 365 280 L 25 280 Z"
                       fill="url(#baseAreaGrad)"
                     />
 
-                    {/* Stage 1 Tip Dot */}
+                    {/* Stage 1 Tip Dot with radar beacon */}
                     {activeStep === 0 && (
                       <g className={styles.tipDotGroup}>
-                        <circle cx="340" cy="175" r="8" className={styles.sonarRing} />
-                        <circle cx="340" cy="175" r="3.5" fill="#FFE693" />
-                        <circle cx="340" cy="175" r="1.5" fill="#FFFFFF" />
+                        <circle cx="365" cy="180" r="9" className={styles.sonarRing} />
+                        <circle cx="365" cy="180" r="4" fill="#FFE693" />
+                        <circle cx="365" cy="180" r="1.8" fill="#FFFFFF" />
                       </g>
                     )}
 
@@ -189,8 +205,8 @@ export default function BreakoutDetection() {
                           transition={{ duration: 0.5 }}
                           d={
                             activeStep === 1
-                              ? "M 340 175 Q 365 175 410 130 L 485 75 L 485 270 L 340 270 Z"
-                              : "M 340 175 Q 365 175 410 130 L 495 62 L 495 270 L 340 270 Z"
+                              ? "M 365 180 Q 395 180 445 132 L 525 75 L 525 280 L 365 280 Z"
+                              : "M 365 180 Q 395 180 445 132 L 535 62 L 535 280 L 365 280 Z"
                           }
                           fill="url(#glowAreaGrad)"
                         />
@@ -202,27 +218,28 @@ export default function BreakoutDetection() {
                           transition={{ duration: 0.7, ease: "easeOut" }}
                           d={
                             activeStep === 1
-                              ? "M 340 175 Q 365 175 410 130 L 485 75"
-                              : "M 340 175 Q 365 175 410 130 L 495 62"
+                              ? "M 365 180 Q 395 180 445 132 L 525 75"
+                              : "M 365 180 Q 395 180 445 132 L 535 62"
                           }
                           className={styles.breakoutLine}
                         />
 
                         {/* Breakout Point Indicator */}
-                        <circle cx="340" cy="175" r="11" className={styles.breakoutSonar} />
-                        <circle cx="340" cy="175" r="4.5" fill="none" stroke="#FFE693" strokeWidth="1.5" />
-                        <circle cx="340" cy="175" r="2.5" fill="#FFE693" />
+                        <circle cx="365" cy="180" r="12" className={styles.breakoutSonar} />
+                        <circle cx="365" cy="180" r="5" fill="none" stroke="#FFE693" strokeWidth="1.6" />
+                        <circle cx="365" cy="180" r="2.8" fill="#FFE693" />
 
                         {/* Current Price Tip Dot */}
                         <circle 
-                          cx={activeStep === 1 ? "485" : "495"} 
+                          cx={activeStep === 1 ? "525" : "535"} 
                           cy={activeStep === 1 ? "75" : "62"} 
-                          r="5" 
+                          r="5.5" 
                           fill="url(#pointGlowHalo)" 
                         />
                       </g>
                     )}
                   </svg>
+
 
                   {/* Stage 3 Breakout Toast Alert Card */}
                   <AnimatePresence>
@@ -252,7 +269,7 @@ export default function BreakoutDetection() {
             </div>
           </div>
 
-          {/* Right Column: Narrative Scrolling Steps */}
+          {/* Right Column: Narrative Steps that scroll past while left side pins */}
           <div className={styles.scrollingColumn}>
             {stepsData.map((item, index) => {
               const isActive = activeStep === index;
@@ -262,6 +279,9 @@ export default function BreakoutDetection() {
                   ref={(el) => (stepRefs.current[index] = el)}
                   className={`${styles.stepBlock} ${isActive ? styles.stepActive : ''}`}
                   onClick={() => handleStepClick(index)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => e.key === 'Enter' && handleStepClick(index)}
                 >
                   <div className={styles.stepHeader}>
                     <div className={styles.numberBadge}>
