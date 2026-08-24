@@ -101,7 +101,7 @@ html {
 }
 
 .sidebar-wrapper.collapsed {
-  width: 64px;
+  width: 75px;
 }
 
 .children-wrapper {
@@ -155,12 +155,12 @@ html {
 /* Dark Mode Core Theme */
 html.dark,
 html.dark body {
-  background-color: #0f0f11;
+  background-color: #030404;
   color: #f3f4f6;
 }
 
 html.dark .children-wrapper {
-  background-color: #0f0f11;
+  background-color: #030404;
 }
 
 /* Mixed Language (Arabic & English Bidi) Rules */

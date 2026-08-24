@@ -149,7 +149,7 @@ const calculateSupportResistance = (candles) => {
 };
 // ─────────────────────────────────────────────────────────────────────────────
 
-const PriceChart = ({ data, symbol = 'Asset', theme = 'light' }) => {
+const PriceChart = ({ data, symbol = 'Asset', theme = 'dark' }) => {
     const [showSR, setShowSR] = useState(true);
     const ohlc = data?.ohlc_data?.ohlc_1h || [];
     const isDark = theme === 'dark';
@@ -267,10 +267,10 @@ const PriceChart = ({ data, symbol = 'Asset', theme = 'light' }) => {
     );
 };
 
-const SentimentRadar = ({ indicators, theme = 'light' }) => {
+const SentimentRadar = ({ indicators, theme = 'dark' }) => {
     const data = indicators?.voting_scores || indicators?.['4H']?.voting_scores || {};
     const normalize = (val) => (val + 10) * 5;
-    const isDark = theme === 'dark';
+    const isDark = true;
 
     const series = [{
         name: 'Market Sentiment',
@@ -284,17 +284,17 @@ const SentimentRadar = ({ indicators, theme = 'light' }) => {
 
     const options = {
         chart: { type: 'radar', toolbar: { show: false }, animations: { enabled: true, speed: 1000 } },
-        theme: { mode: theme },
+        theme: { mode: 'dark' },
         labels: ['Trend', 'Momentum', 'Volatility', 'Overall'],
         yaxis: { show: false, min: 0, max: 100 },
         fill: {
             opacity: 0.45, type: 'gradient',
-            gradient: { shade: isDark ? 'dark' : 'light', gradientToColors: ['#0f5cf2'], shadeIntensity: 1, type: 'horizontal', stops: [0, 100] }
+            gradient: { shade: 'dark', gradientToColors: ['#0f5cf2'], shadeIntensity: 1, type: 'horizontal', stops: [0, 100] }
         },
         stroke: { width: 2, colors: ['#0f5cf2'] },
-        markers: { size: 4, colors: ['#0f5cf2'], strokeWidth: 2, strokeColors: isDark ? '#1a1a1e' : '#fff' },
-        plotOptions: { radar: { polygons: { strokeColors: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(15, 92, 242, 0.15)', connectorColors: isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(15, 92, 242, 0.1)' } } },
-        tooltip: { theme: theme }
+        markers: { size: 4, colors: ['#0f5cf2'], strokeWidth: 2, strokeColors: '#1a1a1e' },
+        plotOptions: { radar: { polygons: { strokeColors: 'rgba(255, 255, 255, 0.1)', connectorColors: 'rgba(255, 255, 255, 0.05)' } } },
+        tooltip: { theme: 'dark' }
     };
 
     return (
@@ -304,8 +304,8 @@ const SentimentRadar = ({ indicators, theme = 'light' }) => {
     );
 };
 
-const Gauge = ({ value, title, theme = 'light' }) => {
-    const isDark = theme === 'dark';
+const Gauge = ({ value, title, theme = 'dark' }) => {
+    const isDark = true;
     const options = {
         chart: { type: 'radialBar', sparkline: { enabled: true } },
         plotOptions: {

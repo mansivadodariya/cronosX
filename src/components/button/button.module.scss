@@ -14,7 +14,7 @@
         @include font-semibold;
         font-size: 15px;
         cursor: pointer;
-        border-radius: 8px;
+        border-radius: 99px;
         display: flex;
         align-items: center;
         gap: 10px;
@@ -37,6 +37,7 @@
                 width: 14px;
                 height: 14px;
                 display: block;
+                filter: brightness(0);
             }
         }
     }

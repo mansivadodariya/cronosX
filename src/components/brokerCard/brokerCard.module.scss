@@ -1,16 +1,26 @@
 @use '../../scss/main.scss' as *;
 @use '../../scss/breakpoints/breakpoints.scss' as *;
 
+$primary: #F4D17A;
+$primaryDark: #C1902E;
+$bgDark: #060706;
+$cardDark: #0D0E13;
+$border: rgba(193, 144, 46, 0.35);
+$borderSubtle: rgba(193, 144, 46, 0.18);
+$text: #FFFFFF;
+$textMuted: rgba(255, 255, 255, 0.65);
+$success: #34D399;
+
 .brokerCard {
-    background: #FFFFFF;
-    border: 1px solid #EAEAEA;
+    background: #060706;
+    border: 1px solid $border;
     border-radius: 18px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     padding: 16px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
 
     @include respond-to(sm) {
@@ -20,21 +30,26 @@
 
     &:hover {
         transform: translateY(-4px);
-        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
-        border-color: rgba(79, 70, 229, 0.25);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(244, 209, 122, 0.15);
+        border-color: rgba(244, 209, 122, 0.7);
+
+        .bannerHeader .chartGraphic {
+            opacity: 0.95;
+            transform: scale(1.02);
+        }
     }
 
     .bannerHeader {
         height: 90px;
-        background: linear-gradient(135deg, #050B1A 0%, #0A1B42 50%, #072868 100%);
+        background: linear-gradient(135deg, #0C0B09 0%, #17130A 50%, #261D0C 100%);
         border-radius: 14px;
         padding: 14px 16px;
         position: relative;
         overflow: hidden;
         display: flex;
         align-items: center;
-        margin-bottom: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 14px;
+        border: 1px solid rgba(193, 144, 46, 0.25);
 
         .logoWrapper {
             z-index: 2;
@@ -46,12 +61,7 @@
                 max-height: 34px;
                 max-width: 130px;
                 object-fit: contain;
-                filter: brightness(1.5);
-            }
-
-            :global([dir="rtl"]) & {
-                margin-right: 0;
-                margin-left: auto;
+                filter: brightness(1.2);
             }
         }
 
@@ -63,34 +73,7 @@
             width: 170px;
             pointer-events: none;
             z-index: 1;
-
-            :global([dir="rtl"]) & {
-                right: auto;
-                left: 0;
-                transform: scaleX(-1);
-            }
-        }
-    }
-
-    .badgeRow {
-        margin-bottom: 10px;
-        display: flex;
-
-        .infrastructureBadge {
-            background: #EEF2FF;
-            border: 1px solid #E0E7FF;
-            color: #4338CA;
-            border-radius: 8px;
-            padding: 4px 9px;
-            font-size: 11px;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-
-            .badgeIcon {
-                font-size: 11.5px;
-            }
+            transition: all 0.3s ease;
         }
     }
 
@@ -101,20 +84,16 @@
         .cardTitle {
             font-size: 17px;
             font-weight: 700;
-            color: #0F172A;
+            color: #FFFFFF;
             margin: 0 0 2px 0;
             line-height: 1.25;
-            font-family: var(--font-plus-jakarta);
-
-            @include respond-to(sm) {
-                font-size: 16px;
-            }
+            font-family: "Euclid-Bold", sans-serif;
         }
 
         .subtitleTag {
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 600;
-            color: #2563EB;
+            color: #F4D17A;
             margin: 0 0 6px 0;
             display: inline-block;
         }
@@ -122,17 +101,13 @@
         .cardDescription {
             font-size: 12.5px;
             line-height: 1.5;
-            color: #475569;
+            color: rgba(255, 255, 255, 0.65);
             margin: 0;
-            min-height: 56px;
+            min-height: 54px;
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
-
-            @include respond-to(sm) {
-                font-size: 12px;
-            }
         }
     }
 
@@ -145,52 +120,42 @@
         .highlightItem {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 6px 10px;
-            background: #F8FAFC;
-            border: 1px solid #F1F5F9;
+            gap: 10px;
+            padding: 8px 12px;
+            background: #0D0E13;
+            border: 1px solid rgba(193, 144, 46, 0.18);
             border-radius: 10px;
-            width: 100%;
 
             .iconBox {
                 width: 28px;
                 height: 28px;
-                border-radius: 8px;
+                border-radius: 6px;
+                background: rgba(244, 209, 122, 0.12);
+                border: 1px solid rgba(244, 209, 122, 0.25);
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 flex-shrink: 0;
-
-                &.iconType_0 {
-                    background: #EEF2FF;
-                }
-
-                &.iconType_1 {
-                    background: #EFF6FF;
-                }
-
-                &.iconType_2 {
-                    background: #ECFDF5;
-                }
             }
 
             .highlightText {
                 display: flex;
                 flex-direction: column;
-                overflow: hidden;
+                gap: 1px;
+                min-width: 0;
 
                 .hlTitle {
-                    font-size: 11.5px;
-                    font-weight: 700;
-                    color: #0F172A;
+                    font-size: 12px;
+                    font-weight: 600;
+                    color: #FFFFFF;
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
                 }
 
                 .hlSub {
-                    font-size: 10px;
-                    color: #64748B;
+                    font-size: 10.5px;
+                    color: rgba(255, 255, 255, 0.5);
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
@@ -200,147 +165,54 @@
     }
 
     .cardFooter {
-        border-top: 1px solid #F1F5F9;
-        padding-top: 12px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
+        display: flex;
         align-items: center;
+        gap: 8px;
 
         .visitSiteBtn {
-            background: #FFFFFF;
-            border: 1px solid #E2E8F0;
-            color: #334155;
-            border-radius: 10px;
-            padding: 9px 8px;
-            font-size: 12px;
-            font-weight: 600;
-            text-decoration: none;
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 4px;
+            gap: 6px;
+            background: rgba(22, 19, 14, 0.95);
+            border: 1px solid rgba(193, 144, 46, 0.4);
+            border-radius: 10px;
+            padding: 9px 12px;
+            color: #F4D17A;
+            font-size: 12.5px;
+            font-weight: 600;
+            text-decoration: none;
             transition: all 0.2s ease;
 
             &:hover {
-                background: #F8FAFC;
-                border-color: #CBD5E1;
-                color: #0F172A;
-                transform: translateY(-1px);
-            }
-
-            span {
-                white-space: nowrap;
+                background: rgba(244, 209, 122, 0.18);
+                border-color: #F4D17A;
+                color: #FFFFFF;
             }
         }
 
         .viewDetailsBtn {
-            background: linear-gradient(135deg, #0264FF 0%, #4F46E5 100%);
-            color: #FFFFFF;
-            border-radius: 10px;
-            padding: 9px 8px;
-            font-size: 12px;
-            font-weight: 600;
-            text-decoration: none;
+            flex: 1.2;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 4px;
-            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.28);
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            gap: 6px;
+            background: linear-gradient(180deg, #F4D17A 0%, #C1902E 100%);
+            border: 1px solid transparent;
+            border-radius: 10px;
+            padding: 9px 14px;
+            color: #000000;
+            font-size: 12.5px;
+            font-weight: 700;
+            font-family: "Euclid-Bold", sans-serif;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(244, 209, 122, 0.25);
+            transition: all 0.2s ease;
 
             &:hover {
-                background: linear-gradient(135deg, #0052D6 0%, #4338CA 100%);
-                color: #FFFFFF;
                 transform: translateY(-1px);
-                box-shadow: 0 8px 20px rgba(79, 70, 229, 0.38);
-            }
-
-            .btnLabel {
-                white-space: nowrap;
-            }
-        }
-    }
-}
-
-:global(.dark),
-:global(html.dark) {
-    .brokerCard {
-        background: #1A1A1E;
-        border-color: #2D2D34;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-
-        .badgeRow .infrastructureBadge {
-            background: rgba(79, 70, 229, 0.2);
-            border-color: rgba(79, 70, 229, 0.35);
-            color: #A5B4FC;
-        }
-
-        .cardBody {
-            .cardTitle {
-                color: #FFFFFF;
-            }
-
-            .subtitleTag {
-                color: #60A5FA;
-            }
-
-            .cardDescription {
-                color: #D1D5DB;
-            }
-        }
-
-        .highlightsGrid .highlightItem {
-            background: #252529;
-            border-color: #2D2D34;
-
-            .iconBox {
-                &.iconType_0 {
-                    background: rgba(99, 102, 241, 0.2);
-                }
-
-                &.iconType_1 {
-                    background: rgba(59, 130, 246, 0.2);
-                }
-
-                &.iconType_2 {
-                    background: rgba(16, 185, 129, 0.2);
-                }
-            }
-
-            .highlightText {
-                .hlTitle {
-                    color: #FFFFFF;
-                }
-
-                .hlSub {
-                    color: #9CA3AF;
-                }
-            }
-        }
-
-        .cardFooter {
-            border-top-color: #2D2D34;
-
-            .visitSiteBtn {
-                background: #252529;
-                border-color: #374151;
-                color: #E2E8F0;
-
-                &:hover {
-                    background: #374151;
-                    color: #FFFFFF;
-                }
-            }
-
-            .viewDetailsBtn {
-                background: linear-gradient(135deg, #0264FF 0%, #4F46E5 100%);
-                color: #FFFFFF;
-                box-shadow: 0 6px 18px rgba(79, 70, 229, 0.38);
-
-                &:hover {
-                    background: linear-gradient(135deg, #2563EB 0%, #4338CA 100%);
-                }
+                box-shadow: 0 6px 18px rgba(244, 209, 122, 0.4);
             }
         }
     }

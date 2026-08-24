@@ -2,24 +2,27 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { motion, AnimatePresence } from 'framer-motion';
 import styles from "./sidebar.module.scss";
-import DashboardIcon from "@/icons/dashboardIcon";
-import TradeIcon from "@/icons/tradeIcon";
-import AssistantIcon from "@/icons/assistantIcon";
-import PricingIcon from "@/icons/pricingIcon";
-import SettingsIcon from "@/icons/settingsIcon";
-import AiIcon from "@/icons/aiIcon";
-import BrokerIcon from "@/icons/brokerIcon";
+import {
+  DashboardGridIcon,
+  AiTradeSparkIcon,
+  AiChatBotIcon,
+  AiStrategyIcon,
+  CalendarIcon,
+  CreditShieldIcon,
+  BrokerBankIcon,
+  ProfileUserIcon,
+  CrownIcon,
+} from "./sidebarIcons";
 import { clearAuthSession, getStoredUser, getStoredUserId, hydrateUserFromProfile } from '@/lib/authSession';
-import { useTheme } from '@/context/ThemeContext';
 import { useLanguage } from '@/context/LanguageContext';
 import { getBidiProps } from '@/lib/bidi';
 import { supabase } from '@/lib/supabaseClient';
-const UpgradeIcon = '/assets/icons/Upgrade.svg';
 
-const SidebarLogo = "/assets/logo/logo.svg";
-const SidebarLogoWhite = "/assets/logo/logoWhite.svg";
+const BrandTextLogo = "/assets/logo/logo.png";
 const SmallLogo = "/assets/logo/smallLogo.svg";
+
 const LiveAnalysisIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
     <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
@@ -31,13 +34,6 @@ const StrategyIcon = () => (
     <circle cx="12" cy="12" r="10" />
     <circle cx="12" cy="12" r="6" />
     <circle cx="12" cy="12" r="2" />
-  </svg>
-);
-
-const CreditHistoryIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-    <path d="M12 8v4l3 3" />
-    <circle cx="12" cy="12" r="9" />
   </svg>
 );
 
@@ -53,24 +49,31 @@ const ChevronRightIcon = () => (
   </svg>
 );
 
+const LogoutIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+    <polyline points="16 17 21 12 16 7" />
+    <line x1="21" y1="12" x2="9" y2="12" />
+  </svg>
+);
 
 const getMainNav = (t) => [
-  { label: t('nav.dashboard', 'Dashboard'), href: "/dashboard", icon: DashboardIcon },
-  { label: t('nav.aiTrade', 'AI Trade'), href: "/trade-snap", icon: TradeIcon },
-  { label: t('nav.aiChat', 'AI Chat'), href: "/ai-assistant", icon: AssistantIcon },
+  { label: t('nav.dashboard', 'Dashboard'), href: "/dashboard", icon: DashboardGridIcon },
+  { label: t('nav.aiTrade', 'AI Trade'), href: "/trade-snap", icon: AiTradeSparkIcon },
+  { label: t('nav.aiChat', 'AI Chat'), href: "/ai-assistant", icon: AiChatBotIcon },
   {
     label: t('nav.aiStrategy', 'AI Strategy'),
     href: "/ai-strategy",
-    icon: AiIcon,
+    icon: AiStrategyIcon,
     subItems: [
       { label: t('nav.liveAnalysis', 'Live Analysis'), href: "/ai-strategy/live", icon: LiveAnalysisIcon },
       { label: t('nav.aiStrategy', 'AI Strategy'), href: "/ai-strategy/strategy", icon: StrategyIcon },
     ]
   },
-  { label: t('nav.economicCalendar', 'Economic Calendar'), href: "/economic-calendar", icon: PricingIcon },
-  { label: t('nav.plans', 'Subscription Plans'), href: "/plans", icon: PricingIcon },
-  { label: t('nav.broker', 'Broker'), href: "/broker", icon: BrokerIcon },
-  { label: t('nav.profile', 'Settings'), href: "/profile", icon: SettingsIcon },
+  { label: t('nav.economicCalendar', 'Economic Calendar'), href: "/economic-calendar", icon: CalendarIcon },
+  { label: t('nav.creditHistory', 'Credit History'), href: "/credit-history", icon: CreditShieldIcon },
+  { label: t('nav.broker', 'Broker'), href: "/broker", icon: BrokerBankIcon },
+  { label: t('nav.profile', 'Profile'), href: "/profile", icon: ProfileUserIcon },
 ];
 
 /** Match current route to nav item (handles trailing slashes and nested paths). */
@@ -160,6 +163,11 @@ const NavItem = ({ item, pathname, onNavigate, isCollapsed }) => {
             <Icon />
           </div>
           <span>{item.label}</span>
+          <div className={`${styles.chevron} ${isOpen ? styles.rotated : ''}`}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </div>
         </div>
         {isOpen && (
           <div className={styles.subItemsList}>
@@ -204,16 +212,6 @@ const NavItem = ({ item, pathname, onNavigate, isCollapsed }) => {
   );
 };
 
-const LogoutIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-    <polyline points="16 17 21 12 16 7" />
-    <line x1="21" y1="12" x2="9" y2="12" />
-  </svg>
-);
-
-import { motion, AnimatePresence } from 'framer-motion';
-
 const NavSkeleton = ({ count = 6, isCollapsed }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '0 8px', margin: '8px 0' }}>
@@ -221,18 +219,18 @@ const NavSkeleton = ({ count = 6, isCollapsed }) => {
         <div
           key={i}
           style={{
-            height: '42px',
-            borderRadius: '8px',
-            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+            height: '44px',
+            borderRadius: '12px',
+            backgroundColor: 'rgba(255, 255, 255, 0.03)',
             display: 'flex',
             alignItems: 'center',
             padding: '0 12px',
             gap: '12px'
           }}
         >
-          <div style={{ width: '20px', height: '20px', borderRadius: '4px', backgroundColor: 'rgba(255, 255, 255, 0.08)' }} />
+          <div style={{ width: '20px', height: '20px', borderRadius: '4px', backgroundColor: 'rgba(244, 209, 122, 0.1)' }} />
           {!isCollapsed && (
-            <div style={{ width: '65%', height: '14px', borderRadius: '4px', backgroundColor: 'rgba(255, 255, 255, 0.08)' }} />
+            <div style={{ width: '65%', height: '14px', borderRadius: '4px', backgroundColor: 'rgba(255, 255, 255, 0.05)' }} />
           )}
         </div>
       ))}
@@ -243,7 +241,6 @@ const NavSkeleton = ({ count = 6, isCollapsed }) => {
 const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
   const pathname = usePathname();
   const router = useRouter();
-  const { theme } = useTheme();
   const { t, language } = useLanguage();
 
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -362,29 +359,27 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
     '/settings': 'Profile',
   };
 
-  const logoSrc = theme === 'dark' ? SidebarLogoWhite : SidebarLogo;
   const rawNav = getMainNav(t);
   const mainNav = visibleTabNames
     ? rawNav.filter((item) => {
-        const tabName = ROUTE_TAB_MAP[item.href] || item.label;
-        return visibleTabNames.has(tabName.toLowerCase());
-      })
-    : [];
-
-  const hasPlansPermission = visibleTabNames ? visibleTabNames.has('subscription plans') : false;
+      const tabName = ROUTE_TAB_MAP[item.href] || item.label;
+      return visibleTabNames.has(tabName.toLowerCase());
+    })
+    : rawNav; // fallback to full list if permissions not restricting
 
   return (
     <>
       <aside className={`${styles.sidebar} ${isCollapsed ? styles.collapsed : ''}`}>
+        {/* Brand Logo Header */}
         <div className={styles.logoHeader}>
           {!isCollapsed ? (
             <div className={styles.logo} onClick={() => router.push('/')}>
-              <img src={logoSrc} alt="SidebarLogo" />
+              <img src={BrandTextLogo} alt="CHRONOS X" />
             </div>
           ) : (
             <div className={styles.logoMark} onClick={() => router.push('/')}>
-              <img src={SmallLogo} alt="Trader Master" className={styles.smallLogoImg} />
-              <span className={styles.tooltip}>Trader Master</span>
+              <img src={SmallLogo} alt="ChronosX" className={styles.smallLogoImg} />
+              <span className={styles.tooltip}>ChronosX</span>
             </div>
           )}
           {onToggleCollapse && (
@@ -404,9 +399,11 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
             </button>
           )}
         </div>
+
+        {/* Navigation Menu List */}
         <div className={styles.sidebarmenu}>
           {tabsLoading && !visibleTabNames ? (
-            <NavSkeleton count={6} isCollapsed={isCollapsed} />
+            <NavSkeleton count={8} isCollapsed={isCollapsed} />
           ) : (
             mainNav.map((item) => (
               <NavItem
@@ -419,36 +416,37 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
             ))
           )}
         </div>
-        {hasPlansPermission && (
-          !isCollapsed ? (
-            <div className={styles.sidebarBody}>
-              <div className={styles.box}>
-                <div className={styles.contentRelative}>
-                  <div className={styles.iconText}>
-                    <img src={UpgradeIcon} alt='UpgradeIcon' />
-                    <h3 {...getBidiProps(t('sidebar.upgradeTitle', 'Upgrade to pro'))}>
-                      {t('sidebar.upgradeTitle', 'Upgrade to pro')}
-                    </h3>
-                  </div>
-                  <p {...getBidiProps(t('sidebar.upgradeDesc', 'Unlock advanced analytics more AI insights & unlimited saves.'))}>
-                    {t('sidebar.upgradeDesc', 'Unlock advanced analytics more AI insights & unlimited saves.')}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      handleNavigate();
-                      router.push('/plans');
-                    }}
-                  >
-                    <span {...getBidiProps(t('sidebar.upgradeBtn', 'Upgrade Now'))}>
-                      {t('sidebar.upgradeBtn', 'Upgrade Now')}
-                    </span>
-                  </button>
-                </div>
+
+        {/* Bottom Section: Upgrade Card & Profile Card */}
+        <div className={styles.bottomSection}>
+          {/* Upgrade to Pro Card */}
+          {!isCollapsed ? (
+            <div
+              className={styles.upgradeCard}
+              onClick={() => {
+                handleNavigate();
+                router.push('/plans');
+              }}
+            >
+              <div className={styles.upgradeIcon}>
+                <CrownIcon />
               </div>
+              <div className={styles.upgradeText}>
+                <span className={styles.upgradeSub}>{t('sidebar.upgradeTo', 'Upgrade to')}</span>
+                <span className={styles.upgradeMain}>{t('sidebar.proAccount', 'Pro Account')}</span>
+              </div>
+              <button
+                type="button"
+                className={styles.upgradeArrowBtn}
+                aria-label="Upgrade"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#040300" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </button>
             </div>
           ) : (
-            <div className={styles.sidebarBodyCompact}>
+            <div className={styles.compactUpgradeBox}>
               <button
                 type="button"
                 className={styles.compactUpgradeBtn}
@@ -457,107 +455,108 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
                   router.push('/plans');
                 }}
               >
-                <img src={UpgradeIcon} alt='UpgradeIcon' />
+                <CrownIcon />
                 <span className={styles.tooltip}>
-                  {t('sidebar.upgradeTitle', 'Upgrade to pro')}
+                  {t('sidebar.upgradeToPro', 'Upgrade to Pro')}
                 </span>
               </button>
             </div>
-          )
-        )}
-        <div className={styles.sidebarFooter} ref={profileRef}>
-          <div
-            className={`${styles.userProfileCard} ${isCollapsed ? styles.collapsedProfileCard : ''}`}
-            onClick={() => setProfileDropdownOpen((prev) => !prev)}
-            aria-expanded={profileDropdownOpen}
-          >
-            <div className={styles.avatarBox}>
-              {user?.profile_picture ? (
-                <img src={user.profile_picture} alt={displayName} className={styles.avatarImg} />
-              ) : (
-                <div className={styles.avatarInitials}>{initials}</div>
+          )}
+
+          {/* User Profile Card */}
+          <div className={styles.profileWrapper} ref={profileRef}>
+            <div
+              className={`${styles.userProfileCard} ${isCollapsed ? styles.collapsedProfileCard : ''}`}
+              onClick={() => setProfileDropdownOpen((prev) => !prev)}
+              aria-expanded={profileDropdownOpen}
+            >
+              <div className={styles.avatarBox}>
+                {user?.profile_picture ? (
+                  <img src={user.profile_picture} alt={displayName} className={styles.avatarImg} />
+                ) : (
+                  <div className={styles.avatarInitials}>{initials}</div>
+                )}
+              </div>
+
+              {!isCollapsed && (
+                <div className={styles.userInfo}>
+                  <span className={styles.userName}>{displayName}</span>
+                  <span className={styles.userSubtitle}>{t('sidebar.viewManage', 'View & Manage')}</span>
+                </div>
+              )}
+
+              {!isCollapsed && (
+                <div className={styles.chevronBox}>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#F4D17A"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{ transform: profileDropdownOpen ? 'rotate(-90deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }}
+                  >
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </div>
+              )}
+
+              {isCollapsed && (
+                <span className={styles.tooltip}>{displayName}</span>
               )}
             </div>
 
-            {!isCollapsed && (
-              <div className={styles.userInfo}>
-                <span className={styles.userName}>{displayName}</span>
-                {user?.email && <span className={styles.userEmail}>{user.email}</span>}
-              </div>
-            )}
-
-            {!isCollapsed && (
-              <div className={styles.chevronBox}>
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  style={{ transform: profileDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }}
+            {/* Profile Dropdown Menu */}
+            <AnimatePresence>
+              {profileDropdownOpen && (
+                <motion.div
+                  className={`${styles.profileMenuDropdown} ${isCollapsed ? styles.collapsedMenuDropdown : ''}`}
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                  transition={{ duration: 0.15, ease: 'easeOut' }}
                 >
-                  <polyline points="18 15 12 9 6 15" />
-                </svg>
-              </div>
-            )}
+                  <div className={styles.dropdownHeader}>
+                    <p className={styles.dropdownName}>{displayName}</p>
+                    {user?.email && <p className={styles.dropdownEmail}>{user.email}</p>}
+                  </div>
 
-            {isCollapsed && (
-              <span className={styles.tooltip}>{displayName}</span>
-            )}
+                  <div className={styles.dropdownDivider} />
+
+                  <button
+                    type="button"
+                    className={styles.dropdownItem}
+                    onClick={() => {
+                      setProfileDropdownOpen(false);
+                      handleNavigate();
+                      router.push('/profile');
+                    }}
+                  >
+                    <ProfileUserIcon />
+                    <span>{t('nav.profile', 'Profile')}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    className={`${styles.dropdownItem} ${styles.logoutOption}`}
+                    onClick={() => {
+                      setProfileDropdownOpen(false);
+                      setConfirmOpen(true);
+                    }}
+                  >
+                    <LogoutIcon />
+                    <span>{t('nav.logout', 'Log out')}</span>
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-
-          <AnimatePresence>
-            {profileDropdownOpen && (
-              <motion.div
-                className={`${styles.profileMenuDropdown} ${isCollapsed ? styles.collapsedMenuDropdown : ''}`}
-                initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                transition={{ duration: 0.15, ease: 'easeOut' }}
-              >
-                <div className={styles.dropdownHeader}>
-                  <p className={styles.dropdownName}>{displayName}</p>
-                  {user?.email && <p className={styles.dropdownEmail}>{user.email}</p>}
-                </div>
-
-                <div className={styles.dropdownDivider} />
-
-                <button
-                  type="button"
-                  className={styles.dropdownItem}
-                  onClick={() => {
-                    setProfileDropdownOpen(false);
-                    handleNavigate();
-                    router.push('/profile');
-                  }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                    <circle cx="12" cy="7" r="4" />
-                  </svg>
-                  <span>{t('nav.profile', 'Profile')}</span>
-                </button>
-
-                <button
-                  type="button"
-                  className={`${styles.dropdownItem} ${styles.logoutOption}`}
-                  onClick={() => {
-                    setProfileDropdownOpen(false);
-                    setConfirmOpen(true);
-                  }}
-                >
-                  <LogoutIcon />
-                  <span>{t('nav.logout', 'Log out')}</span>
-                </button>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </aside>
 
+      {/* Confirm Logout Modal */}
       {confirmOpen && (
         <div className={styles.confirmOverlay} onClick={() => setConfirmOpen(false)}>
           <div className={styles.confirmBox} onClick={(e) => e.stopPropagation()}>

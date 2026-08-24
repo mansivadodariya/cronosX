@@ -1,58 +1,52 @@
+@use '../../scss/main.scss' as *;
+@use '../../scss/breakpoints/breakpoints.scss' as *;
+
 .historyBtn {
-    height: 46px;
-    min-height: 46px;
+    height: 40px;
+    min-height: 40px;
     padding: 0 18px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background: #FFFFFF;
-    border: 1px solid #0B56DB;
-    color: #0B56DB;
-    font-size: 15px;
+    background: rgba(244, 209, 122, 0.08);
+    border: 1px solid rgba(193, 144, 46, 0.35);
+    color: #F4D17A;
+    font-size: 13.5px;
     font-weight: 600;
-    border-radius: 0;
+    font-family: "Euclid-SemiBold", sans-serif;
+    border-radius: 99px;
     cursor: pointer;
     user-select: none;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 2px 8px rgba(11, 86, 219, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     white-space: nowrap;
 
     svg {
-        color: #0B56DB;
+        width: 16px;
+        height: 16px;
+        color: #F4D17A;
         stroke: currentColor;
-        transition: color 0.25s ease, transform 0.25s ease;
+        transition: transform 0.25s ease, color 0.25s ease;
+    }
+
+    span {
+        letter-spacing: 0.3px;
     }
 
     &:hover {
-        background: #0B56DB;
-        color: #FFFFFF;
-        border-color: #0B56DB;
-        box-shadow: 0 4px 14px rgba(11, 86, 219, 0.25);
+        background: linear-gradient(180deg, rgba(244, 209, 122, 0.2) 0%, rgba(193, 144, 46, 0.15) 100%);
+        color: #FFE79A;
+        border-color: rgba(244, 209, 122, 0.8);
+        box-shadow: 0 0 16px rgba(244, 209, 122, 0.25);
 
         svg {
-            color: #FFFFFF;
-            transform: scale(1.1);
+            color: #FFE79A;
+            transform: rotate(-15deg);
         }
     }
 
-    :global(.dark) & {
-        background: rgba(15, 23, 42, 0.8);
-        border-color: rgba(64, 134, 255, 0.5);
-        color: #a8c8ff;
-
-        svg {
-            color: #a8c8ff;
-        }
-
-        &:hover {
-            background: #0B56DB;
-            border-color: #0B56DB;
-            color: #FFFFFF;
-
-            svg {
-                color: #FFFFFF;
-            }
-        }
+    &:active {
+        transform: scale(0.97);
     }
 }

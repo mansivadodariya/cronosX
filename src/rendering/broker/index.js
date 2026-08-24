@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './broker.module.scss';
 import NeweraCreditsModal from '@/components/neweraCreditsModal';
 import { getStoredUserId } from '@/lib/authSession';
@@ -13,33 +14,12 @@ import { BrokerCardSkeleton } from '@/components/brokerSkeleton';
 import { useLanguage } from '@/context/LanguageContext';
 import { getBidiProps } from '@/lib/bidi';
 
-// Logos from sliding logos section
-const EdufinsIcon = '/assets/icons/edufins.svg';
-const MetaIcon = '/assets/icons/Img2.svg';
-const AlgomaticIcon = '/assets/icons/algomaticIcon.svg';
-const AsicIcon = '/assets/icons/asic.svg';
-const NeweraLogo = '/assets/icons/Img1.svg';
-const FundedMasterLogo = '/assets/icons/Img2.svg';
+const BrokerHeroGraphic = '/assets/images/broker_infrastructure_hero.jpg';
 
 const SearchIcon = () => (
-    <svg className={styles.searchIcon} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg className={styles.searchIcon} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="11" cy="11" r="8" />
         <line x1="21" y1="21" x2="16.65" y2="16.65" />
-    </svg>
-);
-
-const ExternalLinkIcon = () => (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-        <polyline points="15 3 21 3 21 9" />
-        <line x1="10" y1="14" x2="21" y2="3" />
-    </svg>
-);
-
-const EyeIcon = () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-        <circle cx="12" cy="12" r="3" />
     </svg>
 );
 
@@ -70,11 +50,17 @@ export default function BrokerPage() {
         return () => { isMounted = false; };
     }, []);
 
+    const categories = useMemo(() => {
+        const set = new Set(brokers.map((b) => b.category).filter(Boolean));
+        return ['All', ...Array.from(set)];
+    }, [brokers]);
+
     const filteredBrokers = useMemo(() => {
-        const q = searchQuery.toLowerCase();
+        const q = searchQuery.toLowerCase().trim();
         return brokers.filter((broker) => {
             const matchesTab = selectedTab === 'All' || broker.category === selectedTab;
             const matchesSearch =
+                !q ||
                 (broker.name || '').toLowerCase().includes(q) ||
                 (broker.name_ar || '').toLowerCase().includes(q) ||
                 (broker.name_ph || '').toLowerCase().includes(q) ||
@@ -90,56 +76,102 @@ export default function BrokerPage() {
         if (broker.canSync) {
             setShowCreditsModal(true);
         } else {
-            toast.success(`${broker.name} is fully integrated into Trader Master!`);
+            toast.success(`${broker.name} is fully integrated into ChronosX!`);
         }
     };
 
     return (
         <div className={styles.brokerPage}>
-            {/* Hero Banner */}
+            {/* 1. Hero Infrastructure Banner */}
             <div className={styles.heroBanner}>
-                <div {...getBidiProps(t('broker.hubBadge', 'Broker & Platform Hub'), styles.badge)}>
-                    {t('broker.hubBadge', 'Broker & Platform Hub')}
+                <div className={styles.heroBackdropWrap}>
+                    <Image
+                        src={BrokerHeroGraphic}
+                        alt="Brokerage Infrastructure"
+                        fill
+                        className={styles.heroBackdropImg}
+                        priority
+                    />
+                    <div className={styles.heroOverlayFade} />
                 </div>
-                <h1 {...getBidiProps(t('broker.title', 'Integrated Brokerage & Trading Infrastructure'))}>
-                    {t('broker.title', 'Integrated Brokerage & Trading Infrastructure')}
-                </h1>
-                <p {...getBidiProps(t('broker.subtitle', 'Connect your MT5 account, view verified broker partners from our sliding marquee stack, and earn AI credits automatically through your daily trading volume.'))}>
-                    {t('broker.subtitle', 'Connect your MT5 account, view verified broker partners from our sliding marquee stack, and earn AI credits automatically through your daily trading volume.')}
-                </p>
+
+                <div className={styles.heroContent}>
+                    <div {...getBidiProps(t('broker.hubBadge', 'Broker & Platform Hub'), styles.badge)}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2.5">
+                            <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+                            <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+                            <line x1="6" y1="6" x2="6.01" y2="6" strokeWidth="3" />
+                            <line x1="6" y1="18" x2="6.01" y2="18" strokeWidth="3" />
+                        </svg>
+                        <span>{t('broker.hubBadge', 'Institutional Broker & Platform Hub')}</span>
+                    </div>
+
+                    <h1 {...getBidiProps(t('broker.title', 'Integrated Brokerage & Trading Infrastructure'))}>
+                        {t('broker.title', 'Integrated Brokerage & Trading Infrastructure')}
+                    </h1>
+
+                    <p {...getBidiProps(t('broker.subtitle', 'Connect your MT5 account, view verified broker partners, and earn AI credits automatically through your daily trading volume.'))}>
+                        {t('broker.subtitle', 'Connect your MT5 account, view verified broker partners, and earn AI credits automatically through your daily trading volume.')}
+                    </p>
+
+                    {/* Stats Metric Row inside Hero */}
+                    <div className={styles.heroStatsRow}>
+                        <div className={styles.heroStatItem}>
+                            <span className={styles.statVal}>Tier-1 Regulated</span>
+                            <span className={styles.statLbl}>Verified Security</span>
+                        </div>
+                        <div className={styles.heroStatDivider} />
+                        <div className={styles.heroStatItem}>
+                            <span className={styles.statVal}>&lt; 15ms Latency</span>
+                            <span className={styles.statLbl}>Ultra-Fast MT5 Bridge</span>
+                        </div>
+                        <div className={styles.heroStatDivider} />
+                        <div className={styles.heroStatItem}>
+                            <span className={styles.statVal}>Volume Cashbacks</span>
+                            <span className={styles.statLbl}>Auto AI Credits per Lot</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            {/* Controls Bar: Category Tabs & Search (Only shown if more than 1 broker) */}
-            {!isLoading && brokers.length > 1 && (
-                <div className={styles.controlsRow}>
-                    <div className={styles.tabs}>
-                        {['All', ...Array.from(new Set(brokers.map((b) => b.category)))].map((tab) => (
+            {/* 2. Controls Row: Category Tabs & Search */}
+            <div className={styles.controlsRow}>
+                <div className={styles.tabs}>
+                    {categories.map((tab) => {
+                        const count = tab === 'All' ? brokers.length : brokers.filter(b => b.category === tab).length;
+                        return (
                             <button
                                 key={tab}
                                 className={`${styles.tabBtn} ${selectedTab === tab ? styles.active : ''}`}
                                 onClick={() => setSelectedTab(tab)}
                             >
-                                {tab}
+                                <span>{tab}</span>
+                                <span className={styles.tabBadge}>{count}</span>
                             </button>
-                        ))}
-                    </div>
-
-                    <div className={styles.searchBox}>
-                        <SearchIcon />
-                        <input
-                            type="text"
-                            placeholder="Search brokers or platforms..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                        />
-                    </div>
+                        );
+                    })}
                 </div>
-            )}
 
-            {/* Brokers Grid */}
+                <div className={styles.searchBox}>
+                    <SearchIcon />
+                    <input
+                        type="text"
+                        placeholder="Search brokers, regulations, or servers..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    {searchQuery && (
+                        <button type="button" onClick={() => setSearchQuery('')} className={styles.clearSearchBtn}>
+                            ✕
+                        </button>
+                    )}
+                </div>
+            </div>
+
+            {/* 3. Brokers Cards Grid */}
             {isLoading ? (
                 <div className={styles.brokersGrid}>
-                    {Array.from({ length: (brokers && brokers.length > 1) ? brokers.length : 1 }).map((_, idx) => (
+                    {Array.from({ length: (brokers && brokers.length > 0) ? brokers.length : 3 }).map((_, idx) => (
                         <BrokerCardSkeleton key={idx} />
                     ))}
                 </div>
@@ -156,12 +188,21 @@ export default function BrokerPage() {
                 </div>
             ) : (
                 <div className={styles.emptyState}>
-                    <h3>No brokers found</h3>
-                    <p>No broker or platform matching "{searchQuery}" in category "{selectedTab}".</p>
+                    <div className={styles.emptyIconBox}>
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="1.5">
+                            <circle cx="11" cy="11" r="8" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        </svg>
+                    </div>
+                    <h3>No verified brokers found</h3>
+                    <p>No broker or platform matching &quot;{searchQuery}&quot; in category &quot;{selectedTab}&quot;.</p>
+                    <button type="button" onClick={() => { setSearchQuery(''); setSelectedTab('All'); }} className={styles.resetFiltersBtn}>
+                        Reset Filters
+                    </button>
                 </div>
             )}
 
-            {/* Credits Sync Modal */}
+            {/* 4. Credits Sync Modal */}
             {showCreditsModal && (
                 <NeweraCreditsModal
                     userId={userId}
@@ -175,4 +216,3 @@ export default function BrokerPage() {
         </div>
     );
 }
-

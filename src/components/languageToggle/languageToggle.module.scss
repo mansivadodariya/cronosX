@@ -1,35 +1,36 @@
+@use '../../scss/main.scss' as *;
+@use '../../scss/breakpoints/breakpoints.scss' as *;
+
 .wrapper {
   position: relative;
   display: inline-block;
 }
 
 .toggleButton {
-  height: 40px;
-  min-height: 40px;
+  height: 38px;
+  min-height: 38px;
   box-sizing: border-box;
   padding: 0 14px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  background: #FFF;
-  border: 1px solid #0B56DB;
-  color: #0B56DB;
-  font-size: 15px;
-  font-weight: 600;
+  gap: 8px;
+  background: rgba(14, 13, 10, 0.95);
+  border: 1px solid rgba(193, 144, 46, 0.4);
+  border-radius: 10px;
+  color: #FFFFFF;
+  font-size: 13.5px;
+  font-weight: 500;
+  font-family: "Euclid-Medium", sans-serif;
   cursor: pointer;
   user-select: none;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(11, 86, 219, 0.08);
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 
   &:hover {
-    background: #0B56DB;
-    color: #FFF;
-    box-shadow: 0 4px 14px rgba(11, 86, 219, 0.25);
-
-    .globeIcon, .chevronIcon {
-      color: #FFF;
-    }
+    border-color: rgba(244, 209, 122, 0.7);
+    background: rgba(24, 21, 15, 0.95);
+    box-shadow: 0 0 12px rgba(244, 209, 122, 0.15);
   }
 }
 
@@ -37,35 +38,26 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #0B56DB;
-  transition: color 0.25s ease;
-}
-
-.activeFlagIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  color: #F4D17A;
   flex-shrink: 0;
-}
-
-.flagSvg {
-  border-radius: 2px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-  flex-shrink: 0;
-  display: block;
 }
 
 .chevronIcon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #0B56DB;
-  transition: color 0.25s ease;
+  color: #F4D17A;
+  transition: transform 0.2s ease;
+
+  &.rotated {
+    transform: rotate(180deg);
+  }
 }
 
 .label {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #FFFFFF;
   line-height: 1;
 }
 
@@ -73,13 +65,13 @@
   position: absolute;
   top: calc(100% + 6px);
   right: 0;
-  min-width: 150px;
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-radius: 8px;
+  min-width: 140px;
+  background: #0e0d0b;
+  border: 1px solid rgba(193, 144, 46, 0.4);
+  border-radius: 10px;
   padding: 6px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-  z-index: 1000;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(244, 209, 122, 0.08);
+  z-index: 1050;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -92,108 +84,34 @@
 
 .dropdownOption {
   width: 100%;
-  padding: 10px 14px;
+  padding: 8px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: transparent;
   border: none;
   border-radius: 6px;
-  color: #1E293B;
-  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
   font-weight: 500;
+  font-family: "Euclid-Medium", sans-serif;
   cursor: pointer;
   transition: all 0.15s ease;
 
   &:hover {
-    background: #F1F5FC;
-    color: #0B56DB;
+    background: rgba(244, 209, 122, 0.1);
+    color: #F4D17A;
   }
 
   &.activeOption {
-    color: #0B56DB;
+    color: #F4D17A;
     font-weight: 600;
-    background: #F1F5FC;
+    background: rgba(35, 30, 18, 0.95);
+    border: 1px solid rgba(244, 209, 122, 0.3);
   }
-}
-
-.optionContent {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.mapIcon {
-  color: #0B56DB;
-  flex-shrink: 0;
-  opacity: 0.85;
 }
 
 .checkIcon {
-  color: #0B56DB;
+  color: #F4D17A;
   flex-shrink: 0;
 }
-
-:global(html.dark) {
-  .toggleButton {
-    background: rgba(15, 23, 42, 0.8);
-    border-color: rgba(64, 134, 255, 0.5);
-    color: #a8c8ff;
-
-    .globeIcon, .chevronIcon {
-      color: #a8c8ff;
-    }
-
-    &:hover {
-      background: #0B56DB;
-      color: #FFF;
-
-      .globeIcon, .chevronIcon {
-        color: #FFF;
-      }
-    }
-  }
-
-  .dropdownMenu {
-    background: #18181B;
-    border-color: #27272A;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-  }
-
-  .dropdownOption {
-    color: #E2E8F0;
-
-    &:hover, &.activeOption {
-      background: rgba(11, 86, 219, 0.15);
-      color: #60A5FA;
-    }
-  }
-
-  .checkIcon, .mapIcon {
-    color: #60A5FA;
-  }
-}
-
-/* Light mode styling / header light mode */
-.toggleButtonLight,
-:global(html:not(.dark)) .toggleButtonLight {
-  background: #F1F5FC;
-  border: 1px solid #0B56DB;
-  color: #0B56DB;
-
-  .globeIcon, .chevronIcon {
-    color: #0B56DB;
-  }
-
-  &:hover {
-    background: #0B56DB;
-    color: #FFF;
-
-    .globeIcon, .chevronIcon {
-      color: #FFF;
-    }
-  }
-}
-
-
-

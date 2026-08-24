@@ -1,12 +1,10 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import styles from "./economicCalendar.module.scss";
-import { useTheme } from "@/context/ThemeContext";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function EconomicCalendar() {
   const widgetContainerRef = useRef(null);
-  const { theme } = useTheme();
   const { t, language } = useLanguage();
 
   useEffect(() => {
@@ -15,16 +13,17 @@ export default function EconomicCalendar() {
     script.type = "text/javascript";
     script.async = true;
     script.innerHTML = JSON.stringify({
-      colorTheme: theme,
+      colorTheme: "dark",
       isTransparent: true,
       locale: language === 'ar' ? 'ar' : 'en',
       countryFilter: "ar,au,br,ca,cn,fr,de,in,id,it,jp,kr,mx,ru,sa,za,tr,gb,us,eu",
       importanceFilter: "-1,0,1",
       width: "100%",
-      height: "640",
+      height: "720",
     });
 
     if (widgetContainerRef.current) {
+      widgetContainerRef.current.innerHTML = "";
       widgetContainerRef.current.appendChild(script);
     }
 
@@ -33,15 +32,17 @@ export default function EconomicCalendar() {
         widgetContainerRef.current.innerHTML = "";
       }
     };
-  }, [theme, language]);
+  }, [language]);
 
   return (
     <section className={styles.economicCalendar}>
       <div className={styles.header}>
-        <h1>{t('nav.economicCalendar', 'Economic Calendar')}</h1>
-        <p>
-          {t('economicCalendar.subtitle', 'Track global market-moving events in real time and plan your trades around key macro releases.')}
-        </p>
+        <div className={styles.titleArea}>
+          <h1>{t('nav.economicCalendar', 'Economic Calendar')}</h1>
+          <p>
+            {t('economicCalendar.subtitle', 'Track global market-moving events in real time and plan your trades around key macro releases.')}
+          </p>
+        </div>
       </div>
 
       <div className={styles.widgetCard}>

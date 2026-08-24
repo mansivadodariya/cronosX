@@ -37,19 +37,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${antonSans.variable} ${robotoSans.variable} ${plusSans.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`dark ${antonSans.variable} ${robotoSans.variable} ${plusSans.variable}`} suppressHydrationWarning>
       <body suppressHydrationWarning>
         <script
           id="theme-initializer"
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                var isDashboard = /^\\/(dashboard|ai-assistant|ai-strategy|credit-history|economic-calendar|profile|settings|trade-snap|plans|broker|brokers)/.test(window.location.pathname);
-                if (isDashboard && (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches))) {
-                  document.documentElement.classList.add('dark');
-                } else {
-                  document.documentElement.classList.remove('dark');
-                }
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
 
                 var storedLang = localStorage.getItem('app_language');
                 if (storedLang === 'ar') {

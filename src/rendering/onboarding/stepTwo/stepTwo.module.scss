@@ -1,0 +1,244 @@
+@use '../../../scss/main.scss' as *;
+@use '../../../scss/breakpoints/breakpoints.scss' as *;
+@use '../../../scss/font/font.scss' as *;
+
+/* Main Content Grid */
+.mainGrid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 48px;
+    align-items: center;
+
+    @include respond-to('lg') {
+        gap: 36px;
+    }
+
+    @include respond-to('md') {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+}
+
+/* Left Column */
+.leftColumn {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .titleBlock {
+        margin-bottom: 24px;
+
+        .mainTitle {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.15;
+            margin: 0 0 12px 0;
+            font-family: "Euclid-Bold", sans-serif;
+
+            .whiteTitle {
+                color: #FFFFFF;
+                font-size: 38px;
+                font-weight: 700;
+                letter-spacing: 0.6px;
+
+                @include respond-to('lg') {
+                    font-size: 32px;
+                }
+
+                @include respond-to('sm') {
+                    font-size: 26px;
+                }
+            }
+
+            .goldTitle {
+                @include heading-gold-gradient;
+                font-size: 38px;
+                font-weight: 700;
+                letter-spacing: 0.6px;
+
+                @include respond-to('lg') {
+                    font-size: 32px;
+                }
+
+                @include respond-to('sm') {
+                    font-size: 26px;
+                }
+            }
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 16px;
+            font-weight: 400;
+            margin: 0;
+            font-family: "Euclid-Regular", sans-serif;
+
+            @include respond-to('sm') {
+                font-size: 14px;
+            }
+        }
+    }
+
+    .optionsGrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+
+        @include respond-to('sm') {
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .fullWidthCard {
+            grid-column: span 2;
+
+            @include respond-to('sm') {
+                grid-column: span 1;
+            }
+        }
+
+        .optionCard {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 18px;
+            border-radius: 14px;
+            background: rgba(18, 18, 22, 0.75);
+            border: 1px solid rgba(193, 144, 46, 0.3);
+            cursor: pointer;
+            transition: all 0.22s ease;
+            user-select: none;
+
+            &:hover {
+                border-color: rgba(244, 209, 122, 0.65);
+                background: rgba(26, 26, 32, 0.9);
+                transform: translateY(-1px);
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+            }
+
+            &.selected {
+                border-color: #F4D17A;
+                background: rgba(35, 30, 20, 0.85);
+                box-shadow: 0 0 16px rgba(244, 209, 122, 0.22), inset 0 0 12px rgba(244, 209, 122, 0.06);
+            }
+
+            @include respond-to('sm') {
+                padding: 12px 14px;
+                gap: 12px;
+            }
+
+            .optionBadgeIcon {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(193, 144, 46, 0.14) 0%, rgba(10, 10, 12, 0.9) 100%);
+                border: 1.5px solid rgba(193, 144, 46, 0.55);
+                box-shadow: inset 0 0 10px rgba(193, 144, 46, 0.12), 0 0 12px rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+
+                svg {
+                    width: 24px;
+                    height: 24px;
+                    display: block;
+                }
+
+                @include respond-to('sm') {
+                    width: 44px;
+                    height: 44px;
+
+                    svg {
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+            }
+
+            .optionContent {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 3px;
+
+                .optionTitle {
+                    color: #FFFFFF;
+                    font-size: 16px;
+                    font-weight: 600;
+                    margin: 0;
+                    font-family: "Euclid-SemiBold", sans-serif;
+
+                    @include respond-to('sm') {
+                        font-size: 14.5px;
+                    }
+                }
+
+                .optionDesc {
+                    color: rgba(255, 255, 255, 0.6);
+                    font-size: 13px;
+                    font-weight: 400;
+                    margin: 0;
+                    line-height: 1.35;
+                    font-family: "Euclid-Regular", sans-serif;
+
+                    @include respond-to('sm') {
+                        font-size: 12px;
+                    }
+                }
+            }
+
+            .checkbox {
+                width: 22px;
+                height: 22px;
+                border-radius: 5px;
+                border: 1.5px solid rgba(193, 144, 46, 0.65);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                transition: all 0.2s ease;
+                background: transparent;
+
+                &.checked {
+                    background: #F4D17A;
+                    border-color: #F4D17A;
+                    box-shadow: 0 0 8px rgba(244, 209, 122, 0.4);
+                }
+
+                @include respond-to('sm') {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+        }
+    }
+}
+
+/* Right Column */
+.rightColumn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+
+    .graphicWrapper {
+        width: 100%;
+        max-width: 620px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .graphicImage {
+            width: 100%;
+            height: auto;
+            max-height: 480px;
+            object-fit: contain;
+            display: block;
+            border-radius: 16px;
+        }
+    }
+}

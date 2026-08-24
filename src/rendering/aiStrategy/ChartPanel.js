@@ -285,6 +285,12 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                 chartRef.current.priceLines.push(rLine);
             }
 
+            if (containerRef.current) {
+                const r = containerRef.current.getBoundingClientRect();
+                if (r.width > 0 && r.height > 0) {
+                    chart.applyOptions({ width: r.width, height: r.height });
+                }
+            }
             chart.timeScale().fitContent();
 
         } catch (err) {
@@ -299,35 +305,37 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
     useEffect(() => {
         if (!containerRef.current) return;
 
-        const isDark = theme === 'dark';
         const rect = containerRef.current.getBoundingClientRect();
+        const initialHeight = rect.height > 100 ? rect.height : (containerRef.current.clientHeight || 480);
+        const initialWidth = rect.width > 100 ? rect.width : (containerRef.current.clientWidth || 600);
+
         const chart = createChart(containerRef.current, {
-            width: rect.width || 600,
-            height: rect.height || 450,
+            width: initialWidth,
+            height: initialHeight,
             layout: {
                 background: { type: 'solid', color: 'transparent' },
-                textColor: isDark ? '#94a3b8' : '#64748b',
+                textColor: '#F4D17A',
                 fontSize: 11,
-                fontFamily: "'Outfit', sans-serif",
+                fontFamily: "'Euclid-Medium', sans-serif",
                 attributionLogo: false,
             },
             grid: {
-                vertLines: { color: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(18, 18, 18, 0.04)' },
-                horzLines: { color: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(18, 18, 18, 0.04)' },
+                vertLines: { color: 'rgba(193, 144, 46, 0.1)' },
+                horzLines: { color: 'rgba(193, 144, 46, 0.1)' },
             },
             crosshair: {
-                vertLine: { color: isDark ? 'rgba(96, 165, 250, 0.25)' : '#0B56DB30', width: 1 },
-                horzLine: { color: isDark ? 'rgba(96, 165, 250, 0.25)' : '#0B56DB30', width: 1 },
+                vertLine: { color: 'rgba(244, 209, 122, 0.4)', width: 1 },
+                horzLine: { color: 'rgba(244, 209, 122, 0.4)', width: 1 },
             },
             timeScale: {
-                borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(18, 18, 18, 0.08)',
+                borderColor: 'rgba(193, 144, 46, 0.25)',
                 timeVisible: true,
                 secondsVisible: false,
                 rightOffset: 10,
                 barSpacing: 8,
             },
             rightPriceScale: {
-                borderColor: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(18, 18, 18, 0.08)',
+                borderColor: 'rgba(193, 144, 46, 0.25)',
                 scaleMargins: { top: 0.05, bottom: 0.04 },
             },
         });
@@ -564,42 +572,43 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                 <div className={styles.chartTitleArea}>
                     <h3>{symbol}</h3>
                     <span className={styles.chartTimeframeBadge}>{timeframe}</span>
-                    {activePrice && (
-                        <div className={styles.chartHeaderOHLCInfo}>
-                            <div className={styles.ohlcItem}>
-                                <span className={styles.ohlcLabel}>O</span>
-                                <span className={`${styles.ohlcValue} ${colorClass}`}>
-                                    {formatPairCurrency(displayOpen, symbol)}
-                                </span>
-                            </div>
-                            <div className={styles.ohlcItem}>
-                                <span className={styles.ohlcLabel}>H</span>
-                                <span className={`${styles.ohlcValue} ${colorClass}`}>
-                                    {formatPairCurrency(displayHigh, symbol)}
-                                </span>
-                            </div>
-                            <div className={styles.ohlcItem}>
-                                <span className={styles.ohlcLabel}>L</span>
-                                <span className={`${styles.ohlcValue} ${colorClass}`}>
-                                    {formatPairCurrency(displayLow, symbol)}
-                                </span>
-                            </div>
-                            <div className={styles.ohlcItem}>
-                                <span className={styles.ohlcLabel}>C</span>
-                                <span className={`${styles.ohlcValue} ${colorClass}`}>
-                                    {formatPairCurrency(displayClose, symbol)}
-                                </span>
-                            </div>
-                            {displayChange !== undefined && displayChangePct !== undefined && (
-                                <div className={styles.ohlcItem}>
-                                    <span className={`${styles.ohlcValue} ${colorClass}`}>
-                                        {displayChange >= 0 ? '+' : ''}{formatPairCurrency(displayChange, symbol)} ({displayChange >= 0 ? '+' : ''}{displayChangePct.toFixed(2)}%)
-                                    </span>
-                                </div>
-                            )}
+                </div>
+
+                {activePrice && (
+                    <div className={styles.chartHeaderOHLCInfo}>
+                        <div className={styles.ohlcItem}>
+                            <span className={styles.ohlcLabel}>O</span>
+                            <span className={`${styles.ohlcValue} ${colorClass}`}>
+                                {formatPairCurrency(displayOpen, symbol)}
+                            </span>
                         </div>
-                    )}
-                </div>               
+                        <div className={styles.ohlcItem}>
+                            <span className={styles.ohlcLabel}>H</span>
+                            <span className={`${styles.ohlcValue} ${colorClass}`}>
+                                {formatPairCurrency(displayHigh, symbol)}
+                            </span>
+                        </div>
+                        <div className={styles.ohlcItem}>
+                            <span className={styles.ohlcLabel}>L</span>
+                            <span className={`${styles.ohlcValue} ${colorClass}`}>
+                                {formatPairCurrency(displayLow, symbol)}
+                            </span>
+                        </div>
+                        <div className={styles.ohlcItem}>
+                            <span className={styles.ohlcLabel}>C</span>
+                            <span className={`${styles.ohlcValue} ${colorClass}`}>
+                                {formatPairCurrency(displayClose, symbol)}
+                            </span>
+                        </div>
+                        {displayChange !== undefined && displayChangePct !== undefined && (
+                            <div className={styles.ohlcItem}>
+                                <span className={`${styles.ohlcValue} ${colorClass}`}>
+                                    {displayChange >= 0 ? '+' : ''}{formatPairCurrency(displayChange, symbol)} ({displayChange >= 0 ? '+' : ''}{displayChangePct.toFixed(2)}%)
+                                </span>
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
 
             <div className={styles.chartCanvasContainer}>
@@ -635,23 +644,20 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                 )}
             </div>
 
-            {/* Custom Chart Legend moved to the end of the chart */}
+            {/* Custom Chart Legend */}
             <div className={styles.chartLegendContainer}>
                 <div className={styles.chartLegend}>
                     <div className={styles.legendItem}>
                         <span className={`${styles.legendColor} ${styles.ema20}`} />
-                        <span>EMA 20 </span>
-
+                        <span>EMA 20</span>
                     </div>
                     <div className={styles.legendItem}>
                         <span className={`${styles.legendColor} ${styles.ema50}`} />
-                        <span>EMA 50 </span>
-
+                        <span>EMA 50</span>
                     </div>
                     <div className={styles.legendItem}>
                         <span className={`${styles.legendColor} ${styles.supertrend}`} />
-                        <span>SuperTrend </span>
-
+                        <span>SuperTrend</span>
                     </div>
                 </div>
             </div>

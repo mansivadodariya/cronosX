@@ -33,7 +33,7 @@ export default function Header() {
                     <Button 
                         text="Get Started" 
                         icon={RightIcon} 
-                        // onClick={() => authNavigate(router, '/dashboard')} 
+                        onClick={() => authNavigate(router, '/dashboard')} 
                     />
                 </div>
             </div>
