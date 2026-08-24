@@ -570,23 +570,37 @@ $danger: #ef4444;
             justify-content: flex-end;
             gap: 12px;
             margin-top: 8px;
-
-            .cancelFormBtn {
-                background: transparent;
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                color: rgba(255, 255, 255, 0.8);
-                border-radius: 8px;
-                padding: 10px 20px;
-                font-size: 13px;
-                font-weight: 600;
-                cursor: pointer;
-
-                &:hover {
-                    background: rgba(255, 255, 255, 0.08);
-                    color: #FFFFFF;
-                }
-            }
         }
+    }
+}
+
+.cancelFormBtn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(193, 144, 46, 0.4);
+    color: #F4D17A;
+    border-radius: 99px;
+    padding: 13px 26px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    outline: none;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+        background: rgba(193, 144, 46, 0.16);
+        border-color: #F4D17A;
+        color: #FFFFFF;
+        box-shadow: 0 0 18px rgba(244, 209, 122, 0.25);
+        transform: translateY(-1px);
+    }
+
+    &:active {
+        transform: translateY(0) scale(0.97);
     }
 }
 
@@ -1023,7 +1037,8 @@ $danger: #ef4444;
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        gap: 10px;
+        gap: 12px;
+        margin-top: 8px;
     }
 }
 

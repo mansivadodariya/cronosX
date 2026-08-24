@@ -103,9 +103,9 @@ const Topbar = ({ onMenuClick }) => {
 
       <div className={styles.right}>
         {/* Sun / Dark Mode Aesthetic Button */}
-        <button className={styles.themeToggle} aria-label="Theme" type="button">
+        {/* <button className={styles.themeToggle} aria-label="Theme" type="button">
           <SunIcon />
-        </button>
+        </button> */}
 
         {/* Language Selector */}
         <LanguageToggle />

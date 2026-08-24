@@ -514,9 +514,8 @@ export default function Dashboard() {
                                     <span className={styles.watchName}>{item.name}</span>
                                 </div>
                                 <span
-                                    className={`${styles.watchSignalBadge} ${
-                                        item.signal.includes('BUY') ? styles.sigBuy : item.signal.includes('SELL') ? styles.sigSell : styles.sigNeutral
-                                    }`}
+                                    className={`${styles.watchSignalBadge} ${item.signal.includes('BUY') ? styles.sigBuy : item.signal.includes('SELL') ? styles.sigSell : styles.sigNeutral
+                                        }`}
                                 >
                                     {item.signal}
                                 </span>
@@ -557,7 +556,7 @@ export default function Dashboard() {
                 </div>
             </section>
 
-          
+
 
             {/* 6. Split Section: Recent Activity & AI Quick Hub */}
             <div className={styles.splitBottomGrid}>

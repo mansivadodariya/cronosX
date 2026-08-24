@@ -1109,7 +1109,7 @@ export default function Profile() {
                             </div>
                             <div className={styles.modalFooter}>
                                 <button type="button" className={styles.cancelFormBtn} onClick={() => setShowPasswordModal(false)}>
-                                    Cancel
+                                    {t('common.cancel', 'Cancel')}
                                 </button>
                                 <Button
                                     text="Update Password"

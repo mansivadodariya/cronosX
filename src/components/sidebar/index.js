@@ -21,7 +21,7 @@ import { getBidiProps } from '@/lib/bidi';
 import { supabase } from '@/lib/supabaseClient';
 
 const BrandTextLogo = "/assets/logo/logo.png";
-const SmallLogo = "/assets/logo/smallLogo.svg";
+const SmallLogo = "/assets/logo/smallLogo.png";
 
 const LiveAnalysisIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
