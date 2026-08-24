@@ -74,26 +74,29 @@
     }
 
     h2 {
-      @include heading-white-gradient;
-      font-size: 50px;
-      font-weight: 400;
-      line-height: 1.1;
-      text-transform: uppercase;
+      font-family: var(--font-syne), "Syne", sans-serif;
+      font-size: 46px;
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -1.2px;
+      color: #FFFFFF;
       margin: 0 0 14px 0;
-      font-family: var(--font-anton);
-      letter-spacing: 0.6px;
 
-      .goldText {
-        @include heading-gold-gradient;
-        display: inline-block;
+      .goldText, span {
+        background: linear-gradient(90deg, #FFFFFF 0%, #FFE693 50%, #D8A23B 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: inline;
       }
 
       @include respond-to("tab") {
-        font-size: 38px;
+        font-size: 34px;
+        letter-spacing: -0.8px;
       }
 
       @include respond-to("sm") {
-        font-size: 30px;
+        font-size: 28px;
       }
     }
 

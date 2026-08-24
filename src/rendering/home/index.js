@@ -10,6 +10,7 @@ import ChartAnalysis from './chartAnalysis'
 import BreakoutDetection from './breakoutDetection'
 import AiAnalyst from './aiAnalyst'
 import BeforeAfterComparison from './beforeAfterComparison'
+import MarketIntelligence from './marketIntelligence'
 import TeamUp from './teamUp'
 import Testimonials from './testimonials'
 import GlobalNetworkMap from './globalNetworkMap'
@@ -24,8 +25,9 @@ export default function HomePage() {
             {/* <Platform /> */}
             <Capabilities />
             <BeforeAfterComparison />
-            {/* <AiAssistant /> */}
+            <MarketIntelligence />
             <HowitWorks />
+            {/* <AiAssistant /> */}
             <BreakoutDetection />
             <ChartAnalysis />
             <AiAnalyst />

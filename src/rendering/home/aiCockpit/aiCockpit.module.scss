@@ -46,29 +46,28 @@
     }
 
     h2 {
+      font-family: var(--font-syne), "Syne", sans-serif;
       color: #FFFFFF;
-      font-size: 38px;
+      font-size: 46px;
       font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -0.8px;
+      line-height: 1.12;
+      letter-spacing: -1.2px;
       margin: 0;
-      text-transform: uppercase;
-      @include font-bold;
 
       @include respond-to("md") {
-        font-size: 30px;
+        font-size: 34px;
+        letter-spacing: -0.8px;
       }
 
       @include respond-to("sm") {
-        font-size: 24px;
+        font-size: 28px;
       }
 
       span {
-        color: #FFE693;
-        background: linear-gradient(135deg, #FFE693 0%, #D8A23B 100%);
+        background: linear-gradient(90deg, #FFFFFF 0%, #FFE693 50%, #D8A23B 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        text-shadow: 0 0 24px rgba(255, 230, 147, 0.35);
+        background-clip: text;
       }
     }
 

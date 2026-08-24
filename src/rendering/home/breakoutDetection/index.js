@@ -104,8 +104,8 @@ export default function BreakoutDetection() {
                   <Textbutton text="REAL-TIME BREAKOUT DETECTION" />
                 </div>
                 <h2>
-                  CATCH THE MOVE THE <br />
-                  <span className={styles.goldText}>SECOND IT HAPPENS.</span>
+                  Catch the Move the <br />
+                  <span className={styles.goldText}>Second it Happens.</span>
                 </h2>
                 <p className={styles.subtext}>
                   Scroll through one trade idea: from approach to confirmation to alert. The chart pins; the narrative scrolls past it.

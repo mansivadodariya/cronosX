@@ -36,7 +36,7 @@ export default function Herobanner() {
 
   return (
     <div className={styles.herobanner}>
-      <video
+      {/* <video
         className={styles.bgVideo}
         autoPlay
         loop
@@ -45,7 +45,7 @@ export default function Herobanner() {
         preload="auto"
       >
         <source src="/assets/video/video.mp4" type="video/mp4" />
-      </video>
+      </video> */}
       <div className={styles.videoOverlay}></div>
       <SideRays
         rayColor1="#c1902e"
@@ -90,8 +90,8 @@ export default function Herobanner() {
               }
             }}
           >
-            TRADE SMARTER WITH <br />
-            <span>AI THAT NEVER SLEEPS</span>
+            Trade Smarter With <br />
+            <span>AI That Never Sleeps</span>
           </motion.h1>
 
           <motion.p

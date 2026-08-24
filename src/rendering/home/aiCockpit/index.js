@@ -5,33 +5,31 @@ import Textbutton from '@/components/textbutton';
 import styles from './aiCockpit.module.scss';
 
 
-const strategyTabs = [
-  { id: 'trendCloud', label: 'AI Trend Cloud', icon: 'cloud' },
-  { id: 'liquidity', label: 'Liquidity Sweeps', icon: 'waves' },
-  { id: 'volumetric', label: 'Volumetric Pulse', icon: 'pulse' },
-  { id: 'signals', label: 'AI Signals Pro', icon: 'sparkle' }
-];
-
-// Fallback generator for realistic XAU/USD gold candles
+// Fallback generator for realistic XAU/USD gold candles (Deterministic for SSR Hydration)
 function generateFallbackGoldCandles(count = 38, base = 2934.50) {
   const candles = [];
   let price = base * 0.985;
+  const baseTime = 1718000000000;
+
   for (let i = 0; i < count; i++) {
     const cycle = (i / count) * Math.PI * 2.2;
     const wave = Math.sin(cycle) * 6.5;
     const trend = i > count * 0.4 ? 0.8 : -0.3;
-    const delta = wave * 0.4 + trend + (Math.random() - 0.48) * 4.2;
+    // Deterministic pseudo-random variation
+    const pseudoRand1 = Math.sin(i * 12.9898) * 0.5;
+    const pseudoRand2 = Math.cos(i * 78.233) * 0.5 + 0.5;
+    const delta = wave * 0.4 + trend + pseudoRand1 * 4.2;
     
     const open = price;
     const close = Math.max(open * 0.98, open + delta);
     const spread = Math.abs(close - open);
-    const high = Math.max(open, close) + Math.random() * (spread * 0.8 + 2.5);
-    const low = Math.min(open, close) - Math.random() * (spread * 0.8 + 2.5);
-    const volume = Math.floor(Math.random() * 65 + 35);
+    const high = Math.max(open, close) + pseudoRand2 * (spread * 0.8 + 2.5);
+    const low = Math.min(open, close) - pseudoRand2 * (spread * 0.8 + 2.5);
+    const volume = Math.floor(pseudoRand2 * 65 + 35);
     
     price = close;
     candles.push({
-      time: Date.now() - (count - i) * 3600 * 1000,
+      time: baseTime + i * 3600 * 1000,
       open: Number(open.toFixed(2)),
       high: Number(high.toFixed(2)),
       low: Number(low.toFixed(2)),
@@ -44,7 +42,6 @@ function generateFallbackGoldCandles(count = 38, base = 2934.50) {
 }
 
 export default function AiCockpit() {
-  const [activeStrategy, setActiveStrategy] = useState('trendCloud');
   const [activeTimeframe, setActiveTimeframe] = useState('1H');
   const [livePrice, setLivePrice] = useState(2934.50);
   const [priceChangeText, setPriceChangeText] = useState('+$38.20 (+1.32%)');
@@ -182,8 +179,8 @@ export default function AiCockpit() {
     return () => clearInterval(tickInterval);
   }, []);
 
-  // Scaled Coordinates & Trend Cloud Calculations
-  const { minPrice, maxPrice, priceRange, svgWidth, svgHeight, chartPadding, candleSpacing, ema9Points, ema21Points } = useMemo(() => {
+  // Scaled Coordinates Calculations
+  const { minPrice, maxPrice, priceRange, svgWidth, svgHeight, chartPadding, candleSpacing } = useMemo(() => {
     const width = 640;
     const height = 460;
     const padding = { top: 34, bottom: 44, left: 16, right: 72 };
@@ -201,26 +198,6 @@ export default function AiCockpit() {
     const availableWidth = width - padding.left - padding.right;
     const spacing = availableWidth / Math.max(1, candles.length);
 
-    // Fast EMA (9 period)
-    const k9 = 2 / (9 + 1);
-    let ema9 = candles[0]?.close || min;
-    const pts9 = candles.map((c, i) => {
-      ema9 = c.close * k9 + ema9 * (1 - k9);
-      const x = padding.left + i * spacing + spacing / 2;
-      const y = height - padding.bottom - ((ema9 - min) / range) * (height - padding.top - padding.bottom);
-      return { x, y };
-    });
-
-    // Slow EMA (21 period)
-    const k21 = 2 / (21 + 1);
-    let ema21 = (candles[0]?.close || min) * 0.995;
-    const pts21 = candles.map((c, i) => {
-      ema21 = c.close * k21 + ema21 * (1 - k21);
-      const x = padding.left + i * spacing + spacing / 2;
-      const y = height - padding.bottom - ((ema21 - min) / range) * (height - padding.top - padding.bottom);
-      return { x, y };
-    });
-
     return {
       minPrice: min,
       maxPrice: max,
@@ -228,9 +205,7 @@ export default function AiCockpit() {
       svgWidth: width,
       svgHeight: height,
       chartPadding: padding,
-      candleSpacing: spacing,
-      ema9Points: pts9,
-      ema21Points: pts21
+      candleSpacing: spacing
     };
   }, [candles]);
 
@@ -247,14 +222,6 @@ export default function AiCockpit() {
   const currentLiveColor = isLastCandleBullish ? '#10B981' : '#F43F5E';
   const liveCandleX = chartPadding.left + (candles.length - 1) * candleSpacing + candleSpacing / 2;
 
-  // Trend Cloud Polygon
-  const trendCloudPolygon = useMemo(() => {
-    if (ema9Points.length < 2 || ema21Points.length < 2) return '';
-    const forward = ema9Points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
-    const backward = [...ema21Points].reverse().map(p => `L ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
-    return `${forward} ${backward} Z`;
-  }, [ema9Points, ema21Points]);
-
   return (
     <section className={styles.cockpitSection} aria-label="XAUUSD AI Trading Intelligence Terminal">
       <div className={styles.ambientBackdropGlow} aria-hidden="true" />
@@ -267,8 +234,8 @@ export default function AiCockpit() {
             <Textbutton text="AI INTELLIGENCE COCKPIT" />
           </div>
           <h2>
-            REAL-TIME LIVE TERMINAL. <br />
-            <span>PREDICTIVE COCKPIT.</span>
+            Real-Time Live Terminal. <br />
+            <span>Predictive Cockpit.</span>
           </h2>
           <p>
             Institutional-grade real-time market engine. Stream live gold tick candles, track composite AI conviction scores, and monitor volume flows in one unified terminal.
@@ -277,44 +244,6 @@ export default function AiCockpit() {
 
         {/* ONE MASTER UNIFIED BOX */}
         <div className={styles.masterTerminalBox}>
-
-          
-          {/* Top Strategy Selector Bar */}
-          <div className={styles.topStrategyBar}>
-            {strategyTabs.map((tab) => {
-              const isActive = activeStrategy === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  type="button"
-                  className={`${styles.strategyBtn} ${isActive ? styles.strategyActive : ''}`}
-                  onClick={() => setActiveStrategy(tab.id)}
-                >
-                  {tab.icon === 'cloud' && (
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
-                    </svg>
-                  )}
-                  {tab.icon === 'waves' && (
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>
-                    </svg>
-                  )}
-                  {tab.icon === 'pulse' && (
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-                    </svg>
-                  )}
-                  {tab.icon === 'sparkle' && (
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/>
-                    </svg>
-                  )}
-                  <span>{tab.label}</span>
-                </button>
-              );
-            })}
-          </div>
 
           {/* 2-Part Grid Layout */}
           <div className={styles.twoPartLayout}>
@@ -339,24 +268,11 @@ export default function AiCockpit() {
                     <span className={styles.dropdownSymbol}>XAU/USD</span>
                   </div>
 
-                  {/* Timeframe Pills */}
-                  <div className={styles.timeframeGroup}>
-                    {['1m', '5m', '15m', '1H', '1D'].map((tf) => (
-                      <button
-                        key={tf}
-                        type="button"
-                        className={`${styles.tfBtn} ${activeTimeframe === tf ? styles.tfBtnActive : ''}`}
-                        onClick={() => setActiveTimeframe(tf)}
-                      >
-                        {tf}
-                      </button>
-                    ))}
-                  </div>
                 </div>
 
                 <div className={styles.strategyBadge}>
                   <span className={styles.beaconDot} />
-                  <span>AI TREND CLOUD</span>
+                  <span>AI LIVE FEED</span>
                 </div>
               </div>
 
@@ -391,13 +307,6 @@ export default function AiCockpit() {
                   preserveAspectRatio="none"
                 >
                   <defs>
-                    {/* Shaded Trend Cloud Channel Gradient in Theme Gold */}
-                    <linearGradient id="cloudFillGradGold" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#FFE693" stopOpacity="0.32" />
-                      <stop offset="50%" stopColor="#D8A23B" stopOpacity="0.18" />
-                      <stop offset="100%" stopColor="#9E6B17" stopOpacity="0.05" />
-                    </linearGradient>
-
                     {/* Volume Gradients */}
                     <linearGradient id="volBullGrad" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="0%" stopColor="#10B981" stopOpacity="0.65" />
@@ -407,14 +316,6 @@ export default function AiCockpit() {
                       <stop offset="0%" stopColor="#F43F5E" stopOpacity="0.65" />
                       <stop offset="100%" stopColor="#F43F5E" stopOpacity="0.12" />
                     </linearGradient>
-
-                    {/* Theme Gold Glow Filters for Both Thin EMA Lines */}
-                    <filter id="goldLineGlowBright" x="-20%" y="-20%" width="140%" height="140%">
-                      <feDropShadow dx="0" dy="0" stdDeviation="1.5" floodColor="#FFE693" floodOpacity="0.65" />
-                    </filter>
-                    <filter id="goldLineGlowDeep" x="-20%" y="-20%" width="140%" height="140%">
-                      <feDropShadow dx="0" dy="0" stdDeviation="1.5" floodColor="#D8A23B" floodOpacity="0.5" />
-                    </filter>
                   </defs>
 
                   {/* 2. Volume Profile Histogram Bars */}
@@ -484,41 +385,7 @@ export default function AiCockpit() {
                     );
                   })}
 
-                  {/* 4. Fast EMA Line (Thin Bright Gold) */}
-                  {ema9Points.length > 1 && (
-                    <path
-                      d={ema9Points.reduce((acc, pt, i, arr) => {
-                        if (i === 0) return `M ${pt.x} ${pt.y}`;
-                        const prev = arr[i - 1];
-                        const cx = (prev.x + pt.x) / 2;
-                        return `${acc} Q ${prev.x} ${prev.y}, ${cx} ${(prev.y + pt.y) / 2} T ${pt.x} ${pt.y}`;
-                      }, '')}
-                      fill="none"
-                      stroke="#FFE693"
-                      strokeWidth="1.3"
-                      filter="url(#goldLineGlowBright)"
-                    />
-                  )}
-
-                  {/* 5. Slow EMA Line (Thin Deep Amber Gold) */}
-                  {ema21Points.length > 1 && (
-                    <path
-                      d={ema21Points.reduce((acc, pt, i, arr) => {
-                        if (i === 0) return `M ${pt.x} ${pt.y}`;
-                        const prev = arr[i - 1];
-                        const cx = (prev.x + pt.x) / 2;
-                        return `${acc} Q ${prev.x} ${prev.y}, ${cx} ${(prev.y + pt.y) / 2} T ${pt.x} ${pt.y}`;
-                      }, '')}
-                      fill="none"
-                      stroke="#D8A23B"
-                      strokeWidth="1.1"
-                      filter="url(#goldLineGlowDeep)"
-                    />
-                  )}
-
-
-
-                  {/* 6. Dashed Laser Price Line (Color-Matched to Bullish Green / Bearish Red) */}
+                  {/* Dashed Laser Price Line (Color-Matched to Bullish Green / Bearish Red) */}
                   <line
                     x1={chartPadding.left}
                     y1={currentPriceY}

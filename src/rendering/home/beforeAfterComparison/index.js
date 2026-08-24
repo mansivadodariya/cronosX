@@ -22,7 +22,7 @@ const candlesData = [
   { open: 442, high: 448, low: 425, close: 430 },
   { open: 430, high: 465, low: 422, close: 458 },
   { open: 458, high: 472, low: 445, close: 450 },
-  { open: 450, high: 468, low: 438, close: 462 }, // Candle 16 - Normal Sell
+  { open: 450, high: 468, low: 438, close: 462 }, // Candle 16 - Sell Signal Pullback
   { open: 462, high: 470, low: 418, close: 424 }, 
   { open: 424, high: 445, low: 420, close: 438 },
   { open: 438, high: 448, low: 430, close: 434 },
@@ -33,7 +33,7 @@ const candlesData = [
   { open: 442, high: 458, low: 430, close: 452 },
   { open: 452, high: 475, low: 448, close: 468 },
   { open: 468, high: 482, low: 405, close: 415 }, // Candle 26 - Sweep & TP2
-  { open: 415, high: 488, low: 410, close: 482 }, // Candle 27 - SMRT Buy
+  { open: 415, high: 488, low: 410, close: 482 }, // Candle 27 - Buy Signal
   { open: 482, high: 495, low: 475, close: 488 },
   { open: 488, high: 492, low: 460, close: 468 },
   { open: 468, high: 485, low: 462, close: 480 },
@@ -48,16 +48,16 @@ const candlesData = [
   { open: 522, high: 540, low: 515, close: 535 },
   { open: 535, high: 552, low: 528, close: 545 },
   { open: 545, high: 568, low: 540, close: 560 },
-  { open: 560, high: 585, low: 555, close: 572 }, // Candle 42 - SMRT Sell Peak
+  { open: 560, high: 585, low: 555, close: 572 }, // Candle 42 - Sell Signal Peak
   { open: 572, high: 578, low: 538, close: 542 },
   { open: 542, high: 555, low: 532, close: 548 },
   { open: 548, high: 558, low: 530, close: 536 },
   { open: 536, high: 546, low: 522, close: 540 },
   { open: 540, high: 548, low: 512, close: 518 },
   { open: 518, high: 528, low: 488, close: 495 },
-  { open: 495, high: 512, low: 462, close: 468 }, // Candle 49 - Sharp Sell Dump
+  { open: 495, high: 512, low: 462, close: 468 }, // Candle 49 - Sharp Sell Dump & Sweep
   { open: 468, high: 490, low: 460, close: 484 },
-  { open: 484, high: 522, low: 480, close: 515 }, // Strong V-Rally
+  { open: 484, high: 522, low: 480, close: 515 }, // Candle 50 - Buy Signal V-Rally
   { open: 515, high: 538, low: 508, close: 532 },
   { open: 532, high: 552, low: 525, close: 546 },
   { open: 546, high: 562, low: 540, close: 555 },
@@ -70,53 +70,69 @@ const candlesData = [
 
 export default function BeforeAfterComparison() {
   const [sliderPos, setSliderPos] = useState(50); // percentage 0 - 100
-  const [isDragging, setIsDragging] = useState(false);
+  const isDraggingRef = useRef(false);
   const containerRef = useRef(null);
+  const rafId = useRef(null);
 
-  // Handle Drag / Touch Move to update slider position smoothly
+  // Handle Drag / Touch Move to update slider position smoothly with 0ms delay
   const updatePosition = useCallback((clientX) => {
     if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
-    setSliderPos(percentage);
+    if (rafId.current) cancelAnimationFrame(rafId.current);
+
+    rafId.current = requestAnimationFrame(() => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+      setSliderPos(percentage);
+    });
   }, []);
 
   const onPointerDown = (e) => {
-    setIsDragging(true);
+    isDraggingRef.current = true;
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch (_) {}
     updatePosition(e.clientX);
   };
 
   const onPointerMove = (e) => {
-    if (isDragging) {
+    if (isDraggingRef.current) {
       updatePosition(e.clientX);
     }
   };
 
-  const onPointerUp = () => {
-    setIsDragging(false);
+  const onPointerUp = (e) => {
+    isDraggingRef.current = false;
+    try {
+      if (e?.currentTarget && e.currentTarget.hasPointerCapture(e.pointerId)) {
+        e.currentTarget.releasePointerCapture(e.pointerId);
+      }
+    } catch (_) {}
   };
 
   useEffect(() => {
     const handleWindowPointerMove = (e) => {
-      if (isDragging) updatePosition(e.clientX);
+      if (isDraggingRef.current) updatePosition(e.clientX);
     };
-    const handleWindowPointerUp = () => setIsDragging(false);
+    const handleWindowPointerUp = () => {
+      isDraggingRef.current = false;
+    };
 
-    if (isDragging) {
-      window.addEventListener('pointermove', handleWindowPointerMove);
-      window.addEventListener('pointerup', handleWindowPointerUp);
-    }
+    window.addEventListener('pointermove', handleWindowPointerMove, { passive: true });
+    window.addEventListener('pointerup', handleWindowPointerUp, { passive: true });
+
     return () => {
+      if (rafId.current) cancelAnimationFrame(rafId.current);
       window.removeEventListener('pointermove', handleWindowPointerMove);
       window.removeEventListener('pointerup', handleWindowPointerUp);
     };
-  }, [isDragging, updatePosition]);
+  }, [updatePosition]);
 
   // Chart dimensions & scaling
   const width = 960;
   const height = 480;
-  const padding = { top: 40, bottom: 40, left: 15, right: 195 };
+  const padding = { top: 45, bottom: 55, left: 35, right: 185 };
   const chartWidth = width - padding.left - padding.right;
   const chartHeight = height - padding.top - padding.bottom;
 
@@ -131,9 +147,9 @@ export default function BeforeAfterComparison() {
   const candleWidth = chartWidth / candlesData.length;
   const currentPrice = candlesData[candlesData.length - 1].close;
 
-  // Gridlines Data
-  const horizontalGridLines = [410, 440, 470, 500, 530, 560, 590];
-  const verticalGridLines = Array.from({ length: 16 }, (_, i) => padding.left + i * (chartWidth / 15));
+  // Gridlines Data (Continuous across full width 0 to 960px and full height)
+  const verticalGridLines = Array.from({ length: 25 }, (_, i) => i * (width / 24));
+  const horizontalGridLines = [390, 420, 450, 480, 510, 540, 570, 600];
 
   return (
     <section className={styles.comparisonSection} aria-label="Before vs After Algorithm Comparison">
@@ -145,8 +161,8 @@ export default function BeforeAfterComparison() {
             <Textbutton text="BEFORE vs AFTER ALGORITHM" />
           </div>
           <h2>
-            SEE THE DIFFERENCE. <br />
-            <span>RAW CHART vs CHRONOSX ALGO.</span>
+            See the Difference. <br />
+            <span>Raw Chart vs ChronosX Algo.</span>
           </h2>
           <p className={styles.subtext}>
             Transform noisy raw market price action into institutional trade execution setups. Drag the slider to reveal high-impact AI Buy/Sell signals, liquidity sweeps, and multi-timeframe backtest confluence.
@@ -166,7 +182,7 @@ export default function BeforeAfterComparison() {
           <div className={styles.layerBefore}>
             <div className={styles.badgeBefore}>BEFORE</div>
             
-            <svg viewBox={`0 0 ${width} ${height}`} className={styles.svgChart} preserveAspectRatio="xMidYMid meet">
+            <svg viewBox={`0 0 ${width} ${height}`} className={styles.svgChart} preserveAspectRatio="none">
               {/* Background Fine Grid Lines */}
               {verticalGridLines.map((x, i) => (
                 <line key={`vgrid-before-${i}`} x1={x} y1={0} x2={x} y2={height} stroke="rgba(255, 255, 255, 0.04)" strokeWidth="1" />
@@ -200,14 +216,34 @@ export default function BeforeAfterComparison() {
             </svg>
           </div>
 
-          {/* LAYER 2: AFTER SMRT ALGO (Full Signals Revealed Across Entire Chart Width) */}
+          {/* LAYER 2: AFTER CHRONOSX ALGO (Full Signals Revealed Across Entire Chart Width) */}
           <div 
             className={styles.layerAfter}
             style={{ clipPath: `polygon(${sliderPos}% 0, 100% 0, 100% 100%, ${sliderPos}% 100%)` }}
           >
-            <div className={styles.badgeAfter}>AFTER SMRT ALGO</div>
+            <div className={styles.badgeAfter}>CHRONOSX ALGORITHM</div>
 
-            <svg viewBox={`0 0 ${width} ${height}`} className={styles.svgChart} preserveAspectRatio="xMidYMid meet">
+            <svg viewBox={`0 0 ${width} ${height}`} className={styles.svgChart} preserveAspectRatio="none">
+              <defs>
+                {/* Sell Badge Gradient & Glow */}
+                <linearGradient id="sellBadgeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#F43F5E" />
+                  <stop offset="100%" stopColor="#BE123C" />
+                </linearGradient>
+                <filter id="sellBadgeGlow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feDropShadow dx="0" dy="3" stdDeviation="4" floodColor="#F43F5E" floodOpacity="0.45" />
+                </filter>
+
+                {/* Buy Badge Gradient & Glow */}
+                <linearGradient id="buyBadgeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#10B981" />
+                  <stop offset="100%" stopColor="#047857" />
+                </linearGradient>
+                <filter id="buyBadgeGlow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feDropShadow dx="0" dy="3" stdDeviation="4" floodColor="#10B981" floodOpacity="0.45" />
+                </filter>
+              </defs>
+
               {/* Background Fine Grid Lines */}
               {verticalGridLines.map((x, i) => (
                 <line key={`vgrid-after-${i}`} x1={x} y1={0} x2={x} y2={height} stroke="rgba(255, 255, 255, 0.04)" strokeWidth="1" />
@@ -216,35 +252,24 @@ export default function BeforeAfterComparison() {
                 <line key={`hgrid-after-${i}`} x1={0} y1={priceToY(price)} x2={width} y2={priceToY(price)} stroke="rgba(255, 255, 255, 0.04)" strokeWidth="1" />
               ))}
 
-              {/* Shaded Liquidity Imbalance Zones Across Chart */}
-              {/* Zone 1: Left Dip Support */}
-              <rect x={padding.left + 5 * candleWidth} y={priceToY(470)} width={90} height={18} fill="rgba(38, 166, 154, 0.22)" rx="3" />
-              {/* Zone 2: Middle Resistance Block */}
-              <rect x={padding.left + 16 * candleWidth} y={priceToY(475)} width={110} height={20} fill="rgba(236, 72, 153, 0.22)" rx="3" stroke="#EC4899" strokeDasharray="3 3" strokeWidth="1" />
-              {/* Zone 3: SMRT Buy Base Corridor */}
-              <rect x={padding.left + 26 * candleWidth} y={priceToY(445)} width={100} height={22} fill="rgba(38, 166, 154, 0.28)" rx="3" stroke="#26A69A" strokeWidth="1" />
-              {/* Zone 4: Top Right Peak Liquidity Corridor */}
-              <rect x={padding.left + 40 * candleWidth} y={priceToY(582)} width={140} height={26} fill="rgba(236, 72, 153, 0.28)" rx="3" />
-              <rect x={padding.left + 40 * candleWidth} y={priceToY(495)} width={140} height={22} fill="rgba(38, 166, 154, 0.25)" rx="3" />
-
               {/* Dotted Level Lines with Volume Labels Across Chart */}
-              <line x1={padding.left + 40 * candleWidth} y1={priceToY(576)} x2={width - padding.right + 10} y2={priceToY(576)} stroke="#EC4899" strokeDasharray="3 3" strokeWidth="1.2" />
-              <text x={width - padding.right + 15} y={priceToY(576) + 4} fill="#EC4899" fontSize="10" fontFamily="monospace" fontWeight="bold">576.825K (100%)</text>
+              <line x1={padding.left + 40 * candleWidth} y1={priceToY(576)} x2={width - padding.right + 10} y2={priceToY(576)} stroke="#EF5350" strokeDasharray="3 3" strokeWidth="1.2" />
+              <text x={width - padding.right + 15} y={priceToY(576) + 4} fill="#EF5350" fontSize="10" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="bold">576.825K (100%)</text>
 
               <line x1={padding.left + 40 * candleWidth} y1={priceToY(495)} x2={width - padding.right + 10} y2={priceToY(495)} stroke="#38BDF8" strokeDasharray="3 3" strokeWidth="1.2" />
-              <text x={width - padding.right + 15} y={priceToY(495) + 4} fill="#38BDF8" fontSize="10" fontFamily="monospace" fontWeight="bold">404.007K (77%)</text>
+              <text x={width - padding.right + 15} y={priceToY(495) + 4} fill="#38BDF8" fontSize="10" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="bold">404.007K (77%)</text>
 
               <line x1={padding.left + 40 * candleWidth} y1={priceToY(462)} x2={width - padding.right + 10} y2={priceToY(462)} stroke="#38BDF8" strokeDasharray="3 3" strokeWidth="1.2" />
-              <text x={width - padding.right + 15} y={priceToY(462) + 4} fill="#38BDF8" fontSize="10" fontFamily="monospace" fontWeight="bold">1.431M (22%)</text>
+              <text x={width - padding.right + 15} y={priceToY(462) + 4} fill="#38BDF8" fontSize="10" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="bold">1.431M (22%)</text>
 
               {/* Current Price Dotted Baseline */}
-              <line x1={0} y1={priceToY(currentPrice)} x2={width - padding.right} y2={priceToY(currentPrice)} stroke="#EF5350" strokeDasharray="3 3" strokeWidth="1.2" />
+              <line x1={0} y1={priceToY(currentPrice)} x2={width - padding.right} y2={priceToY(currentPrice)} stroke="#EF4444" strokeDasharray="3 3" strokeWidth="1.2" />
 
-              {/* High-Density Candlesticks Render */}
+              {/* High-Density Candlesticks Render (Crisp Green & Red) */}
               {candlesData.map((c, i) => {
                 const x = padding.left + i * candleWidth + candleWidth / 2;
                 const isBull = c.close >= c.open;
-                const color = isBull ? '#26A69A' : '#EF5350';
+                const color = isBull ? '#26A69A' : '#EF4444';
                 const yTop = priceToY(Math.max(c.open, c.close));
                 const yBot = priceToY(Math.min(c.open, c.close));
                 const hBody = Math.max(2, yBot - yTop);
@@ -260,61 +285,71 @@ export default function BeforeAfterComparison() {
                 );
               })}
 
-              {/* SIGNAL 1 (LEFT SWING): Weak Buy ★ 3 & TP3 */}
-              <g transform={`translate(${padding.left + 6 * candleWidth - 34}, ${priceToY(445) + 12})`}>
-                <rect width="68" height="24" rx="5" fill="#0D9488" />
-                <text x="34" y="11" fill="#FFFFFF" fontSize="9" fontFamily="monospace" fontWeight="800" textAnchor="middle">Weak Buy</text>
-                <text x="34" y="20" fill="#FFE693" fontSize="8.5" fontFamily="monospace" fontWeight="800" textAnchor="middle">★ 3</text>
-                <polygon points="34,-4 29,1 39,1" fill="#0D9488" />
+              {/* SIGNAL 1 (PEAK 1 SHORT): Sell Signal $545.00 */}
+              <g transform={`translate(${padding.left + 2 * candleWidth - 40}, ${priceToY(545) - 40})`} filter="url(#sellBadgeGlow)">
+                <rect width="80" height="27" rx="6" fill="url(#sellBadgeGrad)" stroke="rgba(255, 255, 255, 0.28)" strokeWidth="0.8" />
+                <polygon points="40,32 35,27 45,27" fill="#BE123C" />
+                <text x="40" y="11.5" fill="#FFFFFF" fontSize="8" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" letterSpacing="0.6" textAnchor="middle">SELL SIGNAL</text>
+                <text x="40" y="22.5" fill="#FFE693" fontSize="9.5" fontFamily="system-ui, -apple-system, monospace" fontWeight="800" textAnchor="middle">$545.00</text>
               </g>
-              <line x1={padding.left + 2 * candleWidth} y1={priceToY(545)} x2={padding.left + 8 * candleWidth} y2={priceToY(545)} stroke="#34D399" strokeDasharray="3 3" strokeWidth="1" />
-              <circle cx={padding.left + 2.5 * candleWidth} cy={priceToY(545)} r="3.5" fill="#34D399" />
-              <text x={padding.left + 2.5 * candleWidth - 6} y={priceToY(545) - 6} fill="#34D399" fontSize="9" fontFamily="monospace" fontWeight="bold">TP3</text>
+              <line x1={padding.left + 2 * candleWidth} y1={priceToY(472)} x2={padding.left + 8 * candleWidth} y2={priceToY(472)} stroke="#EF5350" strokeDasharray="3 3" strokeWidth="1" />
+              <circle cx={padding.left + 7.5 * candleWidth} cy={priceToY(472)} r="3.5" fill="#EF5350" />
+              <text x={padding.left + 7.5 * candleWidth - 6} y={priceToY(472) - 6} fill="#EF5350" fontSize="9" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="bold">TP1</text>
 
-              {/* SIGNAL 2 (MIDDLE SWING): Normal Sell ★ 3 & TP1 / TP2 & Sweep */}
-              <g transform={`translate(${padding.left + 16 * candleWidth - 36}, ${priceToY(470) - 48})`}>
-                <rect width="72" height="24" rx="5" fill="#E11D48" />
-                <text x="36" y="11" fill="#FFFFFF" fontSize="9" fontFamily="monospace" fontWeight="800" textAnchor="middle">Normal Sell</text>
-                <text x="36" y="20" fill="#FFE693" fontSize="8.5" fontFamily="monospace" fontWeight="800" textAnchor="middle">★ 3</text>
-                <polygon points="36,28 31,24 41,24" fill="#E11D48" />
-              </g>
+              <line x1={padding.left + 8 * candleWidth} y1={priceToY(430)} x2={padding.left + 16 * candleWidth} y2={priceToY(430)} stroke="#EF5350" strokeDasharray="3 3" strokeWidth="1" />
+              <circle cx={padding.left + 15.5 * candleWidth} cy={priceToY(430)} r="3.5" fill="#EF5350" />
+              <text x={padding.left + 15.5 * candleWidth - 6} y={priceToY(430) + 12} fill="#EF5350" fontSize="9" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="bold">TP2</text>
 
-              <line x1={padding.left + 17 * candleWidth} y1={priceToY(430)} x2={padding.left + 22 * candleWidth} y2={priceToY(430)} stroke="#EC4899" strokeDasharray="3 3" strokeWidth="1" />
-              <circle cx={padding.left + 21 * candleWidth} cy={priceToY(430)} r="3.5" fill="#EC4899" />
-              <text x={padding.left + 21 * candleWidth - 6} y={priceToY(430) + 12} fill="#EC4899" fontSize="9" fontFamily="monospace" fontWeight="bold">TP1</text>
+              <circle cx={padding.left + 26 * candleWidth} cy={priceToY(405)} r="3.5" fill="#EF5350" />
+              <text x={padding.left + 26 * candleWidth - 6} y={priceToY(405) + 12} fill="#EF5350" fontSize="9" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="bold">TP3</text>
 
-              <circle cx={padding.left + 26 * candleWidth} cy={priceToY(405)} r="3.5" fill="#EC4899" />
-              <text x={padding.left + 26 * candleWidth - 6} y={priceToY(405) + 12} fill="#EC4899" fontSize="9" fontFamily="monospace" fontWeight="bold">TP2</text>
-
-              <g transform={`translate(${padding.left + 26 * candleWidth}, ${priceToY(405) + 26})`}>
-                <text x="0" y="0" fill="#38BDF8" fontSize="12" fontWeight="bold" textAnchor="middle">✕</text>
-                <text x="0" y="12" fill="#38BDF8" fontSize="9" fontFamily="monospace" fontWeight="bold" textAnchor="middle">Sweep</text>
+              {/* SIGNAL 2 (BOTTOM 1 LONG): Buy Signal $410.00 */}
+              <g transform={`translate(${padding.left + 27 * candleWidth - 40}, ${priceToY(410) + 10})`} filter="url(#buyBadgeGlow)">
+                <polygon points="40,-5 35,0 45,0" fill="#10B981" />
+                <rect width="80" height="27" rx="6" fill="url(#buyBadgeGrad)" stroke="rgba(255, 255, 255, 0.28)" strokeWidth="0.8" />
+                <text x="40" y="11.5" fill="#FFFFFF" fontSize="8" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" letterSpacing="0.6" textAnchor="middle">BUY SIGNAL</text>
+                <text x="40" y="22.5" fill="#E6FFFA" fontSize="9.5" fontFamily="system-ui, -apple-system, monospace" fontWeight="800" textAnchor="middle">$410.00</text>
               </g>
 
-              {/* SIGNAL 3 (BREAKOUT BASE): SMRT Buy ★ 3 */}
-              <g transform={`translate(${padding.left + 27 * candleWidth - 36}, ${priceToY(410) + 8})`}>
-                <rect width="72" height="24" rx="5" fill="#10B981" />
-                <text x="36" y="11" fill="#FFFFFF" fontSize="9" fontFamily="monospace" fontWeight="800" textAnchor="middle">SMRT Buy</text>
-                <text x="36" y="20" fill="#FFE693" fontSize="8.5" fontFamily="monospace" fontWeight="800" textAnchor="middle">★ 3</text>
-                <polygon points="36,-4 31,1 41,1" fill="#10B981" />
+              <line x1={padding.left + 27 * candleWidth} y1={priceToY(500)} x2={padding.left + 32 * candleWidth} y2={priceToY(500)} stroke="#26A69A" strokeDasharray="3 3" strokeWidth="1" />
+              <circle cx={padding.left + 31.5 * candleWidth} cy={priceToY(500)} r="3.5" fill="#26A69A" />
+              <text x={padding.left + 31.5 * candleWidth - 6} y={priceToY(500) - 6} fill="#26A69A" fontSize="9" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="bold">TP1</text>
+
+              <line x1={padding.left + 32 * candleWidth} y1={priceToY(542)} x2={padding.left + 37 * candleWidth} y2={priceToY(542)} stroke="#26A69A" strokeDasharray="3 3" strokeWidth="1" />
+              <circle cx={padding.left + 36.5 * candleWidth} cy={priceToY(542)} r="3.5" fill="#26A69A" />
+              <text x={padding.left + 36.5 * candleWidth - 6} y={priceToY(542) - 6} fill="#26A69A" fontSize="9" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="bold">TP2</text>
+
+              <line x1={padding.left + 37 * candleWidth} y1={priceToY(576)} x2={padding.left + 42 * candleWidth} y2={priceToY(576)} stroke="#26A69A" strokeDasharray="3 3" strokeWidth="1" />
+              <circle cx={padding.left + 41.5 * candleWidth} cy={priceToY(576)} r="3.5" fill="#26A69A" />
+              <text x={padding.left + 41.5 * candleWidth - 6} y={priceToY(576) - 6} fill="#26A69A" fontSize="9" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="bold">TP3</text>
+
+              {/* SIGNAL 3 (TOP PEAK SHORT): Sell Signal $585.00 */}
+              <g transform={`translate(${padding.left + 42 * candleWidth - 40}, ${priceToY(585) - 40})`} filter="url(#sellBadgeGlow)">
+                <rect width="80" height="27" rx="6" fill="url(#sellBadgeGrad)" stroke="rgba(255, 255, 255, 0.28)" strokeWidth="0.8" />
+                <polygon points="40,32 35,27 45,27" fill="#BE123C" />
+                <text x="40" y="11.5" fill="#FFFFFF" fontSize="8" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" letterSpacing="0.6" textAnchor="middle">SELL SIGNAL</text>
+                <text x="40" y="22.5" fill="#FFE693" fontSize="9.5" fontFamily="system-ui, -apple-system, monospace" fontWeight="800" textAnchor="middle">$585.00</text>
               </g>
 
-              {/* SIGNAL 4 (TOP PEAK): SMRT Sell ★ 3 & TP1 & Right Sweep */}
-              <g transform={`translate(${padding.left + 42 * candleWidth - 36}, ${priceToY(585) - 52})`}>
-                <rect width="72" height="26" rx="6" fill="#F43F5E" />
-                <text x="36" y="12" fill="#FFFFFF" fontSize="9.5" fontFamily="monospace" fontWeight="800" textAnchor="middle">SMRT Sell</text>
-                <text x="36" y="22" fill="#FFE693" fontSize="9" fontFamily="monospace" fontWeight="800" textAnchor="middle">★ 3</text>
-                <polygon points="36,31 31,26 41,26" fill="#F43F5E" />
+              <line x1={padding.left + 42 * candleWidth} y1={priceToY(536)} x2={padding.left + 46 * candleWidth} y2={priceToY(536)} stroke="#EF5350" strokeDasharray="3 3" strokeWidth="1" />
+              <circle cx={padding.left + 45.5 * candleWidth} cy={priceToY(536)} r="3.5" fill="#EF5350" />
+              <text x={padding.left + 45.5 * candleWidth - 6} y={priceToY(536) + 12} fill="#EF5350" fontSize="9" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="bold">TP1</text>
+
+              <line x1={padding.left + 46 * candleWidth} y1={priceToY(495)} x2={padding.left + 48 * candleWidth} y2={priceToY(495)} stroke="#EF5350" strokeDasharray="3 3" strokeWidth="1" />
+              <circle cx={padding.left + 47.5 * candleWidth} cy={priceToY(495)} r="3.5" fill="#EF5350" />
+              <text x={padding.left + 47.5 * candleWidth - 6} y={priceToY(495) + 12} fill="#EF5350" fontSize="9" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="bold">TP2</text>
+
+              {/* SIGNAL 4 (V-REVERSAL LONG): Buy Signal $462.00 */}
+              <g transform={`translate(${padding.left + 50 * candleWidth - 40}, ${priceToY(460) + 10})`} filter="url(#buyBadgeGlow)">
+                <polygon points="40,-5 35,0 45,0" fill="#10B981" />
+                <rect width="80" height="27" rx="6" fill="url(#buyBadgeGrad)" stroke="rgba(255, 255, 255, 0.28)" strokeWidth="0.8" />
+                <text x="40" y="11.5" fill="#FFFFFF" fontSize="8" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" letterSpacing="0.6" textAnchor="middle">BUY SIGNAL</text>
+                <text x="40" y="22.5" fill="#E6FFFA" fontSize="9.5" fontFamily="system-ui, -apple-system, monospace" fontWeight="800" textAnchor="middle">$462.00</text>
               </g>
 
-              <line x1={padding.left + 44 * candleWidth} y1={priceToY(590)} x2={width - padding.right} y2={priceToY(590)} stroke="#34D399" strokeDasharray="4 4" strokeWidth="1.2" />
-              <circle cx={padding.left + 46 * candleWidth} cy={priceToY(590)} r="4" fill="#34D399" />
-              <text x={padding.left + 46 * candleWidth - 8} y={priceToY(590) - 8} fill="#34D399" fontSize="10" fontFamily="monospace" fontWeight="bold">TP1</text>
-
-              <g transform={`translate(${padding.left + 49 * candleWidth}, ${priceToY(462) + 12})`}>
-                <text x="0" y="0" fill="#38BDF8" fontSize="13" fontWeight="bold" textAnchor="middle">✕</text>
-                <text x="0" y="14" fill="#38BDF8" fontSize="9.5" fontFamily="monospace" fontWeight="bold" textAnchor="middle">Sweep</text>
-              </g>
+              <line x1={padding.left + 50 * candleWidth} y1={priceToY(555)} x2={padding.left + 55 * candleWidth} y2={priceToY(555)} stroke="#26A69A" strokeDasharray="3 3" strokeWidth="1" />
+              <circle cx={padding.left + 54.5 * candleWidth} cy={priceToY(555)} r="3.5" fill="#26A69A" />
+              <text x={padding.left + 54.5 * candleWidth - 6} y={priceToY(555) - 6} fill="#26A69A" fontSize="9" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="bold">TP1</text>
             </svg>
 
             {/* MTF Telemetry & Backtest Table HUD Overlay */}

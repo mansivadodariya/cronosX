@@ -3,319 +3,262 @@
 @use '../../../scss/font/font.scss' as *;
 
 .teamUp {
-    padding: 100px 0 100px 0;
+  padding: 100px 0 100px 0;
+  position: relative;
+  overflow: hidden;
+  background: #05060A;
+
+  &::before {
+    background: radial-gradient(circle at 50% 25%, rgba(193, 144, 46, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 1300px;
+    width: 100%;
+    content: '';
+    height: 400px;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  :global(.container) {
     position: relative;
-    overflow: hidden;
+    z-index: 9;
+  }
 
-    &::before {
-        background-color: #C1902E;
-        position: absolute;
-        top: 20%;
-        left: 50%;
-        transform: translateX(-50%);
-        max-width: 1200px;
-        width: 100%;
-        content: '';
-        height: 100px;
-        opacity: .3;
-        z-index: 1;
-        filter: blur(100px);
+  .topBorderSvgWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 32px;
+    pointer-events: none;
+    z-index: 5;
+    overflow: visible;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  }
+
+  .gridWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 60px;
+    align-items: center;
+    padding: 30px 0 0 0;
+
+    @include respond-to("lg") {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+
+  /* Left Column */
+  .leftContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+
+    .badgeWrapper {
+      margin-bottom: 20px;
     }
 
-    :global(.container) {
-        position: relative;
-        z-index: 9;
+    .sectionHeading {
+      font-family: var(--font-syne), "Syne", sans-serif;
+      font-size: 46px;
+      font-weight: 800;
+      line-height: 1.14;
+      letter-spacing: -1.2px;
+      color: #FFFFFF;
+      margin: 0 0 18px 0;
+
+      span {
+        background: linear-gradient(90deg, #FFFFFF 0%, #FFE693 50%, #D8A23B 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      @include respond-to("tab") {
+        font-size: 34px;
+        letter-spacing: -0.8px;
+      }
     }
 
-    .topBorderSvgWrapper {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 32px;
-        pointer-events: none;
-        z-index: 5;
-        overflow: visible;
-
-        svg {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
+    .titleDivider {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, #F4D17A 0%, rgba(193, 144, 46, 0.2) 100%);
+      margin-bottom: 20px;
     }
 
+    .desc {
+      color: rgba(232, 234, 246, 0.7);
+      font-size: 16px;
+      line-height: 1.65;
+      margin: 0;
+      max-width: 480px;
+      @include font-normal;
 
-    .gridWrapper {
-        display: grid;
-        grid-template-columns: 1fr 530px;
-        gap: 60px;
-        align-items: flex-start;
-        padding: 60px 0 0 0;
-
-        @include respond-to("md") {
-            grid-template-columns: 1fr;
-            gap: 60px;
-        }
+      span {
+        color: #F4D17A;
+        font-weight: 600;
+      }
     }
+  }
 
-    .leftContent {
+  /* Right Column: 2x2 Bento Cards */
+  .rightContent {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .bentoGrid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+
+      @include respond-to("sm") {
+        grid-template-columns: 1fr;
+      }
+
+      .bentoCard {
+        background: #000000;
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 16px;
+        padding: 22px 20px;
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        justify-content: space-between;
         text-align: left;
-
-        .badgeWrapper {
-            margin-bottom: 24px;
-        }
-
-        h2 {
-            @include heading-white-gradient;
-            font-size: 52px;
-            font-weight: 400;
-            line-height: 1.15;
-            text-transform: uppercase;
-            font-family: var(--font-anton);
-            margin: 0 0 20px 0;
-
-            span {
-                @include heading-gold-gradient;
-                display: inline-block;
-            }
-
-            @include respond-to("tab") {
-                font-size: 38px;
-            }
-        }
-
-        .titleDivider {
-            width: 40px;
-            height: 2px;
-            background-color: #C1902E;
-            margin-bottom: 24px;
-        }
-
-        .desc {
-            color: #9c9a96;
-            font-size: 16px;
-            line-height: 1.6;
-            margin: 0 0 30px 0;
-            max-width: 500px;
-            @include font-normal;
-
-            span {
-                color: #F4D17A;
-                font-weight: 600;
-            }
-        }
-
-        .worldMap {
-            width: 100%;
-            max-width: 540px;
-            margin-top: 10px;
-
-            img {
-                width: 100%;
-                height: auto;
-                object-fit: contain;
-                display: block;
-            }
-        }
-    }
-
-    .rightCard {
-        border-radius: 10px;
-        padding: 36px 32px 32px 32px;
-        display: flex;
-        flex-direction: column;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        position: relative;
-        background-color: #ffffff05;
-        overflow: hidden;
-
-        transition: transform 0.4s ease, box-shadow 0.4s ease;
-
-        &::before {
-            content: "";
-            -webkit-mask-composite: xor;
-            pointer-events: none;
-            background: linear-gradient(#ffffff1a 0%, #9990 100%);
-            border-radius: 16px;
-            padding: 1.5px;
-            transition: background .35s, opacity .35s;
-            position: absolute;
-            inset: 0;
-            -webkit-mask-image: linear-gradient(#fff 0 0), linear-gradient(#fff 0 0);
-            -webkit-mask-position: 0 0, 0 0;
-            -webkit-mask-size: auto, auto;
-            -webkit-mask-repeat: repeat, repeat;
-            -webkit-mask-clip: content-box, border-box;
-            -webkit-mask-origin: content-box, border-box;
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            -webkit-mask-source-type: auto, auto;
-            mask-mode: match-source, match-source;
-        }
-
-        &::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            border-radius: 16px;
-            padding: 1.5px;
-            background: linear-gradient(0deg, #C1902E 0%, rgba(244, 209, 122, 0.6) 30%, rgba(193, 144, 46, 0.15) 60%, transparent 100%);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-            opacity: 0;
-            transform: translateY(4px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
+        transition: all 0.3s ease;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 
         &:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px -10px rgba(193, 144, 46, 0.2), inset 0 -4px 15px rgba(193, 144, 46, 0.08);
-
-            &::before {
-                opacity: 0.25;
-            }
-
-            &::after {
-                opacity: 1;
-                transform: translateY(0);
-            }
+          background: #06070C;
+          border-color: rgba(244, 209, 122, 0.4);
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95), 0 0 25px rgba(193, 144, 46, 0.15);
         }
 
-        .cardHeader {
-            font-size: 13px;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            text-align: left;
-            @include font-bold;
+        .bentoCardTop {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 14px;
 
-            span {
-                @include heading-gold-gradient;
-                display: inline-block;
-            }
-        }
-
-        .partnersList {
-            display: flex;
-            flex-direction: column;
-
-            .partnerItem {
-                display: flex;
-                align-items: flex-start;
-                gap: 20px;
-                padding: 20px 0;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-                text-align: left;
-
-                &:first-child {
-                    padding-top: 0;
-                }
-
-                &:last-child {
-                    border-bottom: none;
-                }
-
-                .iconWrapper {
-                    flex-shrink: 0;
-                    width: 44px;
-                    height: 44px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-
-                    img {
-                        width: 44px;
-                        height: 44px;
-                        display: block;
-                    }
-                }
-
-                .itemText {
-                    h3 {
-                        color: #ffffff;
-                        font-size: 17px;
-                        font-weight: 700;
-                        margin: 0 0 6px 0;
-                        @include font-bold;
-                    }
-
-                    p {
-                        color: #9c9a96;
-                        font-size: 13.5px;
-                        line-height: 1.5;
-                        margin: 0;
-                        @include font-normal;
-                    }
-                }
-            }
-        }
-
-        .bottomBanner {
-            margin-top: 24px;
-            border-radius: 18px;
-            border: 1px solid rgba(193, 144, 46, 0.25);
-            background: rgba(10, 8, 6, 0.9);
-            padding: 20px 24px;
+          .iconBox {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            text-align: left;
-            box-shadow: inset 0 0 15px rgba(193, 144, 46, 0.05);
+            justify-content: center;
 
-            .bannerText {
-                display: flex;
-                flex-direction: column;
-
-                h4 {
-                    @include heading-white-gradient;
-                    font-size: 17px;
-                    font-weight: 800;
-                    margin: 0 0 2px 0;
-                    letter-spacing: 0.5px;
-                    @include font-bold;
-                    display: inline-block;
-                }
-
-                h5 {
-                    @include heading-gold-gradient;
-                    font-size: 17px;
-                    font-weight: 800;
-                    margin: 0 0 8px 0;
-                    letter-spacing: 0.5px;
-                    @include font-bold;
-                    display: inline-block;
-                }
-
-                p {
-                    color: #9c9a96;
-                    font-size: 13px;
-                    margin: 0;
-                    @include font-normal;
-                }
+            img {
+              width: 22px;
+              height: 22px;
+              display: block;
             }
+          }
 
-            .bannerShield {
-                flex-shrink: 0;
-                width: 85px;
-                height: 75px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: contain;
-                    display: block;
-                }
-            }
+          .statPill {
+            font-size: 9.5px;
+            font-weight: 800;
+            letter-spacing: 0.6px;
+            color: #FFE693;
+            background: rgba(216, 162, 59, 0.12);
+            border: 1px solid rgba(216, 162, 59, 0.25);
+            border-radius: 4px;
+            padding: 2px 7px;
+            font-family: system-ui, monospace;
+          }
         }
+
+        .bentoTitle {
+          font-family: var(--font-syne), "Syne", sans-serif;
+          font-size: 16px;
+          font-weight: 800;
+          color: #FFFFFF;
+          margin: 0 0 8px 0;
+        }
+
+        .bentoDesc {
+          color: rgba(255, 255, 255, 0.62);
+          font-size: 12.5px;
+          line-height: 1.55;
+          margin: 0;
+          @include font-normal;
+        }
+      }
     }
+
+    /* Bottom Trust Vault Banner */
+    .trustBanner {
+      border-radius: 16px;
+      border: 1px solid rgba(193, 144, 46, 0.3);
+      background: radial-gradient(circle at 30% 50%, rgba(35, 28, 16, 0.95) 0%, rgba(12, 10, 6, 0.98) 100%);
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+      box-shadow: inset 0 0 20px rgba(193, 144, 46, 0.08), 0 10px 30px rgba(0, 0, 0, 0.6);
+
+      .bannerInfo {
+        display: flex;
+        flex-direction: column;
+
+        .verifiedTag {
+          font-family: system-ui, -apple-system, sans-serif;
+          font-size: 9.5px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          color: #FFE693;
+          text-transform: uppercase;
+          margin-bottom: 4px;
+        }
+
+        h4 {
+          font-family: var(--font-syne), "Syne", sans-serif;
+          font-size: 15px;
+          font-weight: 800;
+          color: #FFFFFF;
+          margin: 0 0 4px 0;
+          letter-spacing: 0.5px;
+        }
+
+        p {
+          color: rgba(255, 255, 255, 0.65);
+          font-size: 12px;
+          line-height: 1.45;
+          margin: 0;
+          max-width: 360px;
+        }
+      }
+
+      .shieldVisual {
+        flex-shrink: 0;
+        width: 60px;
+        height: 54px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          display: block;
+          filter: drop-shadow(0 0 12px rgba(244, 209, 122, 0.45));
+        }
+      }
+    }
+  }
 }

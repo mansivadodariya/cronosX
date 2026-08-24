@@ -18,8 +18,8 @@ export default function Capabilities() {
               <Textbutton text="PLATFORM CAPABILITIES" />
             </div>
             <h2>
-              FOUR TOOLS. <br />
-              <span>ONE COCKPIT.</span>
+              Four Tools. <br />
+              <span>One Cockpit.</span>
             </h2>
           </div>
 

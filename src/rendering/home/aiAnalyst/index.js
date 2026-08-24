@@ -424,8 +424,8 @@ export default function AiAnalyst() {
                 <Textbutton text="CHRONOSX · AI MARKET ANALYST" />
               </div>
               <h2>
-                AI ON TOP OF INDICATORS. <br />
-                <span>NOT INSTEAD OF THEM.</span>
+                AI on Top of Indicators. <br />
+                <span>Not Instead of Them.</span>
               </h2>
               <p className={styles.leadDesc}>
                 The signals come from the indicators and the institutional algorithms. ChronosX reads them back to you — ask why a breakout fired, sort the heat list by sector, or pull the last MACD reversal, in plain English.
