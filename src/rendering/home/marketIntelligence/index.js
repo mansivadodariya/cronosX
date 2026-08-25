@@ -1,0 +1,560 @@
+"use client";
+import React, { useState, useEffect, useRef } from 'react';
+import styles from './marketIntelligence.module.scss';
+import Textbutton from '@/components/textbutton';
+
+export default function MarketIntelligence() {
+  const [flippedCards, setFlippedCards] = useState({ 0: false, 1: false, 2: false });
+  
+  const canvas1Ref = useRef(null);
+  const canvas2Ref = useRef(null);
+  const canvas3Ref = useRef(null);
+
+  // ----------------------------------------------------
+  // CANVAS 1: MULTI-TIMEFRAME (Exact Quant Algo Engine)
+  // ----------------------------------------------------
+  useEffect(() => {
+    const cv = canvas1Ref.current;
+    if (!cv) return;
+    const ctx = cv.getContext("2d");
+    let animationId;
+    let visible = true;
+
+    function wave(x, a, f, p) {
+      return Math.sin(x * f + p) * a;
+    }
+
+    function draw(t) {
+      const rect = cv.getBoundingClientRect();
+      const W = rect.width || 352;
+      const H = rect.height || 258;
+      const MY = H / 2;
+      const dpr = Math.min(window.devicePixelRatio || 2, 2);
+
+      if (cv.width !== W * dpr || cv.height !== H * dpr) {
+        cv.width = W * dpr;
+        cv.height = H * dpr;
+      }
+
+      ctx.save();
+      ctx.scale(dpr, dpr);
+      ctx.clearRect(0, 0, W, H);
+
+      const tfs = [
+        { c: "rgba(216,162,59,0.9)", a: H * 0.28, f: 0.015, lw: 2.5, l: "4H" },
+        { c: "rgba(244,209,122,0.65)", a: H * 0.18, f: 0.035, lw: 1.8, l: "1H" },
+        { c: "rgba(193,144,46,0.5)", a: H * 0.1, f: 0.07, lw: 1.2, l: "15m" }
+      ];
+
+      tfs.forEach((tf, i) => {
+        ctx.beginPath();
+        ctx.strokeStyle = tf.c;
+        ctx.lineWidth = tf.lw;
+        for (let x = 0; x < W; x++) {
+          const y = MY + wave(x, tf.a, tf.f, t * 8e-4 * (i + 1)) + wave(x, tf.a * 0.3, tf.f * 2.5, -t * 5e-4);
+          x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      });
+
+      const azX = W * 0.62 + Math.sin(t * 0.001) * 20;
+      ctx.fillStyle = "rgba(216,162,59,0.08)";
+      ctx.fillRect(azX - 20, 0, 40, H);
+      ctx.strokeStyle = "rgba(216,162,59,0.25)";
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(azX, 0);
+      ctx.lineTo(azX, H);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.fillStyle = "rgba(244,209,122,0.85)";
+      ctx.beginPath();
+      ctx.moveTo(azX, MY - 30);
+      ctx.lineTo(azX - 8, MY - 15);
+      ctx.lineTo(azX + 8, MY - 15);
+      ctx.fill();
+
+      ctx.font = '600 8px system-ui, -apple-system, sans-serif';
+      tfs.forEach((tf, i) => {
+        ctx.fillStyle = tf.c;
+        ctx.fillText(tf.l, 6, 18 + i * 14);
+      });
+
+      ctx.restore();
+
+      if (visible && !document.hidden) {
+        animationId = requestAnimationFrame(draw);
+      }
+    }
+
+    animationId = requestAnimationFrame(draw);
+    return () => cancelAnimationFrame(animationId);
+  }, []);
+
+  // ----------------------------------------------------
+  // CANVAS 2: ORDER FLOW (Exact Quant Algo Engine)
+  // ----------------------------------------------------
+  useEffect(() => {
+    const cv = canvas2Ref.current;
+    if (!cv) return;
+    const ctx = cv.getContext("2d");
+    let animationId;
+    let visible = true;
+
+    const N = 50;
+    const candles = [];
+    const baseH = 258;
+    let price = baseH * 0.5;
+
+    // Seed deterministic or realistic candle series
+    for (let i = 0; i < N; i++) {
+      const dir = (Math.sin(i * 1.7) > -0.1) ? 1 : -1;
+      const body = (Math.sin(i * 3.4) * 0.5 + 0.5) * 12 + 3;
+      const wick = (Math.cos(i * 2.1) * 0.5 + 0.5) * 8 + 2;
+      const o = price;
+      const c = price + dir * body;
+      const h = Math.max(o, c) + wick;
+      const l = Math.min(o, c) - wick;
+      candles.push({ o, c, h, l, bull: dir > 0 });
+      price = c + Math.sin(i * 0.8) * 4.5;
+      price = Math.max(baseH * 0.18, Math.min(baseH * 0.82, price));
+    }
+
+    const zones = [
+      { y: baseH * 0.25, h: 18, col: "rgba(216,162,59,0.1)", bor: "rgba(216,162,59,0.3)", x1: 3, x2: 18 },
+      { y: baseH * 0.58, h: 14, col: "rgba(244,209,122,0.06)", bor: "rgba(244,209,122,0.2)", x1: 12, x2: 30 },
+      { y: baseH * 0.72, h: 20, col: "rgba(193,144,46,0.07)", bor: "rgba(193,144,46,0.2)", x1: 25, x2: 45 }
+    ];
+
+    function draw(t) {
+      const rect = cv.getBoundingClientRect();
+      const W = rect.width || 352;
+      const H = rect.height || 258;
+      const dpr = Math.min(window.devicePixelRatio || 2, 2);
+
+      if (cv.width !== W * dpr || cv.height !== H * dpr) {
+        cv.width = W * dpr;
+        cv.height = H * dpr;
+      }
+
+      ctx.save();
+      ctx.scale(dpr, dpr);
+      ctx.clearRect(0, 0, W, H);
+
+      const cw = (W - 10) / N;
+
+      zones.forEach((z) => {
+        const x1 = z.x1 * cw + 5;
+        const x2 = z.x2 * cw + 5;
+        ctx.fillStyle = z.col;
+        ctx.fillRect(x1, z.y, x2 - x1, z.h);
+        ctx.strokeStyle = z.bor;
+        ctx.lineWidth = 0.5;
+        ctx.strokeRect(x1, z.y, x2 - x1, z.h);
+      });
+
+      ctx.strokeStyle = "rgba(255,77,106,0.25)";
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath();
+      ctx.moveTo(0, H * 0.15);
+      ctx.lineTo(W, H * 0.15);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      candles.forEach((c, i) => {
+        const x = i * cw + 5 + cw / 2;
+        const color = c.bull ? "rgba(0,214,143,0.8)" : "rgba(255,77,106,0.8)";
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.moveTo(x, c.h);
+        ctx.lineTo(x, c.l);
+        ctx.stroke();
+
+        ctx.fillStyle = color;
+        const top = Math.min(c.o, c.c);
+        const bh = Math.abs(c.c - c.o);
+        ctx.fillRect(x - cw * 0.35, top, cw * 0.7, Math.max(bh, 1));
+      });
+
+      [8, 22, 38].forEach((si, idx) => {
+        const c = candles[si];
+        if (!c) return;
+        const x = si * cw + 5 + cw / 2;
+        const y = c.bull ? c.l - 8 : c.h + 8;
+        const col = c.bull ? "rgba(216,162,59,0.95)" : "rgba(255,77,106,0.9)";
+        const glow = c.bull ? "rgba(216,162,59,0.3)" : "rgba(255,77,106,0.3)";
+        ctx.beginPath();
+        ctx.arc(x, y, 3 + Math.sin(t * 0.003 + idx), 0, Math.PI * 2);
+        ctx.fillStyle = col;
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(x, y, 6 + Math.sin(t * 0.003 + idx) * 2, 0, Math.PI * 2);
+        ctx.fillStyle = glow;
+        ctx.fill();
+      });
+
+      ctx.restore();
+
+      if (visible && !document.hidden) {
+        animationId = requestAnimationFrame(draw);
+      }
+    }
+
+    animationId = requestAnimationFrame(draw);
+    return () => cancelAnimationFrame(animationId);
+  }, []);
+
+  // ----------------------------------------------------
+  // CANVAS 3: SIGNAL FILTER (Exact Quant Algo Engine)
+  // ----------------------------------------------------
+  useEffect(() => {
+    const cv = canvas3Ref.current;
+    if (!cv) return;
+    const ctx = cv.getContext("2d");
+    let animationId;
+    let visible = true;
+
+    function draw(t) {
+      const rect = cv.getBoundingClientRect();
+      const W = rect.width || 352;
+      const H = rect.height || 258;
+      const MY = H / 2;
+      const dpr = Math.min(window.devicePixelRatio || 2, 2);
+
+      if (cv.width !== W * dpr || cv.height !== H * dpr) {
+        cv.width = W * dpr;
+        cv.height = H * dpr;
+      }
+
+      ctx.save();
+      ctx.scale(dpr, dpr);
+      ctx.clearRect(0, 0, W, H);
+
+      ctx.fillStyle = "rgba(255,77,106,0.04)";
+      ctx.fillRect(0, 0, W, H * 0.2);
+      ctx.fillStyle = "rgba(216,162,59,0.05)";
+      ctx.fillRect(0, H * 0.8, W, H * 0.2);
+
+      ctx.strokeStyle = "rgba(255,77,106,0.15)";
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath();
+      ctx.moveTo(0, H * 0.2);
+      ctx.lineTo(W, H * 0.2);
+      ctx.stroke();
+
+      ctx.strokeStyle = "rgba(216,162,59,0.2)";
+      ctx.beginPath();
+      ctx.moveTo(0, H * 0.8);
+      ctx.lineTo(W, H * 0.8);
+      ctx.stroke();
+
+      ctx.setLineDash([]);
+      ctx.strokeStyle = "rgba(255,255,255,0.05)";
+      ctx.beginPath();
+      ctx.moveTo(0, MY);
+      ctx.lineTo(W, MY);
+      ctx.stroke();
+
+      // Fast Wave (Gold)
+      ctx.beginPath();
+      ctx.strokeStyle = "rgba(216,162,59,0.9)";
+      ctx.lineWidth = 2;
+      for (let x = 0; x < W; x++) {
+        const y = MY + Math.sin(x * 0.025 + t * 0.001) * H * 0.35 + Math.sin(x * 0.06 - t * 5e-4) * H * 0.1;
+        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // Slow Wave (Purple)
+      ctx.beginPath();
+      ctx.strokeStyle = "rgba(194, 255, 97, 0.6)";
+      ctx.lineWidth = 1.5;
+      for (let x = 0; x < W; x++) {
+        const y = MY + Math.sin((x - 8) * 0.025 + t * 0.001) * H * 0.35 + Math.sin((x - 8) * 0.06 - t * 5e-4) * H * 0.1;
+        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // Synchronized Volume Squeeze Histogram Bars
+      for (let x = 0; x < W; x += 3) {
+        const val = Math.sin(x * 0.025 + t * 0.001) * H * 0.35 + Math.sin(x * 0.06 - t * 5e-4) * H * 0.1;
+        ctx.fillStyle = val > 0 ? "rgba(255,77,106,0.25)" : "rgba(216,162,59,0.28)";
+        ctx.fillRect(x, MY, 2, val * 0.3);
+      }
+
+      // Reversal Signal Dots
+      for (let x = 1; x < W; x++) {
+        const m = Math.sin(x * 0.025 + t * 0.001) * H * 0.35;
+        const s = Math.sin((x - 8) * 0.025 + t * 0.001) * H * 0.35;
+        const pm = Math.sin((x - 1) * 0.025 + t * 0.001) * H * 0.35;
+        const ps = Math.sin((x - 9) * 0.025 + t * 0.001) * H * 0.35;
+
+        if (pm <= ps && m > s && MY + m > MY + H * 0.2) {
+          ctx.beginPath();
+          ctx.arc(x, MY + m, 4 + Math.sin(t * 0.004), 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(255,77,106,0.9)";
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(x, MY + m, 8, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(255,77,106,0.3)";
+          ctx.fill();
+        }
+        if (pm >= ps && m < s && MY + m < MY - H * 0.2) {
+          ctx.beginPath();
+          ctx.arc(x, MY + m, 4 + Math.sin(t * 0.004), 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(216,162,59,0.95)";
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(x, MY + m, 8, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(216,162,59,0.3)";
+          ctx.fill();
+        }
+      }
+
+      ctx.font = '600 7px system-ui, -apple-system, sans-serif';
+      ctx.fillStyle = "rgba(255,77,106,0.35)";
+      ctx.fillText("OVERBOUGHT", 6, H * 0.2 - 4);
+      ctx.fillStyle = "rgba(216,162,59,0.4)";
+      ctx.fillText("OVERSOLD", 6, H * 0.8 + 12);
+
+      ctx.restore();
+
+      if (visible && !document.hidden) {
+        animationId = requestAnimationFrame(draw);
+      }
+    }
+
+    animationId = requestAnimationFrame(draw);
+    return () => cancelAnimationFrame(animationId);
+  }, []);
+
+  return (
+    <section className={styles.intelligenceSection} aria-label="Three layers of market intelligence">
+      <div className="container">
+
+        {/* Section Header */}
+        <div className={styles.headerLayout}>
+          <div className={styles.badgeWrapper}>
+            <Textbutton text="CHRONOSX CORE ENGINE" />
+          </div>
+          <h2>
+            Three layers of market <br />
+            <span>intelligence</span>
+          </h2>
+          <p>
+            ChronosX stacks institutional multi-timeframe validation, smart money order flow, and AI signal filtering into one unified trading suite.
+          </p>
+        </div>
+
+        {/* 3-Column Interactive Moving Cards with Hover Flip */}
+        <div className={styles.layersGrid}>
+
+          {/* CARD 1: MULTI-TIMEFRAME · CHRONOSX AI */}
+          <div 
+            className={styles.cardContainer} 
+            onMouseEnter={() => setFlippedCards(prev => ({ ...prev, 0: true }))}
+            onMouseLeave={() => setFlippedCards(prev => ({ ...prev, 0: false }))}
+          >
+            <div className={`${styles.cardInner} ${flippedCards[0] ? styles.flipped : ''}`}>
+
+              {/* FRONT: Live Canvas 1 (fc1c) */}
+              <div className={styles.cardFace}>
+                <div className={styles.terminalHeader}>
+                  <span className={styles.terminalTitle}>MULTI-TIMEFRAME · CHRONOSX AI</span>
+                  <div className={styles.liveBadge}>
+                    <span className={styles.liveDot}></span>
+                    <span>LIVE</span>
+                  </div>
+                </div>
+
+                <div className={styles.chartStage}>
+                  <canvas id="fc1c" ref={canvas1Ref} className={styles.canvasElement} />
+                </div>
+
+                <div className={styles.terminalFooter}>
+                  <span className={styles.footLeft}>4H · 1H · 15m</span>
+                  <span className={styles.footRight}>
+                    ▲ ALIGNED BULLISH
+                  </span>
+                </div>
+              </div>
+
+              {/* BACK: Deep Specifications */}
+              <div className={`${styles.cardFace} ${styles.cardBack}`}>
+                <div className={styles.backHeader}>
+                  <span className={styles.backLayerTag}>LAYER 01 — TIMEFRAME CONFLUENCE</span>
+                  <span className={styles.flipHint}>Hover to preview</span>
+                </div>
+
+                <h3 className={styles.backTitle}>Multi-Timeframe Trend Cascade</h3>
+                <p className={styles.backDesc}>
+                  Simultaneously analyzes 15m, 1H, 4H, and 1D market cycles in real time. Validates macro trend alignment before triggering entry confirmation.
+                </p>
+
+                <div className={styles.specList}>
+                  <div className={styles.specItem}>
+                    <span className={styles.specDot}>✦</span>
+                    <span>5-Timeframe Cascade Structure Sync</span>
+                  </div>
+                  <div className={styles.specItem}>
+                    <span className={styles.specDot}>✦</span>
+                    <span>100% Non-Repainting Confirmation Engine</span>
+                  </div>
+                  <div className={styles.specItem}>
+                    <span className={styles.specDot}>✦</span>
+                    <span>False-Breakout Noise Rejection Filter</span>
+                  </div>
+                </div>
+
+                <div className={styles.backFooter}>
+                  <span className={styles.metricTitle}>Confluence Win Rate</span>
+                  <span className={styles.metricValue}>94.8% ACCURACY</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+          {/* CARD 2: ORDER FLOW · TRADESNAP AI */}
+          <div 
+            className={styles.cardContainer} 
+            onMouseEnter={() => setFlippedCards(prev => ({ ...prev, 1: true }))}
+            onMouseLeave={() => setFlippedCards(prev => ({ ...prev, 1: false }))}
+          >
+            <div className={`${styles.cardInner} ${flippedCards[1] ? styles.flipped : ''}`}>
+
+              {/* FRONT: Live Canvas 2 (fc2c) */}
+              <div className={styles.cardFace}>
+                <div className={styles.terminalHeader}>
+                  <span className={styles.terminalTitle}>ORDER FLOW · TRADESNAP AI</span>
+                  <div className={styles.liveBadge}>
+                    <span className={styles.liveDot}></span>
+                    <span>LIVE</span>
+                  </div>
+                </div>
+
+                <div className={styles.chartStage}>
+                  <canvas id="fc2c" ref={canvas2Ref} className={styles.canvasElement} />
+                </div>
+
+                <div className={styles.terminalFooter}>
+                  <span className={styles.footLeft}>BTC/USDT · 4H</span>
+                  <div className={styles.legendGroup}>
+                    <span className={styles.legOb}>■ OB</span>
+                    <span className={styles.legFvg}>■ FVG</span>
+                    <span className={styles.legLiq}>■ Liquidity</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* BACK: Deep Specifications */}
+              <div className={`${styles.cardFace} ${styles.cardBack}`}>
+                <div className={styles.backHeader}>
+                  <span className={styles.backLayerTag}>LAYER 02 — SMART MONEY FLOW</span>
+                  <span className={styles.flipHint}>Hover to preview</span>
+                </div>
+
+                <h3 className={styles.backTitle}>Institutional Order Flow & Liquidity</h3>
+                <p className={styles.backDesc}>
+                  Scans institutional accumulation, manipulation sweeps, and algorithmic imbalances. Highlights high-probability Order Blocks and FVGs.
+                </p>
+
+                <div className={styles.specList}>
+                  <div className={styles.specItem}>
+                    <span className={styles.specDot}>✦</span>
+                    <span>Graded Order Block (OB) Validation</span>
+                  </div>
+                  <div className={styles.specItem}>
+                    <span className={styles.specDot}>✦</span>
+                    <span>Fair Value Gap (FVG) Mitigation Detection</span>
+                  </div>
+                  <div className={styles.specItem}>
+                    <span className={styles.specDot}>✦</span>
+                    <span>Liquidity Sweep & Stop-Hunt Tracking</span>
+                  </div>
+                </div>
+
+                <div className={styles.backFooter}>
+                  <span className={styles.metricTitle}>OB Reversal Strength</span>
+                  <span className={styles.metricValue}>AAA (94.2%)</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+          {/* CARD 3: SIGNAL FILTER · CHRONOSX PRO */}
+          <div 
+            className={styles.cardContainer} 
+            onMouseEnter={() => setFlippedCards(prev => ({ ...prev, 2: true }))}
+            onMouseLeave={() => setFlippedCards(prev => ({ ...prev, 2: false }))}
+          >
+            <div className={`${styles.cardInner} ${flippedCards[2] ? styles.flipped : ''}`}>
+
+              {/* FRONT: Live Canvas 3 (fc3c) */}
+              <div className={styles.cardFace}>
+                <div className={styles.terminalHeader}>
+                  <span className={styles.terminalTitle}>SIGNAL FILTER · CHRONOSX PRO</span>
+                  <div className={styles.liveBadge}>
+                    <span className={styles.liveDot}></span>
+                    <span>LIVE</span>
+                  </div>
+                </div>
+
+                <div className={styles.chartStage}>
+                  <canvas id="fc3c" ref={canvas3Ref} className={styles.canvasElement} />
+                </div>
+
+                <div className={styles.terminalFooter}>
+                  <span className={styles.footLeft}>WaveTrend + Squeeze Pro</span>
+                  <span className={`${styles.footRight} ${styles.buySignal}`}>
+                    ● BUY SIGNAL
+                  </span>
+                </div>
+              </div>
+
+              {/* BACK: Deep Specifications */}
+              <div className={`${styles.cardFace} ${styles.cardBack}`}>
+                <div className={styles.backHeader}>
+                  <span className={styles.backLayerTag}>LAYER 03 — EXECUTION TIMING</span>
+                  <span className={styles.flipHint}>Hover to preview</span>
+                </div>
+
+                <h3 className={styles.backTitle}>WaveTrend & Volumetric Squeeze</h3>
+                <p className={styles.backDesc}>
+                  Gauges market momentum exhaustion, volatility expansion, and institutional volume shifts to pinpoint sniper entries with optimal risk-to-reward.
+                </p>
+
+                <div className={styles.specList}>
+                  <div className={styles.specItem}>
+                    <span className={styles.specDot}>✦</span>
+                    <span>Dynamic Volatility Squeeze Bands</span>
+                  </div>
+                  <div className={styles.specItem}>
+                    <span className={styles.specDot}>✦</span>
+                    <span>Institutional Volume Pulse Engine</span>
+                  </div>
+                  <div className={styles.specItem}>
+                    <span className={styles.specDot}>✦</span>
+                    <span>Automated Take-Profit & SL Mapping (1:2.8+ R:R)</span>
+                  </div>
+                </div>
+
+                <div className={styles.backFooter}>
+                  <span className={styles.metricTitle}>Target Risk-to-Reward</span>
+                  <span className={styles.metricValue}>2.85 : 1 WIN RATIO</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}

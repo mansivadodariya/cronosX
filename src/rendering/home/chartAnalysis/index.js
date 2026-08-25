@@ -367,8 +367,8 @@ export default function ChartAnalysis() {
           </motion.div>
 
           <h2>
-            ANALYZE ANY TRADE <br />
-            SETUP IN <span>3 SIMPLE STEPS</span>
+            Analyze Any Trade <br />
+            Setup in <span>3 Simple Steps</span>
           </h2>
 
           <p className={styles.subtext}>

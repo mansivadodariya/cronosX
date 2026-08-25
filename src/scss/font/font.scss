@@ -48,8 +48,24 @@
 }
 
 @mixin heading-gold-gradient {
-    background: linear-gradient(180deg, #FFE693 0%, #D8A23B 45%, #9E6B17 85%, #E2AE48 100%);
+    background: linear-gradient(90deg, #FFFFFF 0%, #FFE693 50%, #D8A23B 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+@mixin common-title-heading {
+    font-family: var(--font-syne), "Syne", sans-serif;
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -1.2px;
+    color: #FFFFFF;
+
+    span {
+        background: linear-gradient(90deg, #FFFFFF 0%, #FFE693 50%, #D8A23B 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline;
+    }
 }
