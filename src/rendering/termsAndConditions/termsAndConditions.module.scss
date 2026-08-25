@@ -3,6 +3,9 @@
 
 .termsAndConditions {
     padding: 180px 0 80px 0;
+    min-height: 80vh;
+    background: #000000;
+    color: #ffffff;
 
     @include respond-to('md') {
         padding: 140px 0 60px 0;
@@ -16,28 +19,28 @@
         margin-bottom: 60px;
 
         h1 {
-            color: #1A1A1A;
-            font-size: 48px;
+            color: #FFFFFF;
+            font-size: 44px;
             font-weight: 700;
-            font-family: var(--font-plus-jakarta);
+            font-family: var(--font-plus-jakarta), sans-serif;
             margin-bottom: 16px;
 
             @include respond-to('md') {
-                font-size: 40px;
+                font-size: 36px;
             }
 
             @include respond-to('sm') {
-                font-size: 32px;
+                font-size: 28px;
             }
         }
 
         p {
-            color: #5F5F5F;
-            font-size: 18px;
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 16px;
             font-weight: 500;
 
             @include respond-to('sm') {
-                font-size: 16px;
+                font-size: 14px;
             }
         }
     }
@@ -51,11 +54,11 @@
             }
 
             h2 {
-                color: #1A1A1A;
-                font-size: 26px;
+                color: #FFFFFF;
+                font-size: 24px;
                 font-weight: 700;
-                margin-bottom: 20px;
-                font-family: var(--font-plus-jakarta);
+                margin-bottom: 18px;
+                font-family: var(--font-plus-jakarta), sans-serif;
                 position: relative;
                 padding-left: 16px;
 
@@ -63,26 +66,27 @@
                     content: '';
                     position: absolute;
                     left: 0;
-                    top: 5px;
-                    bottom: 5px;
+                    top: 4px;
+                    bottom: 4px;
                     width: 4px;
-                    background: #0B56DB;
+                    background: #F4D17A;
                     border-radius: 4px;
+                    box-shadow: 0 0 8px rgba(244, 209, 122, 0.4);
                 }
 
                 @include respond-to('md') {
-                    font-size: 24px;
+                    font-size: 20px;
                 }
 
                 @include respond-to('sm') {
-                    font-size: 20px;
-                    margin-bottom: 16px;
+                    font-size: 18px;
+                    margin-bottom: 14px;
                 }
             }
 
             p {
-                color: #5F5F5F;
-                font-size: 17px;
+                color: rgba(255, 255, 255, 0.75);
+                font-size: 16px;
                 line-height: 1.8;
                 margin-bottom: 16px;
 
@@ -91,28 +95,29 @@
                 }
 
                 @include respond-to('md') {
-                    font-size: 16px;
+                    font-size: 15px;
                 }
 
                 @include respond-to('sm') {
-                    font-size: 15px;
+                    font-size: 14px;
                     line-height: 1.6;
                 }
             }
 
             a {
-                color: #0B56DB;
+                color: #F4D17A;
                 text-decoration: none;
                 font-weight: 600;
                 transition: opacity 0.2s;
 
                 &:hover {
                     opacity: 0.8;
+                    text-decoration: underline;
                 }
             }
 
             strong {
-                color: #1A1A1A;
+                color: #FFFFFF;
             }
         }
     }

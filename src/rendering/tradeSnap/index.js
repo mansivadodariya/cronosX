@@ -15,6 +15,7 @@ import Modal from './Modal';
 import Loader from '@/components/loader';
 import { useLanguage } from '@/context/LanguageContext';
 import { getBidiProps } from '@/lib/bidi';
+import AiSnapDashboard from './components/AiSnapDashboard';
 import {
     MonitorIcon,
     MonitorOffIcon,
@@ -105,7 +106,7 @@ export default function TradeSnap() {
             const userAgent = typeof navigator !== 'undefined' ? (navigator.userAgent || '') : '';
             const isMobile = /iPhone|iPad|iPod|Android|Mobile/i.test(userAgent) ||
                 (typeof navigator !== 'undefined' && navigator.maxTouchPoints > 2 && /Macintosh/i.test(userAgent));
-
+            
             const hasDisplayMedia = typeof navigator !== 'undefined' &&
                 !!navigator.mediaDevices &&
                 typeof navigator.mediaDevices.getDisplayMedia === 'function';
@@ -622,20 +623,17 @@ export default function TradeSnap() {
 
     const renderVideoPlaceholder = (sharing, loadingText) => (
         <div className={styles.videoPlaceholder}>
-            <svg className={styles.placeholderIcon} width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="3" width="20" height="14" rx="2" />
-                <path d="M8 21h8M12 17v4" />
-            </svg>
+            <MonitorIcon className={styles.placeholderIcon} />
             <h3>
-                {sharing
-                    ? loadingText
+                {sharing 
+                    ? loadingText 
                     : (isScreenShareSupported ? t('tradeSnap.noScreenSharing', 'No screen sharing active') : t('tradeSnap.screenShareNotSupported', 'Screen sharing not supported'))}
             </h3>
             <p>
-                {sharing
-                    ? t('tradeSnap.waitScreenLoading', 'Please wait while we load your screen')
-                    : (isScreenShareSupported
-                        ? t('tradeSnap.clickStartSharing', 'Click "Start Sharing" to begin')
+                {sharing 
+                    ? t('tradeSnap.waitScreenLoading', 'Please wait while we load your screen') 
+                    : (isScreenShareSupported 
+                        ? t('tradeSnap.clickStartSharing', 'Click "Start Sharing" to begin') 
                         : t('tradeSnap.desktopRequiredDesc', 'Screen sharing is not supported on mobile Safari or iOS devices. Please open on desktop Chrome, Edge, or Mac Safari.'))}
             </p>
         </div>
@@ -681,45 +679,29 @@ export default function TradeSnap() {
         <div className={styles.tradeSnap}>
             <canvas ref={canvasRef} className={styles.hiddenCanvas} aria-hidden="true" />
 
-            {/* Top Hero Banner */}
-            <div className={styles.heroCard}>
-                <div className={styles.heroContent}>
-                    <div className={styles.heroHeaderRow}>
-                        <h2>{t('nav.aiTrade', 'AI Trade')}</h2>
-                        {/* <HistoryButton
-                            text={t('tradeSnap.history', 'History')}
-                            onClick={openHistory}
-                        /> */}
-                    </div>
-                    <p className={styles.heroSubtitle}>
-                        {t('tradeSnap.subtitle', 'Capture your screen, analyze chart movements, and get AI trade insights with single or multi-timeframe views.')}
-                    </p>
-                    <div className={styles.tabSwitcher}>
-                        <button
-                            type="button"
-                            className={activeTab === 'single' ? styles.tabActive : ''}
-                            onClick={() => requestTabSwitch('single')}
-                        >
-                            <MonitorIcon />
-                            {t('tradeSnap.singleTimeframe', 'Single Timeframe')}
-                        </button>
-                        <button
-                            type="button"
-                            className={activeTab === 'multi' ? styles.tabActive : ''}
-                            onClick={() => requestTabSwitch('multi')}
-                        >
-                            <ChartIcon />
-                            {t('tradeSnap.multiTimeframe', 'Multi Timeframe')}
-                        </button>
-                    </div>
+            <div className={styles.tabSwitcherRow}>
+                <div className={styles.tabSwitcher}>
+                    <button
+                        type="button"
+                        className={activeTab === 'single' ? styles.tabActive : ''}
+                        onClick={() => requestTabSwitch('single')}
+                    >
+                        <MonitorIcon />
+                        {t('tradeSnap.singleTimeframe', 'Single Timeframe')}
+                    </button>
+                    <button
+                        type="button"
+                        className={activeTab === 'multi' ? styles.tabActive : ''}
+                        onClick={() => requestTabSwitch('multi')}
+                    >
+                        <ChartIcon />
+                        {t('tradeSnap.multiTimeframe', 'Multi Timeframe')}
+                    </button>
                 </div>
-                <div className={styles.heroGraphic}>
-                    <img
-                        src="/assets/images/dashboard-bull.png"
-                        alt="AI Trade Bull"
-                        className={styles.bullImg}
-                    />
-                </div>
+                <HistoryButton
+                    text={t('tradeSnap.history', 'History')}
+                    onClick={openHistory}
+                />
             </div>
 
             <div className={`${styles.workspace} ${activeTab === 'multi' ? styles.workspaceMulti : ''}`}>
@@ -1002,14 +984,9 @@ export default function TradeSnap() {
                                                 Analysis at {formatted}
                                             </div>
                                             {analysis.data.map((trade, tradeIndex) => (
-                                                <AnalysisResultItem
+                                                <AiSnapDashboard
                                                     key={`trade-${analysisIndex}-${tradeIndex}`}
-                                                    trade={trade}
-                                                    index={tradeIndex}
-                                                    onViewDetails={(t) => {
-                                                        setSelectedAnalysis(t);
-                                                        setIsDetailModalOpen(true);
-                                                    }}
+                                                    rawData={trade}
                                                 />
                                             ))}
                                         </div>
@@ -1024,23 +1001,11 @@ export default function TradeSnap() {
             <Modal
                 open={isDetailModalOpen}
                 onClose={() => setIsDetailModalOpen(false)}
-                title="Analysis Details"
-                description="Detailed analysis of the selected trade"
+                title="AI Snap Technical Analysis Dashboard"
+                description="State-of-the-art AI market diagnosis and trade signal setup"
             >
-                {selectedAnalysis?.risk_reward && selectedAnalysis.risk_reward !== 'N/A' && (
-                    <div className={styles.riskReward}>
-                        <span>Risk/Reward</span>
-                        <strong>{selectedAnalysis.risk_reward}</strong>
-                    </div>
-                )}
-                {selectedAnalysis?.rationale && (
-                    <div className={styles.rationale}>
-                        <h4>Analysis</h4>
-                        <p>{selectedAnalysis.rationale}</p>
-                    </div>
-                )}
-                {selectedAnalysis?.entry?.includes('(') && (
-                    <p className={styles.entryNote}>{selectedAnalysis.entry.match(/\(([^)]+)\)/)?.[1]}</p>
+                {selectedAnalysis && (
+                    <AiSnapDashboard rawData={selectedAnalysis} />
                 )}
             </Modal>
 

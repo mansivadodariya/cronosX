@@ -71,9 +71,9 @@ const getMainNav = (t) => [
     ]
   },
   { label: t('nav.economicCalendar', 'Economic Calendar'), href: "/economic-calendar", icon: CalendarIcon },
-  { label: t('nav.creditHistory', 'Credit History'), href: "/credit-history", icon: CreditShieldIcon },
+  { label: t('nav.plans', 'Subscription Plans'), href: "/plans", icon: CrownIcon },
   { label: t('nav.broker', 'Broker'), href: "/broker", icon: BrokerBankIcon },
-  { label: t('nav.profile', 'Profile'), href: "/profile", icon: ProfileUserIcon },
+  { label: t('nav.profile', 'Settings'), href: "/profile", icon: ProfileUserIcon },
 ];
 
 /** Match current route to nav item (handles trailing slashes and nested paths). */
@@ -114,7 +114,6 @@ const NavItem = ({ item, pathname, onNavigate, isCollapsed }) => {
             <div className={styles.icon}>
               <Icon />
             </div>
-            <span className={styles.tooltip}>{item.label}</span>
             <div className={styles.flyoutMenu}>
               <div className={styles.flyoutHeader}>{item.label}</div>
               <div className={styles.flyoutList}>
@@ -360,12 +359,16 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
   };
 
   const rawNav = getMainNav(t);
-  const mainNav = visibleTabNames
+  const mainNav = visibleTabNames && visibleTabNames.size > 0
     ? rawNav.filter((item) => {
       const tabName = ROUTE_TAB_MAP[item.href] || item.label;
       return visibleTabNames.has(tabName.toLowerCase());
     })
-    : rawNav; // fallback to full list if permissions not restricting
+    : rawNav;
+
+  const hasPlansPermission = visibleTabNames && visibleTabNames.size > 0
+    ? visibleTabNames.has('subscription plans')
+    : true;
 
   return (
     <>
@@ -419,48 +422,50 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
 
         {/* Bottom Section: Upgrade Card & Profile Card */}
         <div className={styles.bottomSection}>
-          {/* Upgrade to Pro Card */}
-          {!isCollapsed ? (
-            <div
-              className={styles.upgradeCard}
-              onClick={() => {
-                handleNavigate();
-                router.push('/plans');
-              }}
-            >
-              <div className={styles.upgradeIcon}>
-                <CrownIcon />
-              </div>
-              <div className={styles.upgradeText}>
-                <span className={styles.upgradeSub}>{t('sidebar.upgradeTo', 'Upgrade to')}</span>
-                <span className={styles.upgradeMain}>{t('sidebar.proAccount', 'Pro Account')}</span>
-              </div>
-              <button
-                type="button"
-                className={styles.upgradeArrowBtn}
-                aria-label="Upgrade"
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#040300" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-          ) : (
-            <div className={styles.compactUpgradeBox}>
-              <button
-                type="button"
-                className={styles.compactUpgradeBtn}
+          {/* Upgrade to Pro Card - only shown if subscription plans tab is permitted */}
+          {hasPlansPermission && (
+            !isCollapsed ? (
+              <div
+                className={styles.upgradeCard}
                 onClick={() => {
                   handleNavigate();
                   router.push('/plans');
                 }}
               >
-                <CrownIcon />
-                <span className={styles.tooltip}>
-                  {t('sidebar.upgradeToPro', 'Upgrade to Pro')}
-                </span>
-              </button>
-            </div>
+                <div className={styles.upgradeIcon}>
+                  <CrownIcon />
+                </div>
+                <div className={styles.upgradeText}>
+                  <span className={styles.upgradeSub}>{t('sidebar.upgradeTo', 'Upgrade to')}</span>
+                  <span className={styles.upgradeMain}>{t('sidebar.proAccount', 'Pro Account')}</span>
+                </div>
+                <button
+                  type="button"
+                  className={styles.upgradeArrowBtn}
+                  aria-label="Upgrade"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#040300" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+            ) : (
+              <div className={styles.compactUpgradeBox}>
+                <button
+                  type="button"
+                  className={styles.compactUpgradeBtn}
+                  onClick={() => {
+                    handleNavigate();
+                    router.push('/plans');
+                  }}
+                >
+                  <CrownIcon />
+                  <span className={styles.tooltip}>
+                    {t('sidebar.upgradeToPro', 'Upgrade to Pro')}
+                  </span>
+                </button>
+              </div>
+            )
           )}
 
           {/* User Profile Card */}

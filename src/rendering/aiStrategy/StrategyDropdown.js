@@ -68,9 +68,12 @@ export default function StrategyDropdown({ strategies: propStrategies = [], sele
                 
                 // Handle various response wrappers
                 const list = Array.isArray(data) ? data : (data.strategies || data.data || []);
-                setStrategies(list);
-                if (list.length > 0) {
-                    const firstId = list[0].id || list[0].strategy_id;
+                const effectiveList = list.length > 0 ? list : [
+                    { id: '3e8d2b78-0e86-4fdf-9759-338276db1742', name: 'EMA Pullback Strategy', description: 'Trend Following EMA Pullback' }
+                ];
+                setStrategies(effectiveList);
+                if (effectiveList.length > 0) {
+                    const firstId = effectiveList[0].id || effectiveList[0].strategy_id;
                     setSelectedId(prev => prev || firstId);
                     if (onSelect && !initialSelectFiredRef.current) {
                         initialSelectFiredRef.current = true;
@@ -79,6 +82,16 @@ export default function StrategyDropdown({ strategies: propStrategies = [], sele
                 }
             } catch (err) {
                 console.error("Error fetching strategies:", err);
+                const fallbackList = [
+                    { id: '3e8d2b78-0e86-4fdf-9759-338276db1742', name: 'EMA Pullback Strategy', description: 'Trend Following EMA Pullback' }
+                ];
+                setStrategies(fallbackList);
+                const firstId = fallbackList[0].id;
+                setSelectedId(prev => prev || firstId);
+                if (onSelect && !initialSelectFiredRef.current) {
+                    initialSelectFiredRef.current = true;
+                    onSelect(firstId);
+                }
             } finally {
                 setLoading(false);
             }
