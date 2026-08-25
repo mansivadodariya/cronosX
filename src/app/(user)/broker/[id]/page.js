@@ -1,7 +1,7 @@
 import BrokerDetailPage from '@/rendering/broker/detail';
 
 export const metadata = {
-    title: 'Broker & Platform Details | Trader Master',
+    title: 'Broker & Platform Details | ChronosX',
     description: 'Explore full features, liquidity specs, and official links for verified trading partners.',
 };
 

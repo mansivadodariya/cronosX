@@ -21,6 +21,7 @@
     .left {
         display: flex;
         align-items: center;
+        gap: 12px;
 
         .menuBtn {
             display: none;
@@ -42,6 +43,20 @@
             &:hover {
                 color: #FFE79A;
                 transform: scale(1.05);
+            }
+        }
+
+        .pageTitle {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: #FFFFFF;
+            font-family: "Euclid-Bold", sans-serif;
+            letter-spacing: 0.2px;
+            white-space: nowrap;
+
+            @include respond-to('sm') {
+                font-size: 15px;
             }
         }
     }

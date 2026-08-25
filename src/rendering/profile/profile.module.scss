@@ -285,27 +285,15 @@ $danger: #ef4444;
             align-items: center;
             justify-content: center;
             box-shadow: 0 0 20px rgba(193, 144, 46, 0.25);
-        }
 
-        .cameraUploadBtn {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: #060706;
-            border: 1px solid #F4D17A;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-            transition: transform 0.2s ease;
-
-            &:hover {
-                transform: scale(1.1);
-                background: rgba(244, 209, 122, 0.2);
+            .avatarInitialsText {
+                font-size: 32px;
+                font-weight: 700;
+                color: #F4D17A;
+                font-family: "Euclid-Bold", sans-serif;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                user-select: none;
             }
         }
     }
@@ -377,33 +365,6 @@ $danger: #ef4444;
             color: rgba(255, 255, 255, 0.5);
             font-size: 12px;
             margin-top: 2px;
-        }
-    }
-
-    .heroRightEmblem {
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        @include respond-to('md') {
-            display: none;
-        }
-
-        .emblemImageContainer {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 2px solid rgba(193, 144, 46, 0.5);
-            box-shadow: 0 0 25px rgba(244, 209, 122, 0.35);
-            position: relative;
-
-            .crownImg {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
         }
     }
 }
@@ -659,51 +620,53 @@ $danger: #ef4444;
         }
     }
 
-    /* Portfolio Box */
-    .portfolioCardBox {
+    /* Credits Box */
+    .creditsCardBox {
         background: #080705;
         border: 1px solid $borderSubtle;
         border-radius: 12px;
         padding: 14px 16px;
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 10px;
 
-        .portfolioHead {
+        .creditsHead {
             display: flex;
             align-items: center;
             justify-content: space-between;
 
-            .portfolioLabel {
+            .creditsLabel {
                 color: rgba(255, 255, 255, 0.55);
                 font-size: 12px;
                 font-weight: 600;
             }
 
-            .eyeBtn {
+            .viewPlansBtn {
                 background: transparent;
                 border: none;
                 cursor: pointer;
                 padding: 0;
-                display: flex;
-                align-items: center;
+                color: #F4D17A;
+                font-size: 11.5px;
+                font-weight: 600;
+                transition: color 0.15s ease;
+
+                &:hover {
+                    color: #FFFFFF;
+                }
             }
         }
 
-        .portfolioValueRow {
+        .creditsValueRow {
             display: flex;
-            align-items: flex-end;
+            align-items: center;
             justify-content: space-between;
             gap: 10px;
 
-            .portfolioNumbers {
-                display: flex;
-                flex-direction: column;
-                gap: 4px;
-
-                .portfolioAmount {
+            .creditsNumbers {
+                .creditsAmount {
                     color: #FFFFFF;
-                    font-size: 20px;
+                    font-size: 22px;
                     font-weight: 700;
                     font-family: "Euclid-Bold", sans-serif;
                     margin: 0;
@@ -714,27 +677,6 @@ $danger: #ef4444;
                         font-weight: 600;
                     }
                 }
-
-                .portfolioChange {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 1px;
-
-                    .changeLabel {
-                        font-size: 10.5px;
-                        color: rgba(255, 255, 255, 0.45);
-                    }
-
-                    .changeValue {
-                        color: #34D399;
-                        font-size: 11.5px;
-                        font-weight: 700;
-                    }
-                }
-            }
-
-            .sparklineChart {
-                flex-shrink: 0;
             }
         }
     }
@@ -768,6 +710,23 @@ $danger: #ef4444;
                 color: #F4D17A;
                 font-weight: 700;
                 font-size: 12px;
+            }
+
+            .verifActionBtn {
+                background: rgba(244, 209, 122, 0.1);
+                border: 1px solid rgba(244, 209, 122, 0.3);
+                color: #F4D17A;
+                border-radius: 6px;
+                padding: 3px 8px;
+                font-size: 11px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.15s ease;
+
+                &:hover {
+                    background: rgba(244, 209, 122, 0.2);
+                    color: #FFFFFF;
+                }
             }
         }
     }
@@ -901,13 +860,13 @@ $danger: #ef4444;
     }
 }
 
-.securityActionsList, .preferencesList, .apiKeyList, .activityList {
+.securityActionsList, .activityList {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-.securityActionRow, .prefRow, .apiKeyBox, .activityItemRow {
+.securityActionRow {
     background: #0D0E13;
     border: 1px solid $borderSubtle;
     border-radius: 12px;
@@ -927,12 +886,138 @@ $danger: #ef4444;
         color: rgba(255, 255, 255, 0.5);
         font-size: 12px;
     }
+}
 
-    .keyText {
-        font-family: monospace;
-        color: #F4D17A;
-        font-size: 12px;
-        margin: 4px 0 0;
+.activityItemRow {
+    background: #0D0E13;
+    border: 1px solid $borderSubtle;
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    transition: all 0.2s ease;
+
+    &:hover {
+        border-color: rgba(244, 209, 122, 0.35);
+        background: rgba(18, 19, 26, 0.95);
+    }
+
+    &.activeActivityRow {
+        border-color: rgba(244, 209, 122, 0.3);
+        background: rgba(18, 17, 13, 0.6);
+    }
+
+    .activityItemLeft {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        min-width: 0;
+        flex: 1;
+
+        .activityIconBox {
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+
+            &.activeActivityIconBox {
+                background: rgba(244, 209, 122, 0.12);
+                border-color: rgba(244, 209, 122, 0.35);
+                color: #F4D17A;
+            }
+        }
+
+        .activityMeta {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+
+            .activityDateRow {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                flex-wrap: wrap;
+
+                .activityDateText {
+                    color: #FFFFFF;
+                    font-size: 14px;
+                    font-weight: 600;
+                    font-family: "Euclid-SemiBold", sans-serif;
+                }
+
+                .activityTimeText {
+                    color: rgba(255, 255, 255, 0.5);
+                    font-size: 12.5px;
+                    font-weight: 500;
+                }
+            }
+
+            .activityDescText {
+                color: rgba(255, 255, 255, 0.55);
+                font-size: 12px;
+                font-family: "Euclid-Regular", sans-serif;
+            }
+        }
+    }
+
+    .activityItemRight {
+        flex-shrink: 0;
+
+        .activeSessionBadge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            background: rgba(52, 211, 153, 0.12);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            border-radius: 99px;
+            color: #34D399;
+            font-size: 11.5px;
+            font-weight: 700;
+            white-space: nowrap;
+
+            .activePulseDot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #34D399;
+                box-shadow: 0 0 8px #34D399;
+                animation: pulseActive 2s infinite ease-in-out;
+            }
+        }
+
+        .pastSessionBadge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 99px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 11.5px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+    }
+}
+
+@keyframes pulseActive {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.4;
+        transform: scale(0.85);
     }
 }
 

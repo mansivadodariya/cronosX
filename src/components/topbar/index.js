@@ -1,19 +1,13 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import styles from './topbar.module.scss';
 import { dashboardApi } from '@/lib/api';
 import { getStoredUser, getStoredUserId, hydrateUserFromProfile } from '@/lib/authSession';
 import { CREDITS_UPDATED_EVENT } from '@/lib/credits';
 import { useLanguage } from '@/context/LanguageContext';
 import LanguageToggle from '@/components/languageToggle';
-
-const SunIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="4" />
-    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-  </svg>
-);
+import { supabase } from '@/lib/supabaseClient';
 
 const CoinDocIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -23,11 +17,41 @@ const CoinDocIcon = () => (
   </svg>
 );
 
+const ROUTE_TITLE_MAP = {
+  '/dashboard': 'nav.dashboard|Dashboard',
+  '/trade-snap': 'nav.aiTrade|AI Trade',
+  '/tradesnap': 'nav.aiTrade|AI Trade',
+  '/ai-assistant': 'nav.aiChat|AI Chat',
+  '/ai-chat': 'nav.aiChat|AI Chat',
+  '/ai-strategy': 'nav.aiStrategy|AI Strategy',
+  '/ai-strategy/live': 'nav.liveAnalysis|Live Analysis',
+  '/ai-strategy/strategy': 'nav.aiStrategy|AI Strategy',
+  '/economic-calendar': 'nav.economicCalendar|Economic Calendar',
+  '/credit-history': 'nav.creditHistory|Credit History',
+  '/plans': 'nav.plans|Subscription Plans',
+  '/broker': 'nav.broker|Broker',
+  '/brokers': 'nav.broker|Broker',
+  '/profile': 'nav.profile|Profile',
+  '/settings': 'nav.settings|Settings',
+};
+
 const Topbar = ({ onMenuClick }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const { t } = useLanguage();
   const [credits, setCredits] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [visibleTabNames, setVisibleTabNames] = useState(null);
+
+  const currentEntry = Object.entries(ROUTE_TITLE_MAP).find(([route]) =>
+    pathname === route || pathname?.startsWith(`${route}/`)
+  );
+  
+  const pageTitle = (() => {
+    if (!currentEntry) return '';
+    const [tKey, defaultVal] = currentEntry[1].split('|');
+    return t(tKey, defaultVal);
+  })();
 
   const fetchCredits = async (userId) => {
     if (!userId) return;
@@ -38,6 +62,33 @@ const Topbar = ({ onMenuClick }) => {
       if (!err?.message?.includes('Session expired')) { /* skip */ }
     }
   };
+
+  useEffect(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        const cached = sessionStorage.getItem('visible_tab_names');
+        if (cached) {
+          setVisibleTabNames(new Set(JSON.parse(cached)));
+        }
+      }
+    } catch (e) { /* ignore */ }
+  }, []);
+
+  useEffect(() => {
+    async function loadVisibleTabs() {
+      if (!supabase) return;
+      try {
+        const { data, error } = await supabase.rpc('get_visible_dashboard_tabs');
+        if (!error && Array.isArray(data)) {
+          const arr = data.map(tab => (tab.name || '').toLowerCase());
+          setVisibleTabNames(new Set(arr));
+        }
+      } catch (e) {
+        console.warn('Failed to load visible tabs in topbar:', e);
+      }
+    }
+    loadVisibleTabs();
+  }, []);
 
   useEffect(() => {
     const init = async () => {
@@ -70,6 +121,8 @@ const Topbar = ({ onMenuClick }) => {
     return () => window.removeEventListener(CREDITS_UPDATED_EVENT, onCreditsUpdated);
   }, []);
 
+  const hasPlansPermission = visibleTabNames ? visibleTabNames.has('subscription plans') : true;
+
   if (loading) {
     return (
       <div className={styles.topbar}>
@@ -81,6 +134,7 @@ const Topbar = ({ onMenuClick }) => {
               <line x1="3" y1="18" x2="21" y2="18"></line>
             </svg>
           </button>
+          {pageTitle && <h1 className={styles.pageTitle}>{pageTitle}</h1>}
         </div>
         <div className={styles.right}>
           <div className={styles.skeletonCredits} />
@@ -99,19 +153,25 @@ const Topbar = ({ onMenuClick }) => {
             <line x1="3" y1="18" x2="21" y2="18"></line>
           </svg>
         </button>
+        {pageTitle && <h1 className={styles.pageTitle}>{pageTitle}</h1>}
       </div>
 
       <div className={styles.right}>
-        {/* Sun / Dark Mode Aesthetic Button */}
-        {/* <button className={styles.themeToggle} aria-label="Theme" type="button">
-          <SunIcon />
-        </button> */}
-
         {/* Language Selector */}
         <LanguageToggle />
 
         {/* Credits Badge */}
-        <div className={styles.credits} onClick={() => router.push('/plans')} role="button" tabIndex={0}>
+        <div
+          className={styles.credits}
+          onClick={() => {
+            if (hasPlansPermission) {
+              router.push('/plans');
+            }
+          }}
+          role="button"
+          tabIndex={0}
+          title={hasPlansPermission ? t('topbar.clickToUpgrade', 'View subscription plans') : ''}
+        >
           <CoinDocIcon />
           <span>{credits ?? 0} {t('topbar.credits', 'credits')}</span>
         </div>

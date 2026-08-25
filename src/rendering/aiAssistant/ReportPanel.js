@@ -23,15 +23,6 @@ const getAssetData = (visualData, symbol) => {
 };
 
 // ─── Support & Resistance ────────────────────────────────────────────────────
-// TradingView-style Pivot High/Low (LEFT=8, RIGHT=8)
-// • Tight touch threshold (ATR*0.2) — no overcounting
-// • Touch count uses high + low + close (wick + body)
-// • Age-weighted strength score — recent pivots rank higher
-// • minMove filter removes noise pivots
-// • Dynamic zone merge distance — works across forex / crypto / stocks
-// • Full-width lines (first→last candle)
-// • Star labels in legend & annotations
-
 const LEFT = 8;
 const RIGHT = 8;
 
@@ -71,7 +62,6 @@ const calculateSupportResistance = (candles) => {
     // Tight threshold for realistic touch counts
     const touchThreshold = atrThreshold * 0.2;
 
-    // Count touches: high, low, close all count (wick + body)
     const countTouches = (price) =>
         candles.filter(c =>
             Math.abs(Number(c.high) - price) <= touchThreshold ||
@@ -79,10 +69,7 @@ const calculateSupportResistance = (candles) => {
             Math.abs(Number(c.close) - price) <= touchThreshold
         ).length;
 
-    // Recent pivots score higher
     const ageWeight = (index) => 1 + (index / total);
-
-    // Reject pivots that barely moved from the previous one
     const minMove = atrThreshold * 1.5;
 
     const pivotHighs = [];
@@ -109,7 +96,6 @@ const calculateSupportResistance = (candles) => {
         if (ok) { pivotLows.push({ price: val, index: i }); lastPL = val; }
     }
 
-    // Dynamic merge distance — works across forex / crypto / stocks
     const mergeDistance = Math.max(
         atrThreshold * 0.5,
         (closes[closes.length - 1] || 1) * 0.0005
@@ -138,7 +124,6 @@ const calculateSupportResistance = (candles) => {
             }
         });
 
-        // Rank by strength (touch count × recency), return top 3
         return zones.sort((a, b) => b.strength - a.strength).slice(0, 3);
     };
 
@@ -147,18 +132,15 @@ const calculateSupportResistance = (candles) => {
         support: mergeZones(pivotLows)
     };
 };
-// ─────────────────────────────────────────────────────────────────────────────
 
 const PriceChart = ({ data, symbol = 'Asset', theme = 'dark' }) => {
     const [showSR, setShowSR] = useState(true);
     const ohlc = data?.ohlc_data?.ohlc_1h || [];
-    const isDark = theme === 'dark';
+    const isDark = theme !== 'light';
 
-    // Extract raw support and resistance levels from multiple possible backend data fields
     const rawSupport = data?.horizontal_levels?.supports ?? data?.horizontal_levels?.support ?? data?.support ?? data?.support_levels ?? data?.indicators?.support ?? data?.indicators?.support_levels ?? data?.indicators?.['1H']?.support ?? data?.indicators?.['1H']?.support_levels;
     const rawResistance = data?.horizontal_levels?.resistances ?? data?.horizontal_levels?.resistance ?? data?.resistance ?? data?.resistance_levels ?? data?.indicators?.resistance ?? data?.indicators?.resistance_levels ?? data?.indicators?.['1H']?.resistance ?? data?.indicators?.['1H']?.resistance_levels;
 
-    // Normalize levels if they exist; otherwise, fall back to frontend calculations
     const backendSupport = normalizeBackendLevels(rawSupport);
     const backendResistance = normalizeBackendLevels(rawResistance);
 
@@ -174,7 +156,6 @@ const PriceChart = ({ data, symbol = 'Asset', theme = 'dark' }) => {
         }))
     };
 
-    // Full-width lines — first candle to last candle
     const createLevelLine = ({ price, strength }, rank, type) => ({
         name: `${type === 'support' ? 'S' : 'R'}${rank + 1} ${strengthStars(strength)}`,
         type: 'line',
@@ -216,32 +197,32 @@ const PriceChart = ({ data, symbol = 'Asset', theme = 'dark' }) => {
         title: {
             text: `${symbol} Price Action`,
             align: 'left', margin: 10, offsetX: 10,
-            style: { color: isDark ? '#60a5fa' : '#0f5cf2', fontSize: '16px', fontWeight: 700 }
+            style: { color: '#F4D17A', fontSize: '16px', fontWeight: 700 }
         },
         legend: {
             show: true, position: 'top', horizontalAlign: 'right',
             onItemClick: { toggleDataSeries: true },
             onItemHover: { highlightDataSeries: true },
-            labels: { colors: isDark ? '#f3f4f6' : '#1e293b' }
+            labels: { colors: '#ffffff' }
         },
-        theme: { mode: theme },
+        theme: { mode: 'dark' },
         xaxis: {
             type: 'datetime',
-            labels: { style: { colors: isDark ? '#94a3b8' : '#64748b' } },
+            labels: { style: { colors: 'rgba(255, 255, 255, 0.65)' } },
             axisBorder: { show: false }, axisTicks: { show: false }
         },
         yaxis: {
             tooltip: { enabled: true },
-            labels: { style: { colors: isDark ? '#94a3b8' : '#64748b' }, formatter: (val) => val?.toFixed(4) ?? val }
+            labels: { style: { colors: 'rgba(255, 255, 255, 0.65)' }, formatter: (val) => val?.toFixed(4) ?? val }
         },
-        grid: { borderColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(15, 92, 242, 0.08)', strokeDashArray: 4 },
+        grid: { borderColor: 'rgba(193, 144, 46, 0.15)', strokeDashArray: 4 },
         annotations: { yaxis: yAxisAnnotations },
         stroke: { width: strokeWidths, curve: 'straight', dashArray: dashArrays },
         colors: seriesColors,
         plotOptions: {
             candlestick: { colors: { upward: '#10b981', downward: '#ef4444' }, wick: { useFillColor: true } }
         },
-        tooltip: { theme: theme, x: { format: 'dd MMM HH:mm' } }
+        tooltip: { theme: 'dark', x: { format: 'dd MMM HH:mm' } }
     };
 
     if (!ohlc.length) return null;
@@ -270,7 +251,6 @@ const PriceChart = ({ data, symbol = 'Asset', theme = 'dark' }) => {
 const SentimentRadar = ({ indicators, theme = 'dark' }) => {
     const data = indicators?.voting_scores || indicators?.['4H']?.voting_scores || {};
     const normalize = (val) => (val + 10) * 5;
-    const isDark = true;
 
     const series = [{
         name: 'Market Sentiment',
@@ -289,11 +269,11 @@ const SentimentRadar = ({ indicators, theme = 'dark' }) => {
         yaxis: { show: false, min: 0, max: 100 },
         fill: {
             opacity: 0.45, type: 'gradient',
-            gradient: { shade: 'dark', gradientToColors: ['#0f5cf2'], shadeIntensity: 1, type: 'horizontal', stops: [0, 100] }
+            gradient: { shade: 'dark', gradientToColors: ['#C1902E'], shadeIntensity: 1, type: 'horizontal', stops: [0, 100] }
         },
-        stroke: { width: 2, colors: ['#0f5cf2'] },
-        markers: { size: 4, colors: ['#0f5cf2'], strokeWidth: 2, strokeColors: '#1a1a1e' },
-        plotOptions: { radar: { polygons: { strokeColors: 'rgba(255, 255, 255, 0.1)', connectorColors: 'rgba(255, 255, 255, 0.05)' } } },
+        stroke: { width: 2, colors: ['#F4D17A'] },
+        markers: { size: 4, colors: ['#F4D17A'], strokeWidth: 2, strokeColors: '#000000' },
+        plotOptions: { radar: { polygons: { strokeColors: 'rgba(193, 144, 46, 0.2)', connectorColors: 'rgba(193, 144, 46, 0.1)' } } },
         tooltip: { theme: 'dark' }
     };
 
@@ -305,21 +285,20 @@ const SentimentRadar = ({ indicators, theme = 'dark' }) => {
 };
 
 const Gauge = ({ value, title, theme = 'dark' }) => {
-    const isDark = true;
     const options = {
         chart: { type: 'radialBar', sparkline: { enabled: true } },
         plotOptions: {
             radialBar: {
                 startAngle: -110, endAngle: 110,
-                hollow: { size: '65%', background: isDark ? '#1a1a1e' : '#f8fafc' },
-                track: { background: isDark ? '#2d2d34' : '#e2e8f0', strokeWidth: '100%', margin: 5 },
+                hollow: { size: '65%', background: '#0D0E13' },
+                track: { background: 'rgba(193, 144, 46, 0.2)', strokeWidth: '100%', margin: 5 },
                 dataLabels: {
-                    name: { show: true, color: isDark ? '#60a5fa' : '#0f5cf2', offsetY: -10, fontSize: '12px', fontWeight: 600 },
-                    value: { show: true, fontSize: '22px', fontWeight: 700, color: isDark ? '#ffffff' : '#121212', offsetY: 0, formatter: (val) => val.toFixed(1) }
+                    name: { show: true, color: '#F4D17A', offsetY: -10, fontSize: '12px', fontWeight: 600 },
+                    value: { show: true, fontSize: '22px', fontWeight: 700, color: '#ffffff', offsetY: 0, formatter: (val) => val.toFixed(1) }
                 }
             }
         },
-        fill: { type: 'gradient', gradient: { shade: isDark ? 'dark' : 'light', type: 'horizontal', gradientToColors: ['#0f5cf2'], stops: [0, 100] } },
+        fill: { type: 'gradient', gradient: { shade: 'dark', type: 'horizontal', gradientToColors: ['#C1902E'], stops: [0, 100] } },
         stroke: { lineCap: 'round' },
         labels: [title]
     };

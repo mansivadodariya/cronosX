@@ -31,7 +31,7 @@ function getFirebaseAdmin() {
 
     // Fallback: Default initialization using project ID
     return admin.initializeApp({
-        projectId: projectId || 'tradeguru-webapp',
+        projectId: projectId || 'chronosx-webapp',
     });
 }
 
