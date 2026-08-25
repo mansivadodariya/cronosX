@@ -12,10 +12,11 @@ import CreditHistory from '@/rendering/creditHistory';
 import { supabase } from '@/lib/supabaseClient';
 import { toast } from '@/components/toast';
 import { isValidPhoneNumber } from 'react-phone-number-input';
-import { profileApi } from '@/lib/api';
+import { profileApi, dashboardApi } from '@/lib/api';
+import { clearAuthSession } from '@/lib/authSession';
+import { CREDITS_UPDATED_EVENT } from '@/lib/credits';
 import { useLanguage } from '@/context/LanguageContext';
 
-const GoldCrownBadge = '/assets/images/gold_crown_circuit_badge.jpg';
 const GoldSecurityShield = '/assets/images/gold_security_shield_badge.jpg';
 
 function getUserFromStorage() {
@@ -54,11 +55,13 @@ export default function Profile() {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
-    const [showBalance, setShowBalance] = useState(true);
+    const [credits, setCredits] = useState(0);
     const [lastLogins, setLastLogins] = useState([]);
     const [showOtpModal, setShowOtpModal] = useState(false);
+    const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
     const [initialPhone, setInitialPhone] = useState('');
     const [referralCount, setReferralCount] = useState(0);
+    const [visibleTabNames, setVisibleTabNames] = useState(null);
 
     // Modals
     const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -70,17 +73,49 @@ export default function Profile() {
         email: '',
         phone_number: '',
         referral_code: '',
-        country: 'India',
-        timezone: '(GMT +05:30) India Standard Time',
-        dob: '15 May 1995'
     });
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
-        if (tabParam && ['profile', 'security', 'preferences', 'api_management', 'activity_log', 'credit_history'].includes(tabParam)) {
+        if (tabParam && ['profile', 'security', 'activity_log', 'credit_history'].includes(tabParam)) {
             setActiveTab(tabParam);
         }
     }, [tabParam]);
+
+    useEffect(() => {
+        try {
+            if (typeof window !== 'undefined') {
+                const cached = sessionStorage.getItem('visible_tab_names');
+                if (cached) {
+                    setVisibleTabNames(new Set(JSON.parse(cached)));
+                }
+            }
+        } catch (e) { /* ignore */ }
+
+        async function fetchVisibleTabs() {
+            try {
+                const { data, error } = await supabase.rpc('get_visible_dashboard_tabs');
+                if (!error && Array.isArray(data)) {
+                    const set = new Set(data.map(t => typeof t === 'string' ? t : (t?.tab_name || t?.name || '')));
+                    setVisibleTabNames(set);
+                    if (typeof window !== 'undefined') {
+                        sessionStorage.setItem('visible_tab_names', JSON.stringify(Array.from(set)));
+                    }
+                }
+            } catch (e) { /* ignore */ }
+        }
+        fetchVisibleTabs();
+    }, []);
+
+    const canViewPlans = () => {
+        if (!visibleTabNames) return true;
+        return (
+            visibleTabNames.has('subscription_plans') ||
+            visibleTabNames.has('plans') ||
+            visibleTabNames.has('subscription') ||
+            visibleTabNames.has('proAccount')
+        );
+    };
 
     useEffect(() => {
         const user = getUserFromStorage();
@@ -104,9 +139,6 @@ export default function Profile() {
             email: user.email || '',
             phone_number: user.phone_number || '',
             referral_code: user.referral_code || id || '',
-            country: user.country || 'India',
-            timezone: user.timezone || '(GMT +05:30) India Standard Time',
-            dob: user.dob || '15 May 1995'
         });
 
         const initialLogins = parseLogins(user.last_logins);
@@ -115,6 +147,17 @@ export default function Profile() {
         }
 
         fetchProfile(id);
+    }, []);
+
+    useEffect(() => {
+        const onCreditsUpdated = (e) => {
+            const next = e?.detail?.available_credits;
+            if (next !== undefined && next !== null) {
+                setCredits(next);
+            }
+        };
+        window.addEventListener(CREDITS_UPDATED_EVENT, onCreditsUpdated);
+        return () => window.removeEventListener(CREDITS_UPDATED_EVENT, onCreditsUpdated);
     }, []);
 
     const fetchProfile = async (id) => {
@@ -197,6 +240,17 @@ export default function Profile() {
                 };
                 localStorage.setItem('user', JSON.stringify(updated));
                 window.dispatchEvent(new Event('user:updated'));
+            }
+
+            if (id) {
+                try {
+                    const statsRes = await dashboardApi.getStats(id);
+                    if (statsRes?.data?.available_credits !== undefined) {
+                        setCredits(statsRes.data.available_credits);
+                    }
+                } catch (statsErr) {
+                    console.warn('Credits fetch error:', statsErr);
+                }
             }
         } catch (err) {
             console.warn('Profile fetch warning:', err);
@@ -352,8 +406,11 @@ export default function Profile() {
     const activeRefCode = getActiveReferralCode();
     const displayLogins = (lastLogins.length > 0 ? [...lastLogins] : []).reverse();
     const fullName = `${form.first_name || 'John'} ${form.last_name || 'Doe'}`.trim();
-    const username = form.first_name ? `${form.first_name.toLowerCase()}_trader` : 'johndoe_trader';
     const displayUid = userId ? `UID: CHX${userId.replace(/[^a-zA-Z0-9]/g, '').slice(0, 9).toUpperCase()}` : 'UID: CHX789456123';
+    const initials = [form.first_name, form.last_name]
+        .filter(Boolean)
+        .map((n) => n.charAt(0).toUpperCase())
+        .join('') || (form.email ? form.email.charAt(0).toUpperCase() : 'U');
 
     const subMenuItems = [
         {
@@ -372,33 +429,6 @@ export default function Profile() {
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                </svg>
-            )
-        },
-        {
-            id: 'preferences',
-            title: t('profile.preferencesTab', 'Preferences'),
-            icon: (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="4" y1="21" x2="4" y2="14" />
-                    <line x1="4" y1="10" x2="4" y2="3" />
-                    <line x1="12" y1="21" x2="12" y2="12" />
-                    <line x1="12" y1="8" x2="12" y2="3" />
-                    <line x1="20" y1="21" x2="20" y2="16" />
-                    <line x1="20" y1="12" x2="20" y2="3" />
-                    <line x1="1" y1="14" x2="7" y2="14" />
-                    <line x1="9" y1="8" x2="15" y2="8" />
-                    <line x1="17" y1="16" x2="23" y2="16" />
-                </svg>
-            )
-        },
-        {
-            id: 'api_management',
-            title: t('profile.apiManagement', 'API Management'),
-            icon: (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="16 18 22 12 16 6" />
-                    <polyline points="8 6 2 12 8 18" />
                 </svg>
             )
         },
@@ -501,26 +531,15 @@ export default function Profile() {
                                     {/* Large Avatar */}
                                     <div className={styles.avatarWrapper}>
                                         <div className={styles.avatarCircle}>
-                                            <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                                                <circle cx="12" cy="7" r="4" />
-                                            </svg>
+                                            <span className={styles.avatarInitialsText}>{initials}</span>
                                         </div>
-                                        <button type="button" className={styles.cameraUploadBtn} title="Upload Photo" onClick={() => toast.info('Photo upload feature coming soon')}>
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-                                                <circle cx="12" cy="13" r="4" />
-                                            </svg>
-                                        </button>
                                     </div>
 
                                     {/* User Meta */}
                                     <div className={styles.userMetaDetails}>
                                         <div className={styles.userNameRow}>
                                             <h2>{fullName}</h2>
-                                            <span className={styles.proTraderBadge}>
-                                                Pro Trader 👑
-                                            </span>
+                                            
                                         </div>
                                         <div className={styles.userEmailRow}>
                                             <span className={styles.emailText}>{form.email || 'johndoe@email.com'}</span>
@@ -539,20 +558,6 @@ export default function Profile() {
                                                 <line x1="3" y1="10" x2="21" y2="10" />
                                             </svg>
                                             <span>Joined on {userCreatedAt}</span>
-                                        </div>
-                                    </div>
-
-                                    {/* Gold Circuit Crown Art */}
-                                    <div className={styles.heroRightEmblem}>
-                                        <div className={styles.emblemImageContainer}>
-                                            <Image
-                                                src={GoldCrownBadge}
-                                                alt="Pro Crown Emblem"
-                                                width={140}
-                                                height={140}
-                                                className={styles.crownImg}
-                                                priority
-                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -588,20 +593,6 @@ export default function Profile() {
                                             </div>
                                         </div>
 
-                                        {/* Username */}
-                                        <div className={styles.detailPillBox}>
-                                            <div className={styles.pillIcon}>
-                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                    <circle cx="12" cy="12" r="4" />
-                                                    <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94" />
-                                                </svg>
-                                            </div>
-                                            <div className={styles.pillTexts}>
-                                                <span className={styles.pillLabel}>{t('profile.username', 'Username')}</span>
-                                                <strong className={styles.pillValue}>{username}</strong>
-                                            </div>
-                                        </div>
-
                                         {/* Email Address */}
                                         <div className={styles.detailPillBox}>
                                             <div className={styles.pillIcon}>
@@ -612,22 +603,7 @@ export default function Profile() {
                                             </div>
                                             <div className={styles.pillTexts}>
                                                 <span className={styles.pillLabel}>{t('auth.emailLabel', 'Email Address')}</span>
-                                                <strong className={styles.pillValue}>{form.email || 'johndoe@email.com'}</strong>
-                                            </div>
-                                        </div>
-
-                                        {/* Country */}
-                                        <div className={styles.detailPillBox}>
-                                            <div className={styles.pillIcon}>
-                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                    <circle cx="12" cy="12" r="10" />
-                                                    <line x1="2" y1="12" x2="22" y2="12" />
-                                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                                                </svg>
-                                            </div>
-                                            <div className={styles.pillTexts}>
-                                                <span className={styles.pillLabel}>{t('profile.country', 'Country')}</span>
-                                                <strong className={styles.pillValue}>{form.country || 'India'}</strong>
+                                                <strong className={styles.pillValue}>{form.email || '—'}</strong>
                                             </div>
                                         </div>
 
@@ -640,37 +616,7 @@ export default function Profile() {
                                             </div>
                                             <div className={styles.pillTexts}>
                                                 <span className={styles.pillLabel}>{t('profile.phoneLabel', 'Phone Number')}</span>
-                                                <strong className={styles.pillValue}>{form.phone_number || '+91 98765 43210'}</strong>
-                                            </div>
-                                        </div>
-
-                                        {/* Time Zone */}
-                                        <div className={styles.detailPillBox}>
-                                            <div className={styles.pillIcon}>
-                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                    <circle cx="12" cy="12" r="10" />
-                                                    <polyline points="12 6 12 12 16 14" />
-                                                </svg>
-                                            </div>
-                                            <div className={styles.pillTexts}>
-                                                <span className={styles.pillLabel}>{t('profile.timeZone', 'Time Zone')}</span>
-                                                <strong className={styles.pillValue}>{form.timezone || '(GMT +05:30) India Standard Time'}</strong>
-                                            </div>
-                                        </div>
-
-                                        {/* Date of Birth / Referral */}
-                                        <div className={styles.detailPillBox}>
-                                            <div className={styles.pillIcon}>
-                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                                                    <line x1="16" y1="2" x2="16" y2="6" />
-                                                    <line x1="8" y1="2" x2="8" y2="6" />
-                                                    <line x1="3" y1="10" x2="21" y2="10" />
-                                                </svg>
-                                            </div>
-                                            <div className={styles.pillTexts}>
-                                                <span className={styles.pillLabel}>{t('profile.dob', 'Date of Birth')}</span>
-                                                <strong className={styles.pillValue}>{form.dob || '15 May 1995'}</strong>
+                                                <strong className={styles.pillValue}>{form.phone_number || '—'}</strong>
                                             </div>
                                         </div>
 
@@ -687,7 +633,7 @@ export default function Profile() {
                                             <div className={styles.pillTexts}>
                                                 <span className={styles.pillLabel}>{t('profile.referralCode', 'Referral Code')} ({referralCount} Refs)</span>
                                                 <div className={styles.referralCodePillRow}>
-                                                    <strong className={styles.pillValue}>{activeRefCode || 'CHX-2024'}</strong>
+                                                    <strong className={styles.pillValue}>{activeRefCode || '—'}</strong>
                                                     <button type="button" onClick={handleCopyLink} className={styles.refActionIcon} title="Copy Link">
                                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
@@ -796,47 +742,6 @@ export default function Profile() {
                         </div>
                     )}
 
-                    {/* Preferences Tab */}
-                    {activeTab === 'preferences' && (
-                        <div className={styles.tabCardContainer}>
-                            <div className={styles.cardHeaderBox}>
-                                <h3>{t('profile.preferencesTab', 'Preferences')}</h3>
-                                <p>Customize your system visual appearance and platform notifications.</p>
-                            </div>
-                            <div className={styles.preferencesList}>
-                                <div className={styles.prefRow}>
-                                    <span>Theme Mode</span>
-                                    <span className={styles.proTraderBadge}>Luxury Dark (Active)</span>
-                                </div>
-                                <div className={styles.prefRow}>
-                                    <span>Language</span>
-                                    <span className={styles.pillValue}>{language === 'ar' ? 'العربية' : 'English'}</span>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* API Management Tab */}
-                    {activeTab === 'api_management' && (
-                        <div className={styles.tabCardContainer}>
-                            <div className={styles.cardHeaderBox}>
-                                <h3>{t('profile.apiManagement', 'API Management')}</h3>
-                                <p>Create and manage API keys for automated Expert Advisor trading.</p>
-                            </div>
-                            <div className={styles.apiKeyList}>
-                                <div className={styles.apiKeyBox}>
-                                    <div>
-                                        <strong>Live MT5 Bridge Key</strong>
-                                        <p className={styles.keyText}>cx_live_9f837248923a19...</p>
-                                    </div>
-                                    <button type="button" className={styles.secActionButton} onClick={() => { navigator.clipboard.writeText('cx_live_9f837248923a19'); toast.success('API key copied!'); }}>
-                                        Copy Key
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
                     {/* Activity Log Tab */}
                     {activeTab === 'activity_log' && (
                         <div className={styles.tabCardContainer}>
@@ -846,26 +751,60 @@ export default function Profile() {
                             </div>
                             <div className={styles.activityList}>
                                 {displayLogins.length > 0 ? (
-                                    displayLogins.map((entry, idx) => (
-                                        <div key={idx} className={styles.activityItemRow}>
-                                            <div className={styles.activityIcon}>
-                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
-                                                    <rect x="2" y="3" width="20" height="14" rx="2" />
-                                                    <line x1="8" y1="21" x2="16" y2="21" />
-                                                    <line x1="12" y1="17" x2="12" y2="21" />
-                                                </svg>
+                                    displayLogins.map((entry, idx) => {
+                                        const dateObj = new Date(entry);
+                                        const isValidDate = !isNaN(dateObj.getTime());
+                                        const dateStr = isValidDate ? dateObj.toLocaleDateString(language === 'ar' ? 'ar-EG' : 'en-US', {
+                                            weekday: 'short',
+                                            month: 'short',
+                                            day: 'numeric',
+                                            year: 'numeric'
+                                        }) : entry;
+                                        const timeStr = isValidDate ? dateObj.toLocaleTimeString(language === 'ar' ? 'ar-EG' : 'en-US', {
+                                            hour: '2-digit',
+                                            minute: '2-digit',
+                                            second: '2-digit',
+                                            hour12: true
+                                        }) : '';
+                                        const isLatest = idx === 0;
+
+                                        return (
+                                            <div key={idx} className={`${styles.activityItemRow} ${isLatest ? styles.activeActivityRow : ''}`}>
+                                                <div className={styles.activityItemLeft}>
+                                                    <div className={`${styles.activityIconBox} ${isLatest ? styles.activeActivityIconBox : ''}`}>
+                                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                            <rect x="2" y="3" width="20" height="14" rx="2" />
+                                                            <line x1="8" y1="21" x2="16" y2="21" />
+                                                            <line x1="12" y1="17" x2="12" y2="21" />
+                                                        </svg>
+                                                    </div>
+                                                    <div className={styles.activityMeta}>
+                                                        <div className={styles.activityDateRow}>
+                                                            <strong className={styles.activityDateText}>{dateStr}</strong>
+                                                            {timeStr && <span className={styles.activityTimeText}>{t('profile.at', 'at')} {timeStr}</span>}
+                                                        </div>
+                                                        <span className={styles.activityDescText}>
+                                                            {t('profile.loginSuccess', 'Successful WebApp Authentication')}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div className={styles.activityItemRight}>
+                                                    {isLatest ? (
+                                                        <span className={styles.activeSessionBadge}>
+                                                            <span className={styles.activePulseDot} />
+                                                            {t('profile.currentSession', 'Active Session')}
+                                                        </span>
+                                                    ) : (
+                                                        <span className={styles.pastSessionBadge}>
+                                                            {t('profile.pastSession', 'Past Session')}
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </div>
-                                            <div className={styles.activityMeta}>
-                                                <strong>{entry}</strong>
-                                                <span>Successful WebApp Authentication</span>
-                                            </div>
-                                            <span className={idx === 0 ? styles.verifiedPill : styles.pillLabel}>
-                                                {idx === 0 ? 'Active' : 'Completed'}
-                                            </span>
-                                        </div>
-                                    ))
+                                        );
+                                    })
                                 ) : (
-                                    <p className={styles.emptyText}>No recent activity logged.</p>
+                                    <p className={styles.emptyText}>{t('profile.noLoginData', 'No recent activity logged.')}</p>
                                 )}
                             </div>
                         </div>
@@ -884,54 +823,33 @@ export default function Profile() {
                         <h4 className={styles.rightCardTitle}>{t('profile.accountSummary', 'Account Summary')}</h4>
 
                         <div className={styles.summaryMetaRows}>
-                            <div className={styles.summaryRow}>
-                                <span className={styles.summaryLabel}>Account Type</span>
-                                <span className={styles.summaryProTag}>Pro Trader 👑</span>
-                            </div>
+                         
                             <div className={styles.summaryRow}>
                                 <span className={styles.summaryLabel}>Account Status</span>
                                 <span className={styles.summaryActiveTag}>Active ✓</span>
                             </div>
+                            <div className={styles.summaryRow}>
+                                <span className={styles.summaryLabel}>Total Referrals</span>
+                                <span className={styles.summaryProTag}>{referralCount} Ref{referralCount !== 1 ? 's' : ''}</span>
+                            </div>
                         </div>
 
-                        {/* Portfolio Value Box with Sparkline */}
-                        <div className={styles.portfolioCardBox}>
-                            <div className={styles.portfolioHead}>
-                                <span className={styles.portfolioLabel}>Total Portfolio Value</span>
-                                <button type="button" onClick={() => setShowBalance(!showBalance)} className={styles.eyeBtn} title="Toggle Visibility">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                        <circle cx="12" cy="12" r="3" />
-                                    </svg>
-                                </button>
+                        {/* Real Dynamic Credits Box */}
+                        <div className={styles.creditsCardBox}>
+                            <div className={styles.creditsHead}>
+                                <span className={styles.creditsLabel}>{t('topbar.credits', 'Available Credits')}</span>
+                                {canViewPlans() && (
+                                    <button type="button" onClick={() => router.push('/plans')} className={styles.viewPlansBtn}>
+                                        {t('sidebar.proAccount', 'View Plans')} →
+                                    </button>
+                                )}
                             </div>
 
-                            <div className={styles.portfolioValueRow}>
-                                <div className={styles.portfolioNumbers}>
-                                    <h3 className={styles.portfolioAmount}>
-                                        {showBalance ? '68,542.31' : '••••••••'} <span>USDT</span>
+                            <div className={styles.creditsValueRow}>
+                                <div className={styles.creditsNumbers}>
+                                    <h3 className={styles.creditsAmount}>
+                                        {credits} <span>{t('topbar.credits', 'Credits')}</span>
                                     </h3>
-                                    <div className={styles.portfolioChange}>
-                                        <span className={styles.changeLabel}>24H Change</span>
-                                        <span className={styles.changeValue}>+2.37% (+1,584.23 USDT)</span>
-                                    </div>
-                                </div>
-
-                                {/* Mini SVG Glow Sparkline */}
-                                <div className={styles.sparklineChart}>
-                                    <svg width="110" height="48" viewBox="0 0 110 48" fill="none">
-                                        <defs>
-                                            <linearGradient id="goldSparkGrad" x1="0" y1="0" x2="0" y2="1">
-                                                <stop offset="0%" stopColor="#F4D17A" stopOpacity="0.4" />
-                                                <stop offset="100%" stopColor="#F4D17A" stopOpacity="0" />
-                                            </linearGradient>
-                                        </defs>
-                                        <path d="M 0 38 Q 20 42, 35 30 T 70 20 T 95 10 T 110 5 L 110 48 L 0 48 Z" fill="url(#goldSparkGrad)" />
-                                        <path d="M 0 38 Q 20 42, 35 30 T 70 20 T 95 10 T 110 5" stroke="#F4D17A" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-                                        <circle cx="110" cy="5" r="3.5" fill="#FFE79A" stroke="#C1902E" strokeWidth="1.5" />
-                                        <circle cx="70" cy="20" r="2" fill="#F4D17A" />
-                                        <circle cx="35" cy="30" r="2" fill="#F4D17A" />
-                                    </svg>
                                 </div>
                             </div>
                         </div>
@@ -952,26 +870,23 @@ export default function Profile() {
                                 <span className={styles.verifStatusGreen}>Verified ✓</span>
                             </div>
 
-                            <div className={styles.verifItem}>
+                            {/* Phone Verification - currently commented out */}
+                            {/* <div className={styles.verifItem}>
                                 <div className={styles.verifLeft}>
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={form.phone_number ? "#10b981" : "#F4D17A"} strokeWidth="2">
                                         <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
                                         <line x1="12" y1="18" x2="12.01" y2="18" />
                                     </svg>
                                     <span>Phone Verification</span>
                                 </div>
-                                <span className={styles.verifStatusGreen}>Verified ✓</span>
-                            </div>
-
-                            <div className={styles.verifItem}>
-                                <div className={styles.verifLeft}>
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
-                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                                    </svg>
-                                    <span>KYC Verification</span>
-                                </div>
-                                <span className={styles.verifStatusGold}>Level 2 Verified ⊗</span>
-                            </div>
+                                {form.phone_number ? (
+                                    <span className={styles.verifStatusGreen}>Verified ✓</span>
+                                ) : (
+                                    <button type="button" className={styles.verifActionBtn} onClick={() => setShowOtpModal(true)}>
+                                        Verify Phone
+                                    </button>
+                                )}
+                            </div> */}
                         </div>
                     </div>
 
@@ -987,48 +902,48 @@ export default function Profile() {
                                 <span>Change Password</span>
                             </button>
 
-                            <button type="button" className={styles.actionGridBtn} onClick={() => toast.info('2FA is active and secured')}>
+                            {canViewPlans() && (
+                                <button type="button" className={styles.actionGridBtn} onClick={() => router.push('/plans')}>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
+                                        <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14v2H5v-2z" />
+                                    </svg>
+                                    <span>Subscription Plans</span>
+                                </button>
+                            )}
+
+                            <button type="button" className={styles.actionGridBtn} onClick={() => setActiveTab('credit_history')}>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
-                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                    <rect x="2" y="5" width="20" height="14" rx="2" />
+                                    <line x1="2" y1="10" x2="22" y2="10" />
                                 </svg>
-                                <span>Enable 2FA</span>
+                                <span>Credit History</span>
                             </button>
 
-                            <button type="button" className={styles.actionGridBtn} onClick={() => toast.success('KYC level 2 verified')}>
+                            <button type="button" className={styles.actionGridBtn} onClick={() => setActiveTab('activity_log')}>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
-                                    <rect x="3" y="4" width="18" height="16" rx="2" />
-                                    <circle cx="9" cy="10" r="2" />
-                                    <line x1="15" y1="8" x2="17" y2="8" />
-                                    <line x1="15" y1="12" x2="17" y2="12" />
-                                    <line x1="7" y1="16" x2="17" y2="16" />
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                    <line x1="16" y1="13" x2="8" y2="13" />
+                                    <line x1="16" y1="17" x2="8" y2="17" />
                                 </svg>
-                                <span>KYC Documents</span>
+                                <span>Activity Log</span>
                             </button>
 
-                            <button type="button" className={styles.actionGridBtn} onClick={() => toast.info('Report generation initiated')}>
+                            <button type="button" className={styles.actionGridBtn} onClick={() => { setActiveTab('profile'); setIsEditing(true); }}>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                    <polyline points="7 10 12 15 17 10" />
-                                    <line x1="12" y1="15" x2="12" y2="3" />
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                                 </svg>
-                                <span>Download Reports</span>
+                                <span>Edit Profile</span>
                             </button>
 
-                            <button type="button" className={styles.actionGridBtn} onClick={() => setActiveTab('api_management')}>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
-                                    <circle cx="7.5" cy="15.5" r="5.5" />
-                                    <path d="M21 2l-9.6 9.6" />
-                                    <path d="M15.5 7.5l3 3L22 7l-3-3" />
-                                </svg>
-                                <span>API Keys</span>
-                            </button>
-
-                            <button type="button" className={`${styles.actionGridBtn} ${styles.actionDanger}`} onClick={() => toast.error('Please contact support to delete account')}>
+                            <button type="button" className={`${styles.actionGridBtn} ${styles.actionDanger}`} onClick={() => setShowLogoutConfirm(true)}>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F87171" strokeWidth="2">
-                                    <polyline points="3 6 5 6 21 6" />
-                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                                    <polyline points="16 17 21 12 16 7" />
+                                    <line x1="21" y1="12" x2="9" y2="12" />
                                 </svg>
-                                <span>Delete Account</span>
+                                <span>Log Out</span>
                             </button>
                         </div>
                     </div>
@@ -1122,6 +1037,44 @@ export default function Profile() {
                                         toast.success('Password updated successfully');
                                         setShowPasswordModal(false);
                                         setPasswordForm({ current: '', newPass: '', confirm: '' });
+                                    }}
+                                />
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+
+            {/* Logout Confirm Modal */}
+            <AnimatePresence>
+                {showLogoutConfirm && (
+                    <div className={styles.modalOverlay} onClick={() => setShowLogoutConfirm(false)}>
+                        <motion.div
+                            className={styles.modalContent}
+                            initial={{ opacity: 0, scale: 0.95, y: 15 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: 15 }}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div className={styles.modalHeader}>
+                                <h3>{t('sidebar.logoutTitle', 'Confirm Logout')}</h3>
+                                <button type="button" onClick={() => setShowLogoutConfirm(false)} className={styles.closeBtn}>✕</button>
+                            </div>
+                            <div className={styles.modalBody}>
+                                <p style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '14px', margin: '8px 0 16px' }}>
+                                    {t('sidebar.logoutConfirm', 'Are you sure you want to sign out of your account?')}
+                                </p>
+                            </div>
+                            <div className={styles.modalFooter}>
+                                <button type="button" className={styles.cancelFormBtn} onClick={() => setShowLogoutConfirm(false)}>
+                                    {t('common.cancel', 'Cancel')}
+                                </button>
+                                <Button
+                                    text={t('sidebar.logout', 'Log Out')}
+                                    type="button"
+                                    onClick={() => {
+                                        clearAuthSession();
+                                        router.push('/login');
                                     }}
                                 />
                             </div>

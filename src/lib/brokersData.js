@@ -9,7 +9,7 @@ export const brokerList = [
         subtitle_ar: 'بوابة السيولة',
         logo: '/assets/icons/Img1.svg',
         category: 'Brokers',
-        description: 'Native volume-to-credit integration engine powering your Trader Master AI usage credits directly through MT5 trading volume.',
+        description: 'Native volume-to-credit integration engine powering your ChronosX AI usage credits directly through MT5 trading volume.',
         description_ar: 'محرك متكامل لتحويل حجم التداول إلى رصيد ذكاء اصطناعي مباشرة من خلال تداولك على منصة MT5.',
         features: [
             'Automated 1 Lot = Credit conversion',

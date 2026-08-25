@@ -48,7 +48,7 @@ export default function Header() {
 
     const navItems = [
         { label: 'Home', href: '/' },
-        { label: 'AI Tools', href: getAuthHref('/trade-snap') },
+        { label: 'AI Trade', href: getAuthHref('/trade-snap') },
         { label: 'AI Chat', href: getAuthHref('/ai-assistant') },
         { label: 'AI Strategy', href: getAuthHref('/ai-strategy/live') },
         { label: 'Pricing', href: getAuthHref('/plans') }

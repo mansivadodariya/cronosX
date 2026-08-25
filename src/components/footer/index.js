@@ -31,26 +31,26 @@ export default function Footer() {
           <div className={styles.navCol}>
             <h4>PRODUCT</h4>
             <ul>
-              <li><Link href="#ai-trade">AI Trade</Link></li>
-              <li><Link href="#ai-chat">AI Chat</Link></li>
-              <li><Link href="#ai-strategy">AI Strategy</Link></li>
+              <li><Link href="/trade-snap">AI Trade</Link></li>
+              <li><Link href="/ai-assistant">AI Chat</Link></li>
+              <li><Link href="/ai-strategy/live">AI Strategy</Link></li>
             </ul>
           </div>
 
           <div className={styles.navCol}>
             <h4>RESOURCES</h4>
             <ul>
-              <li><Link href="#education">Education</Link></li>
-              <li><Link href="#market-insights">Market Insights</Link></li>
+              <li><Link href="/plans">Pricing Plans</Link></li>
+              <li><Link href="/economic-calendar">Economic Calendar</Link></li>
             </ul>
           </div>
 
           <div className={styles.navCol}>
             <h4>LEGAL</h4>
             <ul>
-              <li><Link href="#privacy">Privacy Policy</Link></li>
-              <li><Link href="#terms">Terms & Conditions</Link></li>
-              <li><Link href="#terms">Risk Disclosure</Link></li>
+              <li><Link href="/privacy-policy">Privacy Policy</Link></li>
+              <li><Link href="/terms-and-conditions">Terms & Conditions</Link></li>
+              <li><Link href="/risk-disclosure">Risk Disclosure</Link></li>
             </ul>
           </div>
         </div>

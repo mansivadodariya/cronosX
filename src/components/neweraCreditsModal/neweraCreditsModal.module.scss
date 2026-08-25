@@ -425,9 +425,9 @@ $newera-border: #E2E8F0;
 }
 
 .recheckBtn {
-    background: rgba(59, 130, 246, 0.1);
-    border: 1px solid rgba(59, 130, 246, 0.25);
-    color: #2563EB;
+    background: rgba(193, 144, 46, 0.1);
+    border: 1px solid rgba(193, 144, 46, 0.25);
+    color: #F4D17A;
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
@@ -437,8 +437,8 @@ $newera-border: #E2E8F0;
     transition: all 0.2s ease;
 
     &:hover:not(:disabled) {
-        background: rgba(59, 130, 246, 0.2);
-        color: #1D4ED8;
+        background: rgba(193, 144, 46, 0.2);
+        color: #C1902E;
     }
 
     &:disabled {
@@ -451,14 +451,14 @@ $newera-border: #E2E8F0;
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: #3B82F6;
+    background-color: #F4D17A;
     animation: pulse 1.5s infinite ease-in-out;
 }
 
 @keyframes pulse {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(59, 130, 246, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(193, 144, 46, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(193, 144, 46, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(193, 144, 46, 0); }
 }
 
 /* Dark Mode Overrides */
@@ -548,10 +548,10 @@ $newera-border: #E2E8F0;
     .accountInfoBadge {
         background: rgba(255, 255, 255, 0.08);
         border-color: rgba(255, 255, 255, 0.15);
-        color: #60A5FA;
+        color: #F4D17A;
 
         svg {
-            color: #60A5FA;
+            color: #F4D17A;
         }
     }
 
@@ -577,7 +577,7 @@ $newera-border: #E2E8F0;
 
     .spinnerLarge {
         border-color: rgba(255, 255, 255, 0.15);
-        border-top-color: #60A5FA;
+        border-top-color: #F4D17A;
     }
 
     .inputWrapper {

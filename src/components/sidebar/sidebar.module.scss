@@ -19,6 +19,14 @@
 
     &.collapsed {
         width: 76px;
+
+        .sidebarmenu {
+            overflow: visible !important;
+        }
+
+        .bottomSection {
+            overflow: visible !important;
+        }
     }
 
     /* Top Logo Header */
@@ -671,13 +679,40 @@
         border: 1px solid rgba(193, 144, 46, 0.4);
         border-radius: 10px;
         padding: 8px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(244, 209, 122, 0.1);
         min-width: 180px;
         z-index: 1050;
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.15s ease, transform 0.15s ease;
         transform: translateX(-4px);
+
+        /* Transparent bridge so cursor can cross the gap without losing :hover */
+        &::after {
+            content: '';
+            position: absolute;
+            right: 100%;
+            top: 0;
+            width: 16px;
+            height: 100%;
+        }
+
+        :global([dir="rtl"]) & {
+            left: auto;
+            right: calc(100% + 12px);
+
+            &::before {
+                right: auto;
+                left: 100%;
+                border-color: transparent transparent transparent #0e0d0b;
+            }
+
+            /* RTL transparent bridge on the opposite side */
+            &::after {
+                right: auto;
+                left: 100%;
+            }
+        }
 
         &::before {
             content: '';

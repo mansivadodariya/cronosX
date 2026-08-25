@@ -79,7 +79,7 @@ export default function TradeSnapBanner() {
                                     {t('tradeSnap.title', 'Snap a chart. Read the trade.')}
                                 </h1>
                                 <p>
-                                    {t('tradeSnap.subtitle', 'Drag any chart screenshot into AI Trade and let Trader Master identify structure, mark levels, and grade the setup against your risk profile.')}
+                                    {t('tradeSnap.subtitle', 'Drag any chart screenshot into AI Trade and let ChronosX identify structure, mark levels, and grade the setup against your risk profile.')}
                                 </p>
                             </motion.div>
                             <motion.div className={styles.buttonAlignment} variants={itemVariants}>

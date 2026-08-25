@@ -106,7 +106,7 @@ export default function StepTwo() {
                 <div className={styles.titleBlock}>
                     <h1 className={styles.mainTitle}>
                         <span className={styles.whiteTitle}>WHAT DO YOU WANT</span>
-                        <span className={styles.goldTitle}>TRADER MASTER TO HELP WITH?</span>
+                        <span className={styles.goldTitle}>CHRONOSX TO HELP WITH?</span>
                     </h1>
                     <p className={styles.subtitle}>You can select multiple options.</p>
                 </div>
@@ -150,7 +150,7 @@ export default function StepTwo() {
                 <div className={styles.graphicWrapper}>
                     <img
                         src={OnboardingTargetImg}
-                        alt="Trader Master Target Goals"
+                        alt="ChronosX Target Goals"
                         className={styles.graphicImage}
                     />
                 </div>
