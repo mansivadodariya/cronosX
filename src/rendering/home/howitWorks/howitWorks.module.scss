@@ -3,8 +3,9 @@
 @use '../../../scss/font/font.scss' as *;
 
 .howitWorks {
-  padding: 130px 0 140px;
-  background: #000000;
+  padding: 120px 0 130px;
+  background: radial-gradient(ellipse at 50% 0%, #0d0a06 0%, #060503 60%, #020202 100%);
+  position: relative;
   overflow: hidden;
 
   @include respond-to("tab") {
@@ -13,6 +14,20 @@
 
   @include respond-to("sm") {
     padding: 50px 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(216, 162, 59, 0.25) 50%, transparent 100%);
+    z-index: 5;
+    pointer-events: none;
   }
 
   :global(.container) {

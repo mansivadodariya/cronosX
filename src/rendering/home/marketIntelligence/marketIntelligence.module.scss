@@ -5,11 +5,29 @@
 .intelligenceSection {
   padding: 110px 0 90px;
   position: relative;
-  background: #000000;
+  background: radial-gradient(ellipse at 50% 30%, #0d0a05 0%, #060402 55%, #020202 100%);
   overflow: hidden;
 
+  @include respond-to("tab") {
+    padding: 70px 0;
+  }
+
   @include respond-to("sm") {
-    padding: 60px 0;
+    padding: 50px 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(216, 162, 59, 0.25) 50%, transparent 100%);
+    z-index: 5;
+    pointer-events: none;
   }
 }
 

@@ -3,10 +3,11 @@
 @use '../../../scss/font/font.scss' as *;
 
 .capabilitiesSection {
-  padding: 120px 0 80px 0;
+  padding: 110px 0 90px 0;
   position: relative;
   width: 100%;
   overflow: hidden;
+  background: radial-gradient(circle at 50% 30%, #080603 0%, #030304 60%, #000000 100%);
 
   @include respond-to("tab") {
     padding: 70px 0 50px 0;
@@ -14,6 +15,20 @@
 
   @include respond-to("sm") {
     padding: 50px 0 40px 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(216, 162, 59, 0.2) 50%, transparent 100%);
+    z-index: 5;
+    pointer-events: none;
   }
 
   :global(.container) {

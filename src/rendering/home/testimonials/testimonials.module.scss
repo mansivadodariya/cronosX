@@ -7,6 +7,7 @@
   position: relative;
   text-align: center;
   overflow: hidden;
+  background: radial-gradient(ellipse at 50% 50%, #0d0a06 0%, #050403 60%, #020202 100%);
 
   @include respond-to("tab") {
     padding: 70px 0;
@@ -16,20 +17,21 @@
     padding: 50px 0;
   }
 
-  &::before {
-    background-color: #C1902E;
+  &::after {
+    content: '';
     position: absolute;
-    top: 17%;
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    max-width: 1200px;
     width: 100%;
-    content: '';
-    height: 100px;
-    opacity: 0.3;
-    z-index: 1;
-    filter: blur(100px);
+    max-width: 1200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(216, 162, 59, 0.25) 50%, transparent 100%);
+    z-index: 5;
+    pointer-events: none;
   }
+
+
 
   :global(.container) {
     position: relative;
@@ -283,6 +285,7 @@
     0% {
       transform: translateX(0);
     }
+
     100% {
       transform: translateX(-33.333%);
     }

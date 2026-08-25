@@ -7,6 +7,7 @@
   width: 100%;
   padding: 120px 0;
   overflow: hidden;
+  background: radial-gradient(ellipse at 50% 30%, #0d0a05 0%, #060402 60%, #000000 100%);
 
   @include respond-to("tab") {
     padding: 70px 0;
@@ -14,6 +15,20 @@
 
   @include respond-to("sm") {
     padding: 50px 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(216, 162, 59, 0.25) 50%, transparent 100%);
+    z-index: 5;
+    pointer-events: none;
   }
 
   :global(.container) {

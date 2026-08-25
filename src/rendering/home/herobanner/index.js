@@ -215,16 +215,32 @@ export default function Herobanner() {
       <div className={styles.gridOverlay} aria-hidden="true" />
       <div className={styles.radialVignette} aria-hidden="true" />
 
-      <SideRays
-        rayColor1="#C1902E"
-        rayColor2="#F4D17A"
-        origin="top-left"
-        spread={3.4}
-        tilt={40}
-        blend={0.5}
-        speed={2.0}
-        intensity={2.2}
-      />
+      {/* SideRays for Desktop/Laptop View */}
+      <div className={styles.sideRaysWrapper}>
+        <SideRays
+          rayColor1="#C1902E"
+          rayColor2="#F4D17A"
+          origin="top-left"
+          spread={3.4}
+          tilt={40}
+          blend={0.5}
+          speed={2.0}
+          intensity={2.2}
+        />
+      </div>
+
+      {/* Modern High-Tech Ambient Atmosphere & Animations for Mobile */}
+      <div className={styles.mobileTechAtmosphere} aria-hidden="true">
+        <div className={styles.mobileQuantumHalo} />
+        <div className={styles.mobileLaserScan} />
+        <div className={styles.mobileConstellation}>
+          <span className={`${styles.particleDot} ${styles.pDot1}`} />
+          <span className={`${styles.particleDot} ${styles.pDot2}`} />
+          <span className={`${styles.particleDot} ${styles.pDot3}`} />
+          <span className={`${styles.particleDot} ${styles.pDot4}`} />
+          <span className={`${styles.particleDot} ${styles.pDot5}`} />
+        </div>
+      </div>
 
       <div className="container">
         <div className={styles.heroWrapper}>

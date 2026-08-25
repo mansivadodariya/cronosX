@@ -3,8 +3,17 @@
 @use '../../../scss/font/font.scss' as *;
 
 .readytoPut {
-    padding: 60px 0 0 0;
+    padding: 80px 0 60px 0;
     position: relative;
+    background: radial-gradient(ellipse at 50% 100%, #0c0906 0%, #030303 70%);
+
+    @include respond-to("tab") {
+        padding: 50px 0 40px 0;
+    }
+
+    @include respond-to("sm") {
+        padding: 40px 0 30px 0;
+    }
 
     .bannerCard {
         position: relative;

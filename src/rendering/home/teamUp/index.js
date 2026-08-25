@@ -34,65 +34,7 @@ const pillars = [
 export default function TeamUp() {
   return (
     <section className={styles.teamUp} aria-label="Supported Brokers and Platforms">
-      <div className={styles.topBorderSvgWrapper}>
-        <svg
-          viewBox="0 0 1440 32"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="none"
-        >
-          <defs>
-            <linearGradient id="goldBaseGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#C1902E" stopOpacity="0.1" />
-              <stop offset="20%" stopColor="#C1902E" stopOpacity="0.4" />
-              <stop offset="50%" stopColor="#F4D17A" stopOpacity="0.6" />
-              <stop offset="80%" stopColor="#C1902E" stopOpacity="0.4" />
-              <stop offset="100%" stopColor="#C1902E" stopOpacity="0.1" />
-            </linearGradient>
 
-            <linearGradient id="goldBeamGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#C1902E" stopOpacity="0" />
-              <stop offset="30%" stopColor="#C1902E" stopOpacity="0.6" />
-              <stop offset="70%" stopColor="#F4D17A" stopOpacity="1" />
-              <stop offset="100%" stopColor="#FFFFFF" stopOpacity="1" />
-            </linearGradient>
-
-            <filter id="goldGlowFilter" x="-20%" y="-300%" width="140%" height="700%">
-              <feGaussianBlur stdDeviation="2" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
-
-          {/* Base Solid Gold 1px Border Line */}
-          <path
-            d="M 0 1 H 220 L 250 31 H 1190 L 1220 1 H 1440"
-            stroke="url(#goldBaseGradient)"
-            strokeWidth="1"
-            vectorEffect="non-scaling-stroke"
-            fill="none"
-          />
-
-          {/* Animated Traveling Light Beam along the exact border path */}
-          <motion.path
-            d="M 0 1 H 220 L 250 31 H 1190 L 1220 1 H 1440"
-            stroke="url(#goldBeamGradient)"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-            fill="none"
-            filter="url(#goldGlowFilter)"
-            initial={{ pathLength: 0.22, pathOffset: -0.22 }}
-            animate={{ pathOffset: [-0.22, 1.0] }}
-            transition={{
-              duration: 4.5,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-          />
-        </svg>
-      </div>
 
       <div className="container">
         <div className={styles.gridWrapper}>
@@ -154,7 +96,7 @@ export default function TeamUp() {
             </div>
 
             {/* Bottom Institutional Trust Banner */}
-            <motion.div 
+            <motion.div
               className={styles.trustBanner}
               whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.3 }}

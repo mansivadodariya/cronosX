@@ -6,7 +6,7 @@
   padding: 100px 0 100px 0;
   position: relative;
   overflow: hidden;
-  background: #05060A;
+  background: radial-gradient(ellipse at 50% 10%, #0d0a06 0%, #060402 60%, #000000 100%);
 
   @include respond-to("tab") {
     padding: 70px 0;
@@ -16,41 +16,28 @@
     padding: 50px 0;
   }
 
-  &::before {
-    background: radial-gradient(circle at 50% 25%, rgba(193, 144, 46, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+  &::after {
+    content: '';
     position: absolute;
-    top: 5%;
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    max-width: 1300px;
     width: 100%;
-    content: '';
-    height: 400px;
-    z-index: 1;
+    max-width: 1200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(216, 162, 59, 0.25) 50%, transparent 100%);
+    z-index: 5;
     pointer-events: none;
   }
+
+
 
   :global(.container) {
     position: relative;
     z-index: 9;
   }
 
-  .topBorderSvgWrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 32px;
-    pointer-events: none;
-    z-index: 5;
-    overflow: visible;
 
-    svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-  }
 
   .gridWrapper {
     display: grid;
