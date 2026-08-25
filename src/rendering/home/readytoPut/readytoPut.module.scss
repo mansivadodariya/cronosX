@@ -56,23 +56,30 @@
             max-width: 750px;
 
             h2 {
-                @include heading-white-gradient;
-                font-size: 52px;
-                font-family: var(--font-anton);
-
-                line-height: 1.15;
-                text-transform: uppercase;
-
+                font-family: var(--font-syne), "Syne", sans-serif;
+                font-size: 48px;
+                font-weight: 800;
+                line-height: 1.12;
+                letter-spacing: -1.2px;
+                color: #FFFFFF;
+                text-align: center;
                 margin: 0 0 16px 0;
-                font-weight: 400;
 
                 span {
-                    @include heading-gold-gradient;
-                    display: inline-block;
+                    background: linear-gradient(90deg, #FFFFFF 0%, #FFE693 50%, #D8A23B 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                    display: inline;
                 }
 
                 @include respond-to("tab") {
-                    font-size: 36px;
+                    font-size: 34px;
+                    letter-spacing: -0.8px;
+                }
+
+                @include respond-to("sm") {
+                    font-size: 28px;
                 }
             }
 

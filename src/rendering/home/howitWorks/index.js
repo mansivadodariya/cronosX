@@ -1,114 +1,254 @@
 "use client";
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import styles from './howitWorks.module.scss';
-import Textbutton from '@/components/textbutton';
+import Link from 'next/link';
 
 const steps = [
   {
     step: '01',
-    icon: '/assets/icons/user.svg',
-    title: 'Create Your Account',
-    desc: 'Sign up and create your ChronosX account.'
+    label: 'Creating account',
+    icon: '01',
+    title: 'Create Account',
   },
   {
     step: '02',
-    icon: '/assets/icons/link.svg',
-    title: 'Link ChronosX Account',
-    desc: 'Connect your trading account and access AI-powered insights.'
+    label: 'Linking Newera broker',
+    icon: '02',
+    title: 'Link Newera',
   },
   {
     step: '03',
-    icon: '/assets/icons/brain.svg',
+    label: 'Scanning market structure',
+    icon: '03',
     title: 'Ask the AI',
-    desc: 'Ask AI about markets, setups, signals, and strategies.'
   },
   {
     step: '04',
-    icon: '/assets/icons/chart-growth.svg',
+    label: 'Replenishing credits',
+    icon: '04',
     title: 'Trade & Replenish',
-    desc: 'Use AI insights to make smarter trading decisions and manage your trades.'
   }
 ];
 
 export default function HowitWorks() {
+  const [activeStep, setActiveStep] = useState(0);
+  const [isIntro, setIsIntro] = useState(true);
+
+  // Phase 1 (intro label) → Phase 2 (simulation) after 1.4s
+  useEffect(() => {
+    setIsIntro(true);
+    const t = setTimeout(() => setIsIntro(false), 1400);
+    return () => clearTimeout(t);
+  }, [activeStep]);
+
+  // Auto-cycle every 6.5s
+  useEffect(() => {
+    const t = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % steps.length);
+    }, 6500);
+    return () => clearInterval(t);
+  }, []);
+
+  const current = steps[activeStep];
+
   return (
-    <div className={styles.howitWorks}>
-      <div className={styles.bgLeftWave}></div>
-      <div className={styles.bgRightWave}></div>
-      <div className={styles.bgFloorGrid}></div>
+    <section className={styles.howitWorks} aria-label="How ChronosX Works">
+      <div className="container">
+        <div className={styles.row}>
 
-      <div className='container'>
-        <motion.div 
-          className={styles.header}
-          initial={{ opacity: 0, y: 35 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <motion.div 
-            className={styles.badgeWrapper}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <Textbutton text="HOW IT WORKS" />
-          </motion.div>
+          {/* ── LEFT: Text ── */}
+          <div className={styles.left}>
+            <span className={styles.badge}>CHRONOSX &middot; THE ENGINE</span>
 
-          <h2>
-            ONE PLATFORM. EVERY <br />
-            <span>TRADING TOOL</span> YOU NEED
-          </h2>
-        </motion.div>
+            <h2 className={styles.title}>
+              Trade Smart.<br />
+              Earn Credits.<br />
+              <span>Repeat Forever.</span>
+            </h2>
 
-        <div className={styles.stepsContainer}>
-          {steps.map((item, index) => (
-            <React.Fragment key={index}>
-              <motion.div 
-                className={styles.cardWrapper}
-                initial={{ opacity: 0, y: 50, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{
-                  duration: 0.7,
-                  delay: index * 0.15,
-                  ease: [0.22, 1, 0.36, 1]
-                }}
-              >
-                <div className={styles.card}>
-                  <div className={styles.numberBadge}>{item.step}</div>
-                  <div className={styles.iconBox}>
-                    <img src={item.icon} alt={item.title} />
-                  </div>
-                  <h3>{item.title}</h3>
-                  <p>{item.desc}</p>
-                </div>
-                
-                {/* 3D Glowing Futuristic Pedestal */}
-                <div className={styles.pedestal}>
-                  <div className={styles.pedestalLight}></div>
-                  <div className={styles.pedestalRingOuter}></div>
-                  <div className={styles.pedestalRingInner}></div>
-                  <div className={styles.pedestalGlow}></div>
-                </div>
-              </motion.div>
+            <p className={styles.desc}>
+              ChronosX is the AI behind your institutional edge — every market, every session, every tool.
+            </p>
 
-              {index < steps.length - 1 && (
-                <motion.div 
-                  className={styles.arrowDivider}
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.2 + index * 0.15 }}
-                >
-                  <img src="/assets/icons/step-arrow.svg" alt="arrow" />
-                </motion.div>
-              )}
-            </React.Fragment>
-          ))}
+            <p className={styles.sub}>
+              Connect your Newera account to unlock perpetual AI intelligence. Every completed trade cycle automatically refills your credits for unlimited free analysis.
+            </p>
+
+            <Link href="/signup" className={styles.cta}>
+              Get Started Free <span>&rarr;</span>
+            </Link>
+
+            {/* Step dots indicator */}
+            <div className={styles.dots}>
+              {steps.map((_, i) => (
+                <div
+                  key={i}
+                  className={`${styles.dot} ${activeStep === i ? styles.dotActive : ''}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* ── RIGHT: TV Screen ── */}
+          <div className={styles.right}>
+            <div className={styles.tvBox}>
+              <AnimatePresence mode="wait">
+
+                {/* Phase 1 — Minimal intro label (LuxAlgo black screen style) */}
+                {isIntro ? (
+                  <motion.div
+                    key={`intro-${activeStep}`}
+                    className={styles.introState}
+                    initial={{ opacity: 0, scale: 0.94 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1.06 }}
+                    transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <span className={styles.introIcon}>{current.icon}</span>
+                    <span className={styles.introLabel}>{current.label}</span>
+                  </motion.div>
+                ) : (
+
+                  /* Phase 2 — Live simulation */
+                  <motion.div
+                    key={`sim-${activeStep}`}
+                    className={styles.simState}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -12 }}
+                    transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                  >
+
+                    {/* ── SCREEN 01 ── */}
+                    {activeStep === 0 && (
+                      <div className={styles.sim}>
+                        <div className={styles.simHead}>
+                          <span className={styles.numTag}>01</span>
+                          <span className={styles.simTitle}>Create Free Account</span>
+                          <span className={styles.statusGreen}>● ACTIVE</span>
+                        </div>
+                        <div className={styles.form}>
+                          <div className={styles.lbl}>EMAIL ADDRESS</div>
+                          <div className={styles.input}>
+                            <span>trader@institutional.com</span>
+                            <span className={styles.cursor}>|</span>
+                          </div>
+                          <div className={styles.btn}>
+                            <span>INITIALIZE AI WORKSPACE</span>
+                            <span>&rarr;</span>
+                          </div>
+                        </div>
+                        <div className={styles.alert}>
+                          <div className={styles.check}>✓</div>
+                          <div>
+                            <strong>Instant Email Verification</strong>
+                            <span className={styles.alertSub}>+10 Welcome Starter Credits Claimed</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* ── SCREEN 02 ── */}
+                    {activeStep === 1 && (
+                      <div className={styles.sim}>
+                        <div className={styles.simHead}>
+                          <span className={styles.numTag}>02</span>
+                          <span className={styles.simTitle}>Link Newera MT5 Account</span>
+                          <span className={styles.statusGreen}>● BRIDGE SYNCED</span>
+                        </div>
+                        <div className={styles.brokerRow}>
+                          <div className={styles.brokerLogo}>N</div>
+                          <div>
+                            <h4>NEWERA MARKETS</h4>
+                            <p>Server: NeweraMarkets-Live01</p>
+                          </div>
+                        </div>
+                        <div className={styles.mt5Row}>
+                          <span>MT5 ID:</span>
+                          <strong>12849021 (Authenticated)</strong>
+                          <span>🔒</span>
+                        </div>
+                        <div className={styles.reward}>
+                          <span className={styles.star}>✦</span>
+                          <div>
+                            <strong>+50 TRADING CREDITS UNLOCKED</strong>
+                            <p>Direct broker bridge &middot; 0.0 Raw Spreads</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* ── SCREEN 03 ── */}
+                    {activeStep === 2 && (
+                      <div className={styles.sim}>
+                        <div className={styles.simHead}>
+                          <span className={styles.numTag}>03</span>
+                          <span className={styles.simTitle}>TradeSnap AI &middot; BTC/USDT</span>
+                          <span className={styles.signal}>▲ BUY SIGNAL</span>
+                        </div>
+                        <div className={styles.chart}>
+                          <div className={styles.sessions}>
+                            <span>London</span>
+                            <span>New York</span>
+                          </div>
+                          <div className={styles.sessionZone} />
+                          <div className={styles.laser} />
+                          <div className={styles.candles}>
+                            {[32, 22, 48, 64, 30, 78, 96, 45, 60, 38, 82, 55].map((h, i) => (
+                              <div
+                                key={i}
+                                className={`${styles.candle} ${i % 3 === 1 ? styles.red : styles.green}`}
+                                style={{ height: `${h}px` }}
+                              />
+                            ))}
+                          </div>
+                          <div className={styles.callouts}>
+                            <span className={styles.tp}>TP: $98,450 (+4.8%)</span>
+                            <span className={styles.sl}>SL: $94,120 (-0.8%)</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* ── SCREEN 04 ── */}
+                    {activeStep === 3 && (
+                      <div className={styles.sim}>
+                        <div className={styles.simHead}>
+                          <span className={styles.numTag}>04</span>
+                          <span className={styles.simTitle}>Perpetual Credit Engine</span>
+                          <span className={styles.statusGold}>● LIFETIME LOOP</span>
+                        </div>
+                        <div className={styles.loop}>
+                          <div className={styles.ring1} />
+                          <div className={styles.ring2} />
+                          <div className={styles.loopCenter}>
+                            <span className={styles.loopIcon}>⟳</span>
+                            <span className={styles.loopNum}>+50</span>
+                            <span className={styles.loopLabel}>CREDITS REFRESHED</span>
+                          </div>
+                        </div>
+                        <div className={styles.meta}>
+                          <div className={styles.metaRow}>
+                            <span>Trade Execution:</span>
+                            <strong className={styles.green}>Verified on Newera MT5</strong>
+                          </div>
+                          <div className={styles.metaRow}>
+                            <span>Credit Top-Up:</span>
+                            <strong className={styles.gold}>Free Instant Refill (+50)</strong>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+
         </div>
       </div>
-    </div>
+    </section>
   );
 }

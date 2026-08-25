@@ -39,8 +39,8 @@ export default function GlobalNetworkMap() {
           </motion.div>
 
           <h2>
-            ULTRA LOW-LATENCY <br />
-            <span>AI EXECUTION MESH</span>
+            Ultra Low-Latency <br />
+            <span>AI Execution Mesh</span>
           </h2>
 
           <p className={styles.subtext}>

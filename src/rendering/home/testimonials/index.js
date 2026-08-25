@@ -74,8 +74,8 @@ export default function Testimonials() {
           </motion.div>
 
           <h2>
-            USED BY SERIOUS <br />
-            <span>FOREX TRADERS</span>
+            Used by Serious <br />
+            <span>Forex Traders</span>
           </h2>
 
           <p className={styles.subtext}>

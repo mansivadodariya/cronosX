@@ -53,8 +53,8 @@ export default function ReadytoPut() {
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             >
-              READY TO PUT <span>AI</span> IN <br />
-              YOUR TRADING DESK?
+              Ready to Put <span>AI</span> in <br />
+              Your Trading Desk?
             </motion.h2>
 
             <motion.p

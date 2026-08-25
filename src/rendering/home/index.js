@@ -1,5 +1,7 @@
 import React from 'react'
 import Herobanner from './herobanner'
+import AiCockpit from './aiCockpit'
+import CardList from './cardList'
 import Platform from './platform'
 import Capabilities from './capabilities'
 import AiAssistant from './aiAssistant'
@@ -7,23 +9,27 @@ import HowitWorks from './howitWorks'
 import ChartAnalysis from './chartAnalysis'
 import BreakoutDetection from './breakoutDetection'
 import AiAnalyst from './aiAnalyst'
+import BeforeAfterComparison from './beforeAfterComparison'
+import MarketIntelligence from './marketIntelligence'
 import TeamUp from './teamUp'
 import Testimonials from './testimonials'
 import GlobalNetworkMap from './globalNetworkMap'
 import ReadytoPut from './readytoPut'
-import CardList from './cardList'
 
 export default function HomePage() {
     return (
         <div>
             <Herobanner />
-            <CardList />
-            <Platform />
+            <AiCockpit />
+            {/* <CardList /> */}
+            {/* <Platform /> */}
             <Capabilities />
-            <AiAssistant />
+            <BeforeAfterComparison />
+            <MarketIntelligence />
             <HowitWorks />
+            {/* <AiAssistant /> */}
+            <BreakoutDetection />
             <ChartAnalysis />
-            {/* <BreakoutDetection /> */}
             <AiAnalyst />
             <TeamUp />
             <Testimonials />
@@ -32,3 +38,4 @@ export default function HomePage() {
         </div>
     )
 }
+

@@ -1,184 +1,262 @@
 "use client";
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './aiAssistant.module.scss';
 import Textbutton from '@/components/textbutton';
 
-// Helper to generate dynamic live candlesticks for simulator
-function generateCandles(base = 2650, count = 35) {
-  const candles = [];
-  let price = base;
-  for (let i = 0; i < count; i++) {
-    const delta = (Math.random() - 0.47) * (base * 0.0035);
-    const open = price;
-    const close = open + delta;
-    const high = Math.max(open, close) + Math.random() * (base * 0.0018);
-    const low = Math.min(open, close) - Math.random() * (base * 0.0018);
-    price = close;
-    candles.push({ open, close, high, low });
-  }
-  return candles;
-}
-
-const features = [
+const featureData = [
   {
     id: 0,
-    symbol: 'XAU/USD',
-    icon: '/assets/icons/lightning.svg',
-    title: 'Instant Trading Insights',
-    desc: 'Get real-time market data, charts, trends, and actionable insights.',
-    badge: 'LIVE SIGNALS'
+    step: '01',
+    modelKey: 'Neural-v4.2',
+    name: 'Neural Engine',
+    badge: 'LIVE REASONING',
+    title: 'Instant AI Market Insights',
+    desc: 'Receive real-time multi-modal market analysis, structural pattern recognition, and high-probability setup alerts with institutional precision.',
+    metric: 'Latency: < 12ms • Multi-Asset',
+    iconType: 'lightning'
   },
   {
     id: 1,
-    symbol: 'NVDA',
-    icon: '/assets/icons/robot.svg',
-    title: 'Smarter & Automated Analysis',
-    desc: 'Let AI analyze market conditions, indicators, and potential opportunities.',
-    badge: 'AUTO STRUCTURE'
+    step: '02',
+    modelKey: 'GPT-4o Vision',
+    name: 'Vision Analysis',
+    badge: 'AUTO STRUCTURE',
+    title: 'Smarter Automated Analysis',
+    desc: 'AI dynamically scans chart structures, detects liquidity imbalances, and maps harmonic key levels 24/7.',
+    metric: 'Pattern Engine: Vision-v4.2 • 98.4%',
+    iconType: 'robot'
   },
   {
     id: 2,
-    symbol: 'BTC/USD',
-    icon: '/assets/icons/gauge.svg',
+    step: '03',
+    modelKey: 'DeepReasoning',
+    name: 'Decision Guard',
+    badge: 'DECISION COPILOT',
     title: 'Real-Time Decision Support',
-    desc: 'Make confident trading decisions with AI-powered market intelligence.',
-    badge: 'DECISION COPILOT'
+    desc: 'Execute trades backed by automated risk calibration, dynamic target projections, and intelligent trailing guard protection.',
+    metric: 'Risk Engine: Auto Calibration • Dynamic Guard',
+    iconType: 'gauge'
   }
 ];
 
-const symbolConfig = {
-  'XAU/USD': { base: 2654.80, name: 'Gold Spot', change: '+1.42%', tf: '15m', signal: 'STRONG BUY (94%)', tp: '2,668.00', sl: '2,647.00', rr: '1 : 3.4' },
-  'NVDA': { base: 145.20, name: 'NVIDIA Corp', change: '+2.85%', tf: '1H', signal: 'BREAKOUT LONG', tp: '152.00', sl: '141.50', rr: '1 : 2.9' },
-  'BTC/USD': { base: 94850.00, name: 'Bitcoin', change: '+3.15%', tf: '4H', signal: 'BULLISH MOMENTUM', tp: '98,200.00', sl: '92,400.00', rr: '1 : 3.8' }
+const modelConfigurations = {
+  'Neural-v4.2': {
+    name: 'Chronos Neural Engine v4.2',
+    category: 'Multi-Modal Reasoning',
+    activeTabLabel: 'REAL-TIME ANALYSIS',
+    prompt: 'Identify structural liquidity gaps and optimal risk-reward parameters for high-probability setups.',
+    confidence: '98.4% Confluence Score',
+    recommendation: 'STRUCTURAL BREAKOUT VALIDATED',
+    statusTag: 'HIGH ACCURACY',
+    pipelineSteps: [
+      { step: '01', name: 'Pattern Recognition', status: 'Structure Identified', detail: 'Harmonic Confluence & Breakout Zone' },
+      { step: '02', name: 'Liquidity Analysis', status: 'Sweep Confirmed', detail: 'Institutional Volume Footprint' },
+      { step: '03', name: 'Risk Calibration', status: 'Guard Active', detail: 'Auto Trailing Guard Locked (1:3.4 R:R)' }
+    ],
+    keyTakeaways: [
+      { label: 'Market Structure', val: 'Higher High Breakout Confirmed', color: 'gold' },
+      { label: 'Confidence Score', val: '98.4% Neural Confluence', color: 'green' },
+      { label: 'Risk Calibration', val: 'Auto Trailing Guard Locked', color: 'cyan' }
+    ],
+    logs: [
+      { time: '17:12:42', type: 'engine', text: 'Neural Engine verified multi-timeframe trend alignment across all timeframes.' },
+      { time: '17:12:38', type: 'orderflow', text: 'Pattern Detector matched 98.4% similarity against historical dataset.' },
+      { time: '17:12:30', type: 'risk', text: 'Risk Guard calibrated automated trailing protection with 1:3.4 ratio.' }
+    ]
+  },
+  'GPT-4o Vision': {
+    name: 'GPT-4o Vision Copilot',
+    category: 'Computer Vision',
+    activeTabLabel: 'PATTERN DETECTION',
+    prompt: 'Scan multi-timeframe price action to detect liquidity sweeps and key support-resistance zones.',
+    confidence: '97.8% Precision Rating',
+    recommendation: 'LIQUIDITY SWEEP DETECTED',
+    statusTag: 'AUTO STRUCTURE',
+    pipelineSteps: [
+      { step: '01', name: 'Visual Scanner', status: 'Chart Processed', detail: 'Multi-Timeframe Spatial Mapping' },
+      { step: '02', name: 'Structure Engine', status: 'Imbalance Mapped', detail: 'Fair Value Gap Detected' },
+      { step: '03', name: 'Target Generator', status: 'Projection Ready', detail: 'Dynamic Fibonacci Target 61.8%' }
+    ],
+    keyTakeaways: [
+      { label: 'Visual Mapping', val: 'Multi-Timeframe Spatial Mesh', color: 'cyan' },
+      { label: 'Imbalance Engine', val: 'Fair Value Gap Cleared', color: 'green' },
+      { label: 'Accuracy Rating', val: '97.8% Precision Score', color: 'gold' }
+    ],
+    logs: [
+      { time: '17:12:44', type: 'engine', text: 'GPT-4o Vision Engine analyzed spatial chart vectors and key levels.' },
+      { time: '17:12:36', type: 'orderflow', text: 'Fair Value Gap mapped with 97.8% confidence on 1H timeframe.' },
+      { time: '17:12:28', type: 'risk', text: 'Target projection calibrated for optimal risk-adjusted reward.' }
+    ]
+  },
+  'DeepReasoning': {
+    name: 'DeepReasoning Risk Engine',
+    category: 'Autonomous Guard',
+    activeTabLabel: 'RISK COPILOT',
+    prompt: 'Calculate dynamic position sizing and automated trailing stop-loss parameters.',
+    confidence: '99.1% Guard Reliability',
+    recommendation: 'AUTOMATED RISK GUARD ACTIVE',
+    statusTag: 'DYNAMIC GUARD',
+    pipelineSteps: [
+      { step: '01', name: 'Volatility Engine', status: 'Metrics Scanned', detail: 'Real-Time Volatility Guard' },
+      { step: '02', name: 'R:R Optimizer', status: 'Ratio Calibrated', detail: 'Optimal Risk Ceiling Applied' },
+      { step: '03', name: 'Stop Protection', status: 'Trailing Active', detail: 'Dynamic Stop Loss Safeguard' }
+    ],
+    keyTakeaways: [
+      { label: 'Volatility Guard', val: 'Real-Time Volatility Scanned', color: 'green' },
+      { label: 'Risk Ratio', val: '1 : 3.8 Optimal Calibration', color: 'gold' },
+      { label: 'Guard Status', val: '99.1% Dynamic Protection', color: 'cyan' }
+    ],
+    logs: [
+      { time: '17:12:45', type: 'engine', text: 'DeepReasoning Engine computed real-time volatility distribution.' },
+      { time: '17:12:40', type: 'orderflow', text: 'Optimal risk ratio calculated at 1:3.8 risk-reward balance.' },
+      { time: '17:12:32', type: 'risk', text: 'Dynamic trailing guard active with automated risk mitigation.' }
+    ]
+  }
 };
 
 export default function AiAssistant() {
   const [activeTab, setActiveTab] = useState(0);
-  const [activeTf, setActiveTf] = useState('15m');
-  const [activeSymbol, setActiveSymbol] = useState('XAU/USD');
-  const [candles, setCandles] = useState(() => generateCandles(2654, 32));
-  const [livePrice, setLivePrice] = useState(2654.80);
+  const [activeModel, setActiveModel] = useState('Neural-v4.2');
   const [isPaused, setIsPaused] = useState(false);
 
-  // Sync symbol when activeTab changes
+  // Sync active model key when feature tab changes
   useEffect(() => {
-    const sym = features[activeTab].symbol;
-    setActiveSymbol(sym);
-    setActiveTf(symbolConfig[sym].tf);
-    const cfg = symbolConfig[sym];
-    setLivePrice(cfg.base);
-    setCandles(generateCandles(cfg.base, 32));
+    const feature = featureData[activeTab];
+    const key = feature.modelKey;
+    setActiveModel(key);
   }, [activeTab]);
 
-  // Real-time live tick simulator for chart
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setLivePrice((prev) => {
-        const delta = (Math.random() - 0.485) * (prev * 0.0006);
-        const nextPrice = Number((prev + delta).toFixed(activeSymbol.includes('BTC') || activeSymbol.includes('XAU') ? 2 : 2));
-        
-        setCandles((prevCandles) => {
-          if (prevCandles.length === 0) return prevCandles;
-          const last = { ...prevCandles[prevCandles.length - 1] };
-          last.close = nextPrice;
-          last.high = Math.max(last.high, nextPrice);
-          last.low = Math.min(last.low, nextPrice);
-          return [...prevCandles.slice(0, -1), last];
-        });
-
-        return nextPrice;
-      });
-    }, 1200);
-
-    return () => clearInterval(interval);
-  }, [activeSymbol]);
-
-  // Auto-cycle through the 3 tabs when not hovered
+  // Auto-cycle through feature tabs
   useEffect(() => {
     if (isPaused) return;
     const timer = setInterval(() => {
-      setActiveTab((prev) => (prev + 1) % features.length);
-    }, 7000);
+      setActiveTab((prev) => (prev + 1) % featureData.length);
+    }, 6500);
     return () => clearInterval(timer);
   }, [isPaused]);
 
-  const cfg = symbolConfig[activeSymbol] || symbolConfig['XAU/USD'];
+  const cfg = modelConfigurations[activeModel] || modelConfigurations['Neural-v4.2'];
 
-  // Min/Max for SVG chart scaling
-  const minPrice = Math.min(...candles.map(c => c.low));
-  const maxPrice = Math.max(...candles.map(c => c.high));
-  const priceRange = maxPrice - minPrice || 1;
-
-  const svgWidth = 560;
-  const svgHeight = 240;
-  const candleSpacing = svgWidth / candles.length;
+  // Render feature icon based on type
+  const renderIcon = (type) => {
+    switch (type) {
+      case 'lightning':
+        return (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        );
+      case 'robot':
+        return (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="11" width="18" height="10" rx="2" stroke="currentColor" strokeWidth="2.2"/>
+            <circle cx="12" cy="5" r="2" stroke="currentColor" strokeWidth="2.2"/>
+            <path d="M12 7V11" stroke="currentColor" strokeWidth="2.2"/>
+            <line x1="8" y1="16" x2="8.01" y2="16" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/>
+            <line x1="16" y1="16" x2="16.01" y2="16" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/>
+          </svg>
+        );
+      case 'gauge':
+      default:
+        return (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/>
+            <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2.2"/>
+          </svg>
+        );
+    }
+  };
 
   return (
-    <div 
+    <section 
       className={styles.aiAssistant}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      aria-label="AI Assistant Section"
     >
+      {/* Background Ambient Glows */}
+      <div className={styles.ambientGlowLeft} aria-hidden="true" />
+      <div className={styles.ambientGlowRight} aria-hidden="true" />
+
       <div className='container'>
         <div className={styles.gridWrapper}>
           
-          {/* Left Column: Interactive Feature Selection Tabs */}
+          {/* Left Column: Interactive Feature Selection Deck */}
           <motion.div 
             className={styles.leftContent}
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <motion.div 
-              className={styles.badgeWrapper}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            >
+            <div className={styles.badgeWrapper}>
               <Textbutton text="AI ASSISTANT" />
-            </motion.div>
+              <div className={styles.neuralEngineBadge}>
+                <span className={styles.enginePulseDot} />
+                <span>POWERED BY NEURAL-v4.2</span>
+              </div>
+            </div>
 
-            <h2>
+            <h2 className={styles.mainTitle}>
               YOUR PERSONAL AI <br />
-              <span>TRADING</span> ASSISTANT
+              <span>INTELLIGENCE ASSISTANT</span>
             </h2>
 
             <p className={styles.subtext}>
-              Analyze the markets, identify trading setups, and receive AI-powered insights with
-              confidence. Your personal AI trading assistant is available 24/7 to help you trade
-              smarter.
+              Analyze complex market dynamics with <span className={styles.textHighlight}>institutional precision</span>, 
+              identify high-probability patterns, and execute intelligent risk-managed strategies backed by 
+              continuous <span className={styles.textHighlight}>machine learning</span>.
             </p>
 
-            {/* Interactive Feature Tabs */}
+            {/* Interactive Feature Deck List */}
             <div className={styles.featuresList}>
-              {features.map((item, index) => {
+              {featureData.map((item, index) => {
                 const isActive = activeTab === index;
                 return (
                   <div
-                    key={index}
+                    key={item.id}
                     className={`${styles.featureItem} ${isActive ? styles.featureActive : ''}`}
                     onClick={() => {
                       setActiveTab(index);
                       setIsPaused(true);
                     }}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === 'Enter' && setActiveTab(index)}
                   >
+                    {/* Active Accent Pillar Bar */}
+                    {isActive && <div className={styles.activePillarBar} />}
+
                     <div className={styles.featureHeaderRow}>
                       <div className={styles.iconCircle}>
-                        <img src={item.icon} alt={item.title} />
+                        {renderIcon(item.iconType)}
                       </div>
+                      
                       <div className={styles.featureText}>
                         <div className={styles.titleMetaRow}>
-                          <h3>{item.title}</h3>
+                          <div className={styles.titleWithStep}>
+                            <span className={styles.stepNum}>{item.step}</span>
+                            <h3 className={styles.itemTitle}>{item.title}</h3>
+                          </div>
                           <span className={styles.miniBadge}>{item.badge}</span>
                         </div>
-                        <p>{item.desc}</p>
+
+                        <p className={styles.itemDesc}>{item.desc}</p>
+                        
+                        <div className={styles.metaFooterRow}>
+                          <span className={styles.metricBadge}>
+                            <span className={styles.metricDot} />
+                            {item.metric}
+                          </span>
+                          <span className={styles.symbolTag}>
+                            {item.modelKey}
+                          </span>
+                        </div>
                       </div>
                     </div>
 
-                    {/* Progress Bar for Active Tab */}
+                    {/* Glowing Accent Progress Bar for Active Tab Auto-Cycling */}
                     {isActive && (
                       <div className={styles.progressBarTrack}>
                         <motion.div
@@ -186,7 +264,7 @@ export default function AiAssistant() {
                           initial={{ width: '0%' }}
                           animate={{ width: '100%' }}
                           transition={{
-                            duration: isPaused ? 0 : 7,
+                            duration: isPaused ? 0 : 6.5,
                             ease: 'linear'
                           }}
                         />
@@ -198,182 +276,167 @@ export default function AiAssistant() {
             </div>
           </motion.div>
 
-          {/* Right Column: Ultra-Clean Live TradingView Chart Simulator */}
+          {/* Right Column: AI Copilot Reasoning & Conversation Console (No Stock Tickers / No Trading Numbers) */}
           <motion.div 
-            className={styles.rightImage}
-            initial={{ opacity: 0, x: 40, scale: 0.95 }}
-            whileInView={{ opacity: 1, x: 0, scale: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className={styles.rightColumn}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className={styles.chartTerminalCard}>
+            <div className={styles.intelligenceTerminalCard}>
               
-              {/* Terminal Top Control Bar */}
+              {/* Terminal Header Bar */}
               <div className={styles.terminalHeader}>
-                <div className={styles.symbolSelectorGroup}>
-                  <div className={styles.activeSymbolBadge}>
-                    <span className={styles.liveBeacon}></span>
-                    <span className={styles.symTicker}>{activeSymbol}</span>
-                    <span className={styles.symSubName}>{cfg.name}</span>
+                <div className={styles.leftHeaderCluster}>
+                  <div className={styles.windowControls} aria-hidden="true">
+                    <span className={styles.controlDotRed} />
+                    <span className={styles.controlDotYellow} />
+                    <span className={styles.controlDotGreen} />
                   </div>
 
-                  {/* Symbol Switcher Buttons */}
-                  <div className={styles.quickSymTabs}>
-                    {['XAU/USD', 'NVDA', 'BTC/USD'].map((s) => (
-                      <button
-                        key={s}
-                        className={`${styles.symBtn} ${activeSymbol === s ? styles.symBtnActive : ''}`}
-                        onClick={() => {
-                          setActiveSymbol(s);
-                          const idx = features.findIndex(f => f.symbol === s);
-                          if (idx !== -1) setActiveTab(idx);
-                        }}
-                      >
-                        {s}
-                      </button>
-                    ))}
+                  <div className={styles.activeAssetBadge}>
+                    <span className={styles.liveBeacon} />
+                    <span className={styles.assetTicker}>{activeModel}</span>
+                    <span className={styles.assetSubName}>{cfg.name}</span>
                   </div>
                 </div>
 
-                {/* Timeframe Selector Pills */}
-                <div className={styles.timeframeGroup}>
-                  {['5m', '15m', '1H', '4H', '1D'].map((tf) => (
+                {/* Model Switcher Tabs */}
+                <div className={styles.symbolSelectorTabs}>
+                  {['Neural-v4.2', 'GPT-4o Vision', 'DeepReasoning'].map((mKey) => (
                     <button
-                      key={tf}
-                      className={`${styles.tfBtn} ${activeTf === tf ? styles.tfBtnActive : ''}`}
-                      onClick={() => setActiveTf(tf)}
+                      key={mKey}
+                      type="button"
+                      className={`${styles.symTabBtn} ${activeModel === mKey ? styles.symTabActive : ''}`}
+                      onClick={() => {
+                        setActiveModel(mKey);
+                        const idx = featureData.findIndex(f => f.modelKey === mKey);
+                        if (idx !== -1) setActiveTab(idx);
+                      }}
                     >
-                      {tf}
+                      {mKey}
                     </button>
                   ))}
                 </div>
               </div>
 
-              {/* Live Price & AI Telemetry Banner */}
-              <div className={styles.priceTelemetryBar}>
-                <div className={styles.priceLiveBlock}>
-                  <span className={styles.priceNum}>${livePrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                  <span className={styles.changePercent}>{cfg.change}</span>
+              {/* Main Intelligence Hub Content - Non-Trading AI Copilot Interface */}
+              <div className={styles.terminalBody}>
+                
+                {/* 1. Live AI Prompt Query Card */}
+                <div className={styles.promptQueryCard}>
+                  <div className={styles.queryHeaderRow}>
+                    <div className={styles.queryUserBadge}>
+                      <span className={styles.userIcon}>💬</span>
+                      <span className={styles.queryTitle}>ACTIVE AI PROMPT ANALYSIS</span>
+                    </div>
+                    <span className={styles.latencyPill}>Latency: &lt; 12ms</span>
+                  </div>
+                  <p className={styles.promptText}>"{cfg.prompt}"</p>
                 </div>
 
-                <div className={styles.aiSignalBadge}>
-                  <span className={styles.aiIcon}>⚡</span>
-                  <span>AI: {cfg.signal}</span>
+                {/* 2. AI Recommendation & Confidence Score Hero Banner */}
+                <div className={styles.priceHeaderRow}>
+                  <div className={styles.livePriceGroup}>
+                    <div className={styles.heroRecLabel}>AI REASONING OUTPUT</div>
+                    <div className={styles.heroRecValue}>{cfg.recommendation}</div>
+                  </div>
+
+                  {/* AI Confidence Hero Pill */}
+                  <div className={styles.aiSignalHeroBox}>
+                    <div className={styles.signalHeader}>
+                      <span className={styles.pulseDot} />
+                      <span className={styles.signalTitle}>CONFIDENCE SCORE</span>
+                    </div>
+                    <div className={styles.signalValueRow}>
+                      <span className={styles.signalText}>{cfg.confidence}</span>
+                      <span className={styles.confidencePill}>{cfg.statusTag}</span>
+                    </div>
+                  </div>
                 </div>
+
+                {/* 3. Multimodal Reasoning Matrix - 3 Stage Processing Cards */}
+                <div className={styles.reasoningPipelineSection}>
+                  <div className={styles.sectionLabel}>REASONING & EXECUTION PIPELINE</div>
+                  <div className={styles.pipelineGrid}>
+                    {cfg.pipelineSteps.map((stepItem, i) => (
+                      <div key={i} className={styles.pipelineCard}>
+                        <div className={styles.pHeader}>
+                          <span className={styles.pStepBadge}>{stepItem.step}</span>
+                          <span className={styles.pCheckIcon}>✓</span>
+                        </div>
+                        <div className={styles.pName}>{stepItem.name}</div>
+                        <div className={styles.pStatus}>{stepItem.status}</div>
+                        <div className={styles.pDetail}>{stepItem.detail}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 4. Active Strategy Key Insights Cards */}
+                <div className={styles.keyInsightsGrid}>
+                  {cfg.keyTakeaways.map((item, idx) => (
+                    <div key={idx} className={styles.takeawayCard}>
+                      <span className={styles.tLabel}>{item.label}</span>
+                      <span className={item.color === 'gold' ? styles.tValGold : item.color === 'green' ? styles.tValGreen : styles.tValCyan}>
+                        {item.val}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* 5. Live AI Thought & Reasoning Stream Console */}
+                <div className={styles.streamConsole}>
+                  <div className={styles.consoleHeader}>
+                    <div className={styles.consoleTitleGroup}>
+                      <span className={styles.consoleBeacon} />
+                      <span className={styles.consoleTitle}>REAL-TIME AI REASONING STREAM</span>
+                    </div>
+                    <span className={styles.engineBadge}>Model: {activeModel}</span>
+                  </div>
+
+                  <div className={styles.logStreamList}>
+                    <AnimatePresence mode="wait">
+                      {cfg.logs.map((log, i) => (
+                        <motion.div 
+                          key={`${activeModel}-${i}`}
+                          className={styles.logItem}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: 10 }}
+                          transition={{ duration: 0.3, delay: i * 0.08 }}
+                        >
+                          <span className={styles.logTime}>{log.time}</span>
+                          <span className={styles.logIcon}>
+                            {log.type === 'engine' ? '🧠' : log.type === 'orderflow' ? '⚡' : '🛡️'}
+                          </span>
+                          <span className={styles.logText}>{log.text}</span>
+                        </motion.div>
+                      ))}
+                    </AnimatePresence>
+                  </div>
+                </div>
+
               </div>
 
-              {/* Main SVG Candlestick Chart Canvas */}
-              <div className={styles.chartCanvas}>
-                {/* Horizontal Grid Levels */}
-                <div className={styles.gridLines}>
-                  <div className={styles.gridLine}><span>${maxPrice.toFixed(1)}</span></div>
-                  <div className={styles.gridLine}><span>${((maxPrice + minPrice) / 2).toFixed(1)}</span></div>
-                  <div className={styles.gridLine}><span>${minPrice.toFixed(1)}</span></div>
-                </div>
-
-                <svg viewBox={`0 0 ${svgWidth} ${svgHeight}`} className={styles.svgChart}>
-                  <defs>
-                    <linearGradient id="chartAreaGlow" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="#FFE693" stopOpacity="0.18" />
-                      <stop offset="100%" stopColor="#FFE693" stopOpacity="0" />
-                    </linearGradient>
-                  </defs>
-
-                  {/* Gradient Area under trend */}
-                  <path
-                    d={`M 0 ${svgHeight} ` + candles.map((c, i) => {
-                      const x = i * candleSpacing + candleSpacing / 2;
-                      const y = svgHeight - ((c.close - minPrice) / priceRange) * (svgHeight - 40) - 20;
-                      return `L ${x} ${y}`;
-                    }).join(' ') + ` L ${svgWidth} ${svgHeight} Z`}
-                    fill="url(#chartAreaGlow)"
-                  />
-
-                  {/* Trendline Curve */}
-                  <path
-                    d={candles.map((c, i) => {
-                      const x = i * candleSpacing + candleSpacing / 2;
-                      const y = svgHeight - ((c.close - minPrice) / priceRange) * (svgHeight - 40) - 20;
-                      return `${i === 0 ? 'M' : 'L'} ${x} ${y}`;
-                    }).join(' ')}
-                    fill="none"
-                    stroke="#FFE693"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    filter="drop-shadow(0 0 8px rgba(255, 230, 147, 0.7))"
-                  />
-
-                  {/* Candlesticks (Wicks & Bodies) */}
-                  {candles.map((candle, idx) => {
-                    const isBullish = candle.close >= candle.open;
-                    const x = idx * candleSpacing + candleSpacing / 2;
-                    const wickTop = svgHeight - ((candle.high - minPrice) / priceRange) * (svgHeight - 40) - 20;
-                    const wickBottom = svgHeight - ((candle.low - minPrice) / priceRange) * (svgHeight - 40) - 20;
-                    const bodyTop = svgHeight - ((Math.max(candle.open, candle.close) - minPrice) / priceRange) * (svgHeight - 40) - 20;
-                    const bodyHeight = Math.max(3, ((Math.abs(candle.close - candle.open)) / priceRange) * (svgHeight - 40));
-
-                    const candleColor = isBullish ? '#34D399' : '#EF4444';
-
-                    return (
-                      <g key={idx}>
-                        {/* High/Low Wick */}
-                        <line
-                          x1={x}
-                          y1={wickTop}
-                          x2={x}
-                          y2={wickBottom}
-                          stroke={candleColor}
-                          strokeWidth="1.4"
-                        />
-                        {/* Candle Body */}
-                        <rect
-                          x={x - 4.5}
-                          y={bodyTop}
-                          width="9"
-                          height={bodyHeight}
-                          fill={candleColor}
-                          rx="1"
-                        />
-                      </g>
-                    );
-                  })}
-
-                  {/* Target Take-Profit Dotted Line */}
-                  <line x1="0" y1="35" x2={svgWidth} y2="35" stroke="#34D399" strokeDasharray="4 4" strokeWidth="1.2" opacity="0.8" />
-                  
-                  {/* Stop-Loss Dotted Line */}
-                  <line x1="0" y1={svgHeight - 30} x2={svgWidth} y2={svgHeight - 30} stroke="#EF4444" strokeDasharray="4 4" strokeWidth="1.2" opacity="0.8" />
-                </svg>
-
-                {/* Floating Signal Label Overlays */}
-                <div className={styles.tpOverlayBadge}>
-                  <span>TP TARGET: {cfg.tp}</span>
-                </div>
-
-                <div className={styles.slOverlayBadge}>
-                  <span>STOP LOSS: {cfg.sl}</span>
-                </div>
-
-                {/* Live Current Price Marker Pulse */}
-                <div className={styles.liveCurrentMarker}>
-                  <span className={styles.pulseDot}></span>
-                  <span className={styles.markerText}>${livePrice.toFixed(2)}</span>
-                </div>
-              </div>
-
-              {/* Terminal Bottom Telemetry HUD */}
+              {/* Terminal Footer HUD */}
               <div className={styles.terminalFooter}>
-                <div className={styles.metricPill}>
-                  <span className={styles.mLabel}>RISK/REWARD</span>
-                  <span className={styles.mValue}>{cfg.rr}</span>
+                <div className={styles.hudTile}>
+                  <span className={styles.hudLabel}>ACTIVE MODEL</span>
+                  <span className={styles.hudValGold}>{activeModel}</span>
                 </div>
-                <div className={styles.metricPill}>
-                  <span className={styles.mLabel}>ORDER FLOW</span>
-                  <span className={styles.mValue}>INSTITUTIONAL</span>
+                <div className={styles.hudTile}>
+                  <span className={styles.hudLabel}>RESPONSE SPEED</span>
+                  <span className={styles.hudValGreen}>&lt; 12ms</span>
                 </div>
-                <div className={styles.metricPill}>
-                  <span className={styles.mLabel}>AI ACCURACY</span>
-                  <span className={styles.mValue}>94.2%</span>
+                <div className={styles.hudTile}>
+                  <span className={styles.hudLabel}>PRECISION RATING</span>
+                  <span className={styles.hudValGold}>{cfg.confidence}</span>
+                </div>
+                <div className={styles.hudTile}>
+                  <span className={styles.hudLabel}>COPILOT GUARD</span>
+                  <span className={styles.hudValGreen}>ACTIVE</span>
                 </div>
               </div>
 
@@ -382,6 +445,6 @@ export default function AiAssistant() {
 
         </div>
       </div>
-    </div>
+    </section>
   );
 }

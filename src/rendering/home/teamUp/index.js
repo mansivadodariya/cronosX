@@ -4,32 +4,36 @@ import { motion } from 'framer-motion';
 import styles from './teamUp.module.scss';
 import Textbutton from '@/components/textbutton';
 
-const partnersData = [
+const pillars = [
   {
     icon: '/assets/icons/hex-chart.svg',
-    title: 'World-Class Liquidity',
-    desc: 'Access deep liquidity from top-tier providers for tighter spreads and better execution.'
+    title: 'Tier-1 Liquidity Pool',
+    stat: '< 0.1 PIP SPREADS',
+    desc: 'Access deep institutional order books from Tier-1 liquidity providers with zero spread markups.'
   },
   {
     icon: '/assets/icons/hex-shield.svg',
-    title: 'Secure & Compliant',
-    desc: 'Our partners are fully regulated and comply with global standards.'
+    title: 'Segregated Security',
+    stat: 'FCA · ASIC · CySEC',
+    desc: 'Our connected partners are fully regulated with segregated client capital and global compliance.'
   },
   {
     icon: '/assets/icons/hex-speed.svg',
-    title: 'Lightning Fast',
-    desc: 'Ultra-low latency infrastructure for real-time market access.'
+    title: 'Ultra-Low Latency',
+    stat: '12MS EXECUTION',
+    desc: 'High-speed fiber infrastructure co-located with London (LD4) and New York (NY4) exchange servers.'
   },
   {
     icon: '/assets/icons/hex-users.svg',
-    title: 'Trusted by Millions',
-    desc: 'Built on trust. Backed by platforms used by millions worldwide.'
+    title: 'Institutional Scale',
+    stat: '$50B+ ROUTED',
+    desc: 'Built on institutional trust. Backed by world-class platforms trusted by active traders worldwide.'
   }
 ];
 
 export default function TeamUp() {
   return (
-    <div className={styles.teamUp}>
+    <section className={styles.teamUp} aria-label="Supported Brokers and Platforms">
       <div className={styles.topBorderSvgWrapper}>
         <svg
           viewBox="0 0 1440 32"
@@ -89,101 +93,86 @@ export default function TeamUp() {
           />
         </svg>
       </div>
-      <div className='container'>
+
+      <div className="container">
         <div className={styles.gridWrapper}>
-          {/* Left Column: Heading, description and world network graphic */}
+
+          {/* Left Column: Clean, Elegant Typography */}
           <motion.div
             className={styles.leftContent}
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            <motion.div
-              className={styles.badgeWrapper}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            >
+            <div className={styles.badgeWrapper}>
               <Textbutton text="WE TEAM UP" />
-            </motion.div>
+            </div>
 
-            <h2>
-              POWERED BY <br />
-              INDUSTRY-LEADING <br />
-              <span>BROKERS & PLATFORMS</span>
+            <h2 className={styles.sectionHeading}>
+              Direct Market Access to <br />
+              <span>World-Class Liquidity</span>
             </h2>
 
             <div className={styles.titleDivider}></div>
 
             <p className={styles.desc}>
-              Seamless connections to top liquidity providers and platforms
-              ensuring <span>speed, security & reliability</span> in every trade.
+              Seamless connections to top institutional liquidity providers, futures exchanges, and charting platforms ensuring <span>speed, security & execution reliability</span> in every trade.
             </p>
-
-
           </motion.div>
 
-          {/* Right Column: Feature list card with bottom strong partnerships banner */}
+
+          {/* Right Column: 2x2 Bento Pillar Grid & Trust Banner */}
           <motion.div
-            className={styles.rightCard}
-            initial={{ opacity: 0, x: 40, scale: 0.95 }}
-            whileInView={{ opacity: 1, x: 0, scale: 1 }}
+            className={styles.rightContent}
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className={styles.cardHeader}>
-              WHY WE PARTNER WITH <span>THE BEST?</span>
-            </div>
-
-            <div className={styles.partnersList}>
-              {partnersData.map((item, index) => (
+            <div className={styles.bentoGrid}>
+              {pillars.map((item, idx) => (
                 <motion.div
-                  key={index}
-                  className={styles.partnerItem}
+                  key={idx}
+                  className={styles.bentoCard}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{
-                    duration: 0.5,
-                    delay: 0.3 + index * 0.12,
-                    ease: [0.22, 1, 0.36, 1]
-                  }}
-                  whileHover={{ x: 6, transition: { duration: 0.2 } }}
+                  transition={{ duration: 0.5, delay: 0.2 + idx * 0.1 }}
+                  whileHover={{ y: -4, transition: { duration: 0.2 } }}
                 >
-                  <div className={styles.iconWrapper}>
-                    <img src={item.icon} alt={item.title} />
+                  <div className={styles.bentoCardTop}>
+                    <div className={styles.iconBox}>
+                      <img src={item.icon} alt={item.title} />
+                    </div>
+                    <span className={styles.statPill}>{item.stat}</span>
                   </div>
-                  <div className={styles.itemText}>
-                    <h3>{item.title}</h3>
-                    <p>{item.desc}</p>
-                  </div>
+                  <h3 className={styles.bentoTitle}>{item.title}</h3>
+                  <p className={styles.bentoDesc}>{item.desc}</p>
                 </motion.div>
               ))}
             </div>
 
-            {/* Bottom banner inside card */}
-            <motion.div
-              className={styles.bottomBanner}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            {/* Bottom Institutional Trust Banner */}
+            <motion.div 
+              className={styles.trustBanner}
               whileHover={{ scale: 1.01 }}
+              transition={{ duration: 0.3 }}
             >
-              <div className={styles.bannerText}>
-                <h4>STRONG PARTNERSHIPS.</h4>
-                <h5>STRONGER TRADES.</h5>
-                <p>Together, we build a smarter trading future.</p>
+              <div className={styles.bannerInfo}>
+                <span className={styles.verifiedTag}>INSTITUTIONAL SECURITY VAULT</span>
+                <h4>NON-CUSTODIAL & SEGREGATED</h4>
+                <p>You maintain 100% control of your trading funds. ChronosX never holds client capital.</p>
               </div>
-              <div className={styles.bannerShield}>
-                <img src="/assets/images/shield-network.svg" alt="Shield Network" />
+              <div className={styles.shieldVisual}>
+                <img src="/assets/images/shield-network.svg" alt="Security Shield" />
               </div>
             </motion.div>
+
           </motion.div>
+
         </div>
       </div>
-    </div>
+    </section>
   );
 }
