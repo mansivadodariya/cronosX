@@ -94,8 +94,10 @@ const NavItem = ({ item, pathname, onNavigate, isCollapsed }) => {
   const [isOpen, setIsOpen] = useState(isActive);
 
   useEffect(() => {
-    setIsOpen(isActive);
-  }, [isActive]);
+    if (isActive) {
+      setIsOpen(true);
+    }
+  }, [isActive, pathname]);
 
   if (item.subItems) {
     if (isCollapsed) {
@@ -106,6 +108,9 @@ const NavItem = ({ item, pathname, onNavigate, isCollapsed }) => {
             data-active={isActive ? 'true' : undefined}
             onClick={() => {
               if (item.subItems && item.subItems.length > 0) {
+                if (typeof window !== 'undefined' && pathname !== item.subItems[0].href) {
+                  window.dispatchEvent(new CustomEvent('page:loading:start'));
+                }
                 router.push(item.subItems[0].href);
                 onNavigate?.();
               }
@@ -151,10 +156,20 @@ const NavItem = ({ item, pathname, onNavigate, isCollapsed }) => {
           className={styles.menu}
           data-active={isActive ? 'true' : undefined}
           onClick={() => {
-            setIsOpen(!isOpen);
             if (item.subItems && item.subItems.length > 0) {
-              router.push(item.subItems[0].href);
-              onNavigate?.();
+              const targetHref = item.subItems[0].href;
+              if (!isAnySubActive && pathname !== targetHref) {
+                // If not currently on any subpage, open and navigate to first subitem
+                setIsOpen(true);
+                if (typeof window !== 'undefined') {
+                  window.dispatchEvent(new CustomEvent('page:loading:start'));
+                }
+                router.push(targetHref);
+                onNavigate?.();
+              } else {
+                // If already on a subpage, toggle collapse/expand
+                setIsOpen(prev => !prev);
+              }
             }
           }}
         >
@@ -162,7 +177,13 @@ const NavItem = ({ item, pathname, onNavigate, isCollapsed }) => {
             <Icon />
           </div>
           <span>{item.label}</span>
-          <div className={`${styles.chevron} ${isOpen ? styles.rotated : ''}`}>
+          <div
+            className={`${styles.chevron} ${isOpen ? styles.rotated : ''}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsOpen(prev => !prev);
+            }}
+          >
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="6 9 12 15 18 9" />
             </svg>

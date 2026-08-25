@@ -66,6 +66,7 @@ export default function Profile() {
     // Modals
     const [showPasswordModal, setShowPasswordModal] = useState(false);
     const [passwordForm, setPasswordForm] = useState({ current: '', newPass: '', confirm: '' });
+    const [passwordUpdating, setPasswordUpdating] = useState(false);
 
     const [form, setForm] = useState({
         first_name: '',
@@ -678,10 +679,14 @@ export default function Profile() {
                                         </div>
 
                                         <div className={styles.formRow}>
-                                            <div className={styles.fieldGroup}>
-                                                <label className={styles.inputLabel}>{t('auth.emailLabel', 'Email')}</label>
-                                                <div className={styles.disabledEmailBox}>{form.email || '—'}</div>
-                                            </div>
+                                            <Input
+                                                label={t('auth.emailLabel', 'Email Address')}
+                                                name="email"
+                                                type="email"
+                                                value={form.email || ''}
+                                                disabled
+                                                readOnly
+                                            />
 
                                             <PhoneInput
                                                 label={t('profile.phoneLabel', 'Phone Number')}
@@ -727,15 +732,6 @@ export default function Profile() {
                                     </div>
                                     <button type="button" className={styles.secActionButton} onClick={() => setShowPasswordModal(true)}>
                                         Change Password
-                                    </button>
-                                </div>
-                                <div className={styles.securityActionRow}>
-                                    <div className={styles.secActionMeta}>
-                                        <h4>Two-Factor Authentication (2FA)</h4>
-                                        <span>Add an extra layer of security with Google Authenticator</span>
-                                    </div>
-                                    <button type="button" className={styles.secActionButton} onClick={() => toast.info('2FA setup is enabled by default')}>
-                                        Configured ✓
                                     </button>
                                 </div>
                             </div>
@@ -991,52 +987,85 @@ export default function Profile() {
                                 <button type="button" onClick={() => setShowPasswordModal(false)} className={styles.closeBtn}>✕</button>
                             </div>
                             <div className={styles.modalBody}>
-                                <div className={styles.modalField}>
-                                    <label>Current Password</label>
-                                    <input
-                                        type="password"
-                                        className={styles.modalInput}
-                                        value={passwordForm.current}
-                                        onChange={(e) => setPasswordForm(p => ({ ...p, current: e.target.value }))}
-                                        placeholder="••••••••"
-                                    />
-                                </div>
-                                <div className={styles.modalField}>
-                                    <label>New Password</label>
-                                    <input
-                                        type="password"
-                                        className={styles.modalInput}
-                                        value={passwordForm.newPass}
-                                        onChange={(e) => setPasswordForm(p => ({ ...p, newPass: e.target.value }))}
-                                        placeholder="••••••••"
-                                    />
-                                </div>
-                                <div className={styles.modalField}>
-                                    <label>Confirm Password</label>
-                                    <input
-                                        type="password"
-                                        className={styles.modalInput}
-                                        value={passwordForm.confirm}
-                                        onChange={(e) => setPasswordForm(p => ({ ...p, confirm: e.target.value }))}
-                                        placeholder="••••••••"
-                                    />
-                                </div>
+                                <Input
+                                    label="Current Password"
+                                    type="password"
+                                    name="currentPassword"
+                                    value={passwordForm.current}
+                                    onChange={(e) => setPasswordForm(p => ({ ...p, current: e.target.value }))}
+                                    placeholder="••••••••"
+                                />
+                                <Input
+                                    label="New Password"
+                                    type="password"
+                                    name="newPassword"
+                                    value={passwordForm.newPass}
+                                    onChange={(e) => setPasswordForm(p => ({ ...p, newPass: e.target.value }))}
+                                    placeholder="••••••••"
+                                />
+                                <Input
+                                    label="Confirm Password"
+                                    type="password"
+                                    name="confirmPassword"
+                                    value={passwordForm.confirm}
+                                    onChange={(e) => setPasswordForm(p => ({ ...p, confirm: e.target.value }))}
+                                    placeholder="••••••••"
+                                />
                             </div>
                             <div className={styles.modalFooter}>
-                                <button type="button" className={styles.cancelFormBtn} onClick={() => setShowPasswordModal(false)}>
+                                <button 
+                                    type="button" 
+                                    className={styles.cancelFormBtn} 
+                                    onClick={() => {
+                                        setShowPasswordModal(false);
+                                        setPasswordForm({ current: '', newPass: '', confirm: '' });
+                                    }}
+                                    disabled={passwordUpdating}
+                                >
                                     {t('common.cancel', 'Cancel')}
                                 </button>
                                 <Button
-                                    text="Update Password"
+                                    text={passwordUpdating ? "Updating..." : "Update Password"}
                                     type="button"
-                                    onClick={() => {
-                                        if (!passwordForm.newPass || passwordForm.newPass !== passwordForm.confirm) {
-                                            toast.error('Passwords do not match');
+                                    disabled={passwordUpdating}
+                                    onClick={async () => {
+                                        if (!passwordForm.current) {
+                                            toast.error('Please enter your current password');
                                             return;
                                         }
-                                        toast.success('Password updated successfully');
-                                        setShowPasswordModal(false);
-                                        setPasswordForm({ current: '', newPass: '', confirm: '' });
+                                        if (!passwordForm.newPass) {
+                                            toast.error('Please enter a new password');
+                                            return;
+                                        }
+                                        if (passwordForm.newPass.length < 8) {
+                                            toast.error('New password must be at least 8 characters long');
+                                            return;
+                                        }
+                                        if (passwordForm.newPass !== passwordForm.confirm) {
+                                            toast.error('New passwords do not match');
+                                            return;
+                                        }
+                                        if (passwordForm.current === passwordForm.newPass) {
+                                            toast.error('New password must be different from current password');
+                                            return;
+                                        }
+
+                                        setPasswordUpdating(true);
+                                        try {
+                                            await profileApi.changePassword({
+                                                userId,
+                                                email: form.email,
+                                                currentPassword: passwordForm.current,
+                                                newPassword: passwordForm.newPass,
+                                            });
+                                            toast.success('Password updated successfully!');
+                                            setShowPasswordModal(false);
+                                            setPasswordForm({ current: '', newPass: '', confirm: '' });
+                                        } catch (err) {
+                                            toast.error(err.message || 'Failed to update password. Please check your current password.');
+                                        } finally {
+                                            setPasswordUpdating(false);
+                                        }
                                     }}
                                 />
                             </div>
