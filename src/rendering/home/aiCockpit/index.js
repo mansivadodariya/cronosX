@@ -41,7 +41,7 @@ function generateFallbackGoldCandles(count = 38, base = 2934.50) {
   return candles;
 }
 
-export default function AiCockpit() {
+export default function AiCockpit({ isHero = false, showHeader = true }) {
   const [activeTimeframe, setActiveTimeframe] = useState('1H');
   const [livePrice, setLivePrice] = useState(2934.50);
   const [priceChangeText, setPriceChangeText] = useState('+$38.20 (+1.32%)');
@@ -101,14 +101,14 @@ export default function AiCockpit() {
               const high = parseFloat(k[2]);
               const low = parseFloat(k[3]);
               const close = parseFloat(k[4]);
-              const vol = parseFloat(k[5]);
+              const volume = Math.min(100, Math.max(15, Math.floor(parseFloat(k[5]) / 12)));
               return {
                 time: k[0],
                 open,
                 high,
                 low,
                 close,
-                volume: Math.min(100, Math.max(30, vol * 1.5)),
+                volume,
                 isBullish: close >= open
               };
             });
@@ -116,65 +116,52 @@ export default function AiCockpit() {
           }
         }
       } catch (err) {
-        // Fallback gracefully
+        // Silent fallback to realistic simulation
       }
     };
 
     fetchLiveGoldData();
-    const pollInterval = setInterval(fetchLiveGoldData, 5000);
-
+    const interval = setInterval(fetchLiveGoldData, 8000);
     return () => {
       isMounted = false;
-      clearInterval(pollInterval);
+      clearInterval(interval);
     };
-  }, [activeTimeframe]);
+  }, []);
 
-  // Continuous Live Candle Formation & Real-Time Ticking Engine
+  // Micro-tick price engine
   useEffect(() => {
     const tickInterval = setInterval(() => {
-      setLivePrice((prev) => {
-        const delta = (Math.random() - 0.47) * 0.55;
-        const next = Number((prev + delta).toFixed(2));
-        
-        setPriceFlash(delta >= 0 ? 'up' : 'down');
-        setTimeout(() => setPriceFlash(null), 380);
+      setCandles((prevCandles) => {
+        if (!prevCandles || prevCandles.length === 0) return prevCandles;
+        const lastIndex = prevCandles.length - 1;
+        const last = { ...prevCandles[lastIndex] };
 
-        setCandles((prevCandles) => {
-          if (!prevCandles || prevCandles.length === 0) return prevCandles;
-          
-          tickCounterRef.current += 1;
-          
-          // Every 12 ticks, close the active candle and create a brand NEW live candle!
-          if (tickCounterRef.current >= 12) {
-            tickCounterRef.current = 0;
-            const newCandle = {
-              time: Date.now(),
-              open: next,
-              close: next,
-              high: next,
-              low: next,
-              volume: Math.floor(Math.random() * 40 + 35),
-              isBullish: true
-            };
-            return [...prevCandles.slice(1), newCandle];
-          }
+        const randomJump = (Math.random() - 0.48) * 0.85;
+        const newClose = Number((last.close + randomJump).toFixed(2));
+        const newHigh = Number(Math.max(last.high, newClose).toFixed(2));
+        const newLow = Number(Math.min(last.low, newClose).toFixed(2));
+        const isBullish = newClose >= last.open;
 
-          const updated = [...prevCandles];
-          const lastIdx = updated.length - 1;
-          const last = { ...updated[lastIdx] };
-          last.close = next;
-          last.high = Math.max(last.high, next);
-          last.low = Math.min(last.low, next);
-          last.isBullish = last.close >= last.open;
-          last.volume = Math.min(100, (last.volume || 40) + Math.floor(Math.random() * 3 + 1));
-          updated[lastIdx] = last;
-          return updated;
-        });
+        setLivePrice(newClose);
+        setPriceFlash(randomJump >= 0 ? 'up' : 'down');
+        setTimeout(() => setPriceFlash(null), 400);
 
-        setLastUpdatedSec(Number((Math.random() * 0.6 + 0.5).toFixed(1)));
-        return next;
+        tickCounterRef.current += 1;
+        if (tickCounterRef.current % 4 === 0) {
+          setLastUpdatedSec(Number((Math.random() * 0.8 + 0.3).toFixed(1)));
+        }
+
+        const nextArr = [...prevCandles];
+        nextArr[lastIndex] = {
+          ...last,
+          close: newClose,
+          high: newHigh,
+          low: newLow,
+          isBullish
+        };
+        return nextArr;
       });
-    }, 850);
+    }, 1800);
 
     return () => clearInterval(tickInterval);
   }, []);
@@ -223,24 +210,26 @@ export default function AiCockpit() {
   const liveCandleX = chartPadding.left + (candles.length - 1) * candleSpacing + candleSpacing / 2;
 
   return (
-    <section className={styles.cockpitSection} aria-label="XAUUSD AI Trading Intelligence Terminal">
-      <div className={styles.ambientBackdropGlow} aria-hidden="true" />
+    <section className={`${styles.cockpitSection} ${isHero ? styles.heroMode : ''}`} aria-label="XAUUSD AI Trading Intelligence Terminal">
+      {!isHero && <div className={styles.ambientBackdropGlow} aria-hidden="true" />}
 
-      <div className="container">
+      <div className={isHero ? styles.heroContainer : "container"}>
         
         {/* Section Header */}
-        <div className={styles.sectionHeader}>
-          <div className={styles.badgeWrapper}>
-            <Textbutton text="AI INTELLIGENCE COCKPIT" />
+        {!isHero && showHeader && (
+          <div className={styles.sectionHeader}>
+            <div className={styles.badgeWrapper}>
+              <Textbutton text="AI INTELLIGENCE COCKPIT" />
+            </div>
+            <h2>
+              Real-Time Live Terminal. <br />
+              <span>Predictive Cockpit.</span>
+            </h2>
+            <p>
+              Institutional-grade real-time market engine. Stream live gold tick candles, track composite AI conviction scores, and monitor volume flows in one unified terminal.
+            </p>
           </div>
-          <h2>
-            Real-Time Live Terminal. <br />
-            <span>Predictive Cockpit.</span>
-          </h2>
-          <p>
-            Institutional-grade real-time market engine. Stream live gold tick candles, track composite AI conviction scores, and monitor volume flows in one unified terminal.
-          </p>
-        </div>
+        )}
 
         {/* ONE MASTER UNIFIED BOX */}
         <div className={styles.masterTerminalBox}>

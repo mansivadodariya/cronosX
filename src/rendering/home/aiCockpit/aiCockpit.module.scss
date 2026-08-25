@@ -9,6 +9,29 @@
   overflow: hidden;
   background: radial-gradient(ellipse at 50% 0%, #0e0a05 0%, #060402 50%, #040300 100%);
 
+  &.heroMode {
+    padding: 0 !important;
+    background: transparent !important;
+    overflow: visible !important;
+
+    &::after {
+      display: none !important;
+    }
+
+    .ambientBackdropGlow {
+      display: none !important;
+    }
+  }
+
+  .heroContainer {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    z-index: 5;
+  }
+
   @include respond-to("tab") {
     padding: 60px 0 70px 0;
   }

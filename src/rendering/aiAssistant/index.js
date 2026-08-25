@@ -217,8 +217,8 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
     // Active Mode Tab State ('deep' | 'news' | 'image' | null)
     const [activeAnalysisMode, setActiveAnalysisMode] = useState(null);
 
-    // Resizable Splitter State (default 35% chat / 65% graph pane)
-    const [chatWidthPercent, setChatWidthPercent] = useState(35);
+    // Resizable Splitter State (default 46% chat / 54% graph pane)
+    const [chatWidthPercent, setChatWidthPercent] = useState(46);
     const [isDragging, setIsDragging] = useState(false);
 
     // Refs
@@ -977,7 +977,7 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
                 ref={gridRef}
                 className={`${styles.splitLayoutGrid} ${isDragging ? styles.isDraggingGrid : ''}`}
                 style={{
-                    gridTemplateColumns: `minmax(280px, ${chatWidthPercent}%) 10px minmax(0, 1fr)`,
+                    gridTemplateColumns: `minmax(380px, ${chatWidthPercent}%) 10px minmax(360px, 1fr)`,
                     transition: isDragging ? 'none' : 'grid-template-columns 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
                 }}
             >

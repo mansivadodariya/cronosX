@@ -35,14 +35,41 @@ function timeAgo(dateLike) {
     return `${day}/${month}/${year} ${hours}:${minutes} ${ampm}`;
 }
 
-function formatSummary(text) {
-    if (!text || typeof text !== 'string') return '';
+function extractCleanText(val) {
+    if (!val) return '';
+    if (typeof val === 'object') {
+        return val.short_response || val.shortResponse || val.text || val.response || val.summary || val.content || val.message || '';
+    }
+    if (typeof val === 'string') {
+        const trimmed = val.trim();
+        if ((trimmed.startsWith('{') && trimmed.endsWith('}')) || (trimmed.startsWith('[') && trimmed.endsWith(']'))) {
+            try {
+                const parsed = JSON.parse(trimmed);
+                if (parsed && typeof parsed === 'object') {
+                    return parsed.short_response || parsed.shortResponse || parsed.text || parsed.response || parsed.summary || parsed.content || (Array.isArray(parsed) ? parsed[0]?.response || parsed[0]?.text || '' : '') || trimmed;
+                }
+            } catch {
+                // Not standard JSON
+            }
+        }
+        return trimmed
+            .replace(/^\{\s*"(?:short_response|shortResponse|text|response|summary|content)":\s*"/i, '')
+            .replace(/"\s*\}$/, '')
+            .replace(/\\"/g, '"');
+    }
+    return String(val || '');
+}
+
+function formatSummary(input) {
+    if (!input) return '';
+    let text = extractCleanText(input);
+
     try {
         let decoded = text.replace(/\\u([0-9a-fA-F]{4})/g, (match, grp) => {
             return String.fromCharCode(parseInt(grp, 16));
         });
 
-        decoded = decoded.replace(/\\n/g, '\n');
+        decoded = decoded.replace(/\\n/g, '\n').replace(/\\"/g, '"');
         let formatted = decoded.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
         formatted = formatted.replace(/\*([^*]+)\*/g, '<em>$1</em>');
 
@@ -53,6 +80,7 @@ function formatSummary(text) {
         }
 
         formatted = formatted.replace(/\n-\s*/g, '<br />• ');
+        formatted = formatted.replace(/\n•\s*/g, '<br />• ');
         formatted = formatted.replace(/\n/g, '<br />');
 
         return formatted;
@@ -219,26 +247,15 @@ export default function Dashboard() {
             const type = item?.type || item?.activity_type || item?.kind || "";
             const normalizedType = String(type).toLowerCase().includes("blog") ? "blog" : "chat";
 
-            let summary = "";
-            if (typeof item?.summary === "string") {
-                try {
-                    const parsed = JSON.parse(item.summary);
-                    summary = parsed?.short_response || "";
-                } catch {
-                    summary = item.summary
-                        .replace('{"short_response":"', "")
-                        .replace('{"short_response": "', "")
-                        .replace(/"}$/, "")
-                        .replace(/\\"/g, '"');
-                }
-            } else if (item?.summary?.short_response) {
-                summary = item.summary.short_response;
-            }
+            const rawSummary = item?.summary || item?.response || item?.short_response || item?.shortResponse || item?.answer || item?.content || "";
+            const summary = extractCleanText(rawSummary);
+            const rawTitle = item?.title || item?.question || item?.message || "Recent item";
+            const title = extractCleanText(rawTitle);
 
             return {
                 type: normalizedType,
                 id: item?.id || item?.activity_id || item?.chat_id || item?.created_at || index,
-                title: item?.title || item?.question || item?.message || "Recent item",
+                title: typeof title === 'string' && title.length > 0 ? title : "Recent item",
                 summary,
                 pair: item?.pair || item?.symbol || "",
                 created_at: item?.created_at || item?.createdAt || item?.time || "",
@@ -271,33 +288,6 @@ export default function Dashboard() {
 
     return (
         <div className={styles.modernDashboard}>
-            {/* 1. Global AI Market Mood & System Barometer */}
-            <header className={styles.marketBarometer}>
-                <div className={styles.barometerLeft}>
-                    <div className={styles.systemStatusBadge}>
-                        <span className={styles.pulseGreen} />
-                        <strong>AI NEURAL CORE: ACTIVE</strong>
-                    </div>
-                    <span className={styles.barometerDivider}>|</span>
-                    <div className={styles.barometerItem}>
-                        <span className={styles.baroLabel}>AI Market Sentiment:</span>
-                        <strong className={styles.baroValueGreen}>84% Bullish (Greed)</strong>
-                    </div>
-                    <span className={styles.barometerDivider}>|</span>
-                    <div className={styles.barometerItem}>
-                        <span className={styles.baroLabel}>Signal Win Accuracy:</span>
-                        <strong className={styles.baroValueGold}>93.8%</strong>
-                    </div>
-                </div>
-
-                <div className={styles.barometerRight}>
-                    <div className={styles.macroEventBadge}>
-                        <span className={styles.redDot} />
-                        <span>NEXT EVENT: <strong>US Core CPI in 01h 42m</strong></span>
-                    </div>
-                </div>
-            </header>
-
             {/* 2. Futuristic Holographic Hero Terminal */}
             <section className={styles.hologramHero}>
                 <div className={styles.heroBackdropWrap}>
@@ -318,7 +308,7 @@ export default function Dashboard() {
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2.5">
                                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                             </svg>
-                            <span>CHRONOSX AI TRADING DESK v3.0</span>
+                            <span>CHRONOSX AI TRADING DESK</span>
                         </div>
 
                         <h1 className={styles.heroHeadline}>
@@ -408,67 +398,116 @@ export default function Dashboard() {
 
             {/* 3. Metric Bento Matrix Cards */}
             <section className={styles.statsMatrixGrid}>
+                {/* 1. Chart Analyses Performed (TradeSnap) */}
                 <div className={styles.glassStatCard} onClick={() => router.push('/trade-snap')}>
                     <div className={styles.statTop}>
                         <div className={styles.statIconWrap}>
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
-                                <path d="M3 20H21" />
-                                <rect x="5" y="11" width="3" height="6" rx="1" fill="#F4D17A" />
-                                <rect x="10.5" y="6" width="3" height="11" rx="1" fill="#FFE79A" />
-                                <rect x="16" y="9" width="3" height="8" rx="1" fill="#D4AF37" />
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" fill="rgba(244, 209, 122, 0.15)" />
+                                <circle cx="12" cy="13" r="4" fill="rgba(244, 209, 122, 0.25)" />
                             </svg>
                         </div>
-                        <span className={styles.statTrendBadge}>+14% this week</span>
+                        <div className={styles.statTrendBadge}>
+                            <span className={styles.badgeDot} />
+                            <span>+14% this week</span>
+                        </div>
                     </div>
-                    <div className={styles.statNum}>{loading ? '...' : (stats?.total_analysis_history ?? 0)}</div>
-                    <div className={styles.statTitle}>Chart Analyses Performed</div>
-                    <div className={styles.statDesc}>Pattern recognition & automated OCR scans</div>
+                    <div className={styles.statMiddle}>
+                        <div className={styles.statNum}>{loading ? '...' : (stats?.total_analysis_history ?? 0)}</div>
+                        <div className={styles.statTitle}>Chart Analyses Performed</div>
+                        <div className={styles.statDesc}>Pattern recognition & automated OCR scans</div>
+                    </div>
+                    <div className={styles.cardActionLink}>
+                        <span>Launch TradeSnap</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </div>
                 </div>
 
+                {/* 2. AI Copilot Sessions */}
                 <div className={styles.glassStatCard} onClick={() => router.push('/ai-assistant?tab=chat')}>
                     <div className={styles.statTop}>
-                        <div className={`${styles.statIconWrap} ${styles.iconPurple}`}>
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C084FC" strokeWidth="2">
-                                <rect x="4" y="8" width="16" height="12" rx="3.5" />
-                                <path d="M12 4V8" />
-                                <circle cx="9" cy="13" r="1.5" fill="#C084FC" />
-                                <circle cx="15" cy="13" r="1.5" fill="#C084FC" />
+                        <div className={styles.statIconWrap}>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <rect x="3" y="8" width="18" height="12" rx="4" fill="rgba(244, 209, 122, 0.15)" />
+                                <path d="M12 2v6" />
+                                <circle cx="8.5" cy="13.5" r="1.5" fill="#F4D17A" />
+                                <circle cx="15.5" cy="13.5" r="1.5" fill="#F4D17A" />
+                                <path d="M9 17h6" />
+                                <path d="M2 14h1" />
+                                <path d="M21 14h1" />
                             </svg>
                         </div>
-                        <span className={styles.statTrendBadge}>24/7 Online</span>
+                        <div className={styles.statTrendBadge}>
+                            <span className={styles.badgeDot} />
+                            <span>24/7 Online</span>
+                        </div>
                     </div>
-                    <div className={styles.statNum}>{loading ? '...' : (stats?.total_chat_history ?? 0)}</div>
-                    <div className={styles.statTitle}>AI Copilot Sessions</div>
-                    <div className={styles.statDesc}>Technical questions & macro trade insights</div>
+                    <div className={styles.statMiddle}>
+                        <div className={styles.statNum}>{loading ? '...' : (stats?.total_chat_history ?? 0)}</div>
+                        <div className={styles.statTitle}>AI Chat Sessions</div>
+                        <div className={styles.statDesc}>Technical questions & macro trade insights</div>
+                    </div>
+                    <div className={styles.cardActionLink}>
+                        <span>Open Copilot Chat</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </div>
                 </div>
 
+                {/* 3. Available AI Credits */}
                 <div className={styles.glassStatCard} onClick={() => router.push('/credit-history')}>
                     <div className={styles.statTop}>
-                        <div className={`${styles.statIconWrap} ${styles.iconGold}`}>
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
-                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="#F4D17A" />
+                        <div className={styles.statIconWrap}>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="rgba(244, 209, 122, 0.3)" />
                             </svg>
                         </div>
-                        <span className={styles.statTrendBadge}>Instant Recharge</span>
+                        <div className={styles.statTrendBadge}>
+                            <span className={styles.badgeDot} />
+                            <span>Instant Recharge</span>
+                        </div>
                     </div>
-                    <div className={styles.statNum}>{loading ? '...' : (stats?.available_credits ?? 0)}</div>
-                    <div className={styles.statTitle}>Available AI Credits</div>
-                    <div className={styles.statDesc}>Ready for real-time strategy computation</div>
+                    <div className={styles.statMiddle}>
+                        <div className={styles.statNum}>{loading ? '...' : (stats?.available_credits ?? 0)}</div>
+                        <div className={styles.statTitle}>Available AI Credits</div>
+                        <div className={styles.statDesc}>Ready for real-time strategy computation</div>
+                    </div>
+                    <div className={styles.cardActionLink}>
+                        <span>Manage & Recharge</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </div>
                 </div>
 
+                {/* 4. Total Account Credits */}
                 <div className={styles.glassStatCard} onClick={() => router.push('/credit-history')}>
                     <div className={styles.statTop}>
-                        <div className={`${styles.statIconWrap} ${styles.iconGreen}`}>
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#34D399" strokeWidth="2">
-                                <rect x="3" y="6" width="18" height="14" rx="3" />
-                                <path d="M16 13H21V17H16C14.9 17 14 16.1 14 15C14 13.9 14.9 13 16 13Z" fill="#34D399" />
+                        <div className={styles.statIconWrap}>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7z" fill="rgba(244, 209, 122, 0.25)" />
+                                <circle cx="12" cy="19" r="1.5" fill="#F4D17A" />
                             </svg>
                         </div>
-                        <span className={styles.statTrendBadge}>All-Time Tier</span>
+                        <div className={styles.statTrendBadge}>
+                            <span className={styles.badgeDot} />
+                            <span>All-Time Tier</span>
+                        </div>
                     </div>
-                    <div className={styles.statNum}>{loading ? '...' : (stats?.total_credits ?? 0)}</div>
-                    <div className={styles.statTitle}>Total Account Credits</div>
-                    <div className={styles.statDesc}>Lifetime credits processed on ChronosX</div>
+                    <div className={styles.statMiddle}>
+                        <div className={styles.statNum}>{loading ? '...' : (stats?.total_credits ?? 0)}</div>
+                        <div className={styles.statTitle}>Total Account Credits</div>
+                        <div className={styles.statDesc}>Lifetime credits processed on ChronosX</div>
+                    </div>
+                    <div className={styles.cardActionLink}>
+                        <span>View Credit History</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </div>
                 </div>
             </section>
 
@@ -623,11 +662,27 @@ export default function Dashboard() {
                                         onClick={() => openRecent(item)}
                                     >
                                         <div className={styles.actLeft}>
-                                            <span className={`${styles.actTypeBadge} ${item.type === 'blog' ? styles.typeSnap : styles.typeChat}`}>
-                                                {item.type === 'blog' ? 'TradeSnap' : 'AI Copilot'}
-                                            </span>
+                                            <div className={styles.actTypeIcon}>
+                                                {item.type === 'blog' ? (
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
+                                                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                                                        <circle cx="12" cy="13" r="4" />
+                                                    </svg>
+                                                ) : (
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
+                                                        <rect x="3" y="8" width="18" height="12" rx="4" />
+                                                        <path d="M12 2v6" />
+                                                        <circle cx="8.5" cy="13.5" r="1.5" fill="#F4D17A" />
+                                                        <circle cx="15.5" cy="13.5" r="1.5" fill="#F4D17A" />
+                                                        <path d="M9 17h6" />
+                                                    </svg>
+                                                )}
+                                            </div>
                                             <div className={styles.actTitles}>
-                                                <strong className={styles.actMainTitle}>{item.title}</strong>
+                                                <div className={styles.actTitleHeader}>
+                                                    <strong className={styles.actMainTitle}>{item.title}</strong>
+                                                    <span className={styles.actTypeTag}>{item.type === 'blog' ? 'TradeSnap' : 'AI Chat'}</span>
+                                                </div>
                                                 <span className={styles.actTime}>{timeAgo(item.created_at)}</span>
                                             </div>
                                         </div>
@@ -636,7 +691,7 @@ export default function Dashboard() {
                                             {item.summary ? (
                                                 <div dangerouslySetInnerHTML={{ __html: formatSummary(item.summary) }} />
                                             ) : (
-                                                '—'
+                                                <span className={styles.noSummary}>Technical analysis details recorded</span>
                                             )}
                                         </div>
 

@@ -326,18 +326,21 @@ function TargetPlanSvg() {
 
 const stepData = [
   {
+    step: '01',
     component: <UploadChartSvg />,
     title: 'Upload Your Chart',
     desc: 'Upload your trading chart and let AI analyze the market structure.',
     hasPedestal: true
   },
   {
+    step: '02',
     component: <AnalysisChartSvg />,
     title: 'AI Market Analysis',
     desc: 'AI analyzes trends, indicators, price action, and market conditions.',
     hasPedestal: false
   },
   {
+    step: '03',
     component: <TargetPlanSvg />,
     title: 'Get Your Trade Plan',
     desc: 'Receive an AI-powered trade setup with entry, target, and risk information.',
@@ -377,7 +380,7 @@ export default function ChartAnalysis() {
         </motion.div>
 
         <div className={styles.stepsFlow}>
-          {/* Connector Badge 01 between card 1 and 2 */}
+          {/* Connector Arrow between step 1 and 2 */}
           <motion.div 
             className={styles.connectorBadgeOne}
             initial={{ opacity: 0, scale: 0.5 }}
@@ -385,10 +388,13 @@ export default function ChartAnalysis() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            01
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
           </motion.div>
           
-          {/* Connector Badge 03 between card 2 and 3 */}
+          {/* Connector Arrow between step 2 and 3 */}
           <motion.div 
             className={styles.connectorBadgeTwo}
             initial={{ opacity: 0, scale: 0.5 }}
@@ -396,7 +402,10 @@ export default function ChartAnalysis() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.55 }}
           >
-            03
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
           </motion.div>
 
           <div className={styles.stepsGrid}>
@@ -432,6 +441,9 @@ export default function ChartAnalysis() {
                 </div>
 
                 <div className={styles.cardBox}>
+                  <div className={styles.stepBadgePill}>
+                    <span>STEP {item.step}</span>
+                  </div>
                   <h3>{item.title}</h3>
                   <p>{item.desc}</p>
                 </div>

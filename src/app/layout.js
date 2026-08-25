@@ -26,9 +26,75 @@ const robotoSans = Roboto({
   display: 'swap',
 });
 
+export const viewport = {
+  themeColor: "#000000",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export const metadata = {
-  title: "ChronosX",
-  description: "Trade smarter with AI that never sleeps. Real-time AI trading signals, instant insights, and market analysis.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://chronosx.io'),
+  title: {
+    default: "ChronosX — Institutional AI Forex & MT5 Trading Terminal",
+    template: "%s | ChronosX"
+  },
+  description: "Institutional-grade AI-powered Forex and MT5 trading platform. Instant neural chart pattern recognition, real-time live trading signals, algorithmic multi-timeframe analysis, and conversational market copilot.",
+  keywords: [
+    "AI Forex Trading",
+    "MT5 Trading Bot",
+    "Algorithmic Trading Signals",
+    "Forex AI Copilot",
+    "ChronosX",
+    "Neural Chart Pattern Recognition",
+    "Live Forex Analysis",
+    "Automated OCR Chart Vision",
+    "Institutional Trading Desk",
+    "Gold Trading Signals",
+    "XAUUSD AI Analysis"
+  ],
+  authors: [{ name: "ChronosX AI Technologies", url: "https://chronosx.io" }],
+  creator: "ChronosX",
+  publisher: "ChronosX",
+  category: "Finance & Trading Technology",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: 'https://chronosx.io',
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://chronosx.io",
+    title: "ChronosX — Institutional AI Forex & MT5 Trading Terminal",
+    description: "Trade smarter with AI that never sleeps. Real-time AI trading signals, instant neural chart insights, and algorithmic market analysis.",
+    siteName: "ChronosX",
+    images: [
+      {
+        url: "/assets/logo/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "ChronosX AI Trading Desk"
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ChronosX — Institutional AI Forex & MT5 Trading Terminal",
+    description: "Trade smarter with AI that never sleeps. Real-time AI trading signals, instant neural chart insights, and algorithmic market analysis.",
+    images: ["/assets/logo/logo.png"],
+    creator: "@ChronosX",
+    site: "@ChronosX",
+  },
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",

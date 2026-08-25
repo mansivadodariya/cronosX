@@ -401,10 +401,11 @@ export default function NeweraCreditsModal({ userId, onClose, onSuccess }) {
                             {isPhase1 && (
                                 <>
                                     <h2 id="modal-title" className={styles.title}>
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="12" cy="12" r="10" fill="#DC2626" />
-                                            <path d="M12 7v6M12 16.5h.01" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
+                                        <div className={styles.titleIconBadge}>
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="rgba(244, 209, 122, 0.25)" />
+                                            </svg>
+                                        </div>
                                         <span>{t('neweraModal.welcomeBonus', 'Welcome Bonus')}</span>
                                     </h2>
                                     <div className={styles.welcomeText}>

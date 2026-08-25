@@ -1,6 +1,5 @@
 import React from 'react'
 import Herobanner from './herobanner'
-import AiCockpit from './aiCockpit'
 import CardList from './cardList'
 import Platform from './platform'
 import Capabilities from './capabilities'
@@ -20,7 +19,6 @@ export default function HomePage() {
     return (
         <div>
             <Herobanner />
-            <AiCockpit />
             <Capabilities />
             <BeforeAfterComparison />
             <MarketIntelligence />
