@@ -28,17 +28,9 @@ export function proxy(request) {
   const { pathname } = request.nextUrl;
   const token = request.cookies.get("auth_token")?.value;
   const isLoggedIn = Boolean(token);
-  const hasPhone = request.cookies.get("has_phone")?.value === "true";
 
   const isProtected = PROTECTED_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
   const isAuthRoute = AUTH_ROUTES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
-
-  if (isProtected && isLoggedIn && !hasPhone) {
-    const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("need_phone", "true");
-    loginUrl.searchParams.set("redirect", pathname);
-    return NextResponse.redirect(loginUrl);
-  }
 
   if (isProtected && !isLoggedIn) {
     const loginUrl = new URL("/login", request.url);
@@ -47,11 +39,8 @@ export function proxy(request) {
   }
 
   if (isAuthRoute && isLoggedIn) {
-    if (hasPhone) {
-      const redirectTarget = request.nextUrl.searchParams.get("redirect") || "/dashboard";
-      return NextResponse.redirect(new URL(redirectTarget, request.url));
-    }
-    return NextResponse.next();
+    const redirectTarget = request.nextUrl.searchParams.get("redirect") || "/dashboard";
+    return NextResponse.redirect(new URL(redirectTarget, request.url));
   }
 
   return NextResponse.next();

@@ -51,20 +51,11 @@ export default function AuthGuard({ children }) {
                         return;
                     }
 
-                    // Strict Phone Verification Guard:
-                    // Only users with verified phone numbers (is_phone_verified === true) can navigate to dashboard
-                    if (!data.phone_number || data.is_phone_verified !== true) {
-                        console.log('AuthGuard: Phone number missing or not verified (is_phone_verified is false), redirecting to verification popup flow');
-                        const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
-                        router.replace(`/login?need_phone=true&uid=${uid}${currentPath && currentPath !== '/' ? `&redirect=${encodeURIComponent(currentPath)}` : ''}`);
-                        return;
-                    }
-
-                    // Sync verified status to localStorage and cookie
+                    // Sync user info to localStorage and set cookie
                     const user = getStoredUser();
                     if (user) {
-                        user.phone_number = data.phone_number;
-                        user.is_phone_verified = true;
+                        user.phone_number = data?.phone_number || user.phone_number || '';
+                        user.is_phone_verified = Boolean(data?.is_phone_verified);
                         localStorage.setItem('user', JSON.stringify(user));
                         window.dispatchEvent(new CustomEvent('user:updated'));
                     }

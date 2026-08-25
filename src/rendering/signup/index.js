@@ -95,33 +95,19 @@ const Signup = () => {
                     }
 
                     const user = getStoredUser();
-
-                    if (!user?.phone_number && !data?.phone_number) {
-                        console.log('Signup checkSession: No phone number found, setting pending uid =', uid);
-                        setPendingPhoneUserId(uid);
-                    } else {
-                        console.log('Signup checkSession: Phone number exists:', data?.phone_number || user?.phone_number);
-                        if (user) {
-                            user.phone_number = data?.phone_number || user?.phone_number || '';
-                            localStorage.setItem('user', JSON.stringify(user));
-                        }
-                        document.cookie = 'has_phone=true; path=/; SameSite=Lax';
-                        window.location.assign(redirectTo);
+                    if (user) {
+                        user.phone_number = data?.phone_number || user?.phone_number || '';
+                        localStorage.setItem('user', JSON.stringify(user));
                     }
+                    document.cookie = 'has_phone=true; path=/; SameSite=Lax';
+                    window.location.assign(redirectTo);
                 } catch (e) {
                     console.error('Error fetching user status', e);
                 }
             }
         };
 
-        const needPhone = searchParams?.get('need_phone');
-        const queryUid = searchParams?.get('uid');
-        console.log('Signup URL params: needPhone =', needPhone, 'queryUid =', queryUid);
-        if (needPhone && queryUid) {
-            setPendingPhoneUserId(queryUid);
-        } else {
-            checkSession();
-        }
+        checkSession();
     }, [searchParams, redirectTo]);
 
     const set = (field) => (e) => {

@@ -18,6 +18,7 @@ import { CREDITS_UPDATED_EVENT } from '@/lib/credits';
 import { useLanguage } from '@/context/LanguageContext';
 
 const GoldSecurityShield = '/assets/images/gold_security_shield_badge.jpg';
+const Lock = '/assets/icons/lock.svg';
 
 function getUserFromStorage() {
     try {
@@ -989,6 +990,7 @@ export default function Profile() {
                             <div className={styles.modalBody}>
                                 <Input
                                     label="Current Password"
+                                    icon={Lock}
                                     type="password"
                                     name="currentPassword"
                                     value={passwordForm.current}
@@ -997,6 +999,7 @@ export default function Profile() {
                                 />
                                 <Input
                                     label="New Password"
+                                    icon={Lock}
                                     type="password"
                                     name="newPassword"
                                     value={passwordForm.newPass}
@@ -1005,6 +1008,7 @@ export default function Profile() {
                                 />
                                 <Input
                                     label="Confirm Password"
+                                    icon={Lock}
                                     type="password"
                                     name="confirmPassword"
                                     value={passwordForm.confirm}

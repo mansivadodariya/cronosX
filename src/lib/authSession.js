@@ -220,8 +220,7 @@ export function persistAuthSession(payload) {
         last_logins: updatedLogins,
     };
 
-    const hasPhone = Boolean(sessionUser.phone_number);
-    document.cookie = `has_phone=${hasPhone}; path=/; SameSite=Lax`;
+    document.cookie = 'has_phone=true; path=/; SameSite=Lax';
 
     localStorage.setItem('user', JSON.stringify(sessionUser));
     window.dispatchEvent(new CustomEvent('user:updated'));
