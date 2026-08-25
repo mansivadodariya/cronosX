@@ -331,6 +331,22 @@ export const profileApi = {
                 phone_number,
             }),
         }),
+
+    changePassword: async ({ userId = '', email = '', currentPassword = '', newPassword = '' } = {}) => {
+        const res = await fetch('/api/v1/user/change-password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                ...getAuthHeaders(),
+            },
+            body: JSON.stringify({ userId, email, currentPassword, newPassword }),
+        });
+        const data = await res.json().catch(() => null);
+        if (!res.ok) {
+            throw new Error(data?.error || data?.message || 'Failed to update password');
+        }
+        return data;
+    },
 };
 
 export const depositApi = {

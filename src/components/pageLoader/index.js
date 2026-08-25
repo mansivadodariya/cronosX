@@ -1,0 +1,130 @@
+'use client';
+import React, { useState, useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
+import styles from './pageLoader.module.scss';
+
+const SmallLogo = '/assets/logo/smallLogo.png';
+
+export default function PageLoader() {
+    const pathname = usePathname();
+    const [isNavigating, setIsNavigating] = useState(false);
+    const timeoutRef = useRef(null);
+    const currentPathRef = useRef(pathname);
+
+    // Stop loading when pathname changes
+    useEffect(() => {
+        if (isNavigating) {
+            setIsNavigating(false);
+        }
+        currentPathRef.current = pathname;
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+        }
+    }, [pathname]);
+
+    // Listen to link clicks across the application
+    useEffect(() => {
+        const handleClick = (e) => {
+            // Find closest anchor tag
+            const anchor = e.target.closest('a');
+            if (!anchor) return;
+
+            const href = anchor.getAttribute('href');
+            if (!href) return;
+
+            // Ignore external links, anchor fragments (#), javascript, or modified clicks (Ctrl, Cmd, Shift)
+            if (
+                href.startsWith('http://') ||
+                href.startsWith('https://') ||
+                href.startsWith('#') ||
+                href.startsWith('mailto:') ||
+                href.startsWith('tel:') ||
+                anchor.target === '_blank' ||
+                e.ctrlKey ||
+                e.metaKey ||
+                e.shiftKey ||
+                e.altKey ||
+                e.defaultPrevented
+            ) {
+                return;
+            }
+
+            // Clean URLs for comparison
+            const current = (currentPathRef.current || window.location.pathname).split('?')[0].replace(/\/$/, '') || '/';
+            const target = href.split('?')[0].replace(/\/$/, '') || '/';
+
+            // Only trigger blur overlay if navigating to a different route
+            if (current !== target) {
+                setIsNavigating(true);
+
+                // Fallback timeout to prevent permanent loader in case navigation is cancelled or fast
+                if (timeoutRef.current) clearTimeout(timeoutRef.current);
+                timeoutRef.current = setTimeout(() => {
+                    setIsNavigating(false);
+                }, 4000);
+            }
+        };
+
+        // Custom event listeners for programmatic navigation
+        const handleStartLoading = () => {
+            setIsNavigating(true);
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
+            timeoutRef.current = setTimeout(() => {
+                setIsNavigating(false);
+            }, 4000);
+        };
+
+        const handleStopLoading = () => {
+            setIsNavigating(false);
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        };
+
+        document.addEventListener('click', handleClick, true);
+        window.addEventListener('page:loading:start', handleStartLoading);
+        window.addEventListener('page:loading:stop', handleStopLoading);
+
+        return () => {
+            document.removeEventListener('click', handleClick, true);
+            window.removeEventListener('page:loading:start', handleStartLoading);
+            window.removeEventListener('page:loading:stop', handleStopLoading);
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        };
+    }, []);
+
+    return (
+        <AnimatePresence>
+            {isNavigating && (
+                <motion.div
+                    className={styles.navigationOverlay}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.18, ease: 'easeOut' }}
+                >
+                    <motion.div
+                        className={styles.loaderBox}
+                        initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.9, y: -10 }}
+                        transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        <div className={styles.emblemContainer}>
+                            <div className={styles.spinnerRing} />
+                            <img src={SmallLogo} alt="ChronosX" className={styles.logoImg} />
+                        </div>
+                        <div className={styles.loaderTextRow}>
+                            <span>Loading</span>
+                            <div className={styles.dotsPulse}>
+                                <span />
+                                <span />
+                                <span />
+                            </div>
+                        </div>
+                    </motion.div>
+                </motion.div>
+            )}
+        </AnimatePresence>
+    );
+}

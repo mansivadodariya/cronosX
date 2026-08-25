@@ -245,13 +245,51 @@ export default function AnalysisPanel({ symbol, strategyId, activeAnalysis, onAn
         fetchAnalysisData();
     }, [symbol, strategyId]);
 
-    if (loading) {
-        return (
-            <div className={styles.analysisPanelPlaceholder}>
-                <div className={styles.analysisSpinner} />
-                <span>Generating detailed analysis...</span>
+const AnalysisSkeleton = () => (
+    <div className={styles.analysisSkeletonContainer}>
+        {/* Technical Score Skeleton Card */}
+        <div className={styles.skeletonCard}>
+            <div className={styles.skeletonHeader}>
+                <div className={`${styles.skeletonTitle} ${styles.skeletonPulse}`} />
+                <div className={`${styles.skeletonBadge} ${styles.skeletonPulse}`} />
             </div>
-        );
+            <div className={styles.skeletonGaugeRow}>
+                <div className={`${styles.skeletonCircle} ${styles.skeletonPulse}`} />
+            </div>
+            <div className={styles.skeletonBarsGrid}>
+                <div className={`${styles.skeletonBarBox} ${styles.skeletonPulse}`} />
+                <div className={`${styles.skeletonBarBox} ${styles.skeletonPulse}`} />
+                <div className={`${styles.skeletonBarBox} ${styles.skeletonPulse}`} />
+                <div className={`${styles.skeletonBarBox} ${styles.skeletonPulse}`} />
+            </div>
+        </div>
+
+        {/* AI Summary Skeleton Card */}
+        <div className={styles.skeletonCard}>
+            <div className={styles.skeletonHeader}>
+                <div className={`${styles.skeletonTitle} ${styles.skeletonPulse}`} style={{ width: '110px' }} />
+            </div>
+            <div className={`${styles.skeletonLine} ${styles.skeletonPulse}`} />
+            <div className={`${styles.skeletonLine} ${styles.skeletonPulse} ${styles.medium}`} />
+            <div className={`${styles.skeletonLine} ${styles.skeletonPulse} ${styles.short}`} />
+        </div>
+
+        {/* Key Levels Skeleton Card */}
+        <div className={styles.skeletonCard}>
+            <div className={styles.skeletonHeader}>
+                <div className={`${styles.skeletonTitle} ${styles.skeletonPulse}`} style={{ width: '95px' }} />
+            </div>
+            <div className={styles.skeletonLevelsGrid}>
+                <div className={`${styles.skeletonLevelBox} ${styles.skeletonPulse}`} />
+                <div className={`${styles.skeletonLevelBox} ${styles.skeletonPulse}`} />
+                <div className={`${styles.skeletonLevelBox} ${styles.skeletonPulse}`} />
+            </div>
+        </div>
+    </div>
+);
+
+    if (loading) {
+        return <AnalysisSkeleton />;
     }
 
     if (error || !analysis) {

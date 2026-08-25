@@ -677,6 +677,113 @@ $danger: #ef4444;
         }
     }
 
+    @keyframes analysisSkeletonShimmer {
+        0% {
+            background-position: -200% 0;
+        }
+        100% {
+            background-position: 200% 0;
+        }
+    }
+
+    .analysisSkeletonContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 12px 10px;
+        width: 100%;
+        box-sizing: border-box;
+
+        .skeletonPulse {
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.03) 25%,
+                rgba(244, 209, 122, 0.09) 50%,
+                rgba(255, 255, 255, 0.03) 75%
+            );
+            background-size: 200% 100%;
+            animation: analysisSkeletonShimmer 1.6s infinite ease-in-out;
+            border-radius: 6px;
+        }
+
+        .skeletonCard {
+            background: #0D0E13;
+            border: 1px solid rgba(193, 144, 46, 0.2);
+            border-radius: 10px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+
+            .skeletonHeader {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+
+                .skeletonTitle {
+                    height: 16px;
+                    width: 130px;
+                }
+
+                .skeletonBadge {
+                    height: 22px;
+                    width: 75px;
+                    border-radius: 20px;
+                }
+            }
+
+            .skeletonGaugeRow {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 12px 0;
+
+                .skeletonCircle {
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 50%;
+                }
+            }
+
+            .skeletonBarsGrid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+
+                .skeletonBarBox {
+                    height: 38px;
+                    border-radius: 6px;
+                }
+            }
+
+            .skeletonLine {
+                height: 12px;
+                width: 100%;
+                border-radius: 4px;
+
+                &.short {
+                    width: 65%;
+                }
+
+                &.medium {
+                    width: 85%;
+                }
+            }
+
+            .skeletonLevelsGrid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+
+                .skeletonLevelBox {
+                    height: 50px;
+                    border-radius: 6px;
+                }
+            }
+        }
+    }
+
     .analysisPanelPlaceholder {
         display: flex;
         flex-direction: column;

@@ -33,6 +33,17 @@
             box-shadow: 0 0 14px rgba(244, 209, 122, 0.25);
         }
 
+        &:has(input:disabled) {
+            opacity: 0.65;
+            cursor: not-allowed;
+            border-color: rgba(193, 144, 46, 0.35);
+
+            input {
+                cursor: not-allowed;
+                color: rgba(255, 255, 255, 0.65);
+            }
+        }
+
         .iconLeft {
             position: absolute;
             left: 16px;

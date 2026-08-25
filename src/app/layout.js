@@ -2,6 +2,7 @@ import { Anton, Inter_Tight, Plus_Jakarta_Sans, Roboto } from "next/font/google"
 import "./globals.css";
 import { ToastProvider } from "@/components/toast";
 import WhatsappButton from "@/components/whatsappButton";
+import PageLoader from "@/components/pageLoader";
 import { LanguageProvider } from "@/context/LanguageContext";
 
 const antonSans = Anton({
@@ -59,6 +60,7 @@ export default function RootLayout({ children }) {
         <LanguageProvider>
           <ToastProvider>
             {children}
+            <PageLoader />
             <WhatsappButton />
           </ToastProvider>
         </LanguageProvider>

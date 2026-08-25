@@ -38,7 +38,7 @@ import { WarningIcon, ChatIcon, AnalyticsIcon, DownloadIcon, BrainIcon } from '.
 import { parseChatMessage } from '@/utils/chatParser';
 
 const UploadIcon = '/assets/icons/upload-xs.svg';
-const Logo = '/assets/icons/AIChat.svg';
+const Logo = '/assets/logo/smallLogo.png';
 
 const parseAssistantResponse = (raw) => {
     let envelope = raw?.data || raw;
