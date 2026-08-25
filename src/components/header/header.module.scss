@@ -10,18 +10,30 @@
     z-index: 100;
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 
-    @include respond-to("sm") {
-        top: 12px;
+    @include respond-to("tab") {
+        top: 0;
+        left: 0;
+        padding: 0;
+        width: 100%;
     }
 
     &.headerScrolled {
         top: 0;
         padding: 12px 0;
 
-
-        @include respond-to("sm") {
+        @include respond-to("tab") {
             top: 0;
-            padding: 8px 0;
+            padding: 0;
+        }
+    }
+
+    // Header Container styling
+    :global(.container) {
+        @include respond-to("tab") {
+            max-width: 100% !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            width: 100% !important;
         }
     }
 
@@ -31,25 +43,45 @@
         justify-content: space-between;
         padding: 12px 28px;
         border-radius: 99px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 0 15px rgba(244, 209, 122, 0.05);
         position: relative;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        background: rgba(4, 3, 0, 0.55);
+        background: rgba(4, 3, 0, 0.65);
         backdrop-filter: blur(24px) saturate(180%);
         -webkit-backdrop-filter: blur(24px) saturate(180%);
-        border-bottom: 1px solid rgba(193, 144, 46, 0.2);
-        box-shadow: 0 10px 32px rgba(0, 0, 0, 0.55);
+        border: 1px solid rgba(193, 144, 46, 0.3);
+        box-shadow: 0 10px 32px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(244, 209, 122, 0.05);
 
         &.alignmentScrolled {
-            background: rgba(16, 12, 8, 0.72);
-            border-color: rgba(193, 144, 46, 0.55);
+            background: rgba(16, 12, 8, 0.85);
+            border-color: rgba(193, 144, 46, 0.6);
             backdrop-filter: blur(45px) saturate(200%);
             -webkit-backdrop-filter: blur(45px) saturate(200%);
-            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7), 0 0 22px rgba(244, 209, 122, 0.15);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.75), 0 0 22px rgba(244, 209, 122, 0.18);
         }
 
+        // Full-width bar on Mobile & Tablet
         @include respond-to("tab") {
-            padding: 10px 18px;
+            width: 100%;
+            border-radius: 0;
+            border-left: none;
+            border-right: none;
+            border-top: none;
+            border-bottom: 1px solid rgba(193, 144, 46, 0.35);
+            padding: 10px 20px;
+            box-sizing: border-box;
+            background: rgba(6, 5, 3, 0.95);
+            backdrop-filter: blur(28px) saturate(190%);
+            -webkit-backdrop-filter: blur(28px) saturate(190%);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.75);
+
+            &.alignmentScrolled {
+                background: rgba(4, 3, 1, 0.98);
+                border-bottom: 1px solid rgba(193, 144, 46, 0.55);
+            }
+        }
+
+        @include respond-to("sm") {
+            padding: 12px 16px;
         }
 
         .logo {
@@ -67,11 +99,11 @@
                 }
 
                 @include respond-to("tab") {
-                    max-width: 150px;
+                    max-width: 155px;
                 }
 
                 @include respond-to("sm") {
-                    max-width: 170px;
+                    max-width: 145px;
                 }
             }
         }
@@ -98,15 +130,35 @@
                 li {
                     position: relative;
 
-                    a {
+                    a,
+                    .dropdownTrigger {
                         text-decoration: none;
                         color: rgba(255, 255, 255, 0.75);
-                        font-size: 14.5px;
+                        font-size: 16px;
                         font-family: "Euclid-Medium", sans-serif;
                         font-weight: 500;
                         transition: color 0.25s ease;
-                        padding: 6px 4px;
-                        display: inline-block;
+                        padding: 8px 4px;
+                        display: inline-flex;
+                        align-items: center;
+                        background: none;
+                        border: none;
+                        cursor: pointer;
+                        letter-spacing: 0.1px;
+                    }
+
+                    .dropdownTrigger {
+                        gap: 6px;
+                        outline: none;
+
+                        .chevron {
+                            width: 11px;
+                            height: 11px;
+                            margin-top: 1px;
+                            flex-shrink: 0;
+                            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), color 0.25s ease;
+                            color: rgba(255, 255, 255, 0.6);
+                        }
                     }
 
                     &::after {
@@ -124,13 +176,191 @@
                     }
 
                     &:hover,
-                    &.active {
-                        a {
+                    &.active,
+                    &.dropdownOpen {
+
+                        a,
+                        .dropdownTrigger {
                             color: #F4D17A;
+
+                            .chevron {
+                                color: #F4D17A;
+                                transform: rotate(180deg);
+                            }
                         }
 
                         &::after {
                             width: 80%;
+                        }
+                    }
+
+                    // Dropdown Container
+                    &.dropdownParent {
+                        .dropdownMenu {
+                            position: absolute;
+                            top: calc(100% + 14px);
+                            left: 50%;
+                            transform: translateX(-50%) translateY(8px);
+                            width: 400px;
+                            z-index: 150;
+                            opacity: 0;
+                            visibility: hidden;
+                            pointer-events: none;
+                            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+                            // Invisible bridge so hovering mouse from link to card never breaks
+                            &::before {
+                                content: '';
+                                position: absolute;
+                                top: -20px;
+                                left: 0;
+                                width: 100%;
+                                height: 20px;
+                            }
+
+                            .dropdownCard {
+                                background: linear-gradient(180deg, rgba(16, 13, 9, 0.98) 0%, rgba(8, 7, 5, 0.99) 100%);
+                                border: 1px solid rgba(193, 144, 46, 0.45);
+                                border-radius: 18px;
+                                padding: 14px;
+                                box-shadow:
+                                    0 25px 60px rgba(0, 0, 0, 0.92),
+                                    0 0 35px rgba(244, 209, 122, 0.14),
+                                    inset 0 1px 0 rgba(244, 209, 122, 0.3);
+                                backdrop-filter: blur(28px);
+                                -webkit-backdrop-filter: blur(28px);
+                                text-align: left;
+
+                                .dropdownHeaderTag {
+                                    padding: 2px 8px 10px 8px;
+                                    font-size: 10.5px;
+                                    font-family: "Euclid-Bold", sans-serif;
+                                    font-weight: 700;
+                                    letter-spacing: 1.2px;
+                                    color: rgba(244, 209, 122, 0.8);
+                                    text-transform: uppercase;
+                                    border-bottom: 1px solid rgba(193, 144, 46, 0.15);
+                                    margin-bottom: 8px;
+                                }
+
+                                .dropdownGrid {
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 4px;
+
+                                    .dropdownItem {
+                                        display: flex;
+                                        align-items: flex-start;
+                                        gap: 12px;
+                                        padding: 10px 12px;
+                                        border-radius: 12px;
+                                        text-decoration: none;
+                                        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+                                        background: transparent;
+                                        border: 1px solid transparent;
+
+                                        &:hover {
+                                            background: rgba(193, 144, 46, 0.12);
+                                            border-color: rgba(244, 209, 122, 0.35);
+                                            transform: translateX(3px);
+                                        }
+
+                                        .itemIconBox {
+                                            width: 36px;
+                                            height: 36px;
+                                            border-radius: 10px;
+                                            background: rgba(244, 209, 122, 0.08);
+                                            border: 1px solid rgba(193, 144, 46, 0.35);
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            color: #F4D17A;
+                                            flex-shrink: 0;
+                                            transition: all 0.2s ease;
+                                        }
+
+                                        &:hover .itemIconBox {
+                                            background: #F4D17A;
+                                            color: #040300;
+                                            box-shadow: 0 0 14px rgba(244, 209, 122, 0.5);
+                                        }
+
+                                        .itemContent {
+                                            flex: 1;
+                                            min-width: 0;
+
+                                            .itemTitleRow {
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: space-between;
+                                                gap: 8px;
+                                                margin-bottom: 3px;
+
+                                                .itemTitle {
+                                                    color: #FFFFFF;
+                                                    font-size: 13.5px;
+                                                    font-family: "Euclid-SemiBold", sans-serif;
+                                                    font-weight: 600;
+                                                    transition: color 0.2s ease;
+                                                }
+
+                                                .itemBadge {
+                                                    font-size: 9px;
+                                                    font-weight: 700;
+                                                    font-family: "Euclid-Bold", sans-serif;
+                                                    letter-spacing: 0.6px;
+                                                    padding: 2px 6px;
+                                                    border-radius: 99px;
+                                                    background: rgba(244, 209, 122, 0.15);
+                                                    color: #F4D17A;
+                                                    border: 1px solid rgba(244, 209, 122, 0.35);
+                                                }
+                                            }
+
+                                            .itemDesc {
+                                                margin: 0;
+                                                font-size: 11.5px;
+                                                line-height: 1.35;
+                                                color: rgba(255, 255, 255, 0.6);
+                                                font-family: "Euclid-Regular", sans-serif;
+                                            }
+                                        }
+
+                                        &:hover .itemContent .itemTitleRow .itemTitle {
+                                            color: #F4D17A;
+                                        }
+                                    }
+                                }
+
+                                .dropdownFooter {
+                                    margin-top: 8px;
+                                    padding: 8px 8px 2px 8px;
+                                    border-top: 1px solid rgba(193, 144, 46, 0.15);
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 6px;
+                                    font-size: 10.5px;
+                                    color: rgba(255, 255, 255, 0.45);
+                                    font-family: "Euclid-Regular", sans-serif;
+
+                                    .footerGlowDot {
+                                        width: 5px;
+                                        height: 5px;
+                                        border-radius: 50%;
+                                        background: #10B981;
+                                        box-shadow: 0 0 6px #10B981;
+                                    }
+                                }
+                            }
+                        }
+
+                        // Trigger hover or open state
+                        &:hover .dropdownMenu,
+                        &.dropdownOpen .dropdownMenu {
+                            opacity: 1;
+                            visibility: visible;
+                            pointer-events: auto;
+                            transform: translateX(-50%) translateY(0);
                         }
                     }
                 }
@@ -201,18 +431,26 @@
     // Mobile Drawer Card
     .mobileDrawer {
         position: absolute;
-        top: calc(100% + 10px);
+        top: 100%;
         left: 0;
         width: 100%;
         z-index: 99;
 
+        @include respond-to("tab") {
+            :global(.container) {
+                padding-left: 12px !important;
+                padding-right: 12px !important;
+            }
+        }
+
         .drawerCard {
-            background: rgba(12, 10, 7, 0.95);
+            background: rgba(12, 10, 7, 0.98);
             border: 1px solid rgba(193, 144, 46, 0.4);
-            border-radius: 20px;
-            padding: 20px;
-            backdrop-filter: blur(24px);
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(244, 209, 122, 0.1);
+            border-radius: 16px;
+            padding: 16px;
+            margin-top: 8px;
+            backdrop-filter: blur(28px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(244, 209, 122, 0.12);
 
             .drawerNavList {
                 list-style: none;
@@ -235,6 +473,9 @@
                     font-weight: 600;
                     transition: all 0.2s ease;
                     background: rgba(255, 255, 255, 0.02);
+                    width: 100%;
+                    border: none;
+                    cursor: pointer;
 
                     &:hover,
                     &.drawerLinkActive {
@@ -248,6 +489,73 @@
                         border-radius: 50%;
                         background: #F4D17A;
                         box-shadow: 0 0 8px #F4D17A;
+                    }
+                }
+
+                .mobileDropdownItem {
+                    .mobileDropdownTrigger {
+                        .mobileChevron {
+                            transition: transform 0.25s ease;
+                            color: rgba(255, 255, 255, 0.6);
+
+                            &.mobileChevronOpen {
+                                transform: rotate(180deg);
+                                color: #F4D17A;
+                            }
+                        }
+                    }
+
+                    .mobileSubList {
+                        overflow: hidden;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 6px;
+                        padding: 8px 0 4px 12px;
+
+                        .mobileSubLink {
+                            display: flex;
+                            align-items: center;
+                            gap: 12px;
+                            padding: 10px 14px;
+                            border-radius: 10px;
+                            text-decoration: none;
+                            background: rgba(193, 144, 46, 0.06);
+                            border: 1px solid rgba(193, 144, 46, 0.2);
+                            transition: all 0.2s ease;
+
+                            &:hover {
+                                background: rgba(193, 144, 46, 0.15);
+                                border-color: #F4D17A;
+                            }
+
+                            .subIconWrap {
+                                color: #F4D17A;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                flex-shrink: 0;
+                            }
+
+                            .subContent {
+                                display: flex;
+                                flex-direction: column;
+                                text-align: left;
+
+                                .subTitle {
+                                    color: #FFFFFF;
+                                    font-size: 13.5px;
+                                    font-family: "Euclid-SemiBold", sans-serif;
+                                    font-weight: 600;
+                                }
+
+                                .subDesc {
+                                    color: rgba(255, 255, 255, 0.55);
+                                    font-size: 11px;
+                                    font-family: "Euclid-Regular", sans-serif;
+                                    margin-top: 1px;
+                                }
+                            }
+                        }
                     }
                 }
             }
