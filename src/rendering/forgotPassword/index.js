@@ -10,6 +10,7 @@ import { validateForgotPassword } from '@/lib/validation';
 import { toast } from '@/components/toast';
 import { useLanguage } from '@/context/LanguageContext';
 
+const Logo = '/assets/logo/logo.png';
 const EmailIcon = '/assets/icons/sms.svg';
 const ArrowIcon = '/assets/icons/arrow.svg';
 
@@ -51,8 +52,20 @@ const ForgotPassword = () => {
 
     return (
         <div className={styles.page}>
-            <div className={styles.box}>
-                <div className={styles.relative}>
+            {/* Ambient Background Glows */}
+            <div className={styles.ambientGlowTop} aria-hidden="true" />
+            <div className={styles.ambientGlowBottom} aria-hidden="true" />
+            <div className={styles.gridOverlay} aria-hidden="true" />
+
+            <div className={styles.authContainer}>
+                <div className={styles.authCard}>
+                    {/* Redesigned Logo */}
+                    <div className={styles.logoWrapper}>
+                        <Link href="/" className={styles.logoLink} title="ChronosX Home">
+                            <img src={Logo} alt="ChronosX Logo" className={styles.logoImg} />
+                        </Link>
+                    </div>
+
                     <div className={styles.text}>
                         <h2>{t('auth.forgotPasswordTitle', 'Forgot Password')}</h2>
                         <p>{t('auth.forgotPasswordDesc', "Enter your email and we'll send you a link to reset your password. Please check your spam folder as well.")}</p>

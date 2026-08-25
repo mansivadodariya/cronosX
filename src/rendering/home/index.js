@@ -21,13 +21,10 @@ export default function HomePage() {
         <div>
             <Herobanner />
             <AiCockpit />
-            {/* <CardList /> */}
-            {/* <Platform /> */}
             <Capabilities />
             <BeforeAfterComparison />
             <MarketIntelligence />
             <HowitWorks />
-            {/* <AiAssistant /> */}
             <BreakoutDetection />
             <ChartAnalysis />
             <AiAnalyst />

@@ -13,12 +13,12 @@
     align-items: center;
 
     @include respond-to("tab") {
-        padding: 120px 0 70px 0;
+        padding: 110px 0 60px 0;
         min-height: auto;
     }
 
     @include respond-to("sm") {
-        padding: 100px 0 50px 0;
+        padding: 90px 0 40px 0;
     }
 
     // Dynamic Ambient Atmosphere Glows
@@ -370,6 +370,14 @@
             padding: 14px 18px;
             gap: 14px;
             margin-bottom: 36px;
+        }
+
+        @include respond-to("sm") {
+            border-radius: 16px;
+            padding: 12px 14px;
+            gap: 10px;
+            margin-bottom: 28px;
+            width: 100%;
         }
 
         .avatarGroup {

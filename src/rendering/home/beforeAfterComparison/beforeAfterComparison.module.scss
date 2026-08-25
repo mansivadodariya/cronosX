@@ -8,6 +8,14 @@
   overflow: hidden;
   background: #040302;
 
+  @include respond-to("tab") {
+    padding: 70px 0;
+  }
+
+  @include respond-to("sm") {
+    padding: 50px 0;
+  }
+
   :global(.container) {
     position: relative;
     z-index: 5;

@@ -7,6 +7,14 @@
   background: #000000;
   overflow: hidden;
 
+  @include respond-to("tab") {
+    padding: 70px 0;
+  }
+
+  @include respond-to("sm") {
+    padding: 50px 0;
+  }
+
   :global(.container) {
     position: relative;
     z-index: 2;
@@ -22,6 +30,10 @@
     @include respond-to("lg") {
       grid-template-columns: 1fr;
       gap: 50px;
+    }
+
+    @include respond-to("sm") {
+      gap: 36px;
     }
   }
 
@@ -58,6 +70,11 @@
 
       @include respond-to("tab") {
         font-size: 38px;
+      }
+
+      @include respond-to("sm") {
+        font-size: 28px;
+        line-height: 1.15;
       }
     }
 

@@ -27,6 +27,11 @@
     filter: blur(120px);
     pointer-events: none;
     z-index: 1;
+
+    @include respond-to("md") {
+      width: 80%;
+      height: 400px;
+    }
   }
 
   /* Section Header */
@@ -89,7 +94,6 @@
      ONE MASTER UNIFIED CONTAINER BOX - OBSIDIAN GOLD GLASS
      ============================================================ */
   .masterTerminalBox {
-
     background: radial-gradient(circle at 50% 0%, rgba(216, 162, 59, 0.07) 0%, transparent 65%), #080B12;
     border: 1px solid rgba(255, 230, 147, 0.16);
     border-radius: 24px;
@@ -98,57 +102,15 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-
-    @include respond-to("sm") {
-      padding: 16px;
-      border-radius: 18px;
-      gap: 16px;
-    }
-  }
-
-  /* Top Strategy Selector Bar - Balanced 4 Columns */
-  .topStrategyBar {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
     width: 100%;
-
-    @include respond-to("md") {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
 
     @include respond-to("sm") {
-      grid-template-columns: 1fr;
-    }
-
-    .strategyBtn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 11px 16px;
-      border-radius: 12px;
-      background: rgba(18, 14, 6, 0.55);
-      border: 1px solid rgba(216, 162, 59, 0.18);
-      color: #9CA3AF;
-      font-size: 13.5px;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.25s ease;
-
-      &:hover {
-        background: rgba(216, 162, 59, 0.12);
-        color: #FFFFFF;
-        border-color: rgba(255, 230, 147, 0.35);
-      }
-
-      &.strategyActive {
-        background: linear-gradient(135deg, rgba(216, 162, 59, 0.28) 0%, rgba(18, 14, 6, 0.9) 100%);
-        border-color: #FFE693;
-        color: #FFE693;
-        box-shadow: 0 0 24px rgba(216, 162, 59, 0.35), inset 0 1px 0 rgba(255, 230, 147, 0.6);
-      }
+      padding: 14px 12px;
+      border-radius: 16px;
+      gap: 14px;
     }
   }
 
@@ -158,10 +120,17 @@
     grid-template-columns: 1.16fr 1fr;
     gap: 20px;
     align-items: stretch;
+    width: 100%;
+    min-width: 0;
 
     @include respond-to("lg") {
       grid-template-columns: 1fr;
-      gap: 22px;
+      gap: 20px;
+    }
+
+    @include respond-to("sm") {
+      grid-template-columns: 1fr;
+      gap: 16px;
     }
   }
 
@@ -179,6 +148,15 @@
     min-height: 520px;
     position: relative;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
+    @include respond-to("sm") {
+      min-height: 340px;
+      border-radius: 14px;
+    }
 
     .partHeader {
       display: flex;
@@ -189,6 +167,13 @@
       border-bottom: 1px solid rgba(255, 230, 147, 0.1);
       gap: 12px;
       flex-wrap: wrap;
+      width: 100%;
+      box-sizing: border-box;
+
+      @include respond-to("sm") {
+        padding: 10px 12px;
+        gap: 8px;
+      }
 
 
       .headerLeftCluster {
@@ -196,6 +181,10 @@
         align-items: center;
         gap: 12px;
         flex-wrap: wrap;
+
+        @include respond-to("sm") {
+          gap: 8px;
+        }
 
         .macDots {
           display: flex;
@@ -209,9 +198,20 @@
             display: inline-block;
           }
 
-          .dotRed { background: #EF4444; opacity: 0.8; }
-          .dotYellow { background: #F59E0B; opacity: 0.8; }
-          .dotGreen { background: #10B981; opacity: 0.8; }
+          .dotRed {
+            background: #EF4444;
+            opacity: 0.8;
+          }
+
+          .dotYellow {
+            background: #F59E0B;
+            opacity: 0.8;
+          }
+
+          .dotGreen {
+            background: #10B981;
+            opacity: 0.8;
+          }
         }
 
         .goldAssetPill {
@@ -313,6 +313,10 @@
       flex-direction: column;
       justify-content: flex-end;
 
+      @include respond-to("sm") {
+        min-height: 300px;
+      }
+
       .visibleGridOverlay {
         position: absolute;
         inset: 0;
@@ -325,11 +329,25 @@
           right: 0;
           border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
 
-          &:nth-child(1) { top: 12%; }
-          &:nth-child(2) { top: 32%; }
-          &:nth-child(3) { top: 52%; }
-          &:nth-child(4) { top: 72%; }
-          &:nth-child(5) { top: 90%; }
+          &:nth-child(1) {
+            top: 12%;
+          }
+
+          &:nth-child(2) {
+            top: 32%;
+          }
+
+          &:nth-child(3) {
+            top: 52%;
+          }
+
+          &:nth-child(4) {
+            top: 72%;
+          }
+
+          &:nth-child(5) {
+            top: 90%;
+          }
         }
 
         .gridCol {
@@ -355,6 +373,11 @@
         pointer-events: none;
         z-index: 3;
 
+        @include respond-to("sm") {
+          width: 58px;
+          padding: 20px 6px 28px 0;
+        }
+
         span {
           font-family: monospace, sans-serif;
           font-size: 11px;
@@ -362,6 +385,10 @@
           color: #64748B;
           text-align: right;
           letter-spacing: 0.3px;
+
+          @include respond-to("sm") {
+            font-size: 9.5px;
+          }
         }
       }
 
@@ -381,6 +408,11 @@
         z-index: 5;
         transform: translateY(-50%);
         transition: top 0.2s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+
+        @include respond-to("sm") {
+          padding: 2px 5px;
+          right: 2px;
+        }
 
         &.pillGreen {
           background: #10B981;
@@ -405,6 +437,10 @@
           font-size: 10.5px;
           font-weight: 900;
           letter-spacing: 0.4px;
+
+          @include respond-to("sm") {
+            font-size: 9px;
+          }
         }
       }
 
@@ -424,16 +460,26 @@
     justify-content: space-between;
     gap: 16px;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow: hidden;
 
     @include respond-to("sm") {
-      padding: 18px 16px;
+      padding: 16px 14px;
+      border-radius: 14px;
+      gap: 14px;
     }
 
     .cockpitTopBreadcrumb {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      width: 100%;
+      min-width: 0;
+      flex-wrap: wrap;
+      gap: 8px;
 
       .breadcrumbTitle {
         display: flex;
@@ -444,6 +490,7 @@
         font-weight: 700;
         color: #64748B;
         letter-spacing: 0.5px;
+        flex-wrap: wrap;
 
         .arrowLeft {
           font-size: 14px;
@@ -484,11 +531,17 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      width: 100%;
+      min-width: 0;
+      flex-wrap: wrap;
+      gap: 10px;
 
       .identityLeft {
         display: flex;
         align-items: center;
         gap: 12px;
+        min-width: 0;
+        max-width: 100%;
 
         .logoGold {
           width: 38px;
@@ -501,17 +554,31 @@
           justify-content: center;
           flex-shrink: 0;
           box-shadow: 0 0 12px rgba(216, 162, 59, 0.2);
+
+          @include respond-to("sm") {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+
+            svg {
+              width: 18px;
+              height: 18px;
+            }
+          }
         }
 
         .titleAndSub {
           display: flex;
           flex-direction: column;
           gap: 2px;
+          min-width: 0;
+          overflow: hidden;
 
           .tickerBadgeLine {
             display: flex;
             align-items: center;
             gap: 8px;
+            flex-wrap: wrap;
 
             .assetTickerText {
               color: #FFFFFF;
@@ -520,6 +587,10 @@
               margin: 0;
               letter-spacing: 0.5px;
               @include font-bold;
+
+              @include respond-to("sm") {
+                font-size: 18px;
+              }
             }
 
             .liveStatusPill {
@@ -552,6 +623,12 @@
             font-size: 12px;
             margin: 0;
             @include font-normal;
+            white-space: normal;
+            word-break: break-word;
+
+            @include respond-to("sm") {
+              font-size: 11px;
+            }
           }
         }
       }
@@ -561,8 +638,10 @@
       display: flex;
       align-items: baseline;
       justify-content: space-between;
-      gap: 16px;
+      gap: 12px;
       flex-wrap: wrap;
+      width: 100%;
+      min-width: 0;
 
       .mainPriceNumber {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -573,7 +652,8 @@
         transition: all 0.25s ease;
 
         @include respond-to("sm") {
-          font-size: 30px;
+          font-size: 26px;
+          letter-spacing: -0.5px;
         }
 
         &.priceGreen {
@@ -604,6 +684,10 @@
         align-items: flex-end;
         gap: 3px;
 
+        @include respond-to("sm") {
+          align-items: flex-start;
+        }
+
         .changePercentTag {
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
           font-size: 13.5px;
@@ -613,6 +697,10 @@
           align-items: center;
           gap: 4px;
           font-variant-numeric: tabular-nums;
+
+          @include respond-to("sm") {
+            font-size: 12px;
+          }
 
 
           .upArrow {
@@ -628,6 +716,10 @@
           font-family: monospace, sans-serif;
           font-size: 11px;
           color: #64748B;
+
+          @include respond-to("sm") {
+            font-size: 10px;
+          }
         }
       }
     }
@@ -636,10 +728,24 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       width: 100%;
+      min-width: 0;
       gap: 10px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       padding-bottom: 12px;
       user-select: none;
+
+      @include respond-to("sm") {
+        display: flex;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        gap: 6px;
+        padding-bottom: 10px;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
 
       .tabLink {
         background: rgba(255, 255, 255, 0.025);
@@ -657,6 +763,15 @@
         cursor: pointer;
         outline: none;
         transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        min-width: 0;
+
+        @include respond-to("sm") {
+          flex: 1 0 auto;
+          padding: 7px 10px;
+          font-size: 11.5px;
+          gap: 5px;
+          border-radius: 8px;
+        }
 
         svg {
           color: #64748B;
@@ -687,7 +802,7 @@
           }
         }
 
-   
+
       }
     }
 
@@ -697,9 +812,12 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px;
+      width: 100%;
+      min-width: 0;
 
       @include respond-to("sm") {
         grid-template-columns: 1fr;
+        gap: 12px;
       }
 
       .intelCard {
@@ -714,6 +832,17 @@
         box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
         transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         cursor: default;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+
+        @include respond-to("sm") {
+          padding: 14px 12px;
+          border-radius: 12px;
+          gap: 12px;
+        }
 
         /* Score Card Active Hover State (Emerald Glow) */
         &.cardActiveScore {
@@ -738,17 +867,20 @@
           filter: grayscale(15%);
         }
 
-
-
         .cardTopMeta {
           display: flex;
           align-items: center;
           justify-content: space-between;
+          width: 100%;
+          min-width: 0;
+          gap: 8px;
+          flex-wrap: wrap;
 
           .cardHeaderWithIcon {
             display: flex;
             align-items: center;
             gap: 10px;
+            min-width: 0;
 
             .radarIconBox {
               width: 30px;
@@ -761,6 +893,7 @@
               justify-content: center;
               position: relative;
               box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
+              flex-shrink: 0;
 
               .radarDot {
                 width: 6px;
@@ -790,6 +923,7 @@
               justify-content: center;
               font-size: 14px;
               box-shadow: 0 0 12px rgba(216, 162, 59, 0.25);
+              flex-shrink: 0;
             }
 
             .cardTitle {
@@ -834,6 +968,10 @@
           display: flex;
           align-items: baseline;
           justify-content: space-between;
+          width: 100%;
+          min-width: 0;
+          flex-wrap: wrap;
+          gap: 8px;
 
           .scoreLargeNum {
             display: flex;
@@ -849,6 +987,10 @@
               letter-spacing: 0.5px;
               display: inline-block;
               transition: all 0.3s ease;
+
+              @include respond-to("sm") {
+                font-size: 28px;
+              }
 
               &.scoreActiveText {
                 color: #34D399;
@@ -876,11 +1018,19 @@
             align-items: flex-end;
             gap: 4px;
 
+            @include respond-to("sm") {
+              align-items: flex-start;
+            }
+
             .verdictText {
               font-size: 13.5px;
               font-weight: 800;
               color: #FFFFFF;
               letter-spacing: -0.2px;
+
+              @include respond-to("sm") {
+                font-size: 12px;
+              }
             }
 
             .confidenceBadge {
@@ -901,6 +1051,8 @@
           display: flex;
           flex-direction: column;
           gap: 5px;
+          width: 100%;
+          min-width: 0;
 
           .sliderRangeHeader {
             display: flex;
@@ -947,6 +1099,10 @@
           display: flex;
           align-items: baseline;
           justify-content: space-between;
+          width: 100%;
+          min-width: 0;
+          flex-wrap: wrap;
+          gap: 8px;
 
           .rankNumText {
             display: flex;
@@ -962,6 +1118,10 @@
               display: inline-block;
               transition: all 0.3s ease;
 
+              @include respond-to("sm") {
+                font-size: 28px;
+              }
+
               &.rankActiveText {
                 color: #FFE693;
                 text-shadow: 0 0 16px rgba(255, 230, 147, 0.75);
@@ -969,12 +1129,15 @@
               }
             }
 
-
             .rankOutOf {
               font-size: 13.5px;
               font-weight: 700;
               color: #94A3B8;
               margin-left: 6px;
+
+              @include respond-to("sm") {
+                font-size: 12px;
+              }
             }
           }
 
@@ -1008,7 +1171,6 @@
       }
     }
 
-
     .metaMatrixGrid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -1017,10 +1179,17 @@
       background: transparent;
       border: none;
       box-shadow: none;
+      width: 100%;
+      min-width: 0;
+
+      @include respond-to("md") {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
 
       @include respond-to("sm") {
         grid-template-columns: 1fr;
-        gap: 10px;
+        gap: 8px;
       }
 
       .metaCol {
@@ -1033,6 +1202,13 @@
         padding: 12px 14px;
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
         transition: all 0.25s ease;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+
+        @include respond-to("sm") {
+          padding: 10px 12px;
+        }
 
         &:hover {
           border-color: rgba(216, 162, 59, 0.25);
@@ -1044,6 +1220,7 @@
           align-items: center;
           justify-content: space-between;
           gap: 6px;
+          width: 100%;
 
           .metaLabel {
             font-family: monospace, sans-serif;
@@ -1102,6 +1279,10 @@
           letter-spacing: -0.2px;
           white-space: nowrap;
           margin-top: 1px;
+
+          @include respond-to("sm") {
+            font-size: 15px;
+          }
         }
 
         .metaSub {
@@ -1124,6 +1305,10 @@
           white-space: nowrap;
           margin-top: 1px;
 
+          @include respond-to("sm") {
+            font-size: 13.5px;
+          }
+
           .signalDot {
             width: 6px;
             height: 6px;
@@ -1133,7 +1318,6 @@
             animation: pulseDot 1.4s infinite;
           }
         }
-
       }
     }
 
@@ -1179,10 +1363,13 @@
   }
 
   @keyframes pulseDot {
-    0%, 100% {
+
+    0%,
+    100% {
       opacity: 1;
       transform: scale(1);
     }
+
     50% {
       opacity: 0.4;
       transform: scale(1.35);
@@ -1194,10 +1381,10 @@
       transform: scale(0.85);
       opacity: 0.8;
     }
+
     100% {
       transform: scale(1.6);
       opacity: 0;
     }
   }
 }
-

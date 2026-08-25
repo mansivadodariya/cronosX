@@ -18,8 +18,7 @@ import { supabase } from '@/lib/supabaseClient';
 import { useLanguage } from '@/context/LanguageContext';
 import LanguageToggle from '@/components/languageToggle';
 
-const LineImage = '/assets/images/line.png';
-const AuthIcon = '/assets/icons/auth.svg';
+const Logo = '/assets/logo/logo.png';
 const ArrowIcon = '/assets/icons/arrow.svg';
 const EmailIcon = '/assets/icons/sms.svg';
 const UserIcon = '/assets/icons/user.svg';
@@ -148,31 +147,36 @@ const Login = () => {
         }
 
         if (!isValidPhoneNumber(phoneNumber)) {
-            setPhoneError('Enter a valid phone number.');
+            setPhoneError('Please enter a valid phone number with country code.');
+            return;
+        }
+
+        const activeUid = pendingPhoneUserId || getStoredUserId();
+        if (!activeUid) {
+            toast.error('Session expired. Please log in again.');
+            clearAuthSession();
+            setPendingPhoneUserId('');
             return;
         }
 
         setPhoneError('');
-        // OTP verification flow commented out for now:
-        // setShowOtpModal(true);
-        handleOtpSuccess();
+        setShowOtpModal(true);
     };
 
     const handleOtpSuccess = async () => {
         setSavingPhone(true);
+        const activeUid = pendingPhoneUserId || getStoredUserId();
         try {
-            const stored = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || '{}') : {};
-            const firstName = stored.first_name || '';
-            const lastName = stored.last_name || '';
+            let apiRes = null;
+            try {
+                apiRes = await profileApi.updateProfile({
+                    phone_number: phoneNumber,
+                    is_phone_verified: true
+                });
+            } catch (apiErr) {
+                console.warn("profileApi.updateProfile fallback to direct update:", apiErr);
+            }
 
-            const apiRes = await profileApi.updateProfile({
-                first_name: firstName,
-                last_name: lastName,
-                phone_number: phoneNumber,
-            });
-
-            // Update Supabase users table directly to set is_phone_verified = true
-            const activeUid = pendingPhoneUserId || stored.id || (typeof window !== 'undefined' ? localStorage.getItem('user_id') : null);
             if (supabase && activeUid) {
                 try {
                     await supabase
@@ -217,13 +221,20 @@ const Login = () => {
 
     return (
         <div className={styles.loginpage}>
-            <div className={styles.box}>
+            {/* Ambient Background Glows */}
+            <div className={styles.ambientGlowTop} aria-hidden="true" />
+            <div className={styles.ambientGlowBottom} aria-hidden="true" />
+            <div className={styles.gridOverlay} aria-hidden="true" />
 
+            <div className={styles.authContainer}>
+                <div className={styles.authCard}>
+                    {/* Redesigned Logo */}
+                    <div className={styles.logoWrapper}>
+                        <Link href="/" className={styles.logoLink} title="ChronosX Home">
+                            <img src={Logo} alt="ChronosX Logo" className={styles.logoImg} />
+                        </Link>
+                    </div>
 
-                <div className={styles.relative}>
-                    {/* <div className={styles.icon} onClick={() => router.push("/")}>
-                        <img src={AuthIcon} alt="" aria-hidden="true" />
-                    </div> */}
                     {pendingPhoneUserId ? (
                         <>
                             <div className={styles.text}>

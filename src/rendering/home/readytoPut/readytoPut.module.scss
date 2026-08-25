@@ -89,12 +89,35 @@
                 line-height: 1.5;
                 margin: 0 0 36px 0;
                 @include font-normal;
+
+                @include respond-to("sm") {
+                    font-size: 14.5px;
+                    margin-bottom: 24px;
+                }
             }
 
             .btnWrapper {
                 display: flex;
                 justify-content: center;
+
+                @include respond-to("sm") {
+                    width: 100%;
+
+                    button, a {
+                        width: 100%;
+                        justify-content: center;
+                    }
+                }
             }
+        }
+
+        @include respond-to("tab") {
+            padding: 60px 30px;
+        }
+
+        @include respond-to("sm") {
+            padding: 45px 20px;
+            border-radius: 20px;
         }
     }
 }

@@ -21,8 +21,7 @@ import { getUtmParameters } from '@/lib/utm';
 import { useLanguage } from '@/context/LanguageContext';
 import LanguageToggle from '@/components/languageToggle';
 
-const LineImage = '/assets/images/line.png';
-const AuthIcon = '/assets/icons/auth.svg';
+const Logo = '/assets/logo/logo.png';
 const ArrowIcon = '/assets/icons/arrow.svg';
 const UserIcon = '/assets/icons/user.svg';
 const EmailIcon = '/assets/icons/sms.svg';
@@ -126,21 +125,19 @@ const Signup = () => {
     }, [searchParams, redirectTo]);
 
     const set = (field) => (e) => {
-        let val = e.target.value.trimStart();
-        if (field === 'first_name' || field === 'last_name') {
-            val = val.replace(/[^a-zA-Z\s]/g, '');
-        }
+        const val = e.target.value.trimStart();
         setForm((f) => ({ ...f, [field]: val }));
         if (errors[field]) setErrors((prev) => ({ ...prev, [field]: '' }));
     };
 
-    const setPhone = (value) => {
-        setForm((f) => ({ ...f, phone_number: value || '' }));
+    const setPhone = (val) => {
+        setForm((f) => ({ ...f, phone_number: val || '' }));
         if (errors.phone_number) setErrors((prev) => ({ ...prev, phone_number: '' }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (loading) return;
         const fieldErrors = validateSignup(form);
         if (Object.keys(fieldErrors).length > 0) {
             setErrors(fieldErrors);
@@ -148,33 +145,9 @@ const Signup = () => {
         }
         setLoading(true);
         try {
-            const { confirmPassword, ...payload } = form;
-            const utmParams = getUtmParameters();
-            await authApi.signup({
-                ...payload,
-                utm_source: utmParams.utm_source || null,
-                utm_medium: utmParams.utm_medium || null,
-                utm_campaign: utmParams.utm_campaign || null
-            });
-
-            try {
-                if (supabase && (utmParams.utm_source || utmParams.utm_medium || utmParams.utm_campaign)) {
-                    const { error: dbErr } = await supabase
-                        .from('users')
-                        .update({
-                            utm_source: utmParams.utm_source || null,
-                            utm_medium: utmParams.utm_medium || null,
-                            utm_campaign: utmParams.utm_campaign || null
-                        })
-                        .eq('email', payload.email);
-                    if (dbErr) {
-                        console.warn("Direct UTM update on registration failed:", dbErr);
-                    }
-                }
-            } catch (dbSyncErr) {
-                console.warn("Database UTM sync error on registration:", dbSyncErr);
-            }
-
+            const utm = getUtmParameters();
+            const signupPayload = { ...form, ...utm };
+            await authApi.signup(signupPayload);
             setSuccess(true);
         } catch (err) {
             toast.dismiss();
@@ -193,31 +166,36 @@ const Signup = () => {
         }
 
         if (!isValidPhoneNumber(phoneNumber)) {
-            setPhoneError('Enter a valid phone number.');
+            setPhoneError('Please enter a valid phone number with country code.');
+            return;
+        }
+
+        const activeUid = pendingPhoneUserId || getStoredUserId();
+        if (!activeUid) {
+            toast.error('Session expired. Please log in again.');
+            clearAuthSession();
+            setPendingPhoneUserId('');
             return;
         }
 
         setPhoneError('');
-        // OTP verification flow commented out for now:
-        // setShowOtpModal(true);
-        handleOtpSuccess();
+        setShowOtpModal(true);
     };
 
     const handleOtpSuccess = async () => {
         setSavingPhone(true);
+        const activeUid = pendingPhoneUserId || getStoredUserId();
         try {
-            const stored = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || '{}') : {};
-            const firstName = form.first_name || stored.first_name || '';
-            const lastName = form.last_name || stored.last_name || '';
+            let apiRes = null;
+            try {
+                apiRes = await profileApi.updateProfile({
+                    phone_number: phoneNumber,
+                    is_phone_verified: true
+                });
+            } catch (apiErr) {
+                console.warn("profileApi.updateProfile fallback to direct update:", apiErr);
+            }
 
-            const apiRes = await profileApi.updateProfile({
-                first_name: firstName.trim(),
-                last_name: lastName.trim(),
-                phone_number: phoneNumber,
-            });
-
-            // Update Supabase users table directly to set is_phone_verified = true
-            const activeUid = pendingPhoneUserId || stored.id || (typeof window !== 'undefined' ? localStorage.getItem('user_id') : null);
             if (supabase && activeUid) {
                 try {
                     await supabase
@@ -234,8 +212,6 @@ const Signup = () => {
 
             if (typeof window !== 'undefined') {
                 const parsed = JSON.parse(localStorage.getItem('user') || '{}');
-                parsed.first_name = firstName.trim() || parsed.first_name || '';
-                parsed.last_name = lastName.trim() || parsed.last_name || '';
                 parsed.phone_number = phoneNumber;
                 parsed.is_phone_verified = true;
                 localStorage.setItem('user', JSON.stringify(parsed));
@@ -243,10 +219,10 @@ const Signup = () => {
                 window.dispatchEvent(new CustomEvent('user:updated'));
             }
 
-            toast.success(apiRes?.message || 'Phone number verified successfully!');
+            toast.success(apiRes?.message || 'Phone number verified and saved!');
             window.location.assign(redirectTo);
         } catch (err) {
-            console.error('Failed to save phone number:', err);
+            console.error('Failed to save phone number after verification:', err);
             const msg = String(err.message || '');
             let userFriendlyMsg = 'Failed to save phone number.';
             if (msg.includes('unique constraint') || msg.includes('duplicate key') || msg.includes('already exists') || msg.includes('already in use')) {
@@ -265,8 +241,17 @@ const Signup = () => {
     if (success) {
         return (
             <div className={styles.signuppage}>
-                <div className={styles.box}>
-                    <div className={styles.relative}>
+                <div className={styles.ambientGlowTop} aria-hidden="true" />
+                <div className={styles.ambientGlowBottom} aria-hidden="true" />
+                <div className={styles.gridOverlay} aria-hidden="true" />
+
+                <div className={styles.authContainer}>
+                    <div className={styles.authCard}>
+                        <div className={styles.logoWrapper}>
+                            <Link href="/" className={styles.logoLink} title="ChronosX Home">
+                                <img src={Logo} alt="ChronosX Logo" className={styles.logoImg} />
+                            </Link>
+                        </div>
                         <div className={styles.text}>
                             <h2>{t('auth.checkEmail', 'Check your email')}</h2>
                             <p>{t('auth.verificationSent', `We sent a verification link to ${form.email}. Click the link to activate your account.`)}</p>
@@ -285,12 +270,20 @@ const Signup = () => {
 
     return (
         <div className={styles.signuppage}>
-            <div className={styles.box}>
+            {/* Ambient Background Glows */}
+            <div className={styles.ambientGlowTop} aria-hidden="true" />
+            <div className={styles.ambientGlowBottom} aria-hidden="true" />
+            <div className={styles.gridOverlay} aria-hidden="true" />
 
-                <div className={styles.relative}>
-                    {/* <div className={styles.icon}>
-                        <img src={AuthIcon} alt="" aria-hidden="true" onClick={() => router.push("/")} />
-                    </div> */}
+            <div className={styles.authContainer}>
+                <div className={styles.authCard}>
+                    {/* Redesigned Logo */}
+                    <div className={styles.logoWrapper}>
+                        <Link href="/" className={styles.logoLink} title="ChronosX Home">
+                            <img src={Logo} alt="ChronosX Logo" className={styles.logoImg} />
+                        </Link>
+                    </div>
+
                     {pendingPhoneUserId ? (
                         <>
                             <div className={styles.text}>

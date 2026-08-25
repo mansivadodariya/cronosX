@@ -10,6 +10,7 @@ import { validateResetPassword } from '@/lib/validation';
 import { toast } from '@/components/toast';
 import { useLanguage } from '@/context/LanguageContext';
 
+const Logo = '/assets/logo/logo.png';
 const Lock = '/assets/icons/lock.svg';
 const ArrowIcon = '/assets/icons/arrow.svg';
 
@@ -57,8 +58,20 @@ const ResetPassword = () => {
 
     return (
         <div className={styles.page}>
-            <div className={styles.box}>
-                <div className={styles.relative}>
+            {/* Ambient Background Glows */}
+            <div className={styles.ambientGlowTop} aria-hidden="true" />
+            <div className={styles.ambientGlowBottom} aria-hidden="true" />
+            <div className={styles.gridOverlay} aria-hidden="true" />
+
+            <div className={styles.authContainer}>
+                <div className={styles.authCard}>
+                    {/* Redesigned Logo */}
+                    <div className={styles.logoWrapper}>
+                        <Link href="/" className={styles.logoLink} title="ChronosX Home">
+                            <img src={Logo} alt="ChronosX Logo" className={styles.logoImg} />
+                        </Link>
+                    </div>
+
                     <div className={styles.text}>
                         <h2>{t('auth.resetPasswordHeader', 'Reset Password')}</h2>
                         <p>{t('auth.resetPasswordDesc', 'Enter your new password below.')}</p>

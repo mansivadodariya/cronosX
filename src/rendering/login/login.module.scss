@@ -3,47 +3,169 @@
 @use '../../scss/font/font.scss' as *;
 
 .loginpage {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 20px;
+    background: transparent;
 
-    .box {
-        background-color: #070705;
-        height: 100dvh;
-        overflow: auto;
-        display: flex;
-        align-items: center;
-        padding: 40px 0;
-        scrollbar-width: none;
+    @include respond-to('sm') {
+        padding: 10px 16px;
+    }
 
-        .text {
-            padding: 0 0 24px 0;
+    // Dynamic Ambient Atmosphere Glows
+    .ambientGlowTop {
+        position: absolute;
+        top: -120px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 700px;
+        height: 380px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(244, 209, 122, 0.2) 0%, rgba(193, 144, 46, 0.08) 45%, transparent 70%);
+        filter: blur(75px);
+        pointer-events: none;
+        z-index: 1;
+    }
 
-            h2 {
-                @include heading-gold-gradient;
-                font-size: 40px;
-                margin: 0 0 10px 0;
-                font-style: normal;
-                font-weight: 400;
-                line-height: normal;
-                font-family: var(--font-anton);
+    .ambientGlowBottom {
+        position: absolute;
+        bottom: -150px;
+        right: 10%;
+        width: 500px;
+        height: 350px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(193, 144, 46, 0.12) 0%, rgba(16, 185, 129, 0.04) 40%, transparent 70%);
+        filter: blur(80px);
+        pointer-events: none;
+        z-index: 1;
+    }
 
-            }
+    .gridOverlay {
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(to right, rgba(244, 209, 122, 0.025) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(244, 209, 122, 0.025) 1px, transparent 1px);
+        background-size: 40px 40px;
+        mask-image: radial-gradient(ellipse at 50% 50%, #000 40%, transparent 80%);
+        -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 40%, transparent 80%);
+        pointer-events: none;
+        z-index: 1;
+    }
 
-            p {
-                color: #fff;
-                font-size: 18px;
-                font-style: normal;
-                font-weight: 500;
-                line-height: 28px;
-                @include font-medium;
+    .authContainer {
+        position: relative;
+        z-index: 4;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
 
-                @include respond-to('sm') {
-                    font-size: 14px;
-                    line-height: 22px;
+    .authCard {
+        background: linear-gradient(180deg, rgba(16, 14, 10, 0.92) 0%, rgba(8, 7, 5, 0.98) 100%);
+        border: 1px solid rgba(193, 144, 46, 0.35);
+        border-radius: 24px;
+        padding: 40px 36px;
+        box-shadow: 
+            0 25px 60px rgba(0, 0, 0, 0.85),
+            0 0 35px rgba(244, 209, 122, 0.08),
+            inset 0 1px 0 rgba(244, 209, 122, 0.25);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        position: relative;
+        text-align: left;
+
+        @include respond-to('sm') {
+            padding: 30px 20px;
+            border-radius: 20px;
+        }
+
+        // Redesigned Top Logo
+        .logoWrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 26px;
+
+            .logoLink {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 4px 10px;
+                border-radius: 12px;
+                transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), filter 0.25s ease;
+
+                &:hover {
+                    transform: scale(1.04);
+                    filter: drop-shadow(0 0 16px rgba(244, 209, 122, 0.4));
+                }
+
+                .logoImg {
+                    max-width: 190px;
+                    width: 100%;
+                    height: auto;
+                    display: block;
+
+                    @include respond-to('sm') {
+                        max-width: 160px;
+                    }
                 }
             }
         }
 
+        .text {
+            padding: 0 0 24px 0;
+            text-align: center;
+
+            h2 {
+                @include heading-gold-gradient;
+                font-size: 34px;
+                margin: 0 0 8px 0;
+                font-weight: 400;
+                line-height: normal;
+                font-family: var(--font-anton);
+                letter-spacing: 0.5px;
+
+                @include respond-to('sm') {
+                    font-size: 28px;
+                }
+            }
+
+            p {
+                color: rgba(255, 255, 255, 0.75);
+                font-size: 15px;
+                font-weight: 400;
+                line-height: 1.55;
+                font-family: "Euclid-Regular", sans-serif;
+                margin: 0 auto;
+                max-width: 380px;
+
+                @include respond-to('sm') {
+                    font-size: 13.5px;
+                }
+            }
+        }
+
+        .spacingGrid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+
+            @include respond-to('sm') {
+                gap: 15px;
+            }
+
+            button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
         .forgotRow {
-            margin-top: -8px;
+            margin-top: -6px;
             text-align: right;
 
             :global([dir="rtl"]) & {
@@ -52,7 +174,8 @@
 
             a {
                 color: #F4D17A;
-                font-size: 16px;
+                font-size: 14px;
+                font-family: "Euclid-Medium", sans-serif;
                 text-decoration: none;
                 transition: color 0.2s ease;
 
@@ -63,71 +186,26 @@
             }
         }
 
-    }
-
-    .relative {
-        position: relative;
-        z-index: 1;
-        max-width: 520px;
-        width: 100%;
-        margin: 0 auto;
-
-        .icon {
-            padding: 0 0 24px 0;
-            display: flex;
-            justify-content: center;
-            cursor: pointer;
-
-            img {
-                max-width: 180px;
-                width: 100%;
-                height: auto;
-            }
-        }
-
-        .spacingGrid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-
-            @include respond-to('sm') {
-                gap: 16px;
-            }
-
-            button {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-
-
-
-        .error {
-            color: #EF5350;
-            font-size: 14px;
-            text-align: center;
-            margin: 0;
-        }
-
         .accountText {
-            padding: 12px 0 24px 0;
+            padding: 16px 0 20px 0;
 
             p {
                 color: rgba(255, 255, 255, 0.65);
                 text-align: center;
-                font-size: 16px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: normal;
+                font-size: 14.5px;
+                font-family: "Euclid-Regular", sans-serif;
+                margin: 0;
 
                 @include respond-to('sm') {
-                    font-size: 14px;
+                    font-size: 13.5px;
                 }
 
                 a {
                     color: #F4D17A;
                     text-decoration: none;
                     font-weight: 600;
+                    font-family: "Euclid-SemiBold", sans-serif;
+                    margin-left: 4px;
                     transition: color 0.2s ease;
 
                     &:hover {
@@ -142,15 +220,13 @@
             display: flex;
             align-items: center;
             text-align: center;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 13.5px;
+            font-family: "Euclid-Medium", sans-serif;
             margin-bottom: 20px;
 
             @include respond-to('sm') {
-                font-size: 14px;
+                font-size: 12.5px;
                 margin-bottom: 16px;
             }
 
@@ -158,11 +234,13 @@
             &::after {
                 content: '';
                 flex: 1;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
 
             span {
-                padding: 0 16px;
+                padding: 0 14px;
+                text-transform: uppercase;
+                letter-spacing: 0.8px;
             }
         }
 
@@ -170,12 +248,12 @@
             background: none;
             border: none;
             color: rgba(255, 255, 255, 0.6);
-            font-size: 15px;
-            font-weight: 500;
+            font-size: 14px;
+            font-family: "Euclid-Medium", sans-serif;
             cursor: pointer;
             text-align: center;
             padding: 8px 0 0 0;
-            transition: color 0.2s ease, text-decoration 0.2s ease;
+            transition: color 0.2s ease;
             width: 100%;
             display: block;
 

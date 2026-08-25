@@ -6,10 +6,8 @@ import { authApi } from '@/lib/api';
 import styles from './verifyEmail.module.scss';
 import Loader from '@/components/loader';
 import { useLanguage } from '@/context/LanguageContext';
-import LanguageToggle from '@/components/languageToggle';
 
-const AuthIcon = '/assets/icons/auth.svg';
-const LineImage = '/assets/images/line.png';
+const Logo = '/assets/logo/logo.png';
 
 const STATUS = { LOADING: 'loading', SUCCESS: 'success', ERROR: 'error' };
 
@@ -37,14 +35,18 @@ export default function VerifyEmail() {
 
     return (
         <div className={styles.page}>
-            <div className={styles.box}>
-                <div className={styles.layer}></div>
-                <div className={styles.lineimage}>
-                    <img src={LineImage} alt="" aria-hidden="true" />
-                </div>
-                <div className={styles.relative}>
-                    <div className={styles.icon}>
-                        <img src={AuthIcon} alt="" aria-hidden="true" onClick={() => router.push("/")} />
+            {/* Ambient Background Glows */}
+            <div className={styles.ambientGlowTop} aria-hidden="true" />
+            <div className={styles.ambientGlowBottom} aria-hidden="true" />
+            <div className={styles.gridOverlay} aria-hidden="true" />
+
+            <div className={styles.authContainer}>
+                <div className={styles.authCard}>
+                    {/* Redesigned Logo */}
+                    <div className={styles.logoWrapper}>
+                        <Link href="/" className={styles.logoLink} title="ChronosX Home">
+                            <img src={Logo} alt="ChronosX Logo" className={styles.logoImg} />
+                        </Link>
                     </div>
 
                     {status === STATUS.LOADING && (

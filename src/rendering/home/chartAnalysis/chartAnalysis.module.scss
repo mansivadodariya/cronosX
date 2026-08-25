@@ -8,6 +8,14 @@
     text-align: center;
     overflow: hidden;
 
+    @include respond-to("tab") {
+        padding: 70px 0;
+    }
+
+    @include respond-to("sm") {
+        padding: 50px 0;
+    }
+
     &::before {
         background-color: #C1902E;
         position: absolute;
