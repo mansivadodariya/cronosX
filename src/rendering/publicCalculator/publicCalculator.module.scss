@@ -1,0 +1,90 @@
+@use '../../scss/main.scss' as *;
+@use '../../scss/breakpoints/breakpoints.scss' as *;
+
+.publicCalculatorWrapper {
+    padding: 130px 24px 80px;
+    min-height: 85vh;
+    background: #000000;
+    color: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+
+    @include respond-to('md') {
+        padding: 110px 16px 60px;
+    }
+
+    @include respond-to('sm') {
+        padding: 95px 12px 40px;
+    }
+
+    // Ambient gold glow backdrops
+    &::before {
+        content: '';
+        position: absolute;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 800px;
+        height: 380px;
+        background: radial-gradient(circle, rgba(244, 209, 122, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .container {
+        max-width: 1240px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    .heroCtaBanner {
+        margin-top: 48px;
+        padding: 28px 32px;
+        background: radial-gradient(120% 120% at 50% 0%, #1c180f 0%, #0d0b07 100%);
+        border: 1px solid rgba(244, 209, 122, 0.3);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+        .ctaContent {
+            h3 {
+                font-size: 20px;
+                color: #FFFFFF;
+                font-weight: 700;
+                margin: 0 0 6px;
+                font-family: "Euclid-Bold", sans-serif;
+            }
+
+            p {
+                margin: 0;
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.65);
+            }
+        }
+
+        .ctaBtn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #F4D17A 0%, #D4AF37 100%);
+            color: #1A1200;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 10px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 18px rgba(244, 209, 122, 0.3);
+            transition: all 0.25s ease;
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 24px rgba(244, 209, 122, 0.45);
+            }
+        }
+    }
+}

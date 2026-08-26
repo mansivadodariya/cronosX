@@ -165,7 +165,7 @@ export default function Header() {
         {
             label: 'Economic Calendar',
             desc: 'Real-time global macro events, central bank rates & high-impact releases',
-            href: getAuthHref('/'),
+            href: getAuthHref('/economic-calendar'),
             badge: 'LIVE CALENDAR',
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -179,7 +179,7 @@ export default function Header() {
         {
             label: 'News',
             desc: 'Curated financial headlines, crypto updates & breaking market catalysts',
-            href: getAuthHref('/'),
+            href: '/market-news',
             badge: 'DAILY',
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -193,7 +193,7 @@ export default function Header() {
         {
             label: 'Forex Calculator',
             desc: 'Precision pip value, position sizing, lot size & risk calculator',
-            href: getAuthHref('/'),
+            href: '/forex-calculator',
             badge: 'UTILITY',
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -207,7 +207,7 @@ export default function Header() {
         {
             label: 'Blog',
             desc: 'In-depth quant trading strategies, technical breakdowns & research',
-            href: '/',
+            href: '/blogs',
             badge: 'INSIGHTS',
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

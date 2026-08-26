@@ -237,80 +237,6 @@ export default function Dashboard() {
                         <p className={styles.heroSubtext}>
                             Real-time multi-timeframe algorithmic pattern detection, neural OCR chart vision, and automated institutional trade setups.
                         </p>
-
-                        {/* Interactive Fast Action Launcher */}
-                        <div className={styles.heroFastActions}>
-                            <Link href="/trade-snap" className={styles.actionButtonGold}>
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2.5">
-                                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-                                    <circle cx="12" cy="13" r="4" />
-                                </svg>
-                                <span>Upload Chart (TradeSnap)</span>
-                            </Link>
-
-                            <Link href="/ai-strategy/live" className={styles.actionButtonOutline}>
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2.2">
-                                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                                </svg>
-                                <span>Live Strategy Terminal</span>
-                            </Link>
-                        </div>
-                    </div>
-
-                    {/* Right: Live AI Spotlight Signal Oracle Widget */}
-                    <div className={styles.heroRightCol}>
-                        <div className={styles.signalOracleCard}>
-                            <div className={styles.oracleHeader}>
-                                <div className={styles.oraclePairTitle}>
-                                    <span className={styles.oracleSymbol}>XAU/USD</span>
-                                    <span className={styles.oracleCategory}>GOLD SPOT</span>
-                                </div>
-                                <div className={styles.oracleBadgeGreen}>
-                                    <span className={styles.pulseGreenMini} />
-                                    STRONG BUY
-                                </div>
-                            </div>
-
-                            <div className={styles.oraclePriceRow}>
-                                <div className={styles.oracleLivePrice}>
-                                    $2,734.50 <span className={styles.priceUp}>+1.12%</span>
-                                </div>
-                                <div className={styles.oracleConfidence}>
-                                    <span>AI Probability</span>
-                                    <strong>92%</strong>
-                                </div>
-                            </div>
-
-                            <div className={styles.oracleConfidenceBar}>
-                                <div className={styles.confidenceFill} style={{ width: '92%' }} />
-                            </div>
-
-                            <div className={styles.oracleMetricsGrid}>
-                                <div className={styles.oracleMetricBox}>
-                                    <span className={styles.mLabel}>Optimal Entry</span>
-                                    <span className={styles.mValue}>2,732.40</span>
-                                </div>
-                                <div className={styles.oracleMetricBox}>
-                                    <span className={styles.mLabel}>Target TP1</span>
-                                    <span className={`${styles.mValue} ${styles.valGreen}`}>2,748.00</span>
-                                </div>
-                                <div className={styles.oracleMetricBox}>
-                                    <span className={styles.mLabel}>Stop Loss</span>
-                                    <span className={`${styles.mValue} ${styles.valRed}`}>2,724.50</span>
-                                </div>
-                            </div>
-
-                            <button
-                                type="button"
-                                className={styles.oracleExecuteBtn}
-                                onClick={() => router.push('/ai-strategy/live?pair=XAUUSD')}
-                            >
-                                <span>Scan Live Technicals & Indicators</span>
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                    <path d="M5 12h14M12 5l7 7-7 7" />
-                                </svg>
-                            </button>
-                        </div>
                     </div>
                 </div>
             </section>
@@ -480,11 +406,12 @@ export default function Dashboard() {
                             </div>
                         ) : recents.length === 0 ? (
                             <div className={styles.emptyFeed}>
-                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(244, 209, 122, 0.4)" strokeWidth="1.5">
-                                    <circle cx="12" cy="12" r="10" />
-                                    <line x1="12" y1="8" x2="12" y2="12" />
-                                    <line x1="12" y1="16" x2="12.01" y2="16" />
-                                </svg>
+                                <div className={styles.emptyIconCircle}>
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <polyline points="12 6 12 12 16 14" />
+                                    </svg>
+                                </div>
                                 <p>No recent activity recorded yet.</p>
                                 <Link href="/trade-snap" className={styles.firstScanBtn}>
                                     Upload Your First Chart →

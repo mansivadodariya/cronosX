@@ -1102,18 +1102,45 @@ $danger: #F87171;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px 20px;
-            gap: 10px;
-            color: rgba(255, 255, 255, 0.5);
+            padding: 36px 20px;
+            gap: 12px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.65);
+
+            .emptyIconCircle {
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                background: radial-gradient(130% 100% at 50% 0%, #2A2415 0%, #12100A 100%);
+                border: 1px solid rgba(244, 209, 122, 0.35);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 0 20px rgba(244, 209, 122, 0.12);
+                margin-bottom: 2px;
+            }
+
+            p {
+                margin: 0;
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.6);
+            }
 
             .firstScanBtn {
                 color: #F4D17A;
                 font-size: 13px;
                 font-weight: 700;
                 text-decoration: none;
+                padding: 6px 14px;
+                background: rgba(244, 209, 122, 0.08);
+                border: 1px solid rgba(244, 209, 122, 0.25);
+                border-radius: 8px;
+                transition: all 0.2s ease;
 
                 &:hover {
-                    text-decoration: underline;
+                    background: rgba(244, 209, 122, 0.18);
+                    border-color: #F4D17A;
+                    transform: translateY(-1px);
                 }
             }
         }

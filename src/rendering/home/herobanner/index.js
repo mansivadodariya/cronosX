@@ -7,14 +7,15 @@ import styles from './herobanner.module.scss';
 import Button from '@/components/button';
 import SideRays from '@/components/sideRays';
 import AiCockpit from '../aiCockpit';
+import CountUp from '@/components/countUp';
 
 const RightArrow = '/assets/icons/right.svg';
 
 const metrics = [
-  { value: '25,000+', label: 'Active Quant Traders', sub: 'Across 140+ Countries' },
-  { value: '< 12ms', label: 'AI Inference Speed', sub: 'Sub-second real-time execution' },
-  { value: '98.6%', label: 'Pattern Precision', sub: 'Multi-timeframe institutional accuracy' },
-  { value: '$4.8B+', label: 'Volume Analyzed', sub: 'Daily market telemetry scanned' }
+  { target: 25000, suffix: '+', decimals: 0, label: 'Active Quant Traders', sub: 'Across 140+ Countries' },
+  { target: 12, prefix: '< ', suffix: 'ms', decimals: 0, label: 'AI Inference Speed', sub: 'Sub-second real-time execution' },
+  { target: 98.6, suffix: '%', decimals: 1, label: 'Pattern Precision', sub: 'Multi-timeframe institutional accuracy' },
+  { target: 4.8, prefix: '$', suffix: 'B+', decimals: 1, label: 'Volume Analyzed', sub: 'Daily market telemetry scanned' }
 ];
 
 export default function Herobanner() {
@@ -174,7 +175,15 @@ export default function Herobanner() {
           >
             {metrics.map((item) => (
               <div key={item.label} className={styles.metricItem}>
-                <div className={styles.metricValue}>{item.value}</div>
+                <div className={styles.metricValue}>
+                  <CountUp
+                    to={item.target}
+                    prefix={item.prefix || ''}
+                    suffix={item.suffix || ''}
+                    decimals={item.decimals || 0}
+                    duration={2.0}
+                  />
+                </div>
                 <div className={styles.metricLabel}>{item.label}</div>
                 <div className={styles.metricSub}>{item.sub}</div>
               </div>

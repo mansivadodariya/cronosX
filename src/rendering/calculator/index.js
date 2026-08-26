@@ -1,0 +1,116 @@
+'use client';
+
+import React, { useState } from 'react';
+import styles from './calculator.module.scss';
+import PipCalculator from './components/PipCalculator';
+import MarginCalculator from './components/MarginCalculator';
+import FibonacciCalculator from './components/FibonacciCalculator';
+import PivotCalculator from './components/PivotCalculator';
+import ProfitCalculator from './components/ProfitCalculator';
+
+export default function ForexCalculator() {
+    const [activeTab, setActiveTab] = useState('pip'); // 'pip' | 'margin' | 'fibonacci' | 'pivot' | 'profit'
+    const [copied, setCopied] = useState(false);
+
+    const handleCopy = (text) => {
+        if (typeof navigator !== 'undefined' && navigator.clipboard) {
+            navigator.clipboard.writeText(text);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        }
+    };
+
+    return (
+        <div className={styles.calculatorContainer}>
+            {/* Header Title */}
+            <div className={styles.heroHeader}>
+                <div className={styles.titleWrap}>
+                    <div className={styles.calcIconBadge}>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="4" y="2" width="16" height="20" rx="2" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                            <line x1="16" y1="14" x2="16" y2="18" />
+                            <path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M8 18h.01M12 18h.01" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h1>Precision Forex & Trading Calculators</h1>
+                        <p>Institutional position sizing, exact pip values, dynamic margins and mathematical levels</p>
+                    </div>
+                </div>
+                <div className={styles.utilityBadge}>
+                    <span>● INSTITUTIONAL UTILITY</span>
+                </div>
+            </div>
+
+            {/* Navigation Tabs */}
+            <div className={styles.tabBarWrapper}>
+                <button
+                    type="button"
+                    className={`${styles.tabBtn} ${activeTab === 'pip' ? styles.activeTab : ''}`}
+                    onClick={() => setActiveTab('pip')}
+                >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
+                    <span>PIP Value</span>
+                </button>
+                <button
+                    type="button"
+                    className={`${styles.tabBtn} ${activeTab === 'margin' ? styles.activeTab : ''}`}
+                    onClick={() => setActiveTab('margin')}
+                >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
+                    <span>Margin</span>
+                </button>
+                <button
+                    type="button"
+                    className={`${styles.tabBtn} ${activeTab === 'fibonacci' ? styles.activeTab : ''}`}
+                    onClick={() => setActiveTab('fibonacci')}
+                >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg>
+                    <span>Fibonacci</span>
+                </button>
+                <button
+                    type="button"
+                    className={`${styles.tabBtn} ${activeTab === 'pivot' ? styles.activeTab : ''}`}
+                    onClick={() => setActiveTab('pivot')}
+                >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></svg>
+                    <span>Pivot Points</span>
+                </button>
+                <button
+                    type="button"
+                    className={`${styles.tabBtn} ${activeTab === 'profit' ? styles.activeTab : ''}`}
+                    onClick={() => setActiveTab('profit')}
+                >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 8h6V2" /><path d="m22 2-7.5 7.5-5-5L2 14" /><path d="M2 18h20" /></svg>
+                    <span>Profit & Loss</span>
+                </button>
+            </div>
+
+            {/* TAB 1: PIP VALUE CALCULATOR */}
+            {activeTab === 'pip' && (
+                <PipCalculator onCopy={handleCopy} copied={copied} />
+            )}
+
+            {/* TAB 2: MARGIN CALCULATOR */}
+            {activeTab === 'margin' && (
+                <MarginCalculator onCopy={handleCopy} copied={copied} />
+            )}
+
+            {/* TAB 3: FIBONACCI CALCULATOR */}
+            {activeTab === 'fibonacci' && (
+                <FibonacciCalculator />
+            )}
+
+            {/* TAB 4: PIVOT POINTS CALCULATOR */}
+            {activeTab === 'pivot' && (
+                <PivotCalculator />
+            )}
+
+            {/* TAB 5: PROFIT & LOSS / RISK CALCULATOR */}
+            {activeTab === 'profit' && (
+                <ProfitCalculator onCopy={handleCopy} copied={copied} />
+            )}
+        </div>
+    );
+}

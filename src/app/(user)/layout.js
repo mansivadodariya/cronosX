@@ -22,6 +22,8 @@ const ROUTE_TAB_MAP = {
     '/ai-strategy/strategy': 'AI Strategy',
     '/tools': 'Tools',
     '/economic-calendar': 'Economic Calendar',
+    '/calculator': 'Tools',
+    '/news': 'Tools',
     '/credit-history': 'Credit History',
     '/plans': 'Subscription Plans',
     '/broker': 'Broker',
@@ -167,7 +169,7 @@ const layout = ({ children }) => {
                 pathname === route || pathname.startsWith(`${route}/`)
             )?.[1];
 
-            if (!currentTabName) {
+            if (!currentTabName || currentTabName === 'Tools' || currentTabName === 'Economic Calendar' || currentTabName === 'Forex Calculator') {
                 setIsTabAllowed(true);
                 return;
             }

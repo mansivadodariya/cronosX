@@ -41,6 +41,9 @@ export default function Footer() {
             <h4>RESOURCES</h4>
             <ul>
               <li><Link href="/plans">Pricing Plans</Link></li>
+              <li><Link href="/blogs">Research & Blogs</Link></li>
+              <li><Link href="/market-news">Market News</Link></li>
+              <li><Link href="/forex-calculator">Forex Calculator</Link></li>
               <li><Link href="/economic-calendar">Economic Calendar</Link></li>
             </ul>
           </div>

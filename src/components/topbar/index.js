@@ -28,6 +28,8 @@ const ROUTE_TITLE_MAP = {
   '/ai-strategy/strategy': 'nav.aiStrategy|AI Strategy',
   '/tools': 'nav.tools|Tools',
   '/economic-calendar': 'nav.economicCalendar|Economic Calendar',
+  '/calculator': 'nav.forexCalculator|Forex Calculator',
+  '/news': 'nav.marketNews|Market News',
   '/credit-history': 'nav.creditHistory|Credit History',
   '/plans': 'nav.plans|Subscription Plans',
   '/broker': 'nav.broker|Broker',

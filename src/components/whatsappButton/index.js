@@ -8,31 +8,22 @@ import { usePathname } from 'next/navigation';
 export default function WhatsappButton() {
     const pathname = usePathname();
     
-    // Hide WhatsApp button on dashboard, user, auth, and onboarding pages
-    const hideOnPaths = [
-        '/dashboard',
-        '/trade-snap',
-        '/ai-assistant',
-        '/ai-strategy',
-        '/economic-calendar',
-        '/profile',
-        '/settings',
-        '/credit-history',
-        '/plans',
-        '/broker',
-        '/brokers',
-        '/login',
-        '/signup',
-        '/forgot-password',
-        '/reset-password',
-        '/verify-email',
-        '/onboarding',
-        '/steper'
+    // Only show WhatsApp floating widget on public landing / marketing pages
+    const publicLandingPages = [
+        '/',
+        '/capabilities',
+        '/forex-calculator',
+        '/market-news',
+        '/blogs',
+        '/terms-and-conditions',
+        '/privacy-policy',
+        '/risk-disclosure'
     ];
+
+    const isPublicPage = pathname && publicLandingPages.includes(pathname);
     
-    const shouldHide = pathname && hideOnPaths.some(path => pathname.startsWith(path));
-    
-    if (shouldHide) {
+    // If not a public landing page (i.e. user dashboard, tools, auth, onboarding), hide it completely
+    if (!isPublicPage) {
         return null;
     }
 

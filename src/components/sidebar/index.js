@@ -50,6 +50,24 @@ const SubCalendarIcon = () => (
   </svg>
 );
 
+const SubCalculatorIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+    <rect x="4" y="2" width="16" height="20" rx="2" />
+    <line x1="8" y1="6" x2="16" y2="6" />
+    <line x1="16" y1="14" x2="16" y2="18" />
+    <path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M8 18h.01M12 18h.01" />
+  </svg>
+);
+
+const SubNewsIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+    <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" />
+    <path d="M18 14h-8" />
+    <path d="M15 18h-5" />
+    <path d="M10 6h8v4h-8V6Z" />
+  </svg>
+);
+
 const ChevronLeftIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
     <polyline points="15 18 9 12 15 6" />
@@ -89,6 +107,7 @@ const getMainNav = (t) => [
     icon: ToolsIcon,
     subItems: [
       { label: t('nav.economicCalendar', 'Economic Calendar'), href: "/economic-calendar", icon: SubCalendarIcon },
+      { label: t('nav.forexCalculator', 'Forex Calculator'), href: "/calculator", icon: SubCalculatorIcon },
     ]
   },
   { label: t('nav.plans', 'Subscription Plans'), href: "/plans", icon: CrownIcon },
@@ -385,7 +404,10 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
     '/ai-strategy': 'AI Strategy',
     '/ai-strategy/live': 'AI Strategy',
     '/ai-strategy/strategy': 'AI Strategy',
-    '/economic-calendar': 'Economic Calendar',
+    '/tools': 'Tools',
+    '/economic-calendar': 'Tools',
+    '/calculator': 'Tools',
+    '/news': 'Tools',
     '/credit-history': 'Credit History',
     '/plans': 'Subscription Plans',
     '/broker': 'Broker',
@@ -394,11 +416,23 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
     '/settings': 'Profile',
   };
 
+  const ALWAYS_VISIBLE_TABS = new Set([
+    'tools',
+    'economic calendar',
+    'forex calculator',
+    'market news',
+    'subscription plans',
+    'broker',
+  ]);
+
   const rawNav = getMainNav(t);
   const mainNav = visibleTabNames && visibleTabNames.size > 0
     ? rawNav.filter((item) => {
-      const tabName = ROUTE_TAB_MAP[item.href] || item.label;
-      return visibleTabNames.has(tabName.toLowerCase());
+      const tabName = (ROUTE_TAB_MAP[item.href] || item.label || '').toLowerCase();
+      if (ALWAYS_VISIBLE_TABS.has(tabName) || item.subItems || tabName === 'tools') {
+        return true;
+      }
+      return visibleTabNames.has(tabName);
     })
     : rawNav;
 
