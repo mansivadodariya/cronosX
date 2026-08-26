@@ -57,19 +57,6 @@ export default function Header() {
 
     const productDropdownItems = [
         {
-            label: 'AI Chat Analysis',
-            desc: 'Real-time conversational market intelligence & instant insights',
-            href: getAuthHref('/'),
-            badge: 'LIVE AI',
-            icon: (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                    <path d="M8 9h8" />
-                    <path d="M8 13h6" />
-                </svg>
-            )
-        },
-        {
             label: 'AI Chart Analysis',
             desc: 'Automated multi-timeframe pattern detection & key price levels',
             href: getAuthHref('/'),
@@ -77,9 +64,25 @@ export default function Header() {
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M3 3v18h18" />
-                    <path d="M18 17V9" />
-                    <path d="M13 17V5" />
-                    <path d="M8 17v-3" />
+                    <path d="m7 14 4-4 4 2 5-6" />
+                    <circle cx="7" cy="14" r="1.5" fill="currentColor" />
+                    <circle cx="11" cy="10" r="1.5" fill="currentColor" />
+                    <circle cx="15" cy="12" r="1.5" fill="currentColor" />
+                    <circle cx="20" cy="6" r="1.5" fill="currentColor" />
+                </svg>
+            )
+        },
+        {
+            label: 'AI Chat Analysis',
+            desc: 'Real-time conversational market intelligence & instant insights',
+            href: getAuthHref('/'),
+            badge: 'LIVE AI',
+            icon: (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                    <circle cx="9" cy="12" r="1" fill="currentColor" />
+                    <circle cx="12" cy="12" r="1" fill="currentColor" />
+                    <circle cx="15" cy="12" r="1" fill="currentColor" />
                 </svg>
             )
         },
@@ -90,8 +93,9 @@ export default function Header() {
             badge: 'QUANT',
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="3" />
-                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                    <path d="M3 12h3l3-7 4 14 3-8 2 4h4" />
+                    <circle cx="9" cy="5" r="1.5" fill="currentColor" />
+                    <circle cx="13" cy="19" r="1.5" fill="currentColor" />
                 </svg>
             )
         }
@@ -101,7 +105,7 @@ export default function Header() {
         {
             label: 'AI Past Trade Analyzer',
             desc: 'Review your historical trading data to evaluate performance, pinpoint mistakes, and track win rates.',
-            href: getAuthHref('/'),
+            href: '/ai-past-trade-analyzer',
             badge: 'AI AUDIT',
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -113,11 +117,10 @@ export default function Header() {
             label: 'Strategy (Create New)',
             desc: 'Custom algorithmic trading logic, parameter tuning & rule engines',
             href: getAuthHref('/'),
-            badge: 'BUILDER',
+            badge: 'COMING SOON',
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19" />
-                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6" />
                 </svg>
             )
         },
@@ -125,11 +128,12 @@ export default function Header() {
             label: 'Backtesting',
             desc: 'High-speed historical simulation, win-rate metrics & Sharpe ratio',
             href: getAuthHref('/'),
-            badge: 'QUANT SIM',
+            badge: 'COMING SOON',
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <polyline points="12 6 12 12 8 14" />
+                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                    <path d="M3 3v5h5" />
+                    <path d="M12 7v5l3 3" />
                 </svg>
             )
         },
@@ -137,11 +141,13 @@ export default function Header() {
             label: 'Paper Trading',
             desc: 'Risk-free simulated trading environment with live real-time feeds',
             href: getAuthHref('/'),
-            badge: 'DEMO $100K',
+            badge: 'COMING SOON',
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                    <polyline points="9 12 11 14 15 10" />
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="9" y1="13" x2="15" y2="13" />
+                    <line x1="9" y1="17" x2="13" y2="17" />
                 </svg>
             )
         }
@@ -151,7 +157,7 @@ export default function Header() {
         {
             label: 'About Us',
             desc: 'Our mission, institutional AI infrastructure & executive leadership',
-            href: '/',
+            href: '/about-us',
             badge: 'VISION',
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -215,7 +221,8 @@ export default function Header() {
                     <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
                 </svg>
             )
-        }
+        },
+
     ];
 
     const navItems = [
@@ -238,7 +245,7 @@ export default function Header() {
         },
         {
             label: 'Company',
-            href: '/#about',
+            href: '/about-us',
             hasDropdown: true,
             dropdownTag: 'COMPANY & RESOURCES',
             dropdownFooter: 'ChronosX Global Financial Intelligence Network',
@@ -246,7 +253,7 @@ export default function Header() {
         },
         { label: 'Pricing', href: getAuthHref('/') },
 
-        { label: 'Contact Us', href: getAuthHref('/') },
+        { label: 'Contact Us', href: '/contact-us' },
     ];
 
     const isLinkActive = (item) => {
@@ -460,7 +467,14 @@ export default function Header() {
                                                                     >
                                                                         <div className={styles.subIconWrap}>{sub.icon}</div>
                                                                         <div className={styles.subContent}>
-                                                                            <span className={styles.subTitle}>{sub.label}</span>
+                                                                            <div className={styles.subTitleRow}>
+                                                                                <span className={styles.subTitle}>{sub.label}</span>
+                                                                                {sub.badge && (
+                                                                                    <span className={`${styles.subBadge} ${sub.badge === 'COMING SOON' ? styles.comingSoonBadge : ''}`}>
+                                                                                        {sub.badge}
+                                                                                    </span>
+                                                                                )}
+                                                                            </div>
                                                                             <span className={styles.subDesc}>{sub.desc}</span>
                                                                         </div>
                                                                     </Link>

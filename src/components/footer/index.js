@@ -1,14 +1,15 @@
 import React from 'react';
 import styles from './footer.module.scss';
 import Link from 'next/link';
+
 const Logo = '/assets/logo/logo.png';
 
 const socialLinks = [
-  { icon: '/assets/icons/twitter.svg', href: '#', label: 'Twitter' },
-  { icon: '/assets/icons/instagram.svg', href: '#', label: 'Instagram' },
-  { icon: '/assets/icons/discord.svg', href: '#', label: 'Discord' },
-  { icon: '/assets/icons/telegram.svg', href: '#', label: 'Telegram' },
-  { icon: '/assets/icons/youtube.svg', href: '#', label: 'YouTube' }
+  { icon: '/assets/icons/twitter.svg', href: 'https://twitter.com', label: 'Twitter' },
+  { icon: '/assets/icons/instagram.svg', href: 'https://instagram.com', label: 'Instagram' },
+  { icon: '/assets/icons/discord.svg', href: 'https://discord.com', label: 'Discord' },
+  { icon: '/assets/icons/telegram.svg', href: 'https://t.me/ChronosX_Official', label: 'Telegram' },
+  { icon: '/assets/icons/youtube.svg', href: 'https://youtube.com', label: 'YouTube' }
 ];
 
 export default function Footer() {
@@ -19,35 +20,57 @@ export default function Footer() {
           {/* Brand Info */}
           <div className={styles.brandCol}>
             <div className={styles.brandLogo}>
-              <img src={Logo} alt='Logo' />
+              <Link href="/" aria-label="ChronosX Home">
+                <img src={Logo} alt='ChronosX Logo' />
+              </Link>
             </div>
-            <p>
-              AI-powered forex trading signals, market analysis, and
-              smart trading tools built for modern traders.
+            <p className={styles.brandDesc}>
+              Institutional-grade AI trading intelligence, neural chart pattern detection,
+              and quantitative execution models built for modern traders.
             </p>
+            <div className={styles.statusBadge}>
+              <span className={styles.statusDot} />
+              <span>AI Trading Desk Online</span>
+            </div>
           </div>
 
-          {/* Nav Columns */}
+          {/* 1. Products Column */}
           <div className={styles.navCol}>
-            <h4>PRODUCT</h4>
+            <h4>PRODUCTS</h4>
             <ul>
-              <li><Link href="/trade-snap">AI Trade</Link></li>
-              <li><Link href="/ai-assistant">AI Chat</Link></li>
-              <li><Link href="/ai-strategy/live">AI Strategy</Link></li>
+              <li><Link href="/trade-snap">AI Chart Analysis</Link></li>
+              <li><Link href="/ai-assistant">AI Chat Analysis</Link></li>
+              <li><Link href="/ai-strategy/live">AI Strategies & Indicators</Link></li>
+              <li><Link href="/capabilities">Capabilities & Vision</Link></li>
             </ul>
           </div>
 
+          {/* 2. Trading Tools Column */}
           <div className={styles.navCol}>
-            <h4>RESOURCES</h4>
+            <h4>TRADING TOOLS</h4>
             <ul>
+              <li><Link href="/ai-past-trade-analyzer">AI Past Trade Analyzer</Link></li>
+              <li><Link href="/ai-strategy/live">Strategy Builder</Link></li>
+              <li><Link href="/ai-strategy/live">Quant Backtesting</Link></li>
+              <li><Link href="/dashboard">Paper Trading Desk</Link></li>
+            </ul>
+          </div>
+
+          {/* 3. Company & Resources Column */}
+          <div className={styles.navCol}>
+            <h4>COMPANY</h4>
+            <ul>
+              <li><Link href="/about-us">About Us</Link></li>
               <li><Link href="/plans">Pricing Plans</Link></li>
               <li><Link href="/blogs">Research & Blogs</Link></li>
               <li><Link href="/market-news">Market News</Link></li>
               <li><Link href="/forex-calculator">Forex Calculator</Link></li>
               <li><Link href="/economic-calendar">Economic Calendar</Link></li>
+              <li><Link href="/contact-us">Contact Us</Link></li>
             </ul>
           </div>
 
+          {/* 4. Legal Column (From Screenshot) */}
           <div className={styles.navCol}>
             <h4>LEGAL</h4>
             <ul>
@@ -58,7 +81,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className={styles.divider}></div>
+        <div className={styles.divider} />
 
         {/* Bottom Bar */}
         <div className={styles.bottomSection}>

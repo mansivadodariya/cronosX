@@ -22,6 +22,18 @@ export default function sitemap() {
             priority: 0.8,
         },
         {
+            url: `${baseUrl}/ai-past-trade-analyzer`,
+            lastModified,
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        {
+            url: `${baseUrl}/about-us`,
+            lastModified,
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        },
+        {
             url: `${baseUrl}/privacy-policy`,
             lastModified,
             changeFrequency: 'monthly',
@@ -38,6 +50,12 @@ export default function sitemap() {
             lastModified,
             changeFrequency: 'monthly',
             priority: 0.5,
+        },
+        {
+            url: `${baseUrl}/contact-us`,
+            lastModified,
+            changeFrequency: 'monthly',
+            priority: 0.7,
         },
     ];
 }
