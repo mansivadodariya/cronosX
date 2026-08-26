@@ -106,7 +106,7 @@ const getMainNav = (t) => [
     href: "/tools",
     icon: ToolsIcon,
     subItems: [
-      { label: t('nav.economicCalendar', 'Economic Calendar'), href: "/economic-calendar", icon: SubCalendarIcon },
+      { label: t('nav.economicCalendar', 'Economic Calendar'), href: "/calendar", icon: SubCalendarIcon },
       { label: t('nav.forexCalculator', 'Forex Calculator'), href: "/calculator", icon: SubCalculatorIcon },
     ]
   },
@@ -405,6 +405,7 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
     '/ai-strategy/live': 'AI Strategy',
     '/ai-strategy/strategy': 'AI Strategy',
     '/tools': 'Tools',
+    '/calendar': 'Tools',
     '/economic-calendar': 'Tools',
     '/calculator': 'Tools',
     '/news': 'Tools',

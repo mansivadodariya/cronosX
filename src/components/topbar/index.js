@@ -27,6 +27,7 @@ const ROUTE_TITLE_MAP = {
   '/ai-strategy/live': 'nav.liveAnalysis|Live Analysis',
   '/ai-strategy/strategy': 'nav.aiStrategy|AI Strategy',
   '/tools': 'nav.tools|Tools',
+  '/calendar': 'nav.economicCalendar|Economic Calendar',
   '/economic-calendar': 'nav.economicCalendar|Economic Calendar',
   '/calculator': 'nav.forexCalculator|Forex Calculator',
   '/news': 'nav.marketNews|Market News',

@@ -12,9 +12,12 @@ export default function WhatsappButton() {
     const publicLandingPages = [
         '/',
         '/capabilities',
+        '/economic-calendar',
         '/forex-calculator',
         '/market-news',
         '/blogs',
+        '/about-us',
+        '/contact-us',
         '/terms-and-conditions',
         '/privacy-policy',
         '/risk-disclosure'

@@ -21,6 +21,7 @@ const ROUTE_TAB_MAP = {
     '/ai-strategy/live': 'AI Strategy',
     '/ai-strategy/strategy': 'AI Strategy',
     '/tools': 'Tools',
+    '/calendar': 'Economic Calendar',
     '/economic-calendar': 'Economic Calendar',
     '/calculator': 'Tools',
     '/news': 'Tools',

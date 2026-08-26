@@ -5,7 +5,7 @@ const PROTECTED_PREFIXES = [
   "/dashboard",
   "/trade-snap",
   "/ai-assistant",
-  "/economic-calendar",
+  "/calendar",
   "/calculator",
   "/news",
   "/tools",
@@ -35,7 +35,7 @@ export function proxy(request) {
   const isLoggedIn = Boolean(token);
 
   if (pathname === "/tools") {
-    return NextResponse.redirect(new URL("/economic-calendar", request.url));
+    return NextResponse.redirect(new URL("/calendar", request.url));
   }
 
   const isProtected = PROTECTED_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
@@ -60,7 +60,8 @@ export const config = {
     "/dashboard/:path*",
     "/trade-snap/:path*",
     "/ai-assistant/:path*",
-    "/economic-calendar/:path*",
+    "/calendar",
+    "/calendar/:path*",
     "/calculator",
     "/calculator/:path*",
     "/news",
