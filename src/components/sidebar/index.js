@@ -10,6 +10,7 @@ import {
   AiChatBotIcon,
   AiStrategyIcon,
   CalendarIcon,
+  ToolsIcon,
   CreditShieldIcon,
   BrokerBankIcon,
   ProfileUserIcon,
@@ -34,6 +35,18 @@ const StrategyIcon = () => (
     <circle cx="12" cy="12" r="10" />
     <circle cx="12" cy="12" r="6" />
     <circle cx="12" cy="12" r="2" />
+  </svg>
+);
+
+const SubCalendarIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+    <rect x="3" y="4" width="18" height="17" rx="3" />
+    <path d="M16 2v4M8 2v4M3 9h18" />
+    <circle cx="8" cy="13" r="0.8" fill="currentColor" />
+    <circle cx="12" cy="13" r="0.8" fill="currentColor" />
+    <circle cx="16" cy="13" r="0.8" fill="currentColor" />
+    <circle cx="8" cy="17" r="0.8" fill="currentColor" />
+    <circle cx="12" cy="17" r="0.8" fill="currentColor" />
   </svg>
 );
 
@@ -70,7 +83,14 @@ const getMainNav = (t) => [
       { label: t('nav.aiStrategy', 'AI Strategy'), href: "/ai-strategy/strategy", icon: StrategyIcon },
     ]
   },
-  { label: t('nav.economicCalendar', 'Economic Calendar'), href: "/economic-calendar", icon: CalendarIcon },
+  {
+    label: t('nav.tools', 'Tools'),
+    href: "/tools",
+    icon: ToolsIcon,
+    subItems: [
+      { label: t('nav.economicCalendar', 'Economic Calendar'), href: "/economic-calendar", icon: SubCalendarIcon },
+    ]
+  },
   { label: t('nav.plans', 'Subscription Plans'), href: "/plans", icon: CrownIcon },
   { label: t('nav.broker', 'Broker'), href: "/broker", icon: BrokerBankIcon },
   { label: t('nav.profile', 'Settings'), href: "/profile", icon: ProfileUserIcon },
@@ -94,9 +114,7 @@ const NavItem = ({ item, pathname, onNavigate, isCollapsed }) => {
   const [isOpen, setIsOpen] = useState(isActive);
 
   useEffect(() => {
-    if (isActive) {
-      setIsOpen(true);
-    }
+    setIsOpen(Boolean(isActive));
   }, [isActive, pathname]);
 
   if (item.subItems) {
@@ -353,9 +371,6 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
 
   const handleNavigate = () => {
     onClose?.();
-    if (!isCollapsed && onToggleCollapse) {
-      onToggleCollapse();
-    }
   };
 
   const doLogout = () => {

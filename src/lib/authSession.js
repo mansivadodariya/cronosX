@@ -217,10 +217,17 @@ export function persistAuthSession(payload) {
         email: user.email || data.email || '',
         phone_number: user.phone_number || data.phone_number || '',
         referral_code: user.referral_code || data.referral_code || '',
+        onboarding_completed: user.onboarding_completed !== undefined
+            ? Boolean(user.onboarding_completed)
+            : (data.onboarding_completed !== undefined ? Boolean(data.onboarding_completed) : false),
         last_logins: updatedLogins,
     };
 
     document.cookie = 'has_phone=true; path=/; SameSite=Lax';
+    if (sessionUser.onboarding_completed) {
+        document.cookie = 'has_completed_onboarding=true; path=/; SameSite=Lax';
+        localStorage.setItem('has_completed_onboarding', 'true');
+    }
 
     localStorage.setItem('user', JSON.stringify(sessionUser));
     window.dispatchEvent(new CustomEvent('user:updated'));
@@ -233,14 +240,40 @@ export function persistAuthSession(payload) {
     return sessionUser;
 }
 
+export function isUserOnboardingCompleted(user = null) {
+    if (typeof window === 'undefined') return false;
+    const u = user || getStoredUser();
+    if (u?.onboarding_completed === true) return true;
+    const localFlag = localStorage.getItem('has_completed_onboarding');
+    if (localFlag === 'true') return true;
+    return false;
+}
+
+export function setOnboardingCompletedInSession() {
+    if (typeof window === 'undefined') return;
+    document.cookie = 'has_completed_onboarding=true; path=/; SameSite=Lax';
+    localStorage.setItem('has_completed_onboarding', 'true');
+    const stored = localStorage.getItem('user');
+    if (stored) {
+        try {
+            const parsed = JSON.parse(stored);
+            parsed.onboarding_completed = true;
+            localStorage.setItem('user', JSON.stringify(parsed));
+        } catch (_) {}
+    }
+    window.dispatchEvent(new CustomEvent('user:updated'));
+}
+
 export function clearAuthSession() {
     if (typeof window === 'undefined') return;
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('user');
     localStorage.removeItem('user_id');
+    localStorage.removeItem('has_completed_onboarding');
     document.cookie = 'auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
     document.cookie = 'has_phone=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
+    document.cookie = 'has_completed_onboarding=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
 }
 
 export function setPhoneVerifiedInSession(phoneNumber) {

@@ -3,7 +3,8 @@
 .overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,23 +16,25 @@
     max-width: 497px;
     width: 100%;
     position: relative;
-    padding: 90px 24px 24px;
-    border-radius: 24px;
+    padding: 60px 28px 28px;
+    border-radius: 20px;
     overflow: hidden;
-    border: 1px solid rgba(26, 26, 26, 0.14);
-    background: #FFF;
-    box-shadow: 0 0 84.9px 0 rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(244, 209, 122, 0.35);
+    background: radial-gradient(130% 100% at 50% 0%, #171510 0%, #0A0A0D 100%);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.95), 0 0 32px rgba(244, 209, 122, 0.08);
+    color: #FFFFFF;
 
     .layer {
         border-radius: 442px;
-        background: #0B56DB;
-        filter: blur(46.8px);
-        width: 90%;
-        height: 20px;
+        background: #F4D17A;
+        filter: blur(36px);
+        width: 80%;
+        height: 16px;
         position: absolute;
         top: 0;
         left: 50%;
         transform: translateX(-50%);
+        opacity: 0.25;
     }
 
     .lineimage {
@@ -41,6 +44,7 @@
         display: flex;
         justify-content: center;
         width: 100%;
+        opacity: 0.4;
 
         img {
             display: block;
@@ -54,7 +58,7 @@
     z-index: 1;
 
     .icon {
-        padding: 0 0 24px;
+        padding: 0 0 20px;
         display: flex;
         justify-content: center;
         cursor: pointer;
@@ -64,28 +68,30 @@
         padding: 0 0 24px;
 
         h2 {
-            color: #1A1A1A;
-            font-size: 24px;
+            color: #FFFFFF;
+            font-size: 22px;
             margin: 0 0 10px;
             text-align: center;
             font-weight: 700;
             line-height: normal;
+            font-family: "Euclid-Bold", sans-serif;
         }
 
         p {
-            color: rgba(26, 26, 26, 0.70);
+            color: rgba(255, 255, 255, 0.7);
             text-align: center;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 500;
             margin: 0 auto;
             line-height: 24px;
             max-width: 388px;
+            font-family: "Euclid-Regular", sans-serif;
         }
     }
 
     .spacingGrid {
         display: grid;
-        gap: 20px;
+        gap: 16px;
 
         button {
             width: 100%;
@@ -94,7 +100,7 @@
     }
 
     .error {
-        color: #d32f2f;
+        color: #FF7070;
         font-size: 14px;
         text-align: center;
         margin: 0;
@@ -105,15 +111,24 @@
     position: absolute;
     top: 16px;
     right: 16px;
-    background: none;
-    border: none;
-    font-size: 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(244, 209, 122, 0.25);
+    font-size: 14px;
     cursor: pointer;
-    color: rgba(26, 26, 26, 0.5);
+    color: rgba(255, 255, 255, 0.7);
     z-index: 2;
-    line-height: 1;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
 
     &:hover {
-        color: #1A1A1A;
+        background: rgba(244, 209, 122, 0.15);
+        color: #F4D17A;
+        border-color: #F4D17A;
+        transform: scale(1.05);
     }
 }

@@ -22,7 +22,7 @@ export default function AuthGuard({ children }) {
                 try {
                     const { data, error } = await supabase
                         .from('users')
-                        .select('phone_number, is_phone_verified, is_active')
+                        .select('phone_number, is_phone_verified, is_active, onboarding_completed')
                         .eq('id', uid)
                         .single();
 
@@ -51,13 +51,28 @@ export default function AuthGuard({ children }) {
                         return;
                     }
 
+                    // Check if user has completed onboarding
+                    const isOnboardingDone = Boolean(data?.onboarding_completed) || localStorage.getItem('has_completed_onboarding') === 'true';
+                    if (!isOnboardingDone) {
+                        const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+                        if (currentPath !== '/onboarding' && currentPath !== '/steper') {
+                            router.replace('/onboarding');
+                            return;
+                        }
+                    }
+
                     // Sync user info to localStorage and set cookie
                     const user = getStoredUser();
                     if (user) {
                         user.phone_number = data?.phone_number || user.phone_number || '';
                         user.is_phone_verified = Boolean(data?.is_phone_verified);
+                        user.onboarding_completed = isOnboardingDone;
                         localStorage.setItem('user', JSON.stringify(user));
                         window.dispatchEvent(new CustomEvent('user:updated'));
+                    }
+                    if (isOnboardingDone) {
+                        localStorage.setItem('has_completed_onboarding', 'true');
+                        document.cookie = 'has_completed_onboarding=true; path=/; SameSite=Lax';
                     }
                     document.cookie = 'has_phone=true; path=/; SameSite=Lax';
                 } catch (e) {

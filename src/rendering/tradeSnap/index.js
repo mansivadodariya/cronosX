@@ -680,23 +680,13 @@ export default function TradeSnap() {
             <canvas ref={canvasRef} className={styles.hiddenCanvas} aria-hidden="true" />
 
             <div className={styles.tabSwitcherRow}>
-                <div className={styles.tabSwitcher}>
-                    <button
-                        type="button"
-                        className={activeTab === 'single' ? styles.tabActive : ''}
-                        onClick={() => requestTabSwitch('single')}
-                    >
-                        <MonitorIcon />
-                        {t('tradeSnap.singleTimeframe', 'Single Timeframe')}
-                    </button>
-                    <button
-                        type="button"
-                        className={activeTab === 'multi' ? styles.tabActive : ''}
-                        onClick={() => requestTabSwitch('multi')}
-                    >
-                        <ChartIcon />
-                        {t('tradeSnap.multiTimeframe', 'Multi Timeframe')}
-                    </button>
+                <div className={styles.headerInfo}>
+                    <h2 className={styles.featureTitle}>
+                        {t('tradeSnap.scannerTitle', 'AI Live Chart Scanner')}
+                    </h2>
+                    <p className={styles.featureDesc}>
+                        {t('tradeSnap.scannerDesc', 'Share your live chart screen or capture snapshots to get real-time AI technical analysis, key levels, and trade setups.')}
+                    </p>
                 </div>
                 <HistoryButton
                     text={t('tradeSnap.history', 'History')}
@@ -704,10 +694,9 @@ export default function TradeSnap() {
                 />
             </div>
 
-            <div className={`${styles.workspace} ${activeTab === 'multi' ? styles.workspaceMulti : ''}`}>
+            <div className={styles.workspace}>
                 <div className={styles.mainColumn}>
-                    {activeTab === 'single' ? (
-                        <div className={styles.panel}>
+                    <div className={styles.panel}>
                             <div className={styles.panelHeader}>
                                 <h3>
                                     {isSharing ? (
@@ -772,165 +761,9 @@ export default function TradeSnap() {
                                 )}
                             </div>
                         </div>
-                    ) : (
-                        <div className={styles.multiGrid}>
-                            <div className={styles.panel}>
-                                <div className={styles.panelHeader}>
-                                    <h3>
-                                        {isSharing ? (
-                                            <span className={styles.liveDot}>{t('tradeSnap.lowerTimeframe', 'Lower Timeframe')}</span>
-                                        ) : (
-                                            <>
-                                                <MonitorOffIcon />
-                                                {t('tradeSnap.lowerTimeframe', 'Lower Timeframe')}
-                                            </>
-                                        )}
-                                    </h3>
-                                    {isSharing &&
-                                        renderAutoCaptureSelect(
-                                            'auto-capture-1',
-                                            autoCaptureInterval1,
-                                            (v) => {
-                                                setAutoCaptureInterval1(v);
-                                                if (v) captureScreenshot1();
-                                            },
-                                            AUTO_CAPTURE_OPTIONS_MULTI_LOW
-                                        )}
-                                </div>
-                                <div className={styles.videoFrame}>
-                                    {isSharing && stream ? (
-                                        <video ref={videoRef} autoPlay muted playsInline className={styles.video} />
-                                    ) : (
-                                        renderVideoPlaceholder(false, '')
-                                    )}
-                                </div>
-                                <div className={styles.panelActions}>
-                                    {isSharing ? (
-                                        <>
-                                            <button type="button" className={styles.btnDanger} onClick={stopScreenShare}>
-                                                <StopIcon />
-                                                {t('tradeSnap.stop', 'Stop')}
-                                            </button>
-                                            {autoCaptureInterval1 ? (
-                                                <NextScreenshotTimer
-                                                    intervalMinutes={autoCaptureInterval1}
-                                                    isActive={isSharing}
-                                                    endTime={nextScreenshotEndTime1}
-                                                />
-                                            ) : (
-                                                <button type="button" className={styles.btnPrimary} onClick={captureScreenshot1}>
-                                                    <CameraIcon />
-                                                    {t('tradeSnap.capture', 'Capture')}
-                                                </button>
-                                            )}
-                                        </>
-                                    ) : (
-                                        <button type="button" className={styles.btnPrimary} onClick={startScreenShare}>
-                                            <PlayIcon />
-                                            {t('tradeSnap.startSharing', 'Start Sharing')}
-                                        </button>
-                                    )}
-                                </div>
-                            </div>
-
-                            <div className={styles.panel}>
-                                <div className={styles.panelHeader}>
-                                    <h3>
-                                        {isSharing2 ? (
-                                            <span className={styles.liveDot}>{t('tradeSnap.higherTimeframe', 'Higher Timeframe')}</span>
-                                        ) : (
-                                            <>
-                                                <MonitorOffIcon />
-                                                {t('tradeSnap.higherTimeframe', 'Higher Timeframe')}
-                                            </>
-                                        )}
-                                    </h3>
-                                    {isSharing2 &&
-                                        renderAutoCaptureSelect(
-                                            'auto-capture-2',
-                                            autoCaptureInterval2,
-                                            (v) => {
-                                                setAutoCaptureInterval2(v);
-                                                if (v) captureScreenshot2();
-                                            },
-                                            AUTO_CAPTURE_OPTIONS_MULTI_LOW
-                                        )}
-                                </div>
-                                <div className={styles.videoFrame}>
-                                    {isSharing2 && stream2 ? (
-                                        <video ref={videoRef2} autoPlay muted playsInline className={styles.video} />
-                                    ) : (
-                                        renderVideoPlaceholder(false, '')
-                                    )}
-                                </div>
-                                <div className={styles.panelActions}>
-                                    {isSharing2 ? (
-                                        <>
-                                            <button type="button" className={styles.btnDanger} onClick={stopScreenShare2}>
-                                                <StopIcon />
-                                                {t('tradeSnap.stop', 'Stop')}
-                                            </button>
-                                            {autoCaptureInterval2 ? (
-                                                <NextScreenshotTimer
-                                                    intervalMinutes={autoCaptureInterval2}
-                                                    isActive={isSharing2}
-                                                    endTime={nextScreenshotEndTime2}
-                                                />
-                                            ) : (
-                                                <button type="button" className={styles.btnPrimary} onClick={captureScreenshot2}>
-                                                    <CameraIcon />
-                                                    {t('tradeSnap.capture', 'Capture')}
-                                                </button>
-                                            )}
-                                        </>
-                                    ) : (
-                                        <button type="button" className={styles.btnPrimary} onClick={startScreenShare2}>
-                                            <PlayIcon />
-                                            {t('tradeSnap.startSharing', 'Start Sharing')}
-                                        </button>
-                                    )}
-                                </div>
-                            </div>
-
-                            {(isSharing || isSharing2) && (showSnapshot1 || showSnapshot2) && (
-                                <div className={`${styles.panel} ${styles.snapshotPanel}`}>
-                                    <div className={styles.snapshotHeader}>
-                                        <h3>
-                                            <CameraIcon />
-                                            {t('tradeSnap.latestSnapshot', 'Latest Timeframe Snapshot')}
-                                        </h3>
-                                        <button
-                                            type="button"
-                                            className={styles.btnAnalyze}
-                                            onClick={analyzeMulti}
-                                            disabled={isAnalyzingMulti || !capturedImage1 || !capturedImage2}
-                                        >
-                                            {isAnalyzingMulti ? t('tradeSnap.analyzing', 'Analyzing...') : t('tradeSnap.analyze', 'Analyze')}
-                                        </button>
-                                    </div>
-                                    <div className={styles.dualSnapshot}>
-                                        <div>
-                                            {capturedImage1 ? (
-                                                <img src={capturedImage1} alt="Lower timeframe" />
-                                            ) : (
-                                                <div className={styles.snapshotEmpty}>{t('tradeSnap.captureLowerTimeframe', 'Capture lower timeframe')}</div>
-                                            )}
-                                        </div>
-                                        <div>
-                                            {capturedImage2 ? (
-                                                <img src={capturedImage2} alt="Higher timeframe" />
-                                            ) : (
-                                                <div className={styles.snapshotEmpty}>{t('tradeSnap.captureHigherTimeframe', 'Capture higher timeframe')}</div>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    )}
                 </div>
 
-                {activeTab === 'single' && isSharing && showSnapshot && (
+                {isSharing && showSnapshot && (
                     <div className={styles.sideColumn}>
                         <div className={styles.panel}>
                             <div className={styles.snapshotHeader}>

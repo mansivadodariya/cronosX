@@ -26,6 +26,7 @@ const ROUTE_TITLE_MAP = {
   '/ai-strategy': 'nav.aiStrategy|AI Strategy',
   '/ai-strategy/live': 'nav.liveAnalysis|Live Analysis',
   '/ai-strategy/strategy': 'nav.aiStrategy|AI Strategy',
+  '/tools': 'nav.tools|Tools',
   '/economic-calendar': 'nav.economicCalendar|Economic Calendar',
   '/credit-history': 'nav.creditHistory|Credit History',
   '/plans': 'nav.plans|Subscription Plans',

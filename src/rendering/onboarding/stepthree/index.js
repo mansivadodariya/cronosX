@@ -170,19 +170,24 @@ const MARKET_OPTIONS = [
     },
 ];
 
-export default function Stepthree() {
-    const [selectedOptions, setSelectedOptions] = useState([
+export default function Stepthree({ selectedOptions: controlledOptions, onToggleOption }) {
+    const [internalOptions, setInternalOptions] = useState([
         'eur_usd',
         'gbp_usd',
         'usd_jpy',
         'xau_usd',
         'crypto',
     ]);
+    const selectedOptions = controlledOptions !== undefined ? controlledOptions : internalOptions;
 
-    const toggleOption = (id) => {
-        setSelectedOptions((prev) =>
-            prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-        );
+    const handleToggle = (id) => {
+        if (onToggleOption) {
+            onToggleOption(id);
+        } else {
+            setInternalOptions((prev) =>
+                prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+            );
+        }
     };
 
     return (
@@ -206,7 +211,15 @@ export default function Stepthree() {
                             <div
                                 key={opt.id}
                                 className={classNames(styles.marketCard, isSelected && styles.selected)}
-                                onClick={() => toggleOption(opt.id)}
+                                onClick={() => handleToggle(opt.id)}
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        handleToggle(opt.id);
+                                    }
+                                }}
                             >
                                 <div className={classNames(styles.checkbox, isSelected && styles.checked)}>
                                     {isSelected && (

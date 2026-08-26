@@ -55,12 +55,39 @@ const ContinueWithGoogle = ({ redirectTo = '/dashboard', onPendingPhone }) => {
 
             if (accessToken) {
                 // Persist session
-                persistAuthSession(result);
+                const sessionUser = persistAuthSession(result);
                 if (typeof window !== 'undefined') {
                     document.cookie = 'has_phone=true; path=/; SameSite=Lax';
-                }   
+                }
 
-                const target = redirectRef.current || '/dashboard';
+                let isOnboardingDone = Boolean(sessionUser?.onboarding_completed) || (typeof window !== 'undefined' && localStorage.getItem('has_completed_onboarding') === 'true');
+                const uid = sessionUser?.id || (typeof window !== 'undefined' ? localStorage.getItem('user_id') : '');
+
+                if (supabase && uid && !isOnboardingDone) {
+                    try {
+                        const { data: dbUser } = await supabase
+                            .from('users')
+                            .select('onboarding_completed')
+                            .eq('id', uid)
+                            .maybeSingle();
+
+                        if (dbUser?.onboarding_completed === true) {
+                            isOnboardingDone = true;
+                            if (typeof window !== 'undefined') {
+                                localStorage.setItem('has_completed_onboarding', 'true');
+                                document.cookie = 'has_completed_onboarding=true; path=/; SameSite=Lax';
+                                if (sessionUser) {
+                                    sessionUser.onboarding_completed = true;
+                                    localStorage.setItem('user', JSON.stringify(sessionUser));
+                                }
+                            }
+                        }
+                    } catch (e) {
+                        console.warn('Google login onboarding check error:', e);
+                    }
+                }
+
+                const target = !isOnboardingDone ? '/onboarding' : (redirectRef.current || '/dashboard');
                 if (typeof window !== 'undefined') {
                     window.location.assign(target);
                 } else {

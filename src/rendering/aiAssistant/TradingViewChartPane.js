@@ -598,7 +598,7 @@ const TradingViewChartPane = forwardRef(function TradingViewChartPane(
     const [loading, setLoading] = useState(true);
     const { priceData, tickDirection } = useLivePrice(activeSymbolClean);
 
-    // Automatic 1-second live price tick update sync with chart series
+    // Automatic live price tick update sync with chart series (Hook + WebSocket livePriceUpdate event)
     useEffect(() => {
         if (!priceData || !priceData.price) return;
         const newPrice = priceData.price;
@@ -625,6 +625,56 @@ const TradingViewChartPane = forwardRef(function TradingViewChartPane(
             return updated;
         });
     }, [priceData]);
+
+    // WebSocket livePriceUpdate browser event listener for instant dynamic tick updates
+    useEffect(() => {
+        const handleLivePriceUpdate = (e) => {
+            const payload = e?.detail;
+            if (!payload || payload.price === undefined || payload.price === null) return;
+            const newPrice = parseFloat(payload.price);
+            if (isNaN(newPrice)) return;
+
+            // Optional symbol filter match
+            if (payload.symbol) {
+                const eventSym = String(payload.symbol).replace(/[^A-Z0-9]/gi, '').toUpperCase();
+                if (eventSym && activeSymbolClean && eventSym !== activeSymbolClean) {
+                    return;
+                }
+            }
+
+            setLatestCandle((prev) => {
+                if (!prev) return prev;
+
+                const updated = {
+                    ...prev,
+                    high: Math.max(prev.high, newPrice),
+                    low: Math.min(prev.low, newPrice),
+                    close: newPrice,
+                    value: newPrice,
+                };
+
+                if (seriesRef.current) {
+                    try {
+                        seriesRef.current.update(updated);
+                    } catch (err) {
+                        // Ignore transient render errors
+                    }
+                }
+
+                return updated;
+            });
+        };
+
+        if (typeof window !== 'undefined') {
+            window.addEventListener('livePriceUpdate', handleLivePriceUpdate);
+        }
+
+        return () => {
+            if (typeof window !== 'undefined') {
+                window.removeEventListener('livePriceUpdate', handleLivePriceUpdate);
+            }
+        };
+    }, [activeSymbolClean]);
 
     // Indicator Configs & Visibility States
     const [indicatorConfigs, setIndicatorConfigs] = useState(DEFAULT_INDICATOR_CONFIGS);

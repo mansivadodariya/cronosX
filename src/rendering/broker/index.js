@@ -203,7 +203,7 @@ export default function BrokerPage() {
             )}
 
             {/* 4. Credits Sync Modal */}
-            {showCreditsModal && (
+            {/* {showCreditsModal && (
                 <NeweraCreditsModal
                     userId={userId}
                     onClose={() => setShowCreditsModal(false)}
@@ -212,7 +212,7 @@ export default function BrokerPage() {
                         toast.success("Broker MT5 Account successfully synced!");
                     }}
                 />
-            )}
+            )} */}
         </div>
     );
 }

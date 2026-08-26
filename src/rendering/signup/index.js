@@ -95,12 +95,19 @@ const Signup = () => {
                     }
 
                     const user = getStoredUser();
+                    let isOnboardingDone = Boolean(data?.onboarding_completed) || localStorage.getItem('has_completed_onboarding') === 'true';
                     if (user) {
                         user.phone_number = data?.phone_number || user?.phone_number || '';
+                        user.onboarding_completed = isOnboardingDone;
                         localStorage.setItem('user', JSON.stringify(user));
                     }
                     document.cookie = 'has_phone=true; path=/; SameSite=Lax';
-                    window.location.assign(redirectTo);
+
+                    if (!isOnboardingDone) {
+                        window.location.assign('/onboarding');
+                    } else {
+                        window.location.assign(redirectTo);
+                    }
                 } catch (e) {
                     console.error('Error fetching user status', e);
                 }
@@ -196,17 +203,23 @@ const Signup = () => {
                 }
             }
 
+            let isOnboardingDone = localStorage.getItem('has_completed_onboarding') === 'true';
             if (typeof window !== 'undefined') {
                 const parsed = JSON.parse(localStorage.getItem('user') || '{}');
                 parsed.phone_number = phoneNumber;
                 parsed.is_phone_verified = true;
+                if (parsed.onboarding_completed) isOnboardingDone = true;
                 localStorage.setItem('user', JSON.stringify(parsed));
                 document.cookie = 'has_phone=true; path=/; SameSite=Lax';
                 window.dispatchEvent(new CustomEvent('user:updated'));
             }
 
             toast.success(apiRes?.message || 'Phone number verified and saved!');
-            window.location.assign(redirectTo);
+            if (!isOnboardingDone) {
+                window.location.assign('/onboarding');
+            } else {
+                window.location.assign(redirectTo);
+            }
         } catch (err) {
             console.error('Failed to save phone number after verification:', err);
             const msg = String(err.message || '');

@@ -82,12 +82,19 @@ const Login = () => {
                     }
 
                     const user = getStoredUser();
+                    let isOnboardingDone = Boolean(data?.onboarding_completed) || localStorage.getItem('has_completed_onboarding') === 'true';
                     if (user) {
                         user.phone_number = data?.phone_number || user?.phone_number || '';
+                        user.onboarding_completed = isOnboardingDone;
                         localStorage.setItem('user', JSON.stringify(user));
                     }
                     document.cookie = 'has_phone=true; path=/; SameSite=Lax';
-                    window.location.assign(redirectTo);
+
+                    if (!isOnboardingDone) {
+                        window.location.assign('/onboarding');
+                    } else {
+                        window.location.assign(redirectTo);
+                    }
                 } catch (e) {
                     console.error('Error fetching user status', e);
                 }
@@ -114,8 +121,38 @@ const Login = () => {
         setLoading(true);
         try {
             const data = await authApi.login(form.email, form.password);
-            persistAuthSession(data);
-            window.location.assign(redirectTo);
+            const sessionUser = persistAuthSession(data);
+            const uid = sessionUser?.id || getStoredUserId();
+
+            let onboardingCompleted = Boolean(sessionUser?.onboarding_completed) || localStorage.getItem('has_completed_onboarding') === 'true';
+
+            if (supabase && uid && !onboardingCompleted) {
+                try {
+                    const { data: dbUser } = await supabase
+                        .from('users')
+                        .select('onboarding_completed')
+                        .eq('id', uid)
+                        .maybeSingle();
+
+                    if (dbUser && dbUser.onboarding_completed !== undefined) {
+                        onboardingCompleted = Boolean(dbUser.onboarding_completed);
+                        if (onboardingCompleted && sessionUser) {
+                            sessionUser.onboarding_completed = true;
+                            localStorage.setItem('user', JSON.stringify(sessionUser));
+                            localStorage.setItem('has_completed_onboarding', 'true');
+                            document.cookie = 'has_completed_onboarding=true; path=/; SameSite=Lax';
+                        }
+                    }
+                } catch (err) {
+                    console.warn('Login onboarding check error:', err);
+                }
+            }
+
+            if (!onboardingCompleted) {
+                window.location.assign('/onboarding');
+            } else {
+                window.location.assign(redirectTo);
+            }
         } catch (err) {
             toast.dismiss();
             toast.error(typeof err.message === 'string' ? err.message : 'Something went wrong. Please try again.');
@@ -177,17 +214,23 @@ const Login = () => {
                 }
             }
 
+            let isOnboardingDone = localStorage.getItem('has_completed_onboarding') === 'true';
             if (typeof window !== 'undefined') {
                 const parsed = JSON.parse(localStorage.getItem('user') || '{}');
                 parsed.phone_number = phoneNumber;
                 parsed.is_phone_verified = true;
+                if (parsed.onboarding_completed) isOnboardingDone = true;
                 localStorage.setItem('user', JSON.stringify(parsed));
                 document.cookie = 'has_phone=true; path=/; SameSite=Lax';
                 window.dispatchEvent(new CustomEvent('user:updated'));
             }
 
             toast.success(apiRes?.message || 'Phone number verified and saved!');
-            window.location.assign(redirectTo);
+            if (!isOnboardingDone) {
+                window.location.assign('/onboarding');
+            } else {
+                window.location.assign(redirectTo);
+            }
         } catch (err) {
             console.error('Failed to save phone number after verification:', err);
             const msg = String(err.message || '');
