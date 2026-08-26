@@ -1,0 +1,648 @@
+"use client";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+import { toast } from '@/components/toast';
+import PhoneInputLib from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
+import styles from './contactUs.module.scss';
+
+// Curated List of Global Countries
+const COUNTRIES = [
+    'United Arab Emirates',
+    'United States',
+    'United Kingdom',
+    'India',
+    'Canada',
+    'Australia',
+    'Germany',
+    'France',
+    'Singapore',
+    'Switzerland',
+    'Saudi Arabia',
+    'Qatar',
+    'Kuwait',
+    'Bahrain',
+    'Oman',
+    'South Africa',
+    'Nigeria',
+    'Egypt',
+    'Turkey',
+    'Malaysia',
+    'Indonesia',
+    'Thailand',
+    'Vietnam',
+    'Philippines',
+    'Japan',
+    'South Korea',
+    'Hong Kong',
+    'Netherlands',
+    'Sweden',
+    'Norway',
+    'Spain',
+    'Italy',
+    'Brazil',
+    'Mexico',
+    'Other'
+];
+
+// FAQs
+const FAQS = [
+    {
+        q: 'How fast will I receive a response from the ChronosX team?',
+        a: 'Our support routing system prioritizes urgent trading requests immediately. General inquiries are typically answered within 15 minutes, while VIP and Institutional partners receive direct Slack/Telegram channels with sub-5-minute SLA.'
+    },
+    {
+        q: 'Can I integrate ChronosX AI signals directly into my MT5 or broker account?',
+        a: 'Yes! ChronosX provides ultra-low latency webhook APIs, MT5 bridge connectors, and automated signal alerts compatible with leading prop firms and global brokers.'
+    },
+    {
+        q: 'Do you offer 1-on-1 personalized demo onboarding?',
+        a: 'Absolutely. If you represent an institutional fund, prop firm, or are a high-volume trader looking for custom algorithmic indicators, please reach out via the form to schedule a private walkthrough.'
+    },
+    {
+        q: 'How do I request a custom technical indicator or algorithmic strategy?',
+        a: 'Submit your message with your exact specifications, chart timeframe requirements, and risk parameters. Our quant engineering team will review and respond with feasibility estimates.'
+    },
+    {
+        q: 'What is your security and data privacy protocol for trading accounts?',
+        a: 'ChronosX adheres to strict zero-knowledge encryption protocols. We never store personal broker credentials or execute unauthorized trades. All analytical and OCR chart vision data is transmitted via end-to-end TLS 1.3 encryption.'
+    }
+];
+
+export default function ContactUs() {
+    // Form State (Exact 5 fields requested: Full name, Email, Country, Phone, Message)
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        country: 'United Arab Emirates',
+        phone: '',
+        message: ''
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [copiedField, setCopiedField] = useState(null);
+    const [openFaqIndex, setOpenFaqIndex] = useState(0);
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handlePhoneChange = (val) => {
+        setFormData(prev => ({ ...prev, phone: val || '' }));
+    };
+
+    const handleCopy = (text, fieldName) => {
+        if (navigator && navigator.clipboard) {
+            navigator.clipboard.writeText(text);
+            setCopiedField(fieldName);
+            toast.success(`Copied ${fieldName} to clipboard!`);
+            setTimeout(() => setCopiedField(null), 2500);
+        }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // Validation
+        if (!formData.name.trim()) {
+            toast.error('Please enter your full name.');
+            return;
+        }
+        if (!formData.email.trim() || !formData.email.includes('@')) {
+            toast.error('Please enter a valid email address.');
+            return;
+        }
+        if (!formData.country.trim()) {
+            toast.error('Please select your country.');
+            return;
+        }
+        if (!formData.phone || formData.phone.trim().length < 4) {
+            toast.error('Please enter a valid phone number with country code.');
+            return;
+        }
+        if (!formData.message.trim() || formData.message.trim().length < 10) {
+            toast.error('Please provide a message with at least 10 characters.');
+            return;
+        }
+
+        setIsSubmitting(true);
+
+        try {
+            await new Promise((resolve) => setTimeout(resolve, 1200));
+            setIsSubmitting(false);
+            setIsSubmitted(true);
+            toast.success('Your message has been sent successfully!');
+        } catch (err) {
+            setIsSubmitting(false);
+            toast.error('An unexpected error occurred. Please try again.');
+        }
+    };
+
+    const handleResetForm = () => {
+        setFormData({
+            name: '',
+            email: '',
+            country: 'United Arab Emirates',
+            phone: '',
+            message: ''
+        });
+        setIsSubmitted(false);
+    };
+
+    const toggleFaq = (index) => {
+        setOpenFaqIndex(prev => (prev === index ? null : index));
+    };
+
+    return (
+        <div className={styles.contactPage}>
+            {/* Ambient Atmosphere Glows */}
+            <div className={styles.ambientGlowTop} aria-hidden="true" />
+            <div className={styles.ambientGlowCenter} aria-hidden="true" />
+            <div className={styles.ambientGlowBottom} aria-hidden="true" />
+            <div className={styles.gridOverlay} aria-hidden="true" />
+
+            <div className="container">
+                {/* 1. Header & Hero Section */}
+                <motion.header
+                    className={styles.heroSection}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                >
+                    {/* Live Status Pill */}
+                    <div className={styles.statusPillWrapper}>
+                        <div className={styles.statusPill}>
+                            <span className={styles.pulseDot}>
+                                <span className={styles.pulseRing} />
+                            </span>
+                            <span className={styles.pillTag}>LIVE DESK</span>
+                            <span className={styles.pillDivider}>|</span>
+                            <span className={styles.pillText}>24/7 Quantitative Support & Assistance</span>
+                            <span className={styles.pillBadge}>ONLINE</span>
+                        </div>
+                    </div>
+
+                    <h1 className={styles.mainTitle}>
+                        Get in Touch with our <br />
+                        <span className={styles.goldGradient}>AI Trading Desk & Global Team</span>
+                    </h1>
+
+                    <p className={styles.mainSubtitle}>
+                        Have questions about our algorithmic models, predictive signals, or custom indicators?
+                        Reach out to us directly or fill out the message form below.
+                    </p>
+                </motion.header>
+
+                {/* 2. Main 2-Column Section: Left Info Card + Right Modern Form */}
+                <section className={styles.mainSection}>
+                    <div className={styles.contactLayout}>
+                        {/* LEFT COLUMN: Email, Contact Number, Address */}
+                        <motion.div
+                            className={styles.infoColumn}
+                            initial={{ opacity: 0, x: -30 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                            <div className={styles.infoCard}>
+                                <div className={styles.infoCardGlow} />
+
+                                <div className={styles.infoHeader}>
+                                    <div className={styles.infoBadge}>
+                                        <span>DIRECT CONTACT</span>
+                                    </div>
+                                    <h2 className={styles.infoTitle}>Connect With Us</h2>
+                                    <p className={styles.infoSubtitle}>
+                                        Reach out through any of our direct contact points. Our team is available around the clock.
+                                    </p>
+                                </div>
+
+                                <div className={styles.infoItemsList}>
+                                    {/* 1. EMAIL */}
+                                    <div className={styles.infoItem}>
+                                        <div className={styles.infoIconBox}>
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                                <polyline points="22,6 12,13 2,6" />
+                                            </svg>
+                                        </div>
+                                        <div className={styles.infoContent}>
+                                            <span className={styles.infoLabel}>EMAIL</span>
+                                            <a href="mailto:support@chronosx.io" className={styles.infoValue}>
+                                                support@chronosx.io
+                                            </a>
+                                            <span className={styles.infoHelper}>Average response time: &lt; 15 mins</span>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            className={styles.itemCopyBtn}
+                                            onClick={() => handleCopy('support@chronosx.io', 'Email')}
+                                            title="Copy email"
+                                            aria-label="Copy Email"
+                                        >
+                                            {copiedField === 'Email' ? (
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2.5">
+                                                    <polyline points="20 6 9 17 4 12" />
+                                                </svg>
+                                            ) : (
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                                </svg>
+                                            )}
+                                        </button>
+                                    </div>
+
+                                    {/* 2. CONTACT NUMBER */}
+                                    <div className={styles.infoItem}>
+                                        <div className={styles.infoIconBox}>
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                                            </svg>
+                                        </div>
+                                        <div className={styles.infoContent}>
+                                            <span className={styles.infoLabel}>CONTACT NUMBER</span>
+                                            <a href="tel:+971568840900" className={styles.infoValue}>
+                                                +971 56 884 0900
+                                            </a>
+                                            <span className={styles.infoHelper}>WhatsApp &amp; Phone Support (24/7)</span>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            className={styles.itemCopyBtn}
+                                            onClick={() => handleCopy('+971568840900', 'Phone Number')}
+                                            title="Copy phone number"
+                                            aria-label="Copy Phone Number"
+                                        >
+                                            {copiedField === 'Phone Number' ? (
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2.5">
+                                                    <polyline points="20 6 9 17 4 12" />
+                                                </svg>
+                                            ) : (
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                                </svg>
+                                            )}
+                                        </button>
+                                    </div>
+
+                                    {/* 3. ADDRESS */}
+                                    <div className={styles.infoItem}>
+                                        <div className={styles.infoIconBox}>
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                                <circle cx="12" cy="10" r="3" />
+                                            </svg>
+                                        </div>
+                                        <div className={styles.infoContent}>
+                                            <span className={styles.infoLabel}>OFFICE ADDRESS</span>
+                                            <p className={styles.addressValue}>
+                                                Level 24, Boulevard Plaza, Downtown Dubai, United Arab Emirates
+                                            </p>
+                                            <span className={styles.infoHelper}>Global Financial Intelligence Centre</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className={styles.infoCardFooter}>
+                                    <div className={styles.activeStatusPill}>
+                                        <span className={styles.greenDot} />
+                                        <span>24/7 Global Trading Desk Online</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        {/* RIGHT COLUMN: Modern Form (Full Name, Email, Country, Phone, Message) */}
+                        <motion.div
+                            className={styles.formColumn}
+                            initial={{ opacity: 0, x: 30 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                            <div className={styles.formGlassCard}>
+                                <div className={styles.cardGlowBorder} />
+
+                                <div className={styles.formHeader}>
+                                    <div className={styles.formHeaderBadge}>
+                                        <span>SEND MESSAGE</span>
+                                    </div>
+                                    <h2 className={styles.formTitle}>Send Us a Message</h2>
+                                    <p className={styles.formSubtitle}>
+                                        Fill out the details below and our team will get back to you promptly.
+                                    </p>
+                                </div>
+
+                                <AnimatePresence mode="wait">
+                                    {!isSubmitted ? (
+                                        <motion.form
+                                            key="form-fields"
+                                            onSubmit={handleSubmit}
+                                            className={styles.contactForm}
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            transition={{ duration: 0.3 }}
+                                        >
+                                            {/* Row 1: Full Name & Email */}
+                                            <div className={styles.formRow}>
+                                                {/* 1. Full Name */}
+                                                <div className={styles.inputGroup}>
+                                                    <label htmlFor="name">
+                                                        Full Name <span className={styles.required}>*</span>
+                                                    </label>
+                                                    <div className={styles.inputWrapper}>
+                                                        <span className={styles.fieldIcon}>
+                                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                                                <circle cx="12" cy="7" r="4" />
+                                                            </svg>
+                                                        </span>
+                                                        <input
+                                                            id="name"
+                                                            type="text"
+                                                            name="name"
+                                                            placeholder="Enter your full name"
+                                                            value={formData.name}
+                                                            onChange={handleInputChange}
+                                                            required
+                                                            autoComplete="name"
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                {/* 2. Email */}
+                                                <div className={styles.inputGroup}>
+                                                    <label htmlFor="email">
+                                                        Email <span className={styles.required}>*</span>
+                                                    </label>
+                                                    <div className={styles.inputWrapper}>
+                                                        <span className={styles.fieldIcon}>
+                                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                                                <polyline points="22,6 12,13 2,6" />
+                                                            </svg>
+                                                        </span>
+                                                        <input
+                                                            id="email"
+                                                            type="email"
+                                                            name="email"
+                                                            placeholder="example@chronosx.io"
+                                                            value={formData.email}
+                                                            onChange={handleInputChange}
+                                                            required
+                                                            autoComplete="email"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Row 2: Country & Phone */}
+                                            <div className={styles.formRow}>
+                                                {/* 3. Country */}
+                                                <div className={styles.inputGroup}>
+                                                    <label htmlFor="country">
+                                                        Country <span className={styles.required}>*</span>
+                                                    </label>
+                                                    <div className={styles.inputWrapper}>
+                                                        <span className={styles.fieldIcon}>
+                                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                                <circle cx="12" cy="12" r="10" />
+                                                                <line x1="2" y1="12" x2="22" y2="12" />
+                                                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                                                            </svg>
+                                                        </span>
+                                                        <select
+                                                            id="country"
+                                                            name="country"
+                                                            value={formData.country}
+                                                            onChange={handleInputChange}
+                                                            className={styles.selectInput}
+                                                            required
+                                                        >
+                                                            {COUNTRIES.map((c) => (
+                                                                <option key={c} value={c}>
+                                                                    {c}
+                                                                </option>
+                                                            ))}
+                                                        </select>
+                                                        <span className={styles.dropdownChevron}>
+                                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                                                <polyline points="6 9 12 15 18 9" />
+                                                            </svg>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                {/* 4. Phone (Custom Styled Phone Input) */}
+                                                <div className={styles.inputGroup}>
+                                                    <label htmlFor="phone">
+                                                        Phone <span className={styles.required}>*</span>
+                                                    </label>
+                                                    <div className={styles.phoneInputWrapper}>
+                                                        <PhoneInputLib
+                                                            international
+                                                            defaultCountry="AE"
+                                                            value={formData.phone}
+                                                            onChange={handlePhoneChange}
+                                                            placeholder="Phone number"
+                                                            className={styles.phoneCustomInput}
+                                                            numberInputProps={{
+                                                                id: 'phone',
+                                                                required: true,
+                                                                autoComplete: 'tel'
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Row 3: 5. Message */}
+                                            <div className={styles.inputGroup}>
+                                                <div className={styles.labelRow}>
+                                                    <label htmlFor="message">
+                                                        Message <span className={styles.required}>*</span>
+                                                    </label>
+                                                    <span className={styles.charCounter}>
+                                                        {formData.message.length}/1000
+                                                    </span>
+                                                </div>
+                                                <div className={styles.textareaWrapper}>
+                                                    <textarea
+                                                        id="message"
+                                                        name="message"
+                                                        rows={5}
+                                                        maxLength={1000}
+                                                        placeholder="Write your message here..."
+                                                        value={formData.message}
+                                                        onChange={handleInputChange}
+                                                        required
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            {/* Security Guarantee & Submit Button */}
+                                            <div className={styles.submitSection}>
+                                                <div className={styles.securityNote}>
+                                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
+                                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                                    </svg>
+                                                    <span>Your privacy is protected with 256-bit encryption.</span>
+                                                </div>
+
+                                                <motion.button
+                                                    type="submit"
+                                                    disabled={isSubmitting}
+                                                    className={styles.submitButton}
+                                                    whileHover={{ scale: 1.02 }}
+                                                    whileTap={{ scale: 0.98 }}
+                                                >
+                                                    {isSubmitting ? (
+                                                        <span className={styles.loadingSpinnerWrap}>
+                                                            <span className={styles.spinner} />
+                                                            <span>Sending Message...</span>
+                                                        </span>
+                                                    ) : (
+                                                        <span className={styles.btnContent}>
+                                                            <span>Send Message</span>
+                                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                                                <line x1="22" y1="2" x2="11" y2="13" />
+                                                                <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                                                            </svg>
+                                                        </span>
+                                                    )}
+                                                </motion.button>
+                                            </div>
+                                        </motion.form>
+                                    ) : (
+                                        <motion.div
+                                            key="success-message"
+                                            className={styles.successState}
+                                            initial={{ opacity: 0, scale: 0.95 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            exit={{ opacity: 0, scale: 0.95 }}
+                                            transition={{ duration: 0.4 }}
+                                        >
+                                            <div className={styles.successIconBox}>
+                                                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2.5">
+                                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                                    <polyline points="22 4 12 14.01 9 11.01" />
+                                                </svg>
+                                            </div>
+
+                                            <h3 className={styles.successTitle}>Message Sent Successfully!</h3>
+                                            <p className={styles.successDesc}>
+                                                Thank you, <strong className={styles.highlightName}>{formData.name}</strong>. Our team has received your message and will reach out to you at <span className={styles.highlightEmail}>{formData.email}</span> shortly.
+                                            </p>
+
+                                            <button
+                                                type="button"
+                                                onClick={handleResetForm}
+                                                className={styles.resetBtn}
+                                            >
+                                                Send Another Message
+                                            </button>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                        </motion.div>
+                    </div>
+                </section>
+
+                {/* 3. Interactive FAQ Section */}
+                <motion.section
+                    className={styles.faqSection}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-50px' }}
+                    transition={{ duration: 0.6 }}
+                >
+                    <div className={styles.faqHeader}>
+                        <div className={styles.faqBadge}>
+                            <span>SUPPORT FAQ</span>
+                        </div>
+                        <h2 className={styles.faqTitle}>Frequently Asked Questions</h2>
+                        <p className={styles.faqSubtitle}>
+                            Quick answers to common questions about ChronosX AI tools, account setup, and features.
+                        </p>
+                    </div>
+
+                    <div className={styles.faqAccordionList}>
+                        {FAQS.map((faq, index) => {
+                            const isOpen = openFaqIndex === index;
+                            return (
+                                <div
+                                    key={index}
+                                    className={`${styles.faqCard} ${isOpen ? styles.faqCardOpen : ''}`}
+                                >
+                                    <button
+                                        type="button"
+                                        className={styles.faqQuestionBtn}
+                                        onClick={() => toggleFaq(index)}
+                                        aria-expanded={isOpen}
+                                    >
+                                        <span className={styles.faqQuestionText}>{faq.q}</span>
+                                        <span className={`${styles.faqChevron} ${isOpen ? styles.faqChevronOpen : ''}`}>
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                                <polyline points="6 9 12 15 18 9" />
+                                            </svg>
+                                        </span>
+                                    </button>
+
+                                    <AnimatePresence initial={false}>
+                                        {isOpen && (
+                                            <motion.div
+                                                className={styles.faqAnswerWrapper}
+                                                initial={{ opacity: 0, height: 0 }}
+                                                animate={{ opacity: 1, height: 'auto' }}
+                                                exit={{ opacity: 0, height: 0 }}
+                                                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                                            >
+                                                <div className={styles.faqAnswerContent}>
+                                                    <p>{faq.a}</p>
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </motion.section>
+
+                {/* 4. Bottom Call to Action Banner */}
+                <motion.section
+                    className={styles.ctaBannerSection}
+                    initial={{ opacity: 0, scale: 0.97 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <div className={styles.ctaCard}>
+                        <div className={styles.ctaGlow} />
+                        <div className={styles.ctaContent}>
+                            <h2 className={styles.ctaTitle}>
+                                Ready to Trade with Institutional AI Intelligence?
+                            </h2>
+                            <p className={styles.ctaSubtitle}>
+                                Join thousands of elite forex and crypto traders leveraging ChronosX real-time neural vision and high-probability signals.
+                            </p>
+                        </div>
+                        <div className={styles.ctaActionWrapper}>
+                            <Link href="/signup" className={styles.ctaButton}>
+                                <span>Get Started Now</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                            </Link>
+                        </div>
+                    </div>
+                </motion.section>
+            </div>
+        </div>
+    );
+}
