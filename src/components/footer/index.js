@@ -41,7 +41,6 @@ export default function Footer() {
               <li><Link href="/trade-snap">AI Chart Analysis</Link></li>
               <li><Link href="/ai-assistant">AI Chat Analysis</Link></li>
               <li><Link href="/ai-strategy/live">AI Strategies & Indicators</Link></li>
-              <li><Link href="/capabilities">Capabilities & Vision</Link></li>
             </ul>
           </div>
 

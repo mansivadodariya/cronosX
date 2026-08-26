@@ -7,9 +7,19 @@
     padding: 24px 20px 48px;
     color: #FFFFFF;
     font-family: "Euclid-Regular", sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+
+    @include respond-to('lg') {
+        padding: 20px 16px 42px;
+    }
+
+    @include respond-to('tab') {
+        padding: 16px 12px 36px;
+    }
 
     @include respond-to('sm') {
-        padding: 16px 12px 36px;
+        padding: 12px 8px 30px;
     }
 }
 
@@ -18,16 +28,37 @@
     margin-bottom: 28px;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     flex-wrap: wrap;
     gap: 16px;
     padding-bottom: 20px;
     border-bottom: 1px solid rgba(193, 144, 46, 0.2);
 
+    @include respond-to('tab') {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+    }
+
+    @include respond-to('sm') {
+        gap: 12px;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+    }
+
     .titleWrap {
         display: flex;
         align-items: center;
         gap: 14px;
+        flex: 1;
+        min-width: 0;
+
+        @include respond-to('sm') {
+            gap: 10px;
+            align-items: flex-start;
+        }
 
         .calcIconBadge {
             width: 48px;
@@ -41,6 +72,23 @@
             color: #F4D17A;
             box-shadow: 0 0 20px rgba(244, 209, 122, 0.15);
             flex-shrink: 0;
+
+            @include respond-to('tab') {
+                width: 42px;
+                height: 42px;
+                border-radius: 12px;
+            }
+
+            @include respond-to('sm') {
+                width: 38px;
+                height: 38px;
+                border-radius: 10px;
+
+                svg {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
         }
 
         h1 {
@@ -50,12 +98,35 @@
             color: #FFFFFF;
             font-family: "Euclid-Bold", sans-serif;
             letter-spacing: -0.3px;
+            word-break: break-word;
+
+            @include respond-to('lg') {
+                font-size: 24px;
+            }
+
+            @include respond-to('tab') {
+                font-size: 21px;
+            }
+
+            @include respond-to('sm') {
+                font-size: 18px;
+                line-height: 1.3;
+            }
         }
 
         p {
             margin: 0;
             font-size: 14px;
             color: rgba(255, 255, 255, 0.65);
+            line-height: 1.4;
+
+            @include respond-to('tab') {
+                font-size: 13px;
+            }
+
+            @include respond-to('sm') {
+                font-size: 12px;
+            }
         }
     }
 
@@ -72,6 +143,12 @@
         padding: 6px 12px;
         border-radius: 20px;
         text-transform: uppercase;
+        white-space: nowrap;
+
+        @include respond-to('sm') {
+            font-size: 10px;
+            padding: 4px 10px;
+        }
     }
 }
 
@@ -85,15 +162,29 @@
     border-radius: 14px;
     margin-bottom: 28px;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
 
     &::-webkit-scrollbar {
         display: none;
     }
 
+    @include respond-to('tab') {
+        gap: 6px;
+        padding: 5px;
+        margin-bottom: 22px;
+    }
+
+    @include respond-to('sm') {
+        border-radius: 10px;
+        gap: 4px;
+        padding: 4px;
+        margin-bottom: 18px;
+    }
+
     .tabBtn {
         flex: 1;
-        min-width: 120px;
+        min-width: 110px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -108,6 +199,25 @@
         cursor: pointer;
         transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
         white-space: nowrap;
+
+        @include respond-to('tab') {
+            padding: 10px 14px;
+            font-size: 13px;
+            min-width: 95px;
+            gap: 6px;
+        }
+
+        @include respond-to('sm') {
+            padding: 8px 10px;
+            font-size: 12px;
+            min-width: 85px;
+            border-radius: 8px;
+
+            svg {
+                width: 14px;
+                height: 14px;
+            }
+        }
 
         &:hover {
             color: #FFFFFF;
@@ -128,9 +238,20 @@
     display: grid;
     grid-template-columns: 1.15fr 0.85fr;
     gap: 24px;
+    align-items: flex-start;
 
-    @media (max-width: 900px) {
+    @include respond-to('lg') {
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 20px;
+    }
+
+    @include respond-to('md') {
         grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    @include respond-to('sm') {
+        gap: 16px;
     }
 }
 
@@ -141,9 +262,16 @@
     border-radius: 20px;
     padding: 28px;
     box-shadow: 0 18px 48px rgba(0, 0, 0, 0.7);
+    box-sizing: border-box;
+
+    @include respond-to('tab') {
+        padding: 22px 20px;
+        border-radius: 16px;
+    }
 
     @include respond-to('sm') {
-        padding: 20px 16px;
+        padding: 18px 14px;
+        border-radius: 14px;
     }
 
     .cardHeader {
@@ -151,6 +279,12 @@
         align-items: center;
         justify-content: space-between;
         margin-bottom: 22px;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        @include respond-to('sm') {
+            margin-bottom: 16px;
+        }
 
         h2 {
             font-size: 19px;
@@ -158,6 +292,10 @@
             margin: 0;
             color: #FFFFFF;
             font-family: "Euclid-Bold", sans-serif;
+
+            @include respond-to('sm') {
+                font-size: 17px;
+            }
         }
 
         span {
@@ -167,6 +305,12 @@
             border: 1px solid rgba(244, 209, 122, 0.2);
             padding: 3px 8px;
             border-radius: 6px;
+            white-space: nowrap;
+
+            @include respond-to('sm') {
+                font-size: 11px;
+                padding: 2px 6px;
+            }
         }
     }
 }
@@ -176,8 +320,9 @@
     grid-template-columns: 1fr 1fr;
     gap: 18px;
 
-    @media (max-width: 600px) {
+    @include respond-to('sm') {
         grid-template-columns: 1fr;
+        gap: 14px;
     }
 
     .fullWidth {
@@ -190,6 +335,10 @@
     flex-direction: column;
     gap: 8px;
 
+    @include respond-to('sm') {
+        gap: 6px;
+    }
+
     label {
         font-size: 13px;
         font-weight: 600;
@@ -197,11 +346,21 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        flex-wrap: wrap;
+        gap: 4px;
+
+        @include respond-to('sm') {
+            font-size: 12px;
+        }
 
         .hint {
             font-size: 11px;
             color: rgba(255, 255, 255, 0.45);
             font-weight: normal;
+
+            @include respond-to('sm') {
+                font-size: 10.5px;
+            }
         }
     }
 
@@ -218,6 +377,13 @@
         outline: none;
         transition: all 0.2s ease;
         box-sizing: border-box;
+
+        @include respond-to('sm') {
+            height: 42px;
+            font-size: 13px;
+            padding: 0 12px;
+            border-radius: 8px;
+        }
 
         &:focus {
             border-color: #F4D17A;
@@ -263,6 +429,13 @@
         outline: none;
         transition: all 0.2s ease;
         box-sizing: border-box;
+
+        @include respond-to('sm') {
+            height: 42px;
+            font-size: 13px;
+            padding: 0 12px;
+            border-radius: 8px;
+        }
 
         &:hover {
             border-color: rgba(244, 209, 122, 0.5);
@@ -332,6 +505,11 @@
         cursor: pointer;
         transition: all 0.15s ease;
 
+        @include respond-to('sm') {
+            padding: 8px 10px;
+            font-size: 12.5px;
+        }
+
         &:hover {
             background: rgba(244, 209, 122, 0.12);
             color: #FFFFFF;
@@ -372,6 +550,11 @@
         cursor: pointer;
         transition: all 0.15s ease;
 
+        @include respond-to('sm') {
+            padding: 3px 8px;
+            font-size: 10.5px;
+        }
+
         &:hover {
             border-color: #F4D17A;
             color: #F4D17A;
@@ -395,6 +578,12 @@
     border: 1px solid rgba(193, 144, 46, 0.2);
     border-radius: 10px;
 
+    @include respond-to('sm') {
+        gap: 6px;
+        padding: 3px;
+        border-radius: 8px;
+    }
+
     .switchBtn {
         flex: 1;
         padding: 10px;
@@ -406,6 +595,12 @@
         background: transparent;
         color: rgba(255, 255, 255, 0.6);
         transition: all 0.2s ease;
+        text-align: center;
+
+        @include respond-to('sm') {
+            padding: 8px 6px;
+            font-size: 12px;
+        }
 
         &.buyActive {
             background: rgba(0, 230, 118, 0.15);
@@ -431,6 +626,10 @@
 .actionBtnRow {
     margin-top: 24px;
 
+    @include respond-to('sm') {
+        margin-top: 18px;
+    }
+
     .calculateBtn {
         width: 100%;
         height: 48px;
@@ -448,10 +647,20 @@
         box-shadow: 0 8px 24px rgba(244, 209, 122, 0.25);
         transition: all 0.22s ease;
 
+        @include respond-to('sm') {
+            height: 44px;
+            font-size: 14px;
+            border-radius: 10px;
+        }
+
         &:hover {
             transform: translateY(-1px);
             box-shadow: 0 10px 28px rgba(244, 209, 122, 0.35);
             filter: brightness(1.05);
+
+            @include respond-to('sm') {
+                transform: none;
+            }
         }
 
         &:active {
@@ -470,9 +679,16 @@
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 20px 52px rgba(0, 0, 0, 0.8), 0 0 24px rgba(244, 209, 122, 0.06);
+    box-sizing: border-box;
+
+    @include respond-to('tab') {
+        padding: 22px 20px;
+        border-radius: 16px;
+    }
 
     @include respond-to('sm') {
-        padding: 20px 16px;
+        padding: 18px 14px;
+        border-radius: 14px;
     }
 
     .resultHeader {
@@ -482,6 +698,13 @@
         margin-bottom: 20px;
         padding-bottom: 14px;
         border-bottom: 1px solid rgba(244, 209, 122, 0.15);
+        flex-wrap: wrap;
+        gap: 8px;
+
+        @include respond-to('sm') {
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+        }
 
         h3 {
             font-size: 16px;
@@ -491,6 +714,10 @@
             font-family: "Euclid-Bold", sans-serif;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+
+            @include respond-to('sm') {
+                font-size: 14.5px;
+            }
         }
 
         .copyBtn {
@@ -505,6 +732,11 @@
             align-items: center;
             gap: 5px;
             transition: all 0.2s ease;
+
+            @include respond-to('sm') {
+                font-size: 11px;
+                padding: 3px 8px;
+            }
 
             &:hover {
                 background: rgba(244, 209, 122, 0.15);
@@ -521,12 +753,23 @@
         text-align: center;
         margin-bottom: 20px;
 
+        @include respond-to('sm') {
+            padding: 16px 12px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+
         .resultLabel {
             font-size: 12px;
             color: rgba(255, 255, 255, 0.6);
             text-transform: uppercase;
             letter-spacing: 0.8px;
             margin-bottom: 8px;
+
+            @include respond-to('sm') {
+                font-size: 11px;
+                margin-bottom: 6px;
+            }
         }
 
         .resultValue {
@@ -535,6 +778,15 @@
             color: #F4D17A;
             font-family: "Euclid-Bold", sans-serif;
             letter-spacing: -0.5px;
+            word-break: break-word;
+
+            @include respond-to('tab') {
+                font-size: 30px;
+            }
+
+            @include respond-to('sm') {
+                font-size: 26px;
+            }
 
             &.positive {
                 color: #00E676;
@@ -549,6 +801,10 @@
             font-size: 12px;
             color: rgba(255, 255, 255, 0.5);
             margin-top: 6px;
+
+            @include respond-to('sm') {
+                font-size: 11px;
+            }
         }
     }
 
@@ -557,6 +813,11 @@
         flex-direction: column;
         gap: 12px;
         margin-bottom: 20px;
+
+        @include respond-to('sm') {
+            gap: 8px;
+            margin-bottom: 16px;
+        }
 
         .breakdownItem {
             display: flex;
@@ -568,6 +829,11 @@
             border-radius: 8px;
             font-size: 13px;
 
+            @include respond-to('sm') {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+
             span:first-child {
                 color: rgba(255, 255, 255, 0.65);
             }
@@ -577,6 +843,10 @@
                 color: #FFFFFF;
                 font-family: monospace;
                 font-size: 14px;
+
+                @include respond-to('sm') {
+                    font-size: 12.5px;
+                }
             }
         }
     }
@@ -587,6 +857,11 @@
         font-size: 12px;
         color: rgba(255, 255, 255, 0.45);
         line-height: 1.5;
+
+        @include respond-to('sm') {
+            font-size: 11px;
+            padding-top: 10px;
+        }
 
         strong {
             color: rgba(255, 255, 255, 0.7);
@@ -601,6 +876,11 @@
     margin-top: 12px;
     font-size: 13px;
 
+    @include respond-to('sm') {
+        font-size: 11.5px;
+        margin-top: 8px;
+    }
+
     th {
         text-align: left;
         padding: 8px 12px;
@@ -609,6 +889,11 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         font-size: 11px;
         text-transform: uppercase;
+
+        @include respond-to('sm') {
+            padding: 6px 8px;
+            font-size: 10px;
+        }
     }
 
     td {
@@ -616,6 +901,10 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         color: #FFFFFF;
         font-family: monospace;
+
+        @include respond-to('sm') {
+            padding: 7px 8px;
+        }
 
         &:first-child {
             font-family: inherit;

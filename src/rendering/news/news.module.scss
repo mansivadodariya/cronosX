@@ -7,9 +7,23 @@
     padding: 24px 20px 60px;
     color: #FFFFFF;
     font-family: "Euclid-Regular", sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+
+    @include respond-to('lg') {
+        padding: 20px 16px 50px;
+    }
+
+    @include respond-to('md') {
+        padding: 18px 14px 45px;
+    }
+
+    @include respond-to('tab') {
+        padding: 16px 12px 40px;
+    }
 
     @include respond-to('sm') {
-        padding: 16px 12px 40px;
+        padding: 12px 8px 30px;
     }
 }
 
@@ -18,16 +32,37 @@
     margin-bottom: 28px;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     flex-wrap: wrap;
     gap: 16px;
     padding-bottom: 22px;
     border-bottom: 1px solid rgba(193, 144, 46, 0.2);
 
+    @include respond-to('tab') {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        margin-bottom: 20px;
+        padding-bottom: 18px;
+    }
+
+    @include respond-to('sm') {
+        gap: 12px;
+        margin-bottom: 16px;
+        padding-bottom: 14px;
+    }
+
     .titleWrap {
         display: flex;
         align-items: center;
         gap: 14px;
+        flex: 1;
+        min-width: 0;
+
+        @include respond-to('sm') {
+            gap: 10px;
+            align-items: flex-start;
+        }
 
         .newsIconBadge {
             width: 48px;
@@ -41,6 +76,23 @@
             color: #F4D17A;
             box-shadow: 0 0 20px rgba(244, 209, 122, 0.15);
             flex-shrink: 0;
+
+            @include respond-to('tab') {
+                width: 42px;
+                height: 42px;
+                border-radius: 12px;
+            }
+
+            @include respond-to('sm') {
+                width: 38px;
+                height: 38px;
+                border-radius: 10px;
+
+                svg {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
         }
 
         h1 {
@@ -50,9 +102,20 @@
             color: #FFFFFF;
             font-family: "Euclid-Bold", sans-serif;
             letter-spacing: -0.2px;
+            word-break: break-word;
+
+            @include respond-to('lg') {
+                font-size: 22px;
+            }
+
+            @include respond-to('tab') {
+                font-size: 20px;
+            }
 
             @include respond-to('sm') {
-                font-size: 20px;
+                font-size: 17px;
+                line-height: 1.3;
+                margin-bottom: 2px;
             }
         }
 
@@ -61,11 +124,20 @@
             color: rgba(255, 255, 255, 0.65);
             margin: 0;
             line-height: 1.4;
+
+            @include respond-to('tab') {
+                font-size: 13px;
+            }
+
+            @include respond-to('sm') {
+                font-size: 12px;
+                line-height: 1.35;
+            }
         }
     }
 
     .liveIndicator {
-        display: flex;
+        display: inline-flex;
         align-items: center;
         gap: 8px;
         background: rgba(34, 197, 94, 0.1);
@@ -76,6 +148,20 @@
         font-weight: 700;
         color: #4ADE80;
         letter-spacing: 0.5px;
+        white-space: nowrap;
+        flex-shrink: 0;
+
+        @include respond-to('tab') {
+            align-self: flex-start;
+            font-size: 11px;
+            padding: 5px 12px;
+        }
+
+        @include respond-to('sm') {
+            font-size: 10.5px;
+            padding: 4px 10px;
+            gap: 6px;
+        }
 
         .liveDot {
             width: 7px;
@@ -84,6 +170,11 @@
             border-radius: 50%;
             box-shadow: 0 0 8px #22C55E;
             animation: pulse 1.8s infinite;
+
+            @include respond-to('sm') {
+                width: 6px;
+                height: 6px;
+            }
         }
     }
 }
@@ -100,6 +191,19 @@
     padding: 18px 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 
+    @include respond-to('md') {
+        padding: 16px 16px;
+        gap: 14px;
+        margin-bottom: 22px;
+    }
+
+    @include respond-to('sm') {
+        padding: 14px 12px;
+        gap: 12px;
+        border-radius: 12px;
+        margin-bottom: 18px;
+    }
+
     .topControls {
         display: flex;
         align-items: center;
@@ -107,10 +211,25 @@
         flex-wrap: wrap;
         gap: 14px;
 
+        @include respond-to('lg') {
+            gap: 12px;
+        }
+
+        @include respond-to('md') {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 12px;
+        }
+
         .searchBox {
             flex: 1;
             min-width: 260px;
             position: relative;
+
+            @include respond-to('md') {
+                width: 100%;
+                min-width: 100%;
+            }
 
             svg {
                 position: absolute;
@@ -119,10 +238,17 @@
                 transform: translateY(-50%);
                 color: rgba(244, 209, 122, 0.6);
                 pointer-events: none;
+
+                @include respond-to('sm') {
+                    left: 12px;
+                    width: 14px;
+                    height: 14px;
+                }
             }
 
             input {
                 width: 100%;
+                box-sizing: border-box;
                 background: #101210;
                 border: 1px solid rgba(193, 144, 46, 0.2);
                 border-radius: 10px;
@@ -131,6 +257,12 @@
                 font-size: 13.5px;
                 outline: none;
                 transition: all 0.2s ease;
+
+                @include respond-to('sm') {
+                    padding: 9px 12px 9px 36px;
+                    font-size: 12.5px;
+                    border-radius: 8px;
+                }
 
                 &::placeholder {
                     color: rgba(255, 255, 255, 0.4);
@@ -149,9 +281,22 @@
             flex-wrap: wrap;
             gap: 10px;
 
+            @include respond-to('md') {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            @include respond-to('sm') {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+                width: 100%;
+            }
+
             .togglePill {
                 display: inline-flex;
                 align-items: center;
+                justify-content: center;
                 gap: 6px;
                 padding: 8px 14px;
                 background: #101210;
@@ -161,6 +306,14 @@
                 font-size: 12.5px;
                 cursor: pointer;
                 transition: all 0.2s ease;
+                white-space: nowrap;
+
+                @include respond-to('sm') {
+                    padding: 8px 10px;
+                    font-size: 11.5px;
+                    border-radius: 8px;
+                    text-align: center;
+                }
 
                 &:hover {
                     border-color: rgba(244, 209, 122, 0.35);
@@ -186,8 +339,17 @@
                 cursor: pointer;
                 display: inline-flex;
                 align-items: center;
+                justify-content: center;
                 gap: 6px;
                 transition: all 0.2s ease;
+                white-space: nowrap;
+
+                @include respond-to('sm') {
+                    grid-column: span 2;
+                    padding: 8px 12px;
+                    font-size: 12px;
+                    border-radius: 8px;
+                }
 
                 &:hover {
                     background: rgba(244, 209, 122, 0.15);
@@ -207,6 +369,10 @@
         flex-wrap: wrap;
         gap: 8px;
 
+        @include respond-to('sm') {
+            gap: 6px;
+        }
+
         .catBtn {
             padding: 6px 14px;
             background: #101210;
@@ -216,6 +382,18 @@
             font-size: 12.5px;
             cursor: pointer;
             transition: all 0.2s ease;
+            white-space: nowrap;
+
+            @include respond-to('tab') {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            @include respond-to('sm') {
+                font-size: 11px;
+                padding: 5px 10px;
+                border-radius: 6px;
+            }
 
             &:hover {
                 color: #FFFFFF;
@@ -237,13 +415,26 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    width: 100%;
+
+    @include respond-to('lg') {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+
+    @include respond-to('md') {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
 
     @include respond-to('tab') {
         grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
     }
 
     @include respond-to('sm') {
         grid-template-columns: 1fr;
+        gap: 12px;
     }
 }
 
@@ -259,11 +450,26 @@
     transition: all 0.25s ease;
     position: relative;
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+
+    @include respond-to('tab') {
+        padding: 16px 16px;
+        border-radius: 12px;
+    }
+
+    @include respond-to('sm') {
+        padding: 14px 14px;
+        border-radius: 12px;
+    }
 
     &:hover {
         transform: translateY(-3px);
         border-color: rgba(244, 209, 122, 0.5);
         box-shadow: 0 8px 28px rgba(0, 0, 0, 0.7), 0 0 16px rgba(244, 209, 122, 0.1);
+
+        @include respond-to('sm') {
+            transform: none; // Reduce motion on small mobile
+        }
     }
 
     .cardTopRow {
@@ -272,6 +478,11 @@
         justify-content: space-between;
         gap: 8px;
         margin-bottom: 12px;
+        flex-wrap: wrap;
+
+        @include respond-to('sm') {
+            margin-bottom: 10px;
+        }
 
         .sourceBadge {
             font-size: 11px;
@@ -283,16 +494,32 @@
             border: 1px solid rgba(244, 209, 122, 0.25);
             padding: 3px 8px;
             border-radius: 6px;
+            white-space: nowrap;
+
+            @include respond-to('sm') {
+                font-size: 10px;
+                padding: 2px 6px;
+            }
         }
 
         .metaRight {
             display: flex;
             align-items: center;
             gap: 8px;
+            flex-wrap: wrap;
+
+            @include respond-to('sm') {
+                gap: 6px;
+            }
 
             .timeAgo {
                 font-size: 11px;
                 color: rgba(255, 255, 255, 0.45);
+                white-space: nowrap;
+
+                @include respond-to('sm') {
+                    font-size: 10.5px;
+                }
             }
 
             .impactBadge {
@@ -301,6 +528,12 @@
                 padding: 2px 7px;
                 border-radius: 5px;
                 text-transform: uppercase;
+                white-space: nowrap;
+
+                @include respond-to('sm') {
+                    font-size: 9.5px;
+                    padding: 2px 5px;
+                }
 
                 &.impactHigh {
                     background: rgba(239, 68, 68, 0.18);
@@ -334,6 +567,17 @@
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
+        word-break: break-word;
+
+        @include respond-to('tab') {
+            font-size: 14.5px;
+        }
+
+        @include respond-to('sm') {
+            font-size: 13.5px;
+            line-height: 1.35;
+            margin-bottom: 8px;
+        }
     }
 
     .cardDesc {
@@ -345,6 +589,14 @@
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         overflow: hidden;
+        word-break: break-word;
+
+        @include respond-to('sm') {
+            font-size: 12px;
+            line-height: 1.45;
+            margin-bottom: 10px;
+            -webkit-line-clamp: 2;
+        }
     }
 
     .tickersRow {
@@ -354,6 +606,11 @@
         gap: 6px;
         margin-bottom: 14px;
 
+        @include respond-to('sm') {
+            gap: 5px;
+            margin-bottom: 12px;
+        }
+
         .tickerTag {
             font-size: 11px;
             font-weight: 600;
@@ -362,6 +619,12 @@
             color: #E2E8F0;
             padding: 3px 8px;
             border-radius: 6px;
+            white-space: nowrap;
+
+            @include respond-to('sm') {
+                font-size: 10px;
+                padding: 2px 6px;
+            }
         }
 
         .biasTag {
@@ -369,6 +632,12 @@
             font-weight: 700;
             padding: 3px 8px;
             border-radius: 6px;
+            white-space: nowrap;
+
+            @include respond-to('sm') {
+                font-size: 10px;
+                padding: 2px 6px;
+            }
 
             &.bullish {
                 background: rgba(34, 197, 94, 0.15);
@@ -398,6 +667,11 @@
         padding-top: 14px;
         border-top: 1px solid rgba(255, 255, 255, 0.08);
 
+        @include respond-to('sm') {
+            padding-top: 10px;
+            gap: 8px;
+        }
+
         .deepDiveBtn {
             flex: 1;
             padding: 8px 12px;
@@ -413,6 +687,12 @@
             justify-content: center;
             gap: 6px;
             transition: all 0.2s ease;
+            white-space: nowrap;
+
+            @include respond-to('sm') {
+                font-size: 11.5px;
+                padding: 7px 10px;
+            }
 
             &:hover {
                 background: linear-gradient(135deg, #F4D17A 0%, #D4AF37 100%);
@@ -432,6 +712,12 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: rgba(255, 255, 255, 0.6);
             transition: all 0.2s ease;
+            flex-shrink: 0;
+
+            @include respond-to('sm') {
+                width: 30px;
+                height: 30px;
+            }
 
             &:hover {
                 color: #F4D17A;
@@ -450,6 +736,12 @@
     padding: 80px 20px;
     gap: 16px;
     color: rgba(255, 255, 255, 0.65);
+    text-align: center;
+
+    @include respond-to('sm') {
+        padding: 50px 16px;
+        font-size: 13px;
+    }
 
     .spinner {
         width: 36px;
@@ -458,6 +750,11 @@
         border-top-color: #F4D17A;
         border-radius: 50%;
         animation: spin 0.8s linear infinite;
+
+        @include respond-to('sm') {
+            width: 30px;
+            height: 30px;
+        }
     }
 }
 
@@ -469,15 +766,28 @@
     border-radius: 16px;
     color: rgba(255, 255, 255, 0.6);
 
+    @include respond-to('sm') {
+        padding: 40px 16px;
+        border-radius: 12px;
+    }
+
     h3 {
         font-size: 18px;
         color: #FFFFFF;
         margin: 12px 0 6px;
+
+        @include respond-to('sm') {
+            font-size: 16px;
+        }
     }
 
     p {
         font-size: 13.5px;
         margin: 0 0 16px;
+
+        @include respond-to('sm') {
+            font-size: 12.5px;
+        }
     }
 
     button {
@@ -489,6 +799,11 @@
         font-size: 13px;
         font-weight: 600;
         cursor: pointer;
+
+        @include respond-to('sm') {
+            padding: 7px 14px;
+            font-size: 12px;
+        }
     }
 }
 
@@ -501,6 +816,11 @@
     flex-direction: column;
     gap: 12px;
 
+    @include respond-to('sm') {
+        margin-top: 24px;
+        gap: 10px;
+    }
+
     .loadMoreBtn {
         padding: 12px 32px;
         background: radial-gradient(120% 120% at 50% 0%, #2A2415 0%, #12100A 100%);
@@ -512,15 +832,29 @@
         cursor: pointer;
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 8px;
         box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
         transition: all 0.25s ease;
+        white-space: nowrap;
+
+        @include respond-to('sm') {
+            width: 100%;
+            max-width: 320px;
+            padding: 10px 20px;
+            font-size: 13px;
+            border-radius: 10px;
+        }
 
         &:hover:not(:disabled) {
             background: linear-gradient(135deg, #F4D17A 0%, #D4AF37 100%);
             color: #1A1200;
             transform: translateY(-2px);
             box-shadow: 0 6px 24px rgba(244, 209, 122, 0.3);
+
+            @include respond-to('sm') {
+                transform: none;
+            }
         }
 
         &:disabled {
@@ -532,6 +866,11 @@
     .countText {
         font-size: 12.5px;
         color: rgba(255, 255, 255, 0.5);
+        text-align: center;
+
+        @include respond-to('sm') {
+            font-size: 11.5px;
+        }
     }
 }
 
@@ -539,13 +878,24 @@
 .modalBackdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.78);
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     z-index: 9999;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
+    box-sizing: border-box;
+
+    @include respond-to('tab') {
+        padding: 14px;
+    }
+
+    @include respond-to('sm') {
+        padding: 10px;
+        align-items: flex-end; // Bottom sheet on mobile
+    }
 }
 
 .modalContent {
@@ -559,9 +909,20 @@
     padding: 28px 32px;
     position: relative;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(244, 209, 122, 0.12);
+    box-sizing: border-box;
+
+    @include respond-to('tab') {
+        max-width: 100%;
+        max-height: 88vh;
+        padding: 22px 20px;
+        border-radius: 16px;
+    }
 
     @include respond-to('sm') {
-        padding: 20px 16px;
+        max-width: 100%;
+        max-height: 90vh;
+        padding: 18px 14px;
+        border-radius: 16px 16px 10px 10px;
     }
 
     .closeBtn {
@@ -579,6 +940,15 @@
         justify-content: center;
         cursor: pointer;
         transition: all 0.2s ease;
+        z-index: 10;
+
+        @include respond-to('sm') {
+            top: 14px;
+            right: 14px;
+            width: 28px;
+            height: 28px;
+            font-size: 12px;
+        }
 
         &:hover {
             border-color: #F4D17A;
@@ -591,6 +961,13 @@
         margin-bottom: 24px;
         padding-bottom: 18px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-right: 36px; // Avoid close button overlap
+
+        @include respond-to('sm') {
+            margin-bottom: 16px;
+            padding-bottom: 14px;
+            padding-right: 30px;
+        }
 
         .modalBadgeRow {
             display: flex;
@@ -598,6 +975,11 @@
             gap: 10px;
             margin-bottom: 10px;
             flex-wrap: wrap;
+
+            @include respond-to('sm') {
+                gap: 6px;
+                margin-bottom: 8px;
+            }
 
             .source {
                 font-size: 11.5px;
@@ -607,11 +989,21 @@
                 border: 1px solid rgba(244, 209, 122, 0.3);
                 padding: 3px 10px;
                 border-radius: 6px;
+                white-space: nowrap;
+
+                @include respond-to('sm') {
+                    font-size: 10.5px;
+                    padding: 2px 8px;
+                }
             }
 
             .time {
                 font-size: 12px;
                 color: rgba(255, 255, 255, 0.5);
+
+                @include respond-to('sm') {
+                    font-size: 11px;
+                }
             }
         }
 
@@ -622,11 +1014,26 @@
             margin: 0 0 10px;
             line-height: 1.4;
             font-family: "Euclid-Bold", sans-serif;
+            word-break: break-word;
+
+            @include respond-to('tab') {
+                font-size: 18px;
+            }
+
+            @include respond-to('sm') {
+                font-size: 16px;
+                line-height: 1.35;
+                margin-bottom: 6px;
+            }
         }
     }
 
     .modalSection {
         margin-bottom: 22px;
+
+        @include respond-to('sm') {
+            margin-bottom: 16px;
+        }
 
         h4 {
             font-size: 13px;
@@ -638,6 +1045,11 @@
             display: flex;
             align-items: center;
             gap: 8px;
+
+            @include respond-to('sm') {
+                font-size: 12px;
+                margin-bottom: 8px;
+            }
         }
 
         p {
@@ -645,6 +1057,11 @@
             line-height: 1.6;
             color: rgba(255, 255, 255, 0.8);
             margin: 0;
+
+            @include respond-to('sm') {
+                font-size: 12.5px;
+                line-height: 1.5;
+            }
         }
     }
 
@@ -654,11 +1071,21 @@
         gap: 12px;
         margin-top: 10px;
 
+        @include respond-to('sm') {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
         .suggestionCard {
             background: #111410;
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             padding: 12px 14px;
+            box-sizing: border-box;
+
+            @include respond-to('sm') {
+                padding: 10px 12px;
+            }
 
             &.buy {
                 border-left: 3px solid #22C55E;
@@ -677,11 +1104,17 @@
                 align-items: center;
                 justify-content: space-between;
                 margin-bottom: 6px;
+                flex-wrap: wrap;
+                gap: 6px;
 
                 .asset {
                     font-size: 13px;
                     font-weight: 700;
                     color: #FFFFFF;
+
+                    @include respond-to('sm') {
+                        font-size: 12px;
+                    }
                 }
 
                 .direction {
@@ -690,6 +1123,11 @@
                     padding: 2px 6px;
                     border-radius: 4px;
                     text-transform: uppercase;
+                    white-space: nowrap;
+
+                    @include respond-to('sm') {
+                        font-size: 10px;
+                    }
 
                     &.bullish {
                         background: rgba(34, 197, 94, 0.2);
@@ -713,6 +1151,11 @@
                 color: rgba(255, 255, 255, 0.7);
                 line-height: 1.4;
                 margin: 0;
+
+                @include respond-to('sm') {
+                    font-size: 11.5px;
+                    line-height: 1.35;
+                }
             }
         }
     }
@@ -725,11 +1168,23 @@
         display: flex;
         flex-direction: column;
         gap: 12px;
+        box-sizing: border-box;
+
+        @include respond-to('sm') {
+            padding: 12px 10px;
+            gap: 10px;
+            border-radius: 10px;
+        }
 
         .scenarioItem {
             font-size: 13px;
             line-height: 1.5;
             color: rgba(255, 255, 255, 0.75);
+
+            @include respond-to('sm') {
+                font-size: 12px;
+                line-height: 1.4;
+            }
 
             strong {
                 color: #FFFFFF;
@@ -748,6 +1203,13 @@
         justify-content: flex-end;
         gap: 12px;
 
+        @include respond-to('sm') {
+            margin-top: 18px;
+            padding-top: 14px;
+            flex-direction: column;
+            width: 100%;
+        }
+
         .externalLinkBtn {
             padding: 10px 20px;
             background: linear-gradient(135deg, #F4D17A 0%, #D4AF37 100%);
@@ -758,8 +1220,17 @@
             text-decoration: none;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 6px;
             transition: all 0.2s ease;
+            white-space: nowrap;
+
+            @include respond-to('sm') {
+                width: 100%;
+                font-size: 12px;
+                padding: 9px 16px;
+                box-sizing: border-box;
+            }
 
             &:hover {
                 transform: translateY(-1px);

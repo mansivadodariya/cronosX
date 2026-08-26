@@ -8,13 +8,22 @@
     color: #FFFFFF;
     position: relative;
     overflow: hidden;
+    box-sizing: border-box;
+
+    @include respond-to('lg') {
+        padding: 120px 20px 70px;
+    }
 
     @include respond-to('md') {
         padding: 110px 16px 60px;
     }
 
+    @include respond-to('tab') {
+        padding: 100px 14px 50px;
+    }
+
     @include respond-to('sm') {
-        padding: 95px 12px 40px;
+        padding: 90px 10px 40px;
     }
 
     // Ambient gold glow backdrops
@@ -29,6 +38,12 @@
         background: radial-gradient(circle, rgba(244, 209, 122, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
         pointer-events: none;
         z-index: 0;
+
+        @include respond-to('sm') {
+            width: 320px;
+            height: 240px;
+            top: 40px;
+        }
     }
 
     .container {
@@ -36,6 +51,8 @@
         margin: 0 auto;
         position: relative;
         z-index: 1;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .heroCtaBanner {
@@ -50,20 +67,55 @@
         flex-wrap: wrap;
         gap: 20px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        box-sizing: border-box;
+
+        @include respond-to('tab') {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 24px 20px;
+            gap: 16px;
+            margin-top: 36px;
+        }
+
+        @include respond-to('sm') {
+            padding: 20px 16px;
+            border-radius: 14px;
+            gap: 14px;
+            margin-top: 28px;
+        }
 
         .ctaContent {
+            flex: 1;
+            min-width: 0;
+
             h3 {
                 font-size: 20px;
                 color: #FFFFFF;
                 font-weight: 700;
                 margin: 0 0 6px;
                 font-family: "Euclid-Bold", sans-serif;
+                word-break: break-word;
+
+                @include respond-to('tab') {
+                    font-size: 18px;
+                }
+
+                @include respond-to('sm') {
+                    font-size: 16.5px;
+                    line-height: 1.35;
+                }
             }
 
             p {
                 margin: 0;
                 font-size: 14px;
                 color: rgba(255, 255, 255, 0.65);
+                line-height: 1.5;
+
+                @include respond-to('sm') {
+                    font-size: 12.5px;
+                    line-height: 1.45;
+                }
             }
         }
 
@@ -77,13 +129,33 @@
             text-decoration: none;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             box-shadow: 0 4px 18px rgba(244, 209, 122, 0.3);
             transition: all 0.25s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+
+            @include respond-to('tab') {
+                width: 100%;
+                box-sizing: border-box;
+                padding: 11px 20px;
+                font-size: 13.5px;
+            }
+
+            @include respond-to('sm') {
+                font-size: 13px;
+                padding: 10px 16px;
+                border-radius: 8px;
+            }
 
             &:hover {
                 transform: translateY(-2px);
                 box-shadow: 0 6px 24px rgba(244, 209, 122, 0.45);
+
+                @include respond-to('sm') {
+                    transform: none;
+                }
             }
         }
     }
