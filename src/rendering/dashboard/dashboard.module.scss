@@ -132,15 +132,14 @@ $danger: #F87171;
 .hologramHero {
     background: #030404;
     border: 1px solid rgba(193, 144, 46, 0.45);
-    border-radius: 20px;
+    border-radius: 18px;
     position: relative;
     overflow: hidden;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(244, 209, 122, 0.08);
-    padding: 32px 36px;
-    min-height: 280px;
+    padding: 22px 28px;
 
     @include respond-to('md') {
-        padding: 24px 20px;
+        padding: 18px 16px;
     }
 }
 
@@ -153,7 +152,7 @@ $danger: #F87171;
     .heroBackdropImg {
         object-fit: cover;
         object-position: center right;
-        opacity: 0.35;
+        opacity: 0.3;
     }
 
     .heroOverlayFade {
@@ -165,27 +164,17 @@ $danger: #F87171;
 }
 
 .heroGrid {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 28px;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
     position: relative;
     z-index: 2;
-
-    @include respond-to('lg') {
-        grid-template-columns: 1.1fr 1fr;
-        gap: 20px;
-    }
-
-    @include respond-to('md') {
-        grid-template-columns: 1fr;
-    }
+    width: 100%;
 }
 
 .heroLeftCol {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 10px;
 
     .heroTagPill {
         display: inline-flex;
@@ -204,14 +193,14 @@ $danger: #F87171;
 
     .heroHeadline {
         color: #FFFFFF;
-        font-size: 32px;
+        font-size: 26px;
         font-weight: 700;
         font-family: "Euclid-Bold", sans-serif;
         margin: 0;
-        line-height: 1.2;
+        line-height: 1.25;
 
         @include respond-to('sm') {
-            font-size: 22px;
+            font-size: 20px;
         }
 
         .nameGradient {
@@ -221,7 +210,7 @@ $danger: #F87171;
         }
 
         .wave {
-            font-size: 26px;
+            font-size: 22px;
             display: inline-block;
             animation: waveHand 2s infinite ease-in-out;
             -webkit-text-fill-color: initial;
@@ -231,9 +220,9 @@ $danger: #F87171;
     .heroSubtext {
         color: rgba(255, 255, 255, 0.7);
         font-size: 13.5px;
-        line-height: 1.6;
+        line-height: 1.5;
         margin: 0;
-        max-width: 520px;
+        max-width: 680px;
     }
 
     .heroFastActions {
@@ -885,14 +874,16 @@ $danger: #F87171;
     }
 }
 
-/* ============================================================
-   6. SPLIT BOTTOM GRID
-   ============================================================ */
 .splitBottomGrid {
     display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 20px;
+    grid-template-columns: 3fr 2fr;
+    gap: 24px;
     align-items: start;
+
+    @include respond-to('lg') {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
 
     @include respond-to('md') {
         grid-template-columns: 1fr;
@@ -1102,28 +1093,27 @@ $danger: #F87171;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 36px 20px;
-            gap: 12px;
+            justify-content: center;
+            min-height: 340px;
             text-align: center;
-            color: rgba(255, 255, 255, 0.65);
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.5);
 
             .emptyIconCircle {
                 width: 48px;
                 height: 48px;
                 border-radius: 50%;
-                background: radial-gradient(130% 100% at 50% 0%, #2A2415 0%, #12100A 100%);
-                border: 1px solid rgba(244, 209, 122, 0.35);
+                background: rgba(244, 209, 122, 0.08);
+                border: 1px solid rgba(244, 209, 122, 0.25);
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                box-shadow: 0 0 20px rgba(244, 209, 122, 0.12);
-                margin-bottom: 2px;
+                box-shadow: 0 0 16px rgba(244, 209, 122, 0.1);
             }
 
             p {
                 margin: 0;
-                font-size: 14px;
-                color: rgba(255, 255, 255, 0.6);
+                font-size: 13.5px;
             }
 
             .firstScanBtn {
@@ -1170,17 +1160,44 @@ $danger: #F87171;
     flex-direction: column;
     gap: 14px;
 
+    .hubHeader {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 33px;
+
+        h3 {
+            color: #FFFFFF;
+            font-size: 17px;
+            font-weight: 700;
+            margin: 0;
+            font-family: "Euclid-Bold", sans-serif;
+        }
+    }
+
+    .toolsGrid2x2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+
+        @include respond-to('sm') {
+            grid-template-columns: 1fr;
+        }
+    }
+
     .hubFeatureCard {
         background: #060706;
-        border: 1px solid $border;
+        border: 1px solid rgba(193, 144, 46, 0.25);
         border-radius: 16px;
-        padding: 18px 20px;
+        padding: 18px;
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
         gap: 10px;
+        min-height: 180px;
         text-decoration: none;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-        transition: all 0.2s ease;
+        transition: all 0.22s ease;
 
         &:hover {
             transform: translateY(-3px);
@@ -1201,55 +1218,40 @@ $danger: #F87171;
             justify-content: space-between;
 
             .hubIconCircleGold {
-                width: 38px;
-                height: 38px;
+                width: 36px;
+                height: 36px;
                 border-radius: 10px;
                 background: linear-gradient(180deg, #F4D17A 0%, #C1902E 100%);
                 display: flex;
                 align-items: center;
                 justify-content: center;
-            }
-
-            .hubIconCircleOrange {
-                width: 38px;
-                height: 38px;
-                border-radius: 10px;
-                background: linear-gradient(180deg, #FB923C 0%, #EA580C 100%);
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                box-shadow: 0 2px 10px rgba(244, 209, 122, 0.25);
             }
 
             .hubBadgeGold {
-                background: rgba(244, 209, 122, 0.15);
+                background: rgba(244, 209, 122, 0.12);
+                border: 1px solid rgba(244, 209, 122, 0.3);
                 color: #F4D17A;
-                font-size: 10px;
-                font-weight: 700;
-                padding: 2px 7px;
+                font-size: 9.5px;
+                font-weight: 800;
+                padding: 2px 8px;
                 border-radius: 4px;
-            }
-
-            .hubBadgeOrange {
-                background: rgba(251, 146, 60, 0.15);
-                color: #FB923C;
-                font-size: 10px;
-                font-weight: 700;
-                padding: 2px 7px;
-                border-radius: 4px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
             }
         }
 
         h4 {
             color: #FFFFFF;
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 700;
             font-family: "Euclid-Bold", sans-serif;
-            margin: 0;
+            margin: 6px 0 0;
         }
 
         p {
             color: rgba(255, 255, 255, 0.6);
-            font-size: 12px;
+            font-size: 11.5px;
             line-height: 1.5;
             margin: 0;
         }
@@ -1259,9 +1261,9 @@ $danger: #F87171;
             align-items: center;
             gap: 6px;
             color: #F4D17A;
-            font-size: 12.5px;
+            font-size: 12px;
             font-weight: 700;
-            margin-top: 4px;
+            margin-top: 6px;
             transition: color 0.2s ease;
 
             svg {
