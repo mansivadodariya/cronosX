@@ -28,6 +28,24 @@ export default function sitemap() {
             priority: 0.9,
         },
         {
+            url: `${baseUrl}/ai-trade`,
+            lastModified,
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        {
+            url: `${baseUrl}/ai-strategy`,
+            lastModified,
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        {
+            url: `${baseUrl}/ai-chat`,
+            lastModified,
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        {
             url: `${baseUrl}/about-us`,
             lastModified,
             changeFrequency: 'monthly',

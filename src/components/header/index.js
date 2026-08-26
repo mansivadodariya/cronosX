@@ -57,9 +57,9 @@ export default function Header() {
 
     const productDropdownItems = [
         {
-            label: 'AI Chart Analysis',
+            label: 'AI Trade Analysis',
             desc: 'Automated multi-timeframe pattern detection & key price levels',
-            href: getAuthHref('/'),
+            href: '/ai-trade',
             badge: 'POPULAR',
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -75,7 +75,7 @@ export default function Header() {
         {
             label: 'AI Chat Analysis',
             desc: 'Real-time conversational market intelligence & instant insights',
-            href: getAuthHref('/'),
+            href: '/ai-chat',
             badge: 'LIVE AI',
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -89,7 +89,7 @@ export default function Header() {
         {
             label: 'AI Strategies / Indicators Analysis',
             desc: 'Algorithmic backtesting, momentum breakout & strategy signals',
-            href: getAuthHref('/'),
+            href: '/strategy',
             badge: 'QUANT',
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
