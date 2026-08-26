@@ -3,37 +3,117 @@
 @use '../../scss/font/font.scss' as *;
 
 .footer {
-    padding: 120px 0 40px 0;
+    padding: 30px 0 40px 0;
     position: relative;
-    background: #040300;
+    background: #000000;
     overflow: hidden;
 
     @include respond-to("md") {
-        padding: 90px 0 36px 0;
+        padding: 24px 0 36px 0;
     }
 
     @include respond-to("sm") {
-        padding: 70px 0 30px 0;
-    }
-
-    &::before {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        max-width: 1200px;
-        width: 100%;
-        height: 140px;
-        background: radial-gradient(circle, rgba(244, 209, 122, 0.15) 0%, rgba(193, 144, 46, 0.06) 50%, transparent 75%);
-        filter: blur(80px);
-        pointer-events: none;
-        z-index: 1;
+        padding: 16px 0 30px 0;
     }
 
     :global(.container) {
         position: relative;
         z-index: 5;
+    }
+
+    // ==========================================
+    // Interactive Brand Signature
+    // Web: Cursor Tracking Reveal | Mobile: Auto Infinite Sweep
+    // ==========================================
+    .brandSignatureSection {
+        position: relative;
+        width: 100%;
+        margin-bottom: 48px;
+        padding: 16px 0 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: default;
+        user-select: none;
+        overflow: hidden;
+
+        @include respond-to("md") {
+            margin-bottom: 38px;
+            padding: 12px 0 0;
+        }
+
+        @include respond-to("sm") {
+            margin-bottom: 28px;
+            padding: 6px 0 0;
+        }
+
+        .signatureTypography {
+            font-family: var(--font-syne), "Syne", "Euclid-Bold", sans-serif;
+            font-size: clamp(52px, 14vw, 196px);
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 0.92;
+            margin: 0;
+            text-align: center;
+            width: 100%;
+            display: block;
+            pointer-events: none;
+            padding: 0;
+
+            @include respond-to("sm") {
+                letter-spacing: -0.03em;
+                line-height: 0.95;
+            }
+        }
+
+        // Base Layer: Clean, Shadowless Light Tone Text (No Shadow)
+        .baseLayer {
+            color: rgba(255, 255, 255, 0.16);
+            position: relative;
+            z-index: 1;
+            text-shadow: none;
+            background: none;
+        }
+
+        // Spotlight Hover Layer: Radiant 24K Luxury Gold Shine
+        .spotlightLayer {
+            position: absolute;
+            top: 16px;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #FFFFFF 0%, #FFF2B2 20%, #F4D17A 50%, #D4AF37 75%, #B8922C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            z-index: 2;
+            text-shadow: none;
+            filter: none;
+
+            // Desktop: Follows cursor
+            opacity: var(--hover-opacity, 0);
+            -webkit-mask-image: radial-gradient(circle 260px at var(--cursor-x, 50%) var(--cursor-y, 50%), black 35%, transparent 80%);
+            mask-image: radial-gradient(circle 260px at var(--cursor-x, 50%) var(--cursor-y, 50%), black 35%, transparent 80%);
+            transition: opacity 0.2s ease;
+
+            @include respond-to("md") {
+                top: 12px;
+            }
+
+            @include respond-to("tab") {
+                top: 10px;
+                // Mobile & Tablet: Auto Infinite Gold Shine Sweep Animation
+                opacity: 1 !important;
+                -webkit-mask-image: linear-gradient(115deg, transparent 20%, rgba(0, 0, 0, 1) 50%, transparent 80%) !important;
+                mask-image: linear-gradient(115deg, transparent 20%, rgba(0, 0, 0, 1) 50%, transparent 80%) !important;
+                -webkit-mask-size: 250% 100% !important;
+                mask-size: 250% 100% !important;
+                animation: autoSweepMobile 3.6s ease-in-out infinite alternate !important;
+            }
+
+            @include respond-to("sm") {
+                top: 6px;
+            }
+        }
     }
 
     .topSection {
@@ -240,5 +320,17 @@
                 }
             }
         }
+    }
+}
+
+// Mobile / Tablet Auto Infinite Shine Animation
+@keyframes autoSweepMobile {
+    0% {
+        -webkit-mask-position: 120% 0;
+        mask-position: 120% 0;
+    }
+    100% {
+        -webkit-mask-position: -20% 0;
+        mask-position: -20% 0;
     }
 }

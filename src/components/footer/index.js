@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useState, useRef } from 'react';
 import styles from './footer.module.scss';
 import Link from 'next/link';
 
@@ -13,9 +14,48 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const containerRef = useRef(null);
+  const [coords, setCoords] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    setCoords({ x, y });
+  };
+
   return (
     <footer className={styles.footer}>
       <div className='container'>
+        {/* Giant Interactive Brand Signature (Web: Cursor Hover Reveal | Mobile: Auto Infinite Sweep) */}
+        <div
+          ref={containerRef}
+          className={styles.brandSignatureSection}
+          onMouseMove={handleMouseMove}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          {/* Base Layer: Clean, Shadowless Light Tone Text */}
+          <h2 className={`${styles.signatureTypography} ${styles.baseLayer}`} aria-hidden="true">
+            ChronosX
+          </h2>
+
+          {/* Top Layer: 24K Luxury Gold Reveal (Web: Cursor tracking | Mobile: Auto Infinite Shimmer) */}
+          <h2
+            className={`${styles.signatureTypography} ${styles.spotlightLayer}`}
+            style={{
+              '--cursor-x': `${coords.x}px`,
+              '--cursor-y': `${coords.y}px`,
+              '--hover-opacity': isHovered ? 1 : 0,
+            }}
+          >
+            ChronosX
+          </h2>
+        </div>
+
+        {/* Navigation & Company Links */}
         <div className={styles.topSection}>
           {/* Brand Info */}
           <div className={styles.brandCol}>
@@ -38,10 +78,9 @@ export default function Footer() {
           <div className={styles.navCol}>
             <h4>PRODUCTS</h4>
             <ul>
-              <li><Link href="/trade-snap">AI Chart Analysis</Link></li>
-              <li><Link href="/ai-assistant">AI Chat Analysis</Link></li>
-              <li><Link href="/ai-strategy/live">AI Strategies & Indicators</Link></li>
-              <li><Link href="/capabilities">Capabilities & Vision</Link></li>
+              <li><Link href="/ai-trade">AI Trade Analysis</Link></li>
+              <li><Link href="/ai-chat">AI Chat Analysis</Link></li>
+              <li><Link href="/strategy">AI Strategies & Indicators</Link></li>
             </ul>
           </div>
 
@@ -70,7 +109,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* 4. Legal Column (From Screenshot) */}
+          {/* 4. Legal Column */}
           <div className={styles.navCol}>
             <h4>LEGAL</h4>
             <ul>
