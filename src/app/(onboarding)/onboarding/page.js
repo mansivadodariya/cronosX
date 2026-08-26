@@ -6,11 +6,10 @@ export const metadata = {
     description: 'Personalize your trading experience with ChronosX AI trading tools and market insights.',
 };
 
-export default function Page() {
+export default function OnboardingPage() {
     return (
         <main>
             <Onboarding />
         </main>
     );
 }
-

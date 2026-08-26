@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation';
 export default function WhatsappButton() {
     const pathname = usePathname();
     
-    // Hide WhatsApp button on dashboard, user, and auth pages
+    // Hide WhatsApp button on dashboard, user, auth, and onboarding pages
     const hideOnPaths = [
         '/dashboard',
         '/trade-snap',
@@ -25,7 +25,9 @@ export default function WhatsappButton() {
         '/signup',
         '/forgot-password',
         '/reset-password',
-        '/verify-email'
+        '/verify-email',
+        '/onboarding',
+        '/steper'
     ];
     
     const shouldHide = pathname && hideOnPaths.some(path => pathname.startsWith(path));

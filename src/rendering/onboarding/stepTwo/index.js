@@ -91,13 +91,18 @@ const HELP_OPTIONS = [
     },
 ];
 
-export default function StepTwo() {
-    const [selectedOptions, setSelectedOptions] = useState([]);
+export default function StepTwo({ selectedOptions: controlledOptions, onToggleOption }) {
+    const [internalOptions, setInternalOptions] = useState(['analyze_trades', 'ask_ai']);
+    const selectedOptions = controlledOptions !== undefined ? controlledOptions : internalOptions;
 
-    const toggleOption = (id) => {
-        setSelectedOptions((prev) =>
-            prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-        );
+    const handleToggle = (id) => {
+        if (onToggleOption) {
+            onToggleOption(id);
+        } else {
+            setInternalOptions((prev) =>
+                prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+            );
+        }
     };
 
     return (
@@ -124,7 +129,15 @@ export default function StepTwo() {
                                     opt.fullWidth && styles.fullWidthCard,
                                     isSelected && styles.selected
                                 )}
-                                onClick={() => toggleOption(opt.id)}
+                                onClick={() => handleToggle(opt.id)}
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        handleToggle(opt.id);
+                                    }
+                                }}
                             >
                                 <div className={styles.optionBadgeIcon}>
                                     <IconComponent />

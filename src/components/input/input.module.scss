@@ -112,39 +112,51 @@
             }
         }
 
-        .iconLeft~input {
-            padding-left: 48px;
+        .iconLeft~input,
+        input.hasIconLeft {
+            padding-left: 48px !important;
         }
 
-        input:has(~ .eyeBtn) {
-            padding-right: 48px;
+        input:has(~ .eyeBtn),
+        input.hasEyeBtn {
+            padding-right: 48px !important;
         }
 
         button.eyeBtn {
             position: absolute !important;
-            right: 14px !important;
-            width: 24px !important;
-            height: 24px !important;
+            right: 12px !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            width: 36px !important;
+            height: 36px !important;
             background: transparent !important;
             border: none !important;
-            padding: 0 !important;
+            padding: 6px !important;
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
             cursor: pointer !important;
             color: #C1902E !important;
-            transition: color 0.2s ease-in-out !important;
+            transition: color 0.2s ease-in-out, transform 0.15s ease !important;
             outline: none !important;
             box-shadow: none !important;
+            z-index: 10 !important;
+            pointer-events: auto !important;
+            user-select: none !important;
 
             &:hover {
                 color: #F4D17A !important;
+            }
+
+            &:active {
+                transform: translateY(-50%) scale(0.92) !important;
             }
 
             svg {
                 display: block !important;
                 width: 20px !important;
                 height: 20px !important;
+                pointer-events: none !important;
             }
         }
 

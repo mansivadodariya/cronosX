@@ -95,8 +95,17 @@ const EXPERIENCE_OPTIONS = [
     },
 ];
 
-export default function Step() {
-    const [selectedLevel, setSelectedLevel] = useState('beginner');
+export default function Step({ selectedLevel: controlledLevel, onSelectLevel }) {
+    const [internalLevel, setInternalLevel] = useState('beginner');
+    const selectedLevel = controlledLevel !== undefined ? controlledLevel : internalLevel;
+
+    const handleSelect = (id) => {
+        if (onSelectLevel) {
+            onSelectLevel(id);
+        } else {
+            setInternalLevel(id);
+        }
+    };
 
     return (
         <div className={styles.stepContainer}>
@@ -131,7 +140,15 @@ export default function Step() {
                         <div
                             key={opt.id}
                             className={classNames(styles.experienceCard, isSelected && styles.selected)}
-                            onClick={() => setSelectedLevel(opt.id)}
+                            onClick={() => handleSelect(opt.id)}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    handleSelect(opt.id);
+                                }
+                            }}
                         >
                             {/* Radio Circle (Top Right) */}
                             <div className={classNames(styles.radioCircle, isSelected && styles.checked)}>

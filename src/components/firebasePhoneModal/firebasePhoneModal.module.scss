@@ -7,8 +7,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(18, 18, 18, 0.45);
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,15 +17,15 @@
 }
 
 .modalCard {
-    background: #FFFFFF;
-    border: 1px solid rgba(26, 26, 26, 0.14);
+    background: radial-gradient(130% 100% at 50% 0%, #171510 0%, #0A0A0D 100%);
+    border: 1px solid rgba(244, 209, 122, 0.35);
     border-radius: 20px;
     width: 100%;
     max-width: 460px;
     padding: 36px 28px 32px;
     position: relative;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    color: #121212;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.95), 0 0 32px rgba(244, 209, 122, 0.08);
+    color: #FFFFFF;
     overflow: hidden;
 
     @include respond-to('sm') {
@@ -36,14 +36,15 @@
 
 .topGlowLayer {
     border-radius: 442px;
-    background: #0B56DB;
-    filter: blur(46.8px);
-    width: 90%;
-    height: 18px;
+    background: #F4D17A;
+    filter: blur(36px);
+    width: 80%;
+    height: 14px;
     position: absolute;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
+    opacity: 0.25;
     pointer-events: none;
 }
 
@@ -51,9 +52,9 @@
     position: absolute;
     top: 16px;
     right: 16px;
-    background: #F1F5F9;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    color: #64748B;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(244, 209, 122, 0.25);
+    color: rgba(255, 255, 255, 0.7);
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -66,8 +67,10 @@
     z-index: 10;
 
     &:hover {
-        background: #E2E8F0;
-        color: #0F172A;
+        background: rgba(244, 209, 122, 0.15);
+        color: #F4D17A;
+        border-color: #F4D17A;
+        transform: scale(1.05);
     }
 }
 
@@ -84,20 +87,22 @@
     width: 64px;
     height: 64px;
     border-radius: 50%;
-    background: #DCFCE7;
-    border: 2px solid #86EFAC;
+    background: rgba(16, 185, 129, 0.15);
+    border: 2px solid rgba(16, 185, 129, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 16px;
+    color: #10B981;
 }
 
 .title {
     font-size: 22px;
     font-weight: 700;
-    color: #121212;
+    color: #FFFFFF;
     margin: 0 0 8px;
     letter-spacing: -0.3px;
+    font-family: "Euclid-Bold", sans-serif;
 
     @include respond-to('sm') {
         font-size: 20px;
@@ -106,13 +111,14 @@
 
 .subtitle {
     font-size: 14px;
-    color: #64748B;
+    color: rgba(255, 255, 255, 0.65);
     line-height: 1.5;
     margin: 0 0 20px;
     max-width: 380px;
+    font-family: "Euclid-Regular", sans-serif;
 
     strong {
-        color: #0B56DB;
+        color: #F4D17A;
         font-weight: 700;
     }
 }
@@ -126,37 +132,37 @@
 .customPhoneInput {
     display: flex;
     align-items: center;
-    background: #F8FAFC;
-    border: 1px solid rgba(26, 26, 26, 0.15);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(244, 209, 122, 0.25);
     border-radius: 8px;
     padding: 10px 14px;
-    color: #121212;
+    color: #FFFFFF;
     transition: all 0.2s ease;
 
     &:focus-within {
-        border-color: #0B56DB;
-        box-shadow: 0 0 0 3px rgba(11, 86, 219, 0.15);
-        background: #FFFFFF;
+        border-color: #F4D17A;
+        box-shadow: 0 0 0 3px rgba(244, 209, 122, 0.15);
+        background: rgba(255, 255, 255, 0.07);
     }
 
     :global(.PhoneInputInput) {
         background: transparent;
         border: none;
         outline: none;
-        color: #121212;
+        color: #FFFFFF;
         font-size: 15px;
         font-weight: 500;
         width: 100%;
         margin-left: 8px;
 
         &::placeholder {
-            color: #94A3B8;
+            color: rgba(255, 255, 255, 0.4);
         }
     }
 
     :global(.PhoneInputCountrySelect) {
-        background: #FFFFFF;
-        color: #121212;
+        background: #0A0A0D;
+        color: #FFFFFF;
     }
 }
 
@@ -172,9 +178,9 @@
     width: 48px;
     height: 52px;
     border-radius: 8px;
-    background: #F8FAFC;
-    border: 1px solid rgba(26, 26, 26, 0.15);
-    color: #121212;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(244, 209, 122, 0.25);
+    color: #FFFFFF;
     font-size: 20px;
     font-weight: 700;
     text-align: center;
@@ -182,23 +188,23 @@
     transition: all 0.2s ease;
 
     &:focus {
-        border-color: #0B56DB;
-        box-shadow: 0 0 0 3px rgba(11, 86, 219, 0.15);
-        background: #FFFFFF;
+        border-color: #F4D17A;
+        box-shadow: 0 0 0 3px rgba(244, 209, 122, 0.2);
+        background: rgba(255, 255, 255, 0.08);
         transform: translateY(-1px);
     }
 
     &.filled {
-        background: #EBF2FC;
-        border-color: #0B56DB;
-        color: #0B56DB;
+        background: rgba(244, 209, 122, 0.12);
+        border-color: #F4D17A;
+        color: #F4D17A;
     }
 }
 
 .errorBanner {
-    background: #FEF2F2;
-    border: 1px solid #FECACA;
-    color: #DC2626;
+    background: rgba(255, 87, 87, 0.15);
+    border: 1px solid rgba(255, 87, 87, 0.4);
+    color: #FF7070;
     font-size: 13px;
     padding: 10px 14px;
     border-radius: 8px;
@@ -214,17 +220,17 @@
 .resendRow {
     margin-top: 16px;
     font-size: 13px;
-    color: #64748B;
+    color: rgba(255, 255, 255, 0.6);
 
     strong {
-        color: #0B56DB;
+        color: #F4D17A;
     }
 }
 
 .resendBtn {
     background: none;
     border: none;
-    color: #0B56DB;
+    color: #F4D17A;
     font-weight: 700;
     font-size: 13px;
     cursor: pointer;

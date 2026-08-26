@@ -54,53 +54,40 @@ const ContinueWithGoogle = ({ redirectTo = '/dashboard', onPendingPhone }) => {
             const accessToken = extractAccessToken(result);
 
             if (accessToken) {
-                const data = result?.data ?? result ?? {};
-                const uId = String(data.user_id || data.user?.id || data.user?.user_id || '').trim();
-                
-                // Persist session first so supabase client calls / cookie verification works
-                persistAuthSession(result);
+                // Persist session
+                const sessionUser = persistAuthSession(result);
+                if (typeof window !== 'undefined') {
+                    document.cookie = 'has_phone=true; path=/; SameSite=Lax';
+                }
 
-                let hasPhone = false;
-                let userPhone = data.user?.phone_number || data.phone_number;
+                let isOnboardingDone = Boolean(sessionUser?.onboarding_completed) || (typeof window !== 'undefined' && localStorage.getItem('has_completed_onboarding') === 'true');
+                const uid = sessionUser?.id || (typeof window !== 'undefined' ? localStorage.getItem('user_id') : '');
 
-                if (!userPhone && supabase && uId) {
+                if (supabase && uid && !isOnboardingDone) {
                     try {
                         const { data: dbUser } = await supabase
                             .from('users')
-                            .select('phone_number')
-                            .eq('id', uId)
-                            .single();
-                        userPhone = dbUser?.phone_number;
-                    } catch (e) {
-                        console.error('Error checking phone number', e);
-                    }
-                }
+                            .select('onboarding_completed')
+                            .eq('id', uid)
+                            .maybeSingle();
 
-                if (userPhone) {
-                    hasPhone = true;
-                    // Update user in localStorage and cookies since we found it in supabase
-                    if (typeof window !== 'undefined') {
-                        const stored = localStorage.getItem('user');
-                        if (stored) {
-                            const parsed = JSON.parse(stored);
-                            parsed.phone_number = userPhone;
-                            localStorage.setItem('user', JSON.stringify(parsed));
+                        if (dbUser?.onboarding_completed === true) {
+                            isOnboardingDone = true;
+                            if (typeof window !== 'undefined') {
+                                localStorage.setItem('has_completed_onboarding', 'true');
+                                document.cookie = 'has_completed_onboarding=true; path=/; SameSite=Lax';
+                                if (sessionUser) {
+                                    sessionUser.onboarding_completed = true;
+                                    localStorage.setItem('user', JSON.stringify(sessionUser));
+                                }
+                            }
                         }
-                        document.cookie = 'has_phone=true; path=/; SameSite=Lax';
+                    } catch (e) {
+                        console.warn('Google login onboarding check error:', e);
                     }
                 }
 
-                if (!hasPhone) {
-                    if (onPendingPhone) {
-                        onPendingPhone(uId);
-                    } else {
-                        setUserId(uId);
-                        setShowPhoneModal(true);
-                    }
-                    return;
-                }
-                const target = redirectRef.current || '/dashboard';
-                // Hard navigation ensures middleware sees auth cookie immediately
+                const target = !isOnboardingDone ? '/onboarding' : (redirectRef.current || '/dashboard');
                 if (typeof window !== 'undefined') {
                     window.location.assign(target);
                 } else {

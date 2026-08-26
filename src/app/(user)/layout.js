@@ -20,6 +20,7 @@ const ROUTE_TAB_MAP = {
     '/ai-strategy': 'AI Strategy',
     '/ai-strategy/live': 'AI Strategy',
     '/ai-strategy/strategy': 'AI Strategy',
+    '/tools': 'Tools',
     '/economic-calendar': 'Economic Calendar',
     '/credit-history': 'Credit History',
     '/plans': 'Subscription Plans',
@@ -230,7 +231,7 @@ const layout = ({ children }) => {
                     </div>
                 </div>
 
-                {showCreditsModal && (
+                {/* {showCreditsModal && (
                     <NeweraCreditsModal
                         userId={userId}
                         onClose={() => setShowCreditsModal(false)}
@@ -243,7 +244,7 @@ const layout = ({ children }) => {
                             }
                         }}
                     />
-                )}
+                )} */}
             </ThemeProvider>
         </AuthGuard>
     );

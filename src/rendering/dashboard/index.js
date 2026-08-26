@@ -99,7 +99,6 @@ export default function Dashboard() {
     const [greeting, setGreeting] = useState('');
     const [name, setName] = useState('');
     const [activityFilter, setActivityFilter] = useState('all');
-    const [selectedTimeframe, setSelectedTimeframe] = useState('1H');
 
     useEffect(() => {
         const syncUser = () => {
@@ -153,87 +152,7 @@ export default function Dashboard() {
         else return t('dashboard.goodNight', 'Good Night');
     };
 
-    // Live Watchlist Pairs with mini charts
-    const watchlist = [
-        {
-            symbol: 'XAU/USD',
-            name: 'Gold Spot / US Dollar',
-            price: '2,734.50',
-            change: '+1.12%',
-            isUp: true,
-            high: '2,738.20',
-            low: '2,718.60',
-            signal: 'STRONG BUY',
-            score: 92,
-            type: 'COMMODITY',
-            sparkPoints: '0,28 20,24 40,26 60,14 80,18 100,6 120,4'
-        },
-        {
-            symbol: 'EUR/USD',
-            name: 'Euro / US Dollar',
-            price: '1.0845',
-            change: '+0.24%',
-            isUp: true,
-            high: '1.0865',
-            low: '1.0812',
-            signal: 'MILD BUY',
-            score: 68,
-            type: 'FOREX',
-            sparkPoints: '0,22 25,20 50,15 75,18 100,10 120,8'
-        },
-        {
-            symbol: 'GBP/USD',
-            name: 'British Pound / USD',
-            price: '1.2980',
-            change: '-0.15%',
-            isUp: false,
-            high: '1.3020',
-            low: '1.2965',
-            signal: 'SELL',
-            score: 34,
-            type: 'FOREX',
-            sparkPoints: '0,8 25,12 50,14 75,22 100,20 120,26'
-        },
-        {
-            symbol: 'BTC/USD',
-            name: 'Bitcoin / US Dollar',
-            price: '68,450.00',
-            change: '+2.85%',
-            isUp: true,
-            high: '68,900.00',
-            low: '66,200.00',
-            signal: 'STRONG BUY',
-            score: 95,
-            type: 'CRYPTO',
-            sparkPoints: '0,30 20,26 45,22 70,12 95,14 120,2'
-        },
-        {
-            symbol: 'USD/JPY',
-            name: 'US Dollar / Japanese Yen',
-            price: '152.30',
-            change: '+0.42%',
-            isUp: true,
-            high: '152.80',
-            low: '151.70',
-            signal: 'NEUTRAL',
-            score: 52,
-            type: 'FOREX',
-            sparkPoints: '0,18 30,16 60,19 90,14 120,12'
-        },
-        {
-            symbol: 'US30',
-            name: 'Dow Jones Industrial',
-            price: '42,850.00',
-            change: '+0.35%',
-            isUp: true,
-            high: '42,980.00',
-            low: '42,650.00',
-            signal: 'BUY',
-            score: 76,
-            type: 'INDICES',
-            sparkPoints: '0,20 30,22 60,15 90,12 120,8'
-        }
-    ];
+
 
     const quickCopilotPrompts = [
         { label: 'Gold XAU/USD Forecast', query: 'What is the current technical trend and key resistance levels for XAU/USD Gold today?' },
@@ -511,89 +430,7 @@ export default function Dashboard() {
                 </div>
             </section>
 
-            {/* 4. Live Multi-Pair Market Watchlist Grid */}
-            <section className={styles.watchlistSection}>
-                <div className={styles.sectionHeaderRow}>
-                    <div className={styles.sectionTitleBlock}>
-                        <div className={styles.headerIconCircle}>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2.5">
-                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h2>Live Market Radar & AI Signal Scanner</h2>
-                            <p>Real-time pricing, multi-timeframe bias & algorithmic recommendations</p>
-                        </div>
-                    </div>
 
-                    <div className={styles.timeframeToggleGroup}>
-                        {['15M', '1H', '4H', '1D'].map((tf) => (
-                            <button
-                                key={tf}
-                                type="button"
-                                className={`${styles.tfBtn} ${selectedTimeframe === tf ? styles.tfActive : ''}`}
-                                onClick={() => setSelectedTimeframe(tf)}
-                            >
-                                {tf}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-
-                <div className={styles.watchlistCardsGrid}>
-                    {watchlist.map((item, idx) => (
-                        <div
-                            key={idx}
-                            className={styles.watchCard}
-                            onClick={() => router.push(`/ai-strategy/live?pair=${item.symbol.replace('/', '')}`)}
-                        >
-                            <div className={styles.watchCardTop}>
-                                <div>
-                                    <span className={styles.watchSymbol}>{item.symbol}</span>
-                                    <span className={styles.watchName}>{item.name}</span>
-                                </div>
-                                <span
-                                    className={`${styles.watchSignalBadge} ${item.signal.includes('BUY') ? styles.sigBuy : item.signal.includes('SELL') ? styles.sigSell : styles.sigNeutral
-                                        }`}
-                                >
-                                    {item.signal}
-                                </span>
-                            </div>
-
-                            <div className={styles.watchPriceRow}>
-                                <div className={styles.watchPrice}>{item.price}</div>
-                                <div className={`${styles.watchChange} ${item.isUp ? styles.up : styles.down}`}>
-                                    {item.isUp ? '▲' : '▼'} {item.change}
-                                </div>
-                            </div>
-
-                            {/* Mini Sparkline */}
-                            <div className={styles.watchSparkline}>
-                                <svg width="100%" height="32" viewBox="0 0 120 32" fill="none">
-                                    <polyline
-                                        points={item.sparkPoints}
-                                        fill="none"
-                                        stroke={item.isUp ? '#34D399' : '#F87171'}
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    />
-                                </svg>
-                            </div>
-
-                            <div className={styles.watchCardBottom}>
-                                <div className={styles.rangeInfo}>
-                                    <span>L: {item.low}</span>
-                                    <span>H: {item.high}</span>
-                                </div>
-                                <div className={styles.openStrategyText}>
-                                    <span>Terminal →</span>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
 
 
 
