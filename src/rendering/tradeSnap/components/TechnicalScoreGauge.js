@@ -210,11 +210,7 @@ export default function TechnicalScoreGauge({ technicalScore, marketAssessment }
                 </div>
             </div>
 
-            {technicalScore?.formula && (
-                <div className={styles.formulaFooter}>
-                    Formula: <code>{technicalScore.formula}</code>
-                </div>
-            )}
+
         </div>
     );
 }

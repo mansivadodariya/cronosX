@@ -156,9 +156,7 @@ export default function MarginCalculator({ onCopy, copied }) {
                     </div>
                 </div>
 
-                <div className={styles.formulaNote}>
-                    <strong>Formula:</strong> Required Margin = (Lots × Contract Size × Asset Price) / Leverage (converted to {marginCurrency})
-                </div>
+        
             </div>
         </div>
     );

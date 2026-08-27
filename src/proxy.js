@@ -4,6 +4,8 @@ import { NextResponse } from "next/server";
 const PROTECTED_PREFIXES = [
   "/dashboard",
   "/trade-snap",
+  "/trade-analysis",
+  "/ai-trade-analysis",
   "/ai-assistant",
   "/calendar",
   "/calculator",
@@ -11,7 +13,6 @@ const PROTECTED_PREFIXES = [
   "/tools",
   "/ai-strategy",
   "/credit-history",
-  "/plans",
   "/broker",
   "/brokers",
   "/profile",
@@ -48,7 +49,15 @@ export function proxy(request) {
   }
 
   if (isAuthRoute && isLoggedIn) {
-    const redirectTarget = request.nextUrl.searchParams.get("redirect") || "/dashboard";
+    let redirectTarget = request.nextUrl.searchParams.get("redirect") || "/dashboard";
+    if (
+      redirectTarget === "/onboarding" ||
+      redirectTarget === "/steper" ||
+      redirectTarget.startsWith("/onboarding") ||
+      redirectTarget.startsWith("/steper")
+    ) {
+      redirectTarget = "/dashboard";
+    }
     return NextResponse.redirect(new URL(redirectTarget, request.url));
   }
 
@@ -59,6 +68,10 @@ export const config = {
   matcher: [
     "/dashboard/:path*",
     "/trade-snap/:path*",
+    "/trade-analysis",
+    "/trade-analysis/:path*",
+    "/ai-trade-analysis",
+    "/ai-trade-analysis/:path*",
     "/ai-assistant/:path*",
     "/calendar",
     "/calendar/:path*",
@@ -71,7 +84,6 @@ export const config = {
     "/ai-strategy",
     "/ai-strategy/:path*",
     "/credit-history/:path*",
-    "/plans/:path*",
     "/broker/:path*",
     "/brokers/:path*",
     "/profile/:path*",

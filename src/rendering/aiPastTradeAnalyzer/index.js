@@ -2,7 +2,9 @@
 import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { authNavigate } from '@/lib/authRedirect';
 import { toast } from '@/components/toast';
 import styles from './aiPastTradeAnalyzer.module.scss';
 
@@ -84,6 +86,7 @@ const SAMPLE_TRADES = [
 ];
 
 export default function AiPastTradeAnalyzer() {
+    const router = useRouter();
     const [selectedTrade, setSelectedTrade] = useState(SAMPLE_TRADES[0]);
     const [isScanning, setIsScanning] = useState(false);
     const [scanProgress, setScanProgress] = useState(0);
@@ -220,9 +223,13 @@ export default function AiPastTradeAnalyzer() {
                                 </svg>
                             </button>
 
-                            <Link href="/signup" className={styles.heroSecondaryBtn}>
+                            <button
+                                type="button"
+                                onClick={() => authNavigate(router, '/dashboard')}
+                                className={styles.heroSecondaryBtn}
+                            >
                                 <span>EXPLORE CHRONOSX</span>
-                            </Link>
+                            </button>
                         </motion.div>
 
                         {/* 1.6 Centerpiece: Futuristic Holographic Trade Cockpit Stage */}

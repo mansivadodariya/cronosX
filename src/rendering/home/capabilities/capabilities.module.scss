@@ -133,7 +133,7 @@
     flex-direction: column;
     justify-content: space-between;
     min-height: 520px;
-    cursor: default;
+    cursor: pointer;
     transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 
     &:last-child {

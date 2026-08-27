@@ -9,7 +9,15 @@ import PhoneInput from '@/components/phoneInput';
 import FirebasePhoneModal from '@/components/firebasePhoneModal';
 import Button from '@/components/button';
 import ContinueWithGoogle from '@/components/continueWithGoogle';
-import { getAuthRedirectTarget, getStoredUser, getStoredUserId, clearAuthSession } from '@/lib/authSession';
+import {
+    getAuthRedirectTarget,
+    getStoredUser,
+    getStoredUserId,
+    clearAuthSession,
+    fetchUserOnboardingStatus,
+    setOnboardingCompletedInSession,
+    clearOnboardingInSession
+} from '@/lib/authSession';
 import { useSearchParams } from 'next/navigation';
 import { authApi, profileApi } from '@/lib/api';
 import { validateSignup } from '@/lib/validation';
@@ -63,53 +71,31 @@ const Signup = () => {
             const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
             const hasCookie = typeof document !== 'undefined' && document.cookie.split(';').some(c => c.trim().startsWith('auth_token='));
             console.log('Signup checkSession: uid =', uid, 'token =', token, 'hasCookie =', hasCookie);
-            if (uid && token && hasCookie && supabase) {
+            if (uid && token && hasCookie) {
                 try {
-                    const { data, error } = await supabase
-                        .from('users')
-                        .select('phone_number, is_active')
-                        .eq('id', uid)
-                        .single();
+                    const user = getStoredUser();
+                    const status = await fetchUserOnboardingStatus(uid, user?.email);
 
-                    console.log('Signup checkSession: supabase data =', data, 'error =', error);
-
-                    // User deleted/not found (PGRST116 is Supabase error for 0 rows returned)
-                    const isUserDeleted = error?.code === 'PGRST116' || (!data && !error);
-                    if (isUserDeleted) {
-                        clearAuthSession();
-                        toast.error('Your account has been deleted. Please contact admin.');
-                        return;
-                    }
-
-                    // For other transient errors (network drop, RLS timeout), do not log out the user
-                    if (error || !data) {
-                        console.error('Signup checkSession: Failed to verify user status due to error:', error);
-                        return;
-                    }
-
-                    // User inactive
-                    if (data.is_active === false) {
+                    if (status.exists && !status.is_active) {
                         clearAuthSession();
                         toast.error('Your account is inactive. Please contact admin.');
                         return;
                     }
 
-                    const user = getStoredUser();
-                    let isOnboardingDone = Boolean(data?.onboarding_completed) || localStorage.getItem('has_completed_onboarding') === 'true';
-                    if (user) {
-                        user.phone_number = data?.phone_number || user?.phone_number || '';
-                        user.onboarding_completed = isOnboardingDone;
-                        localStorage.setItem('user', JSON.stringify(user));
+                    let destination = redirectTo;
+                    if (!destination || destination === '/onboarding' || destination === '/steper' || destination.startsWith('/onboarding') || destination.startsWith('/steper')) {
+                        destination = '/dashboard';
                     }
-                    document.cookie = 'has_phone=true; path=/; SameSite=Lax';
 
-                    if (!isOnboardingDone) {
-                        window.location.assign('/onboarding');
+                    if (status.onboarding_completed) {
+                        setOnboardingCompletedInSession();
+                        window.location.assign(destination);
                     } else {
-                        window.location.assign(redirectTo);
+                        clearOnboardingInSession();
+                        window.location.assign('/onboarding');
                     }
                 } catch (e) {
-                    console.error('Error fetching user status', e);
+                    console.error('Error fetching user status in signup checkSession', e);
                 }
             }
         };
@@ -215,10 +201,14 @@ const Signup = () => {
             }
 
             toast.success(apiRes?.message || 'Phone number verified and saved!');
+            let destination = redirectTo;
+            if (!destination || destination === '/onboarding' || destination === '/steper' || destination.startsWith('/onboarding') || destination.startsWith('/steper')) {
+                destination = '/dashboard';
+            }
             if (!isOnboardingDone) {
                 window.location.assign('/onboarding');
             } else {
-                window.location.assign(redirectTo);
+                window.location.assign(destination);
             }
         } catch (err) {
             console.error('Failed to save phone number after verification:', err);

@@ -12,10 +12,10 @@ import CountUp from '@/components/countUp';
 const RightArrow = '/assets/icons/right.svg';
 
 const metrics = [
-  { target: 25000, suffix: '+', decimals: 0, label: 'Active Quant Traders', sub: 'Across 140+ Countries' },
-  { target: 12, prefix: '< ', suffix: 'ms', decimals: 0, label: 'AI Inference Speed', sub: 'Sub-second real-time execution' },
-  { target: 98.6, suffix: '%', decimals: 1, label: 'Pattern Precision', sub: 'Multi-timeframe institutional accuracy' },
-  { target: 4.8, prefix: '$', suffix: 'B+', decimals: 1, label: 'Volume Analyzed', sub: 'Daily market telemetry scanned' }
+  { target: 50, suffix: '+', decimals: 0, label: 'Global Market Pairs', sub: 'Forex, Crypto, Indices & Metals' },
+  { target: 500, prefix: '< ', suffix: 'ms', decimals: 0, label: 'AI Processing Speed', sub: 'Sub-second neural pattern analysis' },
+  { target: 6, suffix: ' Timeframes', decimals: 0, label: 'Multi-TF Confluence', sub: 'From 1-minute scalping to daily swings' },
+  { target: 99.9, suffix: '%', decimals: 1, label: 'Platform Availability', sub: '24/7 continuous market telemetry' }
 ];
 
 export default function Herobanner() {

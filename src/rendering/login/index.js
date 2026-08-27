@@ -7,7 +7,16 @@ import Input from '@/components/input';
 import Button from '@/components/button';
 import ContinueWithGoogle from '@/components/continueWithGoogle';
 import { authApi, profileApi } from '@/lib/api';
-import { persistAuthSession, getAuthRedirectTarget, getStoredUser, getStoredUserId, clearAuthSession } from '@/lib/authSession';
+import {
+    persistAuthSession,
+    getAuthRedirectTarget,
+    getStoredUser,
+    getStoredUserId,
+    clearAuthSession,
+    setOnboardingCompletedInSession,
+    clearOnboardingInSession,
+    fetchUserOnboardingStatus
+} from '@/lib/authSession';
 import { validateLogin } from '@/lib/validation';
 import { toast } from '@/components/toast';
 import PhoneInput from '@/components/phoneInput';
@@ -50,53 +59,31 @@ const Login = () => {
             const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
             const hasCookie = typeof document !== 'undefined' && document.cookie.split(';').some(c => c.trim().startsWith('auth_token='));
             console.log('Login checkSession: uid =', uid, 'token =', token, 'hasCookie =', hasCookie);
-            if (uid && token && hasCookie && supabase) {
+            if (uid && token && hasCookie) {
                 try {
-                    const { data, error } = await supabase
-                        .from('users')
-                        .select('phone_number, is_active')
-                        .eq('id', uid)
-                        .single();
+                    const user = getStoredUser();
+                    const status = await fetchUserOnboardingStatus(uid, user?.email);
 
-                    console.log('Login checkSession: supabase data =', data, 'error =', error);
-
-                    // User deleted/not found (PGRST116 is Supabase error for 0 rows returned)
-                    const isUserDeleted = error?.code === 'PGRST116' || (!data && !error);
-                    if (isUserDeleted) {
-                        clearAuthSession();
-                        toast.error('Your account has been deleted. Please contact admin.');
-                        return;
-                    }
-
-                    // For other transient errors (network drop, RLS timeout), do not log out the user
-                    if (error || !data) {
-                        console.error('Login checkSession: Failed to verify user status due to error:', error);
-                        return;
-                    }
-
-                    // User inactive
-                    if (data.is_active === false) {
+                    if (status.exists && !status.is_active) {
                         clearAuthSession();
                         toast.error('Your account is inactive. Please contact admin.');
                         return;
                     }
 
-                    const user = getStoredUser();
-                    let isOnboardingDone = Boolean(data?.onboarding_completed) || localStorage.getItem('has_completed_onboarding') === 'true';
-                    if (user) {
-                        user.phone_number = data?.phone_number || user?.phone_number || '';
-                        user.onboarding_completed = isOnboardingDone;
-                        localStorage.setItem('user', JSON.stringify(user));
+                    let destination = redirectTo;
+                    if (!destination || destination === '/onboarding' || destination === '/steper' || destination.startsWith('/onboarding') || destination.startsWith('/steper')) {
+                        destination = '/dashboard';
                     }
-                    document.cookie = 'has_phone=true; path=/; SameSite=Lax';
 
-                    if (!isOnboardingDone) {
-                        window.location.assign('/onboarding');
+                    if (status.onboarding_completed) {
+                        setOnboardingCompletedInSession();
+                        window.location.assign(destination);
                     } else {
-                        window.location.assign(redirectTo);
+                        clearOnboardingInSession();
+                        window.location.assign('/onboarding');
                     }
                 } catch (e) {
-                    console.error('Error fetching user status', e);
+                    console.error('Error fetching user status in checkSession', e);
                 }
             }
         };
@@ -123,35 +110,35 @@ const Login = () => {
             const data = await authApi.login(form.email, form.password);
             const sessionUser = persistAuthSession(data);
             const uid = sessionUser?.id || getStoredUserId();
+            const cleanEmail = form.email.trim().toLowerCase();
 
-            let onboardingCompleted = Boolean(sessionUser?.onboarding_completed) || localStorage.getItem('has_completed_onboarding') === 'true';
+            // Fetch authenticated user's onboarding status directly from Supabase (primary source of truth: users.onboarding_completed)
+            const status = await fetchUserOnboardingStatus(uid, cleanEmail);
 
-            if (supabase && uid && !onboardingCompleted) {
-                try {
-                    const { data: dbUser } = await supabase
-                        .from('users')
-                        .select('onboarding_completed')
-                        .eq('id', uid)
-                        .maybeSingle();
-
-                    if (dbUser && dbUser.onboarding_completed !== undefined) {
-                        onboardingCompleted = Boolean(dbUser.onboarding_completed);
-                        if (onboardingCompleted && sessionUser) {
-                            sessionUser.onboarding_completed = true;
-                            localStorage.setItem('user', JSON.stringify(sessionUser));
-                            localStorage.setItem('has_completed_onboarding', 'true');
-                            document.cookie = 'has_completed_onboarding=true; path=/; SameSite=Lax';
-                        }
-                    }
-                } catch (err) {
-                    console.warn('Login onboarding check error:', err);
-                }
+            // Sync user ID if Supabase returned a UUID and sessionUser had empty or non-UUID
+            if (status.user?.id && sessionUser) {
+                sessionUser.id = status.user.id;
+                sessionUser.user_id = status.user.id;
+                localStorage.setItem('user_id', status.user.id);
             }
 
-            if (!onboardingCompleted) {
-                window.location.assign('/onboarding');
+            if (status.exists && !status.is_active) {
+                clearAuthSession();
+                toast.error('Your account is inactive. Please contact admin.');
+                return;
+            }
+
+            let destination = redirectTo;
+            if (!destination || destination === '/onboarding' || destination === '/steper' || destination.startsWith('/onboarding') || destination.startsWith('/steper')) {
+                destination = '/dashboard';
+            }
+
+            if (status.onboarding_completed) {
+                setOnboardingCompletedInSession();
+                window.location.assign(destination);
             } else {
-                window.location.assign(redirectTo);
+                clearOnboardingInSession();
+                window.location.assign('/onboarding');
             }
         } catch (err) {
             toast.dismiss();
@@ -226,10 +213,14 @@ const Login = () => {
             }
 
             toast.success(apiRes?.message || 'Phone number verified and saved!');
+            let destination = redirectTo;
+            if (!destination || destination === '/onboarding' || destination === '/steper' || destination.startsWith('/onboarding') || destination.startsWith('/steper')) {
+                destination = '/dashboard';
+            }
             if (!isOnboardingDone) {
                 window.location.assign('/onboarding');
             } else {
-                window.location.assign(redirectTo);
+                window.location.assign(destination);
             }
         } catch (err) {
             console.error('Failed to save phone number after verification:', err);

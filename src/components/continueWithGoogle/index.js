@@ -7,6 +7,9 @@ import {
     persistAuthSession,
     extractAccessToken,
     isGooglePendingApproval,
+    fetchUserOnboardingStatus,
+    setOnboardingCompletedInSession,
+    clearOnboardingInSession,
 } from '@/lib/authSession';
 import { toast } from '@/components/toast';
 import { supabase } from '@/lib/supabaseClient';
@@ -41,12 +44,11 @@ const ContinueWithGoogle = ({ redirectTo = '/dashboard', onPendingPhone }) => {
 
     callbackRef.current = async (response) => {
         if (!response?.credential) {
-            setError('Google sign-in failed.');
+            setError('Google sign-in was cancelled or failed.');
             return;
         }
 
         setError('');
-        setPending(false);
         setLoading(true);
 
         try {
@@ -60,39 +62,30 @@ const ContinueWithGoogle = ({ redirectTo = '/dashboard', onPendingPhone }) => {
                     document.cookie = 'has_phone=true; path=/; SameSite=Lax';
                 }
 
-                let isOnboardingDone = Boolean(sessionUser?.onboarding_completed) || (typeof window !== 'undefined' && localStorage.getItem('has_completed_onboarding') === 'true');
                 const uid = sessionUser?.id || (typeof window !== 'undefined' ? localStorage.getItem('user_id') : '');
+                const email = sessionUser?.email || '';
 
-                if (supabase && uid && !isOnboardingDone) {
-                    try {
-                        const { data: dbUser } = await supabase
-                            .from('users')
-                            .select('onboarding_completed')
-                            .eq('id', uid)
-                            .maybeSingle();
+                const status = await fetchUserOnboardingStatus(uid, email);
 
-                        if (dbUser?.onboarding_completed === true) {
-                            isOnboardingDone = true;
-                            if (typeof window !== 'undefined') {
-                                localStorage.setItem('has_completed_onboarding', 'true');
-                                document.cookie = 'has_completed_onboarding=true; path=/; SameSite=Lax';
-                                if (sessionUser) {
-                                    sessionUser.onboarding_completed = true;
-                                    localStorage.setItem('user', JSON.stringify(sessionUser));
-                                }
-                            }
-                        }
-                    } catch (e) {
-                        console.warn('Google login onboarding check error:', e);
-                    }
+                let target = redirectRef.current || '/dashboard';
+                if (!target || target === '/onboarding' || target === '/steper' || target.startsWith('/onboarding') || target.startsWith('/steper')) {
+                    target = '/dashboard';
                 }
 
-                const target = !isOnboardingDone ? '/onboarding' : (redirectRef.current || '/dashboard');
-                if (typeof window !== 'undefined') {
-                    window.location.assign(target);
+                if (status.onboarding_completed) {
+                    setOnboardingCompletedInSession();
+                    if (typeof window !== 'undefined') {
+                        window.location.assign(target);
+                    } else {
+                        router.replace(target);
+                    }
                 } else {
-                    router.replace(target);
-                    router.refresh();
+                    clearOnboardingInSession();
+                    if (typeof window !== 'undefined') {
+                        window.location.assign('/onboarding');
+                    } else {
+                        router.replace('/onboarding');
+                    }
                 }
                 return;
             }

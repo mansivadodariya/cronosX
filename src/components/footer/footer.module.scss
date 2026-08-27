@@ -258,6 +258,60 @@
         }
     }
 
+    .disclaimerSection {
+        margin-top: 10px;
+        margin-bottom: 36px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        text-align: left;
+
+        @include respond-to("sm") {
+            margin-bottom: 26px;
+            gap: 12px;
+        }
+
+        p {
+            color: #6e6b66;
+            font-size: 11.8px;
+            line-height: 1.65;
+            margin: 0;
+            @include font-normal;
+
+            @include respond-to("sm") {
+                font-size: 11.2px;
+                line-height: 1.6;
+            }
+
+            a {
+                color: #8c8881;
+                text-decoration: underline;
+                text-underline-offset: 3px;
+                transition: color 0.2s ease;
+
+                &:hover {
+                    color: #F4D17A;
+                }
+            }
+        }
+
+        .fullDisclaimerLink {
+            color: #8a867f;
+            margin-top: 4px;
+            font-size: 12px;
+
+            a {
+                color: #d4af37;
+                font-weight: 500;
+                text-decoration: underline;
+
+                &:hover {
+                    color: #F4D17A;
+                }
+            }
+        }
+    }
+
     .divider {
         width: 100%;
         height: 1px;

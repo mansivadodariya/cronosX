@@ -202,9 +202,7 @@ export default function ProfitCalculator({ onCopy, copied }) {
                     </div>
                 </div>
 
-                <div className={styles.formulaNote}>
-                    <strong>Formula:</strong> Net P&L = (Close Price - Open Price) × Lots × Contract Size (converted to {profitCurrency})
-                </div>
+    
             </div>
         </div>
     );

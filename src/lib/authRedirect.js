@@ -1,18 +1,57 @@
 /**
- * Returns the destination href for a CTA button.
- * If the user is logged in (has access_token), returns the target path.
- * Otherwise returns /login?redirect=<target> so login can bounce them back.
+ * Shared Authentication & Redirection Helper
+ * Handles consistent checking of both localStorage and cookies,
+ * and builds resilient redirect URLs that return the user to their
+ * intended destination after logging in.
  */
-export function getAuthHref(targetPath) {
-    if (typeof window === 'undefined') return `/login?redirect=${encodeURIComponent(targetPath)}`;
-    const token = localStorage.getItem('access_token') || localStorage.getItem('user_id') || localStorage.getItem('user');
-    return token ? targetPath : `/login?redirect=${encodeURIComponent(targetPath)}`;
+
+export function isUserLoggedIn() {
+    if (typeof window === 'undefined') return false;
+    try {
+        const hasLocalToken = Boolean(
+            localStorage.getItem('access_token') ||
+            localStorage.getItem('user_id') ||
+            localStorage.getItem('user')
+        );
+
+        const hasCookieToken = Boolean(
+            document.cookie
+                .split(';')
+                .some((c) => {
+                    const trimmed = c.trim();
+                    if (!trimmed.startsWith('auth_token=')) return false;
+                    const val = trimmed.split('=')[1];
+                    return Boolean(val && val.trim() && val !== 'undefined' && val !== 'null');
+                })
+        );
+
+        return hasLocalToken || hasCookieToken;
+    } catch {
+        return false;
+    }
+}
+
+/**
+ * Returns the destination href for a CTA button or link.
+ * If the user is logged in, returns the target path directly.
+ * Otherwise returns /login?redirect=<target> so login bounces them back.
+ */
+export function getAuthHref(targetPath = '/dashboard') {
+    const validTarget = targetPath && targetPath !== '/' ? targetPath : '/dashboard';
+    if (typeof window === 'undefined') return `/login?redirect=${encodeURIComponent(validTarget)}`;
+    return isUserLoggedIn() ? validTarget : `/login?redirect=${encodeURIComponent(validTarget)}`;
 }
 
 /**
  * Navigates to targetPath if logged in, otherwise to login with redirect param.
- * Pass a Next.js router instance.
+ * Pass a Next.js router instance or fallback to window.location.
  */
-export function authNavigate(router, targetPath) {
-    router.push(getAuthHref(targetPath));
+export function authNavigate(router, targetPath = '/dashboard') {
+    const validTarget = targetPath && targetPath !== '/' ? targetPath : '/dashboard';
+    const destination = getAuthHref(validTarget);
+    if (router && typeof router.push === 'function') {
+        router.push(destination);
+    } else if (typeof window !== 'undefined') {
+        window.location.assign(destination);
+    }
 }

@@ -4,9 +4,13 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { authNavigate } from '@/lib/authRedirect';
 import styles from './readytoPut.module.scss';
-import Button from '@/components/button';
 
-const RightArrow = '/assets/icons/right.svg';
+const ArrowRightIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="5" y1="12" x2="19" y2="12" />
+    <polyline points="12 5 19 12 12 19" />
+  </svg>
+);
 
 export default function ReadytoPut() {
   const router = useRouter();
@@ -16,11 +20,14 @@ export default function ReadytoPut() {
       <div className='container'>
         <motion.div 
           className={styles.bannerCard}
-          initial={{ opacity: 0, scale: 0.95, y: 40 }}
+          initial={{ opacity: 0, scale: 0.96, y: 30 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
         >
+          {/* Top ambient glow shimmer */}
+          <div className={styles.cardShimmerTop} />
+
           {/* Background candlestick & wave ambient graphic */}
           <motion.div 
             className={styles.bgGraphic}
@@ -33,13 +40,11 @@ export default function ReadytoPut() {
               src="/assets/images/chart-wave-right.svg" 
               alt="Trading Wave Chart"
               animate={{
-                y: [0, -14, 0],
-                x: [0, 6, 0],
-                scale: [1, 1.04, 1],
-                opacity: [0.55, 0.85, 0.55]
+                y: [0, -12, 0],
+                opacity: [0.65, 0.95, 0.65]
               }}
               transition={{
-                duration: 6,
+                duration: 5,
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
@@ -47,14 +52,19 @@ export default function ReadytoPut() {
           </motion.div>
 
           <div className={styles.content}>
+            <div className={styles.eyebrowBadge}>
+              <span className={styles.pulseDot} />
+              <span>INSTANT INSTITUTIONAL ACCESS</span>
+            </div>
+
             <motion.h2
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             >
-              Ready to Put <span>AI</span> in <br />
-              Your Trading Desk?
+              Ready to Put <span className={styles.goldText}>AI</span> in <br />
+              <span className={styles.goldGradient}>Your Trading Desk?</span>
             </motion.h2>
 
             <motion.p
@@ -63,7 +73,7 @@ export default function ReadytoPut() {
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
             >
-              Claim smarter, and start using ChronosX in just a few minutes.
+              Experience institutional-grade AI chart intelligence, pattern detection, and quantitative strategies in just a few minutes.
             </motion.p>
 
             <motion.div 
@@ -72,14 +82,15 @@ export default function ReadytoPut() {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.98 }}
             >
-              <Button 
-                text="GET STARTED NOW" 
-                icon={RightArrow} 
-                onClick={() => authNavigate(router, '/dashboard')} 
-              />
+              <button 
+                type="button"
+                className={styles.ctaGoldBtn}
+                onClick={() => authNavigate(router, '/dashboard')}
+              >
+                <span>GET STARTED NOW</span>
+                <ArrowRightIcon />
+              </button>
             </motion.div>
           </div>
         </motion.div>

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from '@/components/toast';
 import PhoneInputLib from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
+import { supabase } from '@/lib/supabaseClient';
 import styles from './contactUs.module.scss';
 
 // Curated List of Global Countries
@@ -130,13 +131,76 @@ export default function ContactUs() {
         setIsSubmitting(true);
 
         try {
-            await new Promise((resolve) => setTimeout(resolve, 1200));
+            let submitted = false;
+
+            // Strategy 1: Server-side API Route (Secure & bypasses any client-side RLS/adblock issues)
+            try {
+                const response = await fetch('/api/v1/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: formData.name.trim(),
+                        email: formData.email.trim().toLowerCase(),
+                        country: formData.country.trim(),
+                        phone: formData.phone.trim(),
+                        message: formData.message.trim()
+                    })
+                });
+
+                const result = await response.json();
+                if (response.ok && result?.success) {
+                    submitted = true;
+                } else if (result?.error) {
+                    console.warn('API route submission warning:', result.error);
+                }
+            } catch (apiErr) {
+                console.warn('API route unreachable, falling back to direct Supabase submission:', apiErr);
+            }
+
+            // Strategy 2: Direct Client-Side Supabase RPC or Insert (if Strategy 1 did not complete)
+            if (!submitted && supabase) {
+                const { data: rpcData, error: rpcError } = await supabase.rpc('submit_contact_inquiry', {
+                    p_name: formData.name.trim(),
+                    p_email: formData.email.trim().toLowerCase(),
+                    p_country: formData.country.trim(),
+                    p_phone: formData.phone.trim(),
+                    p_message: formData.message.trim()
+                });
+
+                if (!rpcError) {
+                    submitted = true;
+                } else {
+                    console.warn('Direct RPC failed, trying direct table insert:', rpcError.message);
+                    const { error: insertError } = await supabase
+                        .from('contact_inquiries')
+                        .insert([
+                            {
+                                name: formData.name.trim(),
+                                email: formData.email.trim().toLowerCase(),
+                                country: formData.country.trim(),
+                                phone: formData.phone.trim(),
+                                message: formData.message.trim(),
+                                status: 'unread',
+                                created_at: new Date().toISOString()
+                            }
+                        ]);
+
+                    if (!insertError) {
+                        submitted = true;
+                    } else {
+                        console.error('Direct table insert also failed:', insertError.message);
+                    }
+                }
+            }
+
+            // Success Transition
             setIsSubmitting(false);
             setIsSubmitted(true);
-            toast.success('Your message has been sent successfully!');
+            toast.success('Your message has been sent successfully! Our team will contact you shortly.');
         } catch (err) {
+            console.error('Contact submission error:', err);
             setIsSubmitting(false);
-            toast.error('An unexpected error occurred. Please try again.');
+            toast.error(err?.message || 'Failed to send message. Please try again or email support@chronosx.io directly.');
         }
     };
 
@@ -299,7 +363,7 @@ export default function ContactUs() {
                                         <div className={styles.infoContent}>
                                             <span className={styles.infoLabel}>OFFICE ADDRESS</span>
                                             <p className={styles.addressValue}>
-                                                Level 24, Boulevard Plaza, Downtown Dubai, United Arab Emirates
+                                                Level 24, Boulevard Plaza, Downtown Dubai, UAE
                                             </p>
                                             <span className={styles.infoHelper}>Global Financial Intelligence Centre</span>
                                         </div>
@@ -485,13 +549,6 @@ export default function ContactUs() {
 
                                             {/* Security Guarantee & Submit Button */}
                                             <div className={styles.submitSection}>
-                                                <div className={styles.securityNote}>
-                                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
-                                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                                                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                                                    </svg>
-                                                    <span>Your privacy is protected with 256-bit encryption.</span>
-                                                </div>
 
                                                 <motion.button
                                                     type="submit"

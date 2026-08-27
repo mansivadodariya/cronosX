@@ -370,6 +370,14 @@ export const depositApi = {
         }),
 };
 
+export const tradeAnalyzeApi = {
+    analyze: (files) => {
+        const { analyzeTradesReport } = require('@/lib/tradeAnalyzeApi');
+        return analyzeTradesReport(files);
+    },
+};
+
+
 
 
 

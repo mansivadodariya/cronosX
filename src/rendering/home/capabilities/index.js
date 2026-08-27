@@ -1,10 +1,13 @@
 "use client";
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import { authNavigate } from '@/lib/authRedirect';
 import styles from './capabilities.module.scss';
 import Textbutton from '@/components/textbutton';
 
 export default function Capabilities() {
+  const router = useRouter();
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   return (
@@ -38,6 +41,15 @@ export default function Capabilities() {
             className={`${styles.cockpitCard} ${hoveredIndex === 0 ? styles.cardActive : ''} ${hoveredIndex !== null && hoveredIndex !== 0 ? styles.cardDimmed : ''}`}
             onMouseEnter={() => setHoveredIndex(0)}
             onMouseLeave={() => setHoveredIndex(null)}
+            onClick={() => authNavigate(router, '/trade-snap')}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                authNavigate(router, '/trade-snap');
+              }
+            }}
           >
             <div className={styles.cardHeaderMeta}>
               <span className={styles.capNumber}>01 — CAPABILITY</span>
@@ -99,6 +111,15 @@ export default function Capabilities() {
             className={`${styles.cockpitCard} ${hoveredIndex === 1 ? styles.cardActive : ''} ${hoveredIndex !== null && hoveredIndex !== 1 ? styles.cardDimmed : ''}`}
             onMouseEnter={() => setHoveredIndex(1)}
             onMouseLeave={() => setHoveredIndex(null)}
+            onClick={() => authNavigate(router, '/ai-assistant')}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                authNavigate(router, '/ai-assistant');
+              }
+            }}
           >
             <div className={styles.cardHeaderMeta}>
               <span className={styles.capNumber}>02 — CAPABILITY</span>
@@ -278,6 +299,15 @@ export default function Capabilities() {
             className={`${styles.cockpitCard} ${hoveredIndex === 2 ? styles.cardActive : ''} ${hoveredIndex !== null && hoveredIndex !== 2 ? styles.cardDimmed : ''}`}
             onMouseEnter={() => setHoveredIndex(2)}
             onMouseLeave={() => setHoveredIndex(null)}
+            onClick={() => authNavigate(router, '/ai-strategy/live')}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                authNavigate(router, '/ai-strategy/live');
+              }
+            }}
           >
             <div className={styles.cardHeaderMeta}>
               <span className={styles.capNumber}>03 — CAPABILITY</span>
@@ -405,6 +435,15 @@ export default function Capabilities() {
             className={`${styles.cockpitCard} ${hoveredIndex === 3 ? styles.cardActive : ''} ${hoveredIndex !== null && hoveredIndex !== 3 ? styles.cardDimmed : ''}`}
             onMouseEnter={() => setHoveredIndex(3)}
             onMouseLeave={() => setHoveredIndex(null)}
+            onClick={() => router.push('/ai-past-trade-analyzer')}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                router.push('/ai-past-trade-analyzer');
+              }
+            }}
           >
             <div className={styles.cardHeaderMeta}>
               <div className={styles.capLabelRow}>

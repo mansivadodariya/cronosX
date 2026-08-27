@@ -21,6 +21,8 @@ const ROUTE_TITLE_MAP = {
   '/dashboard': 'nav.dashboard|Dashboard',
   '/trade-snap': 'nav.aiTrade|AI Trade',
   '/tradesnap': 'nav.aiTrade|AI Trade',
+  '/trade-analysis': 'nav.aiTradeAnalysis|AI Trade analysis',
+  '/ai-trade-analysis': 'nav.aiTradeAnalysis|AI Trade analysis',
   '/ai-assistant': 'nav.aiChat|AI Chat',
   '/ai-chat': 'nav.aiChat|AI Chat',
   '/ai-strategy': 'nav.aiStrategy|AI Strategy',

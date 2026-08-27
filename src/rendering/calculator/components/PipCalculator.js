@@ -185,9 +185,7 @@ export default function PipCalculator({ onCopy, copied }) {
                     </div>
                 </div>
 
-                <div className={styles.formulaNote}>
-                    <strong>Formula:</strong> Pip Value = Trade Volume (Lots × Contract Size) × Pip Size (converted to {pipCurrency})
-                </div>
+       
             </div>
         </div>
     );

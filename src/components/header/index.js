@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { authNavigate, getAuthHref } from '@/lib/authRedirect';
+import { authNavigate, getAuthHref, isUserLoggedIn } from '@/lib/authRedirect';
 import styles from './header.module.scss';
 import Button from '../button';
 
@@ -17,6 +17,20 @@ export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState(null);
     const [openMobileDropdown, setOpenMobileDropdown] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const updateAuth = () => {
+            setIsLoggedIn(isUserLoggedIn());
+        };
+        updateAuth();
+        window.addEventListener('user:updated', updateAuth);
+        window.addEventListener('storage', updateAuth);
+        return () => {
+            window.removeEventListener('user:updated', updateAuth);
+            window.removeEventListener('storage', updateAuth);
+        };
+    }, [pathname]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -226,7 +240,6 @@ export default function Header() {
     ];
 
     const navItems = [
-        { label: 'Home', href: '/' },
         {
             label: 'Products',
             href: getAuthHref('/'),
@@ -251,7 +264,7 @@ export default function Header() {
             dropdownFooter: 'ChronosX Global Financial Intelligence Network',
             dropdownItems: companyDropdownItems
         },
-        { label: 'Pricing', href: getAuthHref('/') },
+        { label: 'Pricing', href: '/plans' },
 
         { label: 'Contact Us', href: '/contact-us' },
     ];
@@ -260,11 +273,6 @@ export default function Header() {
         if (!pathname) return false;
         const current = pathname.split('?')[0].replace(/\/$/, '') || '/';
         const target = (item.href || '').split('#')[0].replace(/\/$/, '') || '/';
-
-        // 'Home' is only active when at root '/'
-        if (item.label === 'Home') {
-            return current === '/';
-        }
 
         // For dropdown menus, only activate if user is visiting a specific non-root subpage
         if (item.hasDropdown && item.dropdownItems) {

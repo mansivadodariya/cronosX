@@ -2,6 +2,7 @@
 import React, { useState, useRef } from 'react';
 import styles from './footer.module.scss';
 import Link from 'next/link';
+import { getAuthHref } from '@/lib/authRedirect';
 
 const Logo = '/assets/logo/logo.png';
 
@@ -89,9 +90,9 @@ export default function Footer() {
             <h4>TRADING TOOLS</h4>
             <ul>
               <li><Link href="/ai-past-trade-analyzer">AI Past Trade Analyzer</Link></li>
-              <li><Link href="/ai-strategy/live">Strategy Builder</Link></li>
-              <li><Link href="/ai-strategy/live">Quant Backtesting</Link></li>
-              <li><Link href="/dashboard">Paper Trading Desk</Link></li>
+              <li><Link href={getAuthHref('/ai-strategy/live')}>Strategy Builder</Link></li>
+              <li><Link href={getAuthHref('/ai-strategy/live')}>Quant Backtesting</Link></li>
+              <li><Link href={getAuthHref('/dashboard')}>Paper Trading Desk</Link></li>
             </ul>
           </div>
 
@@ -118,6 +119,32 @@ export default function Footer() {
               <li><Link href="/risk-disclosure">Risk Disclosure</Link></li>
             </ul>
           </div>
+        </div>
+
+        <div className={styles.disclaimerSection}>
+          <p>
+            Trading and investing in leveraged financial markets—including Foreign Exchange (Forex), cryptocurrencies, commodities, and global indices—involves substantial risk and can result in the loss of your invested capital. Leveraged trading magnifies both potential gains and potential losses. All automated chart evaluations, AI-generated technical scores, pattern detection models, market commentary, and analytical toolsets provided across ChronosX are engineered strictly for informational and educational research purposes. Nothing on this platform constitutes or should be interpreted as financial, investment, legal, or trading advice. You are solely responsible for evaluating your risk tolerance and financial condition, and we strongly recommend consulting a certified, independent financial advisor before executing any trades. Past performance does not guarantee or predict future results.
+          </p>
+
+          <p>
+            Hypothetical, backtested, and simulated algorithmic outputs have inherent limitations. Unlike real-world trading records, simulated outcomes do not represent live market transactions or actual account executions. Because simulated trades are not executed in live order books, results may not account for real-time market dynamics such as liquidity gaps, spread expansion, execution slippage, or sudden macroeconomic volatility. All historical backtests, neural pattern overlays, and quantitative metrics are modeled with historical datasets and should never be viewed as a promise or guarantee that any account will achieve comparable gains or avoid losses.
+          </p>
+
+          <p>
+            Any user testimonials, case studies, or feedback presented on this platform depict individual experiences. Individual trading results vary widely based on risk parameters, personal discipline, market conditions, and experience. Past user experiences do not constitute a guarantee of future success or profitability.
+          </p>
+
+          <p>
+            ChronosX operates exclusively as an artificial intelligence technology and market research platform. ChronosX is not a registered broker-dealer, financial custodian, exchange, or investment advisor. We do not hold client deposits, manage user capital, or execute orders on financial exchanges. We do not access individual user brokerage accounts, and we make no claims or representations regarding the comparative profitability or performance of users utilizing our platform features.
+          </p>
+
+          <p>
+            All interactive candlestick charts, multi-timeframe pattern recognition overlays, and technical indicator engines accessible on the platform are powered by ChronosX’s proprietary visual analytics architecture. Market telemetry and price data across currencies, digital assets, and commodities are sourced from institutional data feeds for analytical screening. Data is delivered on an &quot;as-is&quot; basis for technical research and should be independently validated prior to making trading decisions.
+          </p>
+
+          <p className={styles.fullDisclaimerLink}>
+            This statement serves as a summary notice and does not replace our complete legal framework. For exhaustive details on our operating terms and risk warnings, please review our full <Link href="/risk-disclosure">Risk Disclosure</Link> and <Link href="/terms-and-conditions">Terms & Conditions</Link>.
+          </p>
         </div>
 
         <div className={styles.divider} />

@@ -34,11 +34,15 @@ export function isGooglePendingApproval(payload) {
 
 export function getAuthRedirectTarget(searchParams) {
     if (!searchParams) return '/dashboard';
-    return (
+    const target = (
         searchParams.get('redirect') ||
         searchParams.get('from') ||
         '/dashboard'
     );
+    if (target === '/onboarding' || target === '/steper' || target.startsWith('/onboarding') || target.startsWith('/steper')) {
+        return '/dashboard';
+    }
+    return target;
 }
 
 export function getStoredUserId() {
@@ -262,6 +266,67 @@ export function setOnboardingCompletedInSession() {
         } catch (_) {}
     }
     window.dispatchEvent(new CustomEvent('user:updated'));
+}
+
+export function clearOnboardingInSession() {
+    if (typeof window === 'undefined') return;
+    localStorage.removeItem('has_completed_onboarding');
+    document.cookie = 'has_completed_onboarding=false; path=/; SameSite=Lax';
+    const stored = localStorage.getItem('user');
+    if (stored) {
+        try {
+            const parsed = JSON.parse(stored);
+            parsed.onboarding_completed = false;
+            localStorage.setItem('user', JSON.stringify(parsed));
+        } catch (_) {}
+    }
+    window.dispatchEvent(new CustomEvent('user:updated'));
+}
+
+/**
+ * Primary source of truth: queries users.onboarding_completed from Supabase.
+ * Checks by user ID and/or email to ensure robust match.
+ * Returns { exists: boolean, onboarding_completed: boolean, is_active: boolean, user: object|null }
+ */
+export async function fetchUserOnboardingStatus(userId, email) {
+    if (!supabase) {
+        const localFlag = typeof window !== 'undefined' && localStorage.getItem('has_completed_onboarding') === 'true';
+        return { exists: false, onboarding_completed: localFlag, is_active: true, user: null };
+    }
+    try {
+        const cleanUid = userId ? String(userId).trim() : '';
+        const cleanEmail = email ? String(email).trim().toLowerCase() : '';
+        if (!cleanUid && !cleanEmail) {
+            return { exists: false, onboarding_completed: false, is_active: true, user: null };
+        }
+
+        let query = supabase.from('users').select('id, email, phone_number, is_phone_verified, is_active, onboarding_completed');
+        if (cleanUid && cleanEmail) {
+            query = query.or(`id.eq.${cleanUid},email.eq.${cleanEmail}`);
+        } else if (cleanUid) {
+            query = query.eq('id', cleanUid);
+        } else {
+            query = query.eq('email', cleanEmail);
+        }
+
+        const { data, error } = await query.maybeSingle();
+        if (error || !data) {
+            return { exists: false, onboarding_completed: false, is_active: true, user: null };
+        }
+
+        const isCompleted = data.onboarding_completed === true;
+        const isActive = data.is_active !== false;
+
+        return {
+            exists: true,
+            onboarding_completed: isCompleted,
+            is_active: isActive,
+            user: data,
+        };
+    } catch (e) {
+        console.warn('fetchUserOnboardingStatus error:', e);
+        return { exists: false, onboarding_completed: false, is_active: true, user: null };
+    }
 }
 
 export function clearAuthSession() {

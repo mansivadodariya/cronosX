@@ -459,13 +459,7 @@ const AnalysisSkeleton = () => (
                                     })}
                                 </div>
 
-                                {/* Formula Summary Row */}
-                                <div className={styles.scoreFormulaRow}>
-                                    <span className={styles.formulaTitle}>TOTAL</span>
-                                    <span className={styles.formulaEquation} style={{ color: scoreColor }}>
-                                        {technical_score.formula || `${technical_score.total}/100`}
-                                    </span>
-                                </div>
+                        
                             </div>
                         </motion.div>
                     )}

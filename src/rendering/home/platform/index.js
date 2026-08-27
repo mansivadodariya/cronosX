@@ -2,6 +2,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import styles from './platform.module.scss';
+import { useRouter } from 'next/navigation';
+import { authNavigate } from '@/lib/authRedirect';
 import Textbutton from '@/components/textbutton';
 
 const AiChat = '/assets/images/ai-chat.png';
@@ -13,6 +15,7 @@ const platformData = [
         topIcon: '/assets/icons/chart-square.svg',
         image: AiTrade,
         title: 'AI TRADE',
+        target: '/trade-snap',
         desc: 'AI-powered market analysis\nand trading signals.',
         features: [
             { icon: '/assets/icons/market-analysis.svg', text: 'Market\nAnalysis' },
@@ -24,6 +27,7 @@ const platformData = [
         topIcon: '/assets/icons/chat-square.svg',
         image: AiChat,
         title: 'AI CHAT',
+        target: '/ai-assistant',
         desc: 'Ask AI about markets, strategies,\nsignals, and trading decisions.',
         features: [
             { icon: '/assets/icons/ai-conv.svg', text: 'AI-Powered\nConversations' },
@@ -35,6 +39,7 @@ const platformData = [
         topIcon: '/assets/icons/shield-square.svg',
         image: AiStrategy,
         title: 'AI STRATEGY',
+        target: '/ai-strategy/live',
         desc: 'Build and analyze smarter trading\nstrategies with AI.',
         features: [
             { icon: '/assets/icons/strategy-builder.svg', text: 'Strategy\nBuilder' },
@@ -45,6 +50,7 @@ const platformData = [
 ];
 
 export default function Platform() {
+    const router = useRouter();
     return (
         <div className={styles.platform}>
             {/* Animated Cyber Gold Top Border */}
@@ -142,6 +148,15 @@ export default function Platform() {
                         <motion.div
                             key={index}
                             className={styles.card}
+                            onClick={() => authNavigate(router, card.target)}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    authNavigate(router, card.target);
+                                }
+                            }}
                             initial={{ opacity: 0, y: 50, scale: 0.95 }}
                             whileInView={{ opacity: 1, y: 0, scale: 1 }}
                             viewport={{ once: true, amount: 0.2 }}

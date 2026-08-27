@@ -1,8 +1,11 @@
 "use client";
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import { authNavigate } from '@/lib/authRedirect';
 import styles from './chartAnalysis.module.scss';
 import Textbutton from '@/components/textbutton';
+import Button from '@/components/button';
 
 // Animated SVG 1: Upload Your Chart
 function UploadChartSvg() {
@@ -349,6 +352,7 @@ const stepData = [
 ];
 
 export default function ChartAnalysis() {
+  const router = useRouter();
   return (
     <div className={styles.chartAnalysis}>
       <div className='container'>
@@ -450,6 +454,20 @@ export default function ChartAnalysis() {
               </motion.div>
             ))}
           </div>
+
+          <motion.div 
+            className={styles.ctaWrapper}
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <Button 
+              text="START SCANNING WITH AI"
+              icon="/assets/icons/right.svg"
+              onClick={() => authNavigate(router, '/trade-snap')}
+            />
+          </motion.div>
         </div>
       </div>
     </div>

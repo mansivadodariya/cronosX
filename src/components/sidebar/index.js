@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from 'framer-motion';
@@ -15,6 +15,7 @@ import {
   BrokerBankIcon,
   ProfileUserIcon,
   CrownIcon,
+  AiTradeAnalysisIcon,
 } from "./sidebarIcons";
 import { clearAuthSession, getStoredUser, getStoredUserId, hydrateUserFromProfile } from '@/lib/authSession';
 import { useLanguage } from '@/context/LanguageContext';
@@ -91,6 +92,7 @@ const LogoutIcon = () => (
 const getMainNav = (t) => [
   { label: t('nav.dashboard', 'Dashboard'), href: "/dashboard", icon: DashboardGridIcon },
   { label: t('nav.aiTrade', 'AI Trade'), href: "/trade-snap", icon: AiTradeSparkIcon },
+  { label: t('nav.aiTradeAnalysis', 'AI Trade analysis'), href: "/trade-analysis", icon: AiTradeAnalysisIcon },
   { label: t('nav.aiChat', 'AI Chat'), href: "/ai-assistant", icon: AiChatBotIcon },
   {
     label: t('nav.aiStrategy', 'AI Strategy'),
@@ -110,7 +112,7 @@ const getMainNav = (t) => [
       { label: t('nav.forexCalculator', 'Forex Calculator'), href: "/calculator", icon: SubCalculatorIcon },
     ]
   },
-  { label: t('nav.plans', 'Subscription Plans'), href: "/plans", icon: CrownIcon },
+  { label: t('nav.plans', 'Subscription Plans'), href: "/subscription-plans", icon: CrownIcon },
   { label: t('nav.broker', 'Broker'), href: "/broker", icon: BrokerBankIcon },
   { label: t('nav.profile', 'Settings'), href: "/profile", icon: ProfileUserIcon },
 ];
@@ -400,45 +402,59 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
   const ROUTE_TAB_MAP = {
     '/dashboard': 'Dashboard',
     '/trade-snap': 'AI Trade',
+    '/trade-analysis': 'AI Trade analysis',
+    '/ai-trade-analysis': 'AI Trade analysis',
     '/ai-assistant': 'AI Chat',
     '/ai-strategy': 'AI Strategy',
     '/ai-strategy/live': 'AI Strategy',
     '/ai-strategy/strategy': 'AI Strategy',
     '/tools': 'Tools',
-    '/calendar': 'Tools',
-    '/economic-calendar': 'Tools',
-    '/calculator': 'Tools',
-    '/news': 'Tools',
+    '/calendar': 'Economic Calendar',
+    '/economic-calendar': 'Economic Calendar',
+    '/calculator': 'Forex Calculator',
     '/credit-history': 'Credit History',
     '/plans': 'Subscription Plans',
+    '/subscription-plans': 'Subscription Plans',
     '/broker': 'Broker',
     '/brokers': 'Broker',
     '/profile': 'Profile',
     '/settings': 'Profile',
   };
 
-  const ALWAYS_VISIBLE_TABS = new Set([
-    'tools',
-    'economic calendar',
-    'forex calculator',
-    'market news',
-    'subscription plans',
-    'broker',
-  ]);
-
   const rawNav = getMainNav(t);
-  const mainNav = visibleTabNames && visibleTabNames.size > 0
-    ? rawNav.filter((item) => {
-      const tabName = (ROUTE_TAB_MAP[item.href] || item.label || '').toLowerCase();
-      if (ALWAYS_VISIBLE_TABS.has(tabName) || item.subItems || tabName === 'tools') {
-        return true;
+  const mainNav = useMemo(() => {
+    if (!visibleTabNames || visibleTabNames.size === 0) return rawNav;
+
+    return rawNav.map(item => {
+      const parentTabName = (ROUTE_TAB_MAP[item.href] || item.label || '').toLowerCase();
+
+      // If item has sub-items (Tools, AI Strategy), filter sub-items based on Supabase permissions
+      if (item.subItems && item.subItems.length > 0) {
+        const filteredSubItems = item.subItems.filter(sub => {
+          const subTabName = (ROUTE_TAB_MAP[sub.href] || sub.label || '').toLowerCase();
+          return visibleTabNames.has(subTabName) || visibleTabNames.has(parentTabName);
+        });
+
+        if (filteredSubItems.length > 0) {
+          return { ...item, subItems: filteredSubItems };
+        }
+        return visibleTabNames.has(parentTabName) ? item : null;
       }
-      return visibleTabNames.has(tabName);
-    })
-    : rawNav;
+
+      // Settings/Profile is always accessible
+      if (parentTabName === 'profile' || parentTabName === 'settings') return item;
+
+      // Single menu item check
+      return visibleTabNames.has(parentTabName) ? item : null;
+    }).filter(Boolean);
+  }, [rawNav, visibleTabNames]);
 
   const hasPlansPermission = visibleTabNames && visibleTabNames.size > 0
     ? visibleTabNames.has('subscription plans')
+    : true;
+
+  const hasBrokerPermission = visibleTabNames && visibleTabNames.size > 0
+    ? visibleTabNames.has('broker')
     : true;
 
   return (
@@ -500,7 +516,7 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
                 className={styles.upgradeCard}
                 onClick={() => {
                   handleNavigate();
-                  router.push('/plans');
+                  router.push('/subscription-plans');
                 }}
               >
                 <div className={styles.upgradeIcon}>
@@ -527,7 +543,7 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
                   className={styles.compactUpgradeBtn}
                   onClick={() => {
                     handleNavigate();
-                    router.push('/plans');
+                    router.push('/subscription-plans');
                   }}
                 >
                   <CrownIcon />

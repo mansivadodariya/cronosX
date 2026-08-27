@@ -7,8 +7,13 @@ import StepOne from './stepOne';
 import StepTwo from './stepTwo';
 import Stepthree from './stepthree';
 import styles from './onboarding.module.scss';
+import {
+    getStoredUserId,
+    getStoredUser,
+    fetchUserOnboardingStatus,
+    setOnboardingCompletedInSession
+} from '@/lib/authSession';
 import { supabase } from '@/lib/supabaseClient';
-import { getStoredUserId, getStoredUser } from '@/lib/authSession';
 
 // SVG Icons for Header & Footer
 const SkipIcon = () => (
@@ -33,39 +38,32 @@ export default function Onboarding() {
     // If user has already completed onboarding, immediately bounce them to /dashboard
     useEffect(() => {
         const checkAlreadyCompleted = async () => {
-            const uid = getStoredUserId();
             const storedUser = getStoredUser();
+            const uid = getStoredUserId() || storedUser?.id || '';
+            const email = storedUser?.email ? String(storedUser.email).trim().toLowerCase() : '';
             const localFlag = typeof window !== 'undefined' ? localStorage.getItem('has_completed_onboarding') : null;
 
+            // If already completed in local session, redirect to dashboard immediately
             if (localFlag === 'true' || storedUser?.onboarding_completed === true) {
-                router.replace('/dashboard');
+                window.location.replace('/dashboard');
                 return;
             }
 
-            if (uid && supabase) {
+            if (uid || email) {
                 try {
-                    const { data: dbUser } = await supabase
-                        .from('users')
-                        .select('onboarding_completed')
-                        .eq('id', uid)
-                        .maybeSingle();
+                    const status = await fetchUserOnboardingStatus(uid, email);
 
-                    if (dbUser?.onboarding_completed === true) {
-                        if (typeof window !== 'undefined') {
-                            localStorage.setItem('has_completed_onboarding', 'true');
-                            document.cookie = 'has_completed_onboarding=true; path=/; SameSite=Lax';
-                            if (storedUser) {
-                                storedUser.onboarding_completed = true;
-                                localStorage.setItem('user', JSON.stringify(storedUser));
-                            }
-                        }
-                        router.replace('/dashboard');
+                    if (status.exists && status.onboarding_completed) {
+                        setOnboardingCompletedInSession();
+                        window.location.replace('/dashboard');
                         return;
                     }
                 } catch (e) {
                     console.warn('Onboarding mount check error:', e);
                 }
             }
+
+            // User has NOT completed onboarding: allow questionnaire to render
             setCheckingStatus(false);
         };
 
@@ -114,34 +112,31 @@ export default function Onboarding() {
 
         if (typeof window !== 'undefined') {
             localStorage.setItem('chronosx_onboarding', JSON.stringify(onboardingData));
-            localStorage.setItem('has_completed_onboarding', 'true');
-            document.cookie = 'has_completed_onboarding=true; path=/; SameSite=Lax';
-
-            const stored = localStorage.getItem('user');
-            if (stored) {
-                try {
-                    const parsed = JSON.parse(stored);
-                    parsed.onboarding_completed = true;
-                    localStorage.setItem('user', JSON.stringify(parsed));
-                } catch (_) {}
-            }
-            window.dispatchEvent(new CustomEvent('user:updated'));
+            setOnboardingCompletedInSession();
         }
 
-        const userId = getStoredUserId();
-        if (userId && supabase) {
+        const storedUser = getStoredUser();
+        const userId = getStoredUserId() || storedUser?.id || '';
+        const email = storedUser?.email ? String(storedUser.email).trim().toLowerCase() : '';
+
+        if (supabase && (userId || email)) {
             try {
-                await supabase
-                    .from('users')
-                    .update({
-                        experience_level: experience,
-                        trading_styles: tradingStyles,
-                        help_goals: helpGoals,
-                        preferred_markets: markets,
-                        onboarding_completed: true,
-                        onboarding_completed_at: new Date().toISOString(),
-                    })
-                    .eq('id', userId);
+                let query = supabase.from('users').update({
+                    experience_level: experience,
+                    trading_styles: tradingStyles,
+                    help_goals: helpGoals,
+                    preferred_markets: markets,
+                    onboarding_completed: true,
+                    onboarding_completed_at: new Date().toISOString(),
+                });
+                if (userId && email) {
+                    query = query.or(`id.eq.${userId},email.eq.${email}`);
+                } else if (userId) {
+                    query = query.eq('id', userId);
+                } else {
+                    query = query.eq('email', email);
+                }
+                await query;
             } catch (err) {
                 console.warn('Could not save onboarding preferences to Supabase:', err);
             }
@@ -153,7 +148,7 @@ export default function Onboarding() {
             setCurrentStep((prev) => prev + 1);
         } else {
             await saveOnboardingPreferences(true);
-            router.push('/dashboard');
+            window.location.replace('/dashboard');
         }
     };
 
@@ -167,14 +162,20 @@ export default function Onboarding() {
 
     const handleSkip = async () => {
         await saveOnboardingPreferences(false);
-        router.push('/dashboard');
+        window.location.replace('/dashboard');
     };
 
     if (checkingStatus) {
         return (
-            <div className={styles.onboardingPage} style={{ alignItems: 'center', justifyContent: 'center' }}>
+            <div className={styles.onboardingPage} style={{ alignItems: 'center', justifyContent: 'center', minHeight: '100vh', display: 'flex' }}>
                 <div className={styles.ambientGlowTop} aria-hidden="true" />
                 <div className={styles.ambientGlowBottom} aria-hidden="true" />
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', zIndex: 10 }}>
+                    <div style={{ width: '40px', height: '40px', border: '3.5px solid rgba(244, 209, 122, 0.2)', borderTopColor: '#F4D17A', borderRadius: '50%', animation: 'spin 0.85s linear infinite' }} />
+                    <p style={{ color: '#A0AEC0', fontSize: '13.5px', margin: 0, fontWeight: 600, letterSpacing: '0.3px' }}>
+                        Verifying profile status...
+                    </p>
+                </div>
             </div>
         );
     }

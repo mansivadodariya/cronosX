@@ -1,7 +1,9 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { authNavigate } from '@/lib/authRedirect';
 import styles from './aboutUs.module.scss';
 
 // Institutional Metrics
@@ -124,6 +126,7 @@ const GLOBAL_HUBS = [
 ];
 
 export default function AboutUs() {
+    const router = useRouter();
     return (
         <div className={styles.aboutPage}>
             {/* Ambient Atmosphere Glows */}
@@ -412,12 +415,16 @@ export default function AboutUs() {
                             </p>
                         </div>
                         <div className={styles.ctaActionWrapper}>
-                            <Link href="/signup" className={styles.ctaButtonPrimary}>
+                            <button
+                                type="button"
+                                onClick={() => authNavigate(router, '/dashboard')}
+                                className={styles.ctaButtonPrimary}
+                            >
                                 <span>Get Started Free</span>
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                     <path d="M5 12h14M12 5l7 7-7 7" />
                                 </svg>
-                            </Link>
+                            </button>
                             <Link href="/contact-us" className={styles.ctaButtonSecondary}>
                                 <span>Contact Desk</span>
                             </Link>

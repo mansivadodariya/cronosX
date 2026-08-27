@@ -16,6 +16,8 @@ import './layout.scss';
 const ROUTE_TAB_MAP = {
     '/dashboard': 'Dashboard',
     '/trade-snap': 'AI Trade',
+    '/trade-analysis': 'AI Trade analysis',
+    '/ai-trade-analysis': 'AI Trade analysis',
     '/ai-assistant': 'AI Chat',
     '/ai-strategy': 'AI Strategy',
     '/ai-strategy/live': 'AI Strategy',
@@ -170,7 +172,13 @@ const layout = ({ children }) => {
                 pathname === route || pathname.startsWith(`${route}/`)
             )?.[1];
 
-            if (!currentTabName || currentTabName === 'Tools' || currentTabName === 'Economic Calendar' || currentTabName === 'Forex Calculator') {
+            if (
+                !currentTabName ||
+                currentTabName === 'Tools' ||
+                currentTabName === 'Economic Calendar' ||
+                currentTabName === 'Forex Calculator' ||
+                currentTabName.toLowerCase() === 'ai trade analysis'
+            ) {
                 setIsTabAllowed(true);
                 return;
             }
