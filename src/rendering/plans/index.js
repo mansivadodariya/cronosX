@@ -421,7 +421,6 @@ export default function SubscriptionPlansView() {
                                     <div className={styles.cardFeaturesBox}>
                                         <div className={styles.featuresLeftContent}>
                                             <div className={styles.featuresHeader}>
-                                                <span className={styles.headerAccentBar} />
                                                 <span>{plan.featuresHeader || 'WHAT YOU RECEIVE:'}</span>
                                             </div>
                                             <ul className={styles.featuresList}>
@@ -433,11 +432,6 @@ export default function SubscriptionPlansView() {
                                                 ))}
                                             </ul>
                                         </div>
-                                        {(isBasic || plan.show_gift_box || plan.id === 'basic') && (
-                                            <div className={styles.featuresRightGraphic}>
-                                                <Gold3DGiftBox />
-                                            </div>
-                                        )}
                                     </div>
                                 </div>
                             );
