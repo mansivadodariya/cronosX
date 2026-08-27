@@ -245,8 +245,7 @@ export default function SubscriptionPlansView() {
                     </div>
 
                     <h1 {...getBidiProps(t('plans.mainTitle', 'Institutional AI Trading Intelligence'), styles.title)}>
-                        Institutional AI Power, <br />
-                        <span className={styles.goldGradient}>Tailored For Your Edge</span>
+                        Institutional AI Power, <span className={styles.goldGradient}>Tailored For Your Edge</span>
                     </h1>
 
                     <p className={styles.subtitle}>

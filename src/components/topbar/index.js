@@ -164,14 +164,14 @@ const Topbar = ({ onMenuClick }) => {
 
       <div className={styles.right}>
         {/* Language Selector */}
-        <LanguageToggle />
+        {/* <LanguageToggle /> */}
 
         {/* Credits Badge */}
         <div
           className={styles.credits}
           onClick={() => {
             if (hasPlansPermission) {
-              router.push('/plans');
+              router.push('/subscription-plans');
             }
           }}
           role="button"
