@@ -468,6 +468,27 @@ export default function MarketNews() {
                             </div>
                         )}
 
+                        {/* Fallback Article Summary / Description when analysis_data is absent */}
+                        {(!selectedNews.analysis_data ||
+                          (!selectedNews.analysis_data.executive_summary &&
+                           !selectedNews.analysis_data.suggestions &&
+                           !selectedNews.analysis_data.scenario_analysis)) && (
+                            <div className={styles.modalSection}>
+                                <h4>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                        <polyline points="14 2 14 8 20 8" />
+                                        <line x1="16" y1="13" x2="8" y2="13" />
+                                        <line x1="16" y1="17" x2="8" y2="17" />
+                                    </svg>
+                                    <span>Market Event Summary</span>
+                                </h4>
+                                <p className={styles.fallbackArticleText}>
+                                    {selectedNews.description ? selectedNews.description.replace(/&nbsp;/g, ' ') : (selectedNews.impact_summary || selectedNews.summary || "Full real-time financial market coverage is available directly from the original publisher below.")}
+                                </p>
+                            </div>
+                        )}
+
                         <div className={styles.modalFooter}>
                             {selectedNews.link && (
                                 <a

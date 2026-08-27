@@ -225,3 +225,31 @@ table th .bidi-rtl {
   overflow-y: auto;
   padding: 40px 0;
 }
+
+/* Custom Sleek Thin Gold Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #060706;
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #FFF2B2 0%, #F4D17A 40%, #C1902E 100%);
+  border-radius: 99px;
+  box-shadow: 0 0 8px rgba(244, 209, 122, 0.4);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F4D17A 100%);
+  box-shadow: 0 0 12px rgba(244, 209, 122, 0.7);
+}
+
+/* Firefox Scrollbar Standard */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #C1902E #060706;
+}

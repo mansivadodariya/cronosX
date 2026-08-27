@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './plans.module.scss';
 import { fetchSubscriptionPlans, defaultSubscriptionPlans } from '@/lib/plansData';
@@ -11,6 +11,16 @@ import { refreshCreditsFromServer } from '@/lib/credits';
 import { useLanguage } from '@/context/LanguageContext';
 import { getBidiProps } from '@/lib/bidi';
 import toast from 'react-hot-toast';
+
+import { HexGiftBoxIcon, Gold3DGiftBox } from './GiftBoxIcon';
+
+const GoldenCheckCircleIcon = () => (
+    <div className={styles.goldenCheckCircle}>
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+        </svg>
+    </div>
+);
 
 const CheckIcon = () => (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
@@ -54,7 +64,7 @@ const CpuIcon = () => (
 );
 
 const ArrowUpRightIcon = () => (
-    <svg className={styles.btnArrow} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg className={styles.btnArrow} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block', margin: 'auto' }}>
         <line x1="7" y1="17" x2="17" y2="7" />
         <polyline points="7 7 17 7 17 17" />
     </svg>
@@ -87,6 +97,8 @@ const faqs = [
 
 export default function SubscriptionPlansView() {
     const router = useRouter();
+    const pathname = usePathname();
+    const isOutside = pathname === '/plans' || pathname?.includes('/(static)/') || !pathname?.includes('subscription-plans');
     const { t, language } = useLanguage();
     const [plans, setPlans] = useState(defaultSubscriptionPlans);
     const [loading, setLoading] = useState(true);
@@ -225,7 +237,7 @@ export default function SubscriptionPlansView() {
     };
 
     return (
-        <div className={`${styles.plansPage} ${styles[`lang_${language}`] || ''}`}>
+        <div className={`${styles.plansPage} ${isOutside ? styles.outsidePage : ''} ${styles[`lang_${language}`] || ''}`}>
             {/* Ambient Background Aura Lights */}
             <div className={styles.ambientGoldTop} aria-hidden="true" />
             <div className={styles.ambientGlowCenter} aria-hidden="true" />
@@ -350,12 +362,15 @@ export default function SubscriptionPlansView() {
                                     {/* Card Header Content */}
                                     <div className={styles.cardHeader}>
                                         <div className={styles.tierCategoryRow}>
-                                            <span className={styles.tierCategory}>
-                                                {isBasic ? 'FREE TIER' : isFeatured ? 'QUANT TIER' : 'INSTITUTIONAL TIER'}
-                                            </span>
-                                            {plan.credits && (
+                                            <div className={styles.tierCategoryGroup}>
+                                                <HexGiftBoxIcon />
+                                                <span className={styles.tierCategory}>
+                                                    {plan.tier_category || plan.category || plan.tier || (isBasic ? 'FREE TIER' : isFeatured ? 'QUANT TIER' : isPremium ? 'INSTITUTIONAL TIER' : `${(name || '').toUpperCase()} TIER`)}
+                                                </span>
+                                            </div>
+                                            {(plan.credits || plan.credits_label) && (
                                                 <span className={styles.creditsTag}>
-                                                    {plan.credits.toLocaleString()} AI Credits
+                                                    {plan.credits ? `${plan.credits.toLocaleString()} AI Credits` : plan.credits_label}
                                                 </span>
                                             )}
                                         </div>
@@ -402,23 +417,27 @@ export default function SubscriptionPlansView() {
                                         </p>
                                     </div>
 
-                                    <div className={styles.cardDivider} />
-
-                                    {/* Features Checklist */}
-                                    <div className={styles.cardFeatures}>
-                                        <div className={styles.featuresHeader}>
-                                            {plan.featuresHeader || 'What you receive:'}
+                                    {/* Bottom Features Box with Dynamic 3D Gift Box Graphic */}
+                                    <div className={styles.cardFeaturesBox}>
+                                        <div className={styles.featuresLeftContent}>
+                                            <div className={styles.featuresHeader}>
+                                                <span className={styles.headerAccentBar} />
+                                                <span>{plan.featuresHeader || 'WHAT YOU RECEIVE:'}</span>
+                                            </div>
+                                            <ul className={styles.featuresList}>
+                                                {featuresList.map((feat, idx) => (
+                                                    <li key={idx}>
+                                                        <GoldenCheckCircleIcon />
+                                                        <span>{feat}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
                                         </div>
-                                        <ul className={styles.featuresList}>
-                                            {featuresList.map((feat, idx) => (
-                                                <li key={idx}>
-                                                    <span className={styles.checkIconWrapper}>
-                                                        <CheckIcon />
-                                                    </span>
-                                                    <span>{feat}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
+                                        {(isBasic || plan.show_gift_box || plan.id === 'basic') && (
+                                            <div className={styles.featuresRightGraphic}>
+                                                <Gold3DGiftBox />
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             );
