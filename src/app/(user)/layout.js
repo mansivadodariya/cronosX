@@ -136,12 +136,8 @@ const layout = ({ children }) => {
                 });
         }
 
-        let lastVisibilityCheck = 0;
         const handleTabVisibilityChange = () => {
             if (document.visibilityState === 'visible') {
-                const now = Date.now();
-                if (now - lastVisibilityCheck < 60000) return; // Throttle to at most once per minute
-                lastVisibilityCheck = now;
                 const activeUid = getStoredUserId();
                 if (activeUid) {
                     dashboardApi.getStats(activeUid)

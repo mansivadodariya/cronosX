@@ -90,9 +90,9 @@ export default function Footer() {
             <h4>TRADING TOOLS</h4>
             <ul>
               <li><Link href="/ai-past-trade-analyzer">AI Past Trade Analyzer</Link></li>
-              <li><Link href="/strategy">Strategy Builder</Link></li>
-              <li><Link href="/strategy">Quant Backtesting</Link></li>
-              <li><Link href="/ai-trade">Paper Trading Desk</Link></li>
+              <li><Link href={getAuthHref('/ai-strategy/live')}>Strategy Builder</Link></li>
+              <li><Link href={getAuthHref('/ai-strategy/live')}>Quant Backtesting</Link></li>
+              <li><Link href={getAuthHref('/dashboard')}>Paper Trading Desk</Link></li>
             </ul>
           </div>
 

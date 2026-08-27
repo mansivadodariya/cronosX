@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState, useRef } from 'react';
-import { getLivePriceWsUrl } from '@/lib/useLivePrice';
 
 /**
  * CopilotHeaderPrice
@@ -27,7 +26,18 @@ export const CopilotHeaderPrice = ({ symbol = 'XAUUSD', className = '' }) => {
         let isMounted = true;
         let ws = null;
 
-        const wsUrl = getLivePriceWsUrl(cleanSymbol);
+        // Construct WebSocket URL dynamically
+        const protocol = typeof window !== 'undefined' && window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || process.env.NEXT_PUBLIC_API_URL;
+        let host = 'localhost:8000';
+
+        if (backendUrl) {
+            host = backendUrl.replace(/^https?:\/\//, '').replace(/\/+$/, '');
+        } else if (typeof window !== 'undefined' && window.location.host) {
+            host = window.location.host;
+        }
+
+        const wsUrl = `${protocol}//${host}/api/v1/websocket/live-price?symbol=${cleanSymbol}`;
 
         const connect = () => {
             try {

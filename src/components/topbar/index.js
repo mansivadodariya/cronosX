@@ -97,7 +97,6 @@ const Topbar = ({ onMenuClick }) => {
   }, []);
 
   useEffect(() => {
-    let isMounted = true;
     const init = async () => {
       try {
         const parsed = getStoredUser();
@@ -107,18 +106,14 @@ const Topbar = ({ onMenuClick }) => {
           return;
         }
         await hydrateUserFromProfile(userId, parsed || { id: userId, user_id: userId });
-        if (isMounted) {
-          await fetchCredits(userId);
-        }
+        await fetchCredits(userId);
       } catch { /* ignore */ } finally {
-        if (isMounted) setLoading(false);
+        setLoading(false);
       }
     };
     init();
-
-    return () => {
-      isMounted = false;
-    };
+    window.addEventListener('user:updated', init);
+    return () => window.removeEventListener('user:updated', init);
   }, [router]);
 
   useEffect(() => {

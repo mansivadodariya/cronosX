@@ -270,40 +270,11 @@ export const fxApi = {
         }),
 };
 
-// In-flight and short TTL cache to prevent 429 rate limit spam and duplicate component calls
-let statsInFlightPromise = null;
-let statsCache = { userId: null, data: null, timestamp: 0 };
-const STATS_CACHE_TTL_MS = 5000;
-
 export const dashboardApi = {
-    getStats: (user_id, forceRefresh = false) => {
-        if (!user_id) return Promise.resolve({ data: null });
-        const now = Date.now();
-        if (!forceRefresh && statsCache.userId === user_id && (now - statsCache.timestamp < STATS_CACHE_TTL_MS)) {
-            return Promise.resolve(statsCache.data);
-        }
-        if (!forceRefresh && statsInFlightPromise && statsInFlightPromise.userId === user_id) {
-            return statsInFlightPromise.promise;
-        }
-
-        const promise = request(`/users/${user_id}/dashboard/stats`, {
+    getStats: (user_id) =>
+        request(`/users/${user_id}/dashboard/stats`, {
             headers: getAuthHeaders(),
-        }).then((res) => {
-            statsCache = { userId: user_id, data: res, timestamp: Date.now() };
-            const credits = extractAvailableCredits(res) ?? res?.data?.available_credits;
-            if (credits !== null && credits !== undefined) {
-                notifyCreditsUpdated(credits);
-            }
-            return res;
-        }).finally(() => {
-            if (statsInFlightPromise?.userId === user_id) {
-                statsInFlightPromise = null;
-            }
-        });
-
-        statsInFlightPromise = { userId: user_id, promise };
-        return promise;
-    },
+        }),
 
     getRecentActivity: (user_id) =>
         request(`/users/${user_id}/dashboard/recent-activity`, {
