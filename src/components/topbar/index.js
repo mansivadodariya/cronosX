@@ -7,6 +7,7 @@ import { getStoredUser, getStoredUserId, hydrateUserFromProfile } from '@/lib/au
 import { CREDITS_UPDATED_EVENT } from '@/lib/credits';
 import { useLanguage } from '@/context/LanguageContext';
 import LanguageToggle from '@/components/languageToggle';
+import ThemeToggle from '@/components/themeToggle';
 import { supabase } from '@/lib/supabaseClient';
 
 const CoinDocIcon = () => (
@@ -168,8 +169,8 @@ const Topbar = ({ onMenuClick }) => {
       </div>
 
       <div className={styles.right}>
-        {/* Language Selector */}
-        {/* <LanguageToggle /> */}
+        {/* Light / Dark Theme Toggle */}
+        <ThemeToggle />
 
         {/* Credits Badge */}
         <div

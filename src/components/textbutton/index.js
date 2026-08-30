@@ -4,7 +4,7 @@ export default function Textbutton({ text }) {
     return (
         <div className={styles.textbutton}>
             <button aria-label={text}>
-                {text}
+                <span className={styles.labelText}>{text}</span>
             </button>
         </div>
     )

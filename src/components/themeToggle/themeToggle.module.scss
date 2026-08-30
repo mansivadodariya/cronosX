@@ -1,0 +1,24 @@
+.themeToggleBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(24, 201, 139, 0.08);
+  border: 1px solid rgba(24, 201, 139, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  color: #18C98B;
+
+  &:hover {
+    background: rgba(24, 201, 139, 0.18);
+    border-color: #18C98B;
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(24, 201, 139, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}

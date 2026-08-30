@@ -8,6 +8,10 @@
     background: #040605;
     overflow: hidden;
 
+    :global(html.light) & {
+        background: #F1F5F9 !important;
+    }
+
     @include respond-to("md") {
         padding: 24px 0 36px 0;
     }
@@ -74,6 +78,10 @@
             z-index: 1;
             text-shadow: none;
             background: none;
+
+            :global(html.light) & {
+                color: rgba(15, 23, 42, 0.07) !important;
+            }
         }
 
         // Spotlight Hover Layer: Radiant Primary Green Shine

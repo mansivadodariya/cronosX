@@ -9,6 +9,10 @@
   overflow: hidden;
   background: radial-gradient(ellipse at 50% 30%, #040e0a 0%, #020705 55%, #000000 100%);
 
+  :global(html.light) & {
+    background: #F8FAFC !important;
+  }
+
   @include respond-to("tab") {
     padding: 70px 0;
   }

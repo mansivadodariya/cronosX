@@ -9,6 +9,10 @@
   overflow: visible;
   background: radial-gradient(ellipse at 50% 0%, #050e0d 0%, #020605 50%, #000403 100%);
 
+  :global(html.light) & {
+    background: #F8FAFC !important;
+  }
+
   &.heroMode {
     padding: 0 !important;
     background: transparent !important;
@@ -146,6 +150,55 @@
     max-width: 100%;
     box-sizing: border-box;
     overflow: hidden;
+
+    :global(html.light) & {
+      background: #FFFFFF !important;
+      border-color: rgba(24, 201, 139, 0.3) !important;
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08) !important;
+
+      [class*="partOneChart"],
+      [class*="partTwoCockpit"] {
+        background: #F8FAFC !important;
+        border-color: rgba(24, 201, 139, 0.25) !important;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04) !important;
+      }
+
+      [class*="partHeader"] {
+        background: #FFFFFF !important;
+        border-color: rgba(24, 201, 139, 0.2) !important;
+      }
+
+      [class*="svgChartContainer"] {
+        background: #FFFFFF !important;
+      }
+
+      [class*="yAxisScaleGutter"] {
+        background: #F1F5F9 !important;
+        border-color: rgba(24, 201, 139, 0.2) !important;
+        span { color: #475569 !important; }
+      }
+
+      [class*="bigPriceVal"],
+      [class*="priceVal"],
+      [class*="assetTitle"],
+      [class*="symbolText"] {
+        color: #0F172A !important;
+      }
+
+      [class*="breadcrumbText"],
+      [class*="metaSub"],
+      [class*="subLabel"] {
+        color: #475569 !important;
+      }
+
+      [class*="metricCard"],
+      [class*="statBox"],
+      [class*="infoCard"] {
+        background: #FFFFFF !important;
+        border-color: rgba(24, 201, 139, 0.25) !important;
+        color: #0F172A !important;
+      }
+    }
 
     @include respond-to("sm") {
       padding: 14px 12px;

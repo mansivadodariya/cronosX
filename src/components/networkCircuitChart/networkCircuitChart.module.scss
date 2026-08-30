@@ -9,6 +9,68 @@
   justify-content: center;
   align-items: center;
 
+  :global(html.light) & {
+    svg rect[fill="url(#glassCardBgRadial)"],
+    svg rect[fill="url(#glassCardBgRadialBottom)"],
+    svg rect[fill="url(#glassCardBg)"],
+    svg path[fill="url(#glassCardBg)"] {
+      fill: #FFFFFF !important;
+      stroke: rgba(24, 201, 139, 0.45) !important;
+    }
+
+    /* Darker, High-Contrast Circuit Track Gradients in Light Mode */
+    svg linearGradient#circuitMintGrad stop:nth-child(1) { stop-color: #047857 !important; stop-opacity: 0.8 !important; }
+    svg linearGradient#circuitMintGrad stop:nth-child(2) { stop-color: #059669 !important; stop-opacity: 1 !important; }
+    svg linearGradient#circuitMintGrad stop:nth-child(3) { stop-color: #047857 !important; stop-opacity: 0.8 !important; }
+
+    svg linearGradient#circuitCyanGrad stop:nth-child(1) { stop-color: #0284C7 !important; stop-opacity: 0.8 !important; }
+    svg linearGradient#circuitCyanGrad stop:nth-child(2) { stop-color: #047857 !important; stop-opacity: 1 !important; }
+    svg linearGradient#circuitCyanGrad stop:nth-child(3) { stop-color: #0284C7 !important; stop-opacity: 0.8 !important; }
+
+    :global(.circuitTracksGroup) path {
+      stroke-width: 2.4px !important;
+      opacity: 0.95 !important;
+    }
+
+    svg radialGradient#centerGlowRadial stop:nth-child(1) {
+      stop-color: #047857 !important;
+      stop-opacity: 0.75 !important;
+    }
+    svg radialGradient#centerGlowRadial stop:nth-child(2) {
+      stop-color: #18C98B !important;
+      stop-opacity: 0.45 !important;
+    }
+
+    svg path[fill="#FFFFFF"],
+    svg path[fill="#ffffff"] {
+      fill: #0F172A !important;
+    }
+
+    svg text[fill="#FFFFFF"],
+    svg text[fill="#ffffff"],
+    svg text[fill="rgba(255,255,255,0.85)"],
+    svg text[fill="rgba(255, 255, 255, 0.85)"],
+    svg text[fill="rgba(255,255,255,0.9)"],
+    svg text[fill="rgba(255, 255, 255, 0.9)"] {
+      fill: #0F172A !important;
+    }
+
+    svg text[fill="rgba(255,255,255,0.72)"],
+    svg text[fill="rgba(255, 255, 255, 0.72)"],
+    svg text[fill="rgba(255,255,255,0.6)"],
+    svg text[fill="rgba(255, 255, 255, 0.6)"],
+    svg text[fill="rgba(255,255,255,0.5)"],
+    svg text[fill="rgba(255, 255, 255, 0.5)"],
+    svg text[fill="rgba(255,255,255,0.4)"],
+    svg text[fill="rgba(255, 255, 255, 0.4)"] {
+      fill: #334155 !important;
+    }
+
+    svg text[fill="#6EE7B7"] {
+      fill: #047857 !important;
+    }
+  }
+
   &.bgMode {
     position: relative;
     width: 100%;

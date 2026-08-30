@@ -9,6 +9,18 @@
   overflow: hidden;
   background: radial-gradient(circle at 50% 30%, #040907 0%, #020605 60%, #000000 100%);
 
+  :global(html.light) & {
+    background: #F8FAFC !important;
+
+    svg path[stroke="rgba(255, 255, 255, 0.2)"],
+    svg line[stroke="rgba(255, 255, 255, 0.2)"] {
+      stroke: rgba(15, 23, 42, 0.35) !important;
+    }
+    svg circle[fill="rgba(255, 255, 255, 0.4)"] {
+      fill: rgba(15, 23, 42, 0.5) !important;
+    }
+  }
+
   @include respond-to("tab") {
     padding: 70px 0 50px 0;
   }

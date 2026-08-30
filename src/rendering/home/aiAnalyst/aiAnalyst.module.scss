@@ -8,6 +8,10 @@
   padding: 120px 0;
   overflow: hidden;
 
+  :global(html.light) & {
+    background: #F8FAFC !important;
+  }
+
   @include respond-to("tab") {
     padding: 70px 0;
   }

@@ -8,17 +8,32 @@ const ThemeContext = createContext({
 });
 
 export const ThemeProvider = ({ children }) => {
-    const [theme] = useState('dark');
+    const [theme, setTheme] = useState('dark');
 
     useEffect(() => {
-        document.documentElement.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        setTheme(savedTheme);
+        applyTheme(savedTheme);
     }, []);
 
+    const applyTheme = (newTheme) => {
+        const root = document.documentElement;
+        if (newTheme === 'light') {
+            root.classList.remove('dark');
+            root.classList.add('light');
+            root.setAttribute('data-theme', 'light');
+        } else {
+            root.classList.remove('light');
+            root.classList.add('dark');
+            root.setAttribute('data-theme', 'dark');
+        }
+        localStorage.setItem('theme', newTheme);
+    };
+
     const toggleTheme = () => {
-        // Enforce dark mode permanently
-        document.documentElement.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
+        const nextTheme = theme === 'dark' ? 'light' : 'dark';
+        setTheme(nextTheme);
+        applyTheme(nextTheme);
     };
 
     return (

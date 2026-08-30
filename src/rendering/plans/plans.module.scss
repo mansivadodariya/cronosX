@@ -11,6 +11,11 @@
     overflow: hidden;
     color: #FFFFFF;
 
+    :global(html.light) & {
+        background: #F8FAFC !important;
+        color: #0F172A !important;
+    }
+
     @include respond-to("md") {
         padding: 20px 16px 60px 16px;
     }

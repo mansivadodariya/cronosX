@@ -9,6 +9,10 @@
   overflow: hidden;
   background: radial-gradient(ellipse at 50% 50%, #040c09 0%, #020605 60%, #020202 100%);
 
+  :global(html.light) & {
+    background: #F8FAFC !important;
+  }
+
   @include respond-to("tab") {
     padding: 70px 0;
   }
@@ -113,6 +117,10 @@
     z-index: 10;
     pointer-events: none;
 
+    :global(html.light) & {
+      background: linear-gradient(to right, #F8FAFC 0%, rgba(248, 250, 252, 0.95) 20%, rgba(248, 250, 252, 0.4) 65%, transparent 100%) !important;
+    }
+
     @include respond-to("sm") {
       width: 60px;
     }
@@ -127,6 +135,10 @@
     background: linear-gradient(to left, #000000 0%, rgba(0, 0, 0, 0.95) 20%, rgba(0, 0, 0, 0.4) 65%, transparent 100%);
     z-index: 10;
     pointer-events: none;
+
+    :global(html.light) & {
+      background: linear-gradient(to left, #F8FAFC 0%, rgba(248, 250, 252, 0.95) 20%, rgba(248, 250, 252, 0.4) 65%, transparent 100%) !important;
+    }
 
     @include respond-to("sm") {
       width: 60px;

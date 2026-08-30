@@ -14,6 +14,10 @@
     display: flex;
     align-items: center;
 
+    :global(html.light) & {
+        background: #F8FAFC !important;
+    }
+
     @include respond-to("tab") {
         padding: 110px 0 60px 0;
         min-height: auto;
@@ -137,6 +141,10 @@
         background: radial-gradient(circle at 50% 50%, transparent 60%, #040605 100%);
         pointer-events: none;
         z-index: 2;
+
+        :global(html.light) & {
+            display: none !important;
+        }
     }
 
     // SideRays wrapper: strictly visible on desktop/laptop, hidden on mobile

@@ -4,6 +4,7 @@ import { ToastProvider } from "@/components/toast";
 import WhatsappButton from "@/components/whatsappButton";
 import PageLoader from "@/components/pageLoader";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 const antonSans = Anton({
   variable: "--font-anton",
@@ -104,15 +105,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`dark ${antonSans.variable} ${robotoSans.variable} ${plusSans.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${antonSans.variable} ${robotoSans.variable} ${plusSans.variable}`} suppressHydrationWarning>
       <body suppressHydrationWarning>
         <script
           id="theme-initializer"
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
+                var storedTheme = localStorage.getItem('theme') || 'dark';
+                document.documentElement.classList.add(storedTheme);
+                document.documentElement.setAttribute('data-theme', storedTheme);
 
                 var storedLang = localStorage.getItem('app_language');
                 if (storedLang === 'ar') {
@@ -123,13 +125,15 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
-        <LanguageProvider>
-          <ToastProvider>
-            {children}
-            <PageLoader />
-            <WhatsappButton />
-          </ToastProvider>
-        </LanguageProvider>
+        <ThemeProvider>
+          <LanguageProvider>
+            <ToastProvider>
+              {children}
+              <PageLoader />
+              <WhatsappButton />
+            </ToastProvider>
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

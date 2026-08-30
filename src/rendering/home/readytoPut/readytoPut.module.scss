@@ -8,12 +8,22 @@
     overflow: hidden;
     background: #020605;
 
+    :global(html.light) & {
+        background: #F8FAFC !important;
+    }
+
     .bannerCardFull {
         position: relative;
         width: 100%;
         padding: 95px 0 90px 0;
         background: radial-gradient(120% 120% at 50% 0%, #061A13 0%, #040E0B 55%, #020605 100%);
         border-top: 1px solid rgba(24, 201, 139, 0.35);
+
+        :global(html.light) & {
+            background: #FFFFFF !important;
+            border-top-color: rgba(24, 201, 139, 0.3) !important;
+            box-shadow: 0 10px 40px rgba(15, 23, 42, 0.08) !important;
+        }
         box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(24, 201, 139, 0.35);
         overflow: hidden;
         display: flex;

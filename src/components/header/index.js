@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { authNavigate, getAuthHref, isUserLoggedIn } from '@/lib/authRedirect';
 import styles from './header.module.scss';
 import Button from '../button';
+import ThemeToggle from '../themeToggle';
 
 const Logo = '/assets/logo/logo.png';
 const RightIcon = '/assets/icons/right.svg';
@@ -394,6 +395,7 @@ export default function Header() {
 
                     {/* Right Desktop CTA */}
                     <div className={styles.desktopAction}>
+                        <ThemeToggle />
                         <Button
                             text="Get Started"
                             icon={RightIcon}

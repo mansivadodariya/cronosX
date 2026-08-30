@@ -51,13 +51,13 @@ export default function NetworkCircuitChart({ isBackground = false }) {
             </linearGradient>
 
             <radialGradient id="glassCardBgRadial" cx="85%" cy="15%" r="85%">
-              <stop offset="0%" stopColor="#18C98B" stopOpacity="0.25" />
+              <stop offset="0%" stopColor="#0C1611" stopOpacity="0.96" />
               <stop offset="45%" stopColor="#0C1611" stopOpacity="0.96" />
               <stop offset="100%" stopColor="#040605" stopOpacity="0.98" />
             </radialGradient>
 
             <radialGradient id="glassCardBgRadialBottom" cx="15%" cy="85%" r="85%">
-              <stop offset="0%" stopColor="#18C98B" stopOpacity="0.28" />
+              <stop offset="0%" stopColor="#0C1611" stopOpacity="0.96" />
               <stop offset="50%" stopColor="#0C1611" stopOpacity="0.96" />
               <stop offset="100%" stopColor="#040605" stopOpacity="0.98" />
             </radialGradient>

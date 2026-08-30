@@ -266,3 +266,244 @@ table th .bidi-rtl {
   scrollbar-width: thin;
   scrollbar-color: #18c98b #040605;
 }
+
+/* ============================================================
+   EVERY LANDING PAGE SECTION LIGHT MODE HIGH-CONTRAST OVERRIDES
+   ============================================================ */
+html.light, html[data-theme="light"] {
+  --bg-global: #F8FAFC;
+  --text-white: #0F172A;
+  color-scheme: light;
+  background-color: #F8FAFC !important;
+}
+
+html.light body,
+html.light .user-layout,
+html.light .children-wrapper,
+html.light .sidebar-wrapper,
+html.light main,
+html.light section,
+html.light article {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+/* Force dark slate text across all headings, titles, descriptions & body text */
+html.light h1,
+html.light h2,
+html.light h3,
+html.light h4,
+html.light h5,
+html.light h6,
+html.light p,
+html.light label,
+html.light strong,
+html.light b,
+html.light li,
+html.light td,
+html.light th,
+html.light [class*="title"],
+html.light [class*="Title"],
+html.light [class*="heading"],
+html.light [class*="Heading"],
+html.light [class*="name"],
+html.light [class*="Name"] {
+  color: #0F172A !important;
+}
+
+html.light span:not([class*="Badge"]):not([class*="badge"]):not([class*="pulse"]):not([class*="dot"]):not([class*="Pill"]):not([class*="pill"]):not([class*="tag"]):not([class*="Tag"]) {
+  color: inherit;
+}
+
+/* Secondary & Muted Descriptions in Light Mode */
+html.light [class*="desc"],
+html.light [class*="Desc"],
+html.light [class*="subtitle"],
+html.light [class*="Subtitle"],
+html.light [class*="subText"],
+html.light [class*="Subtext"],
+html.light [class*="description"],
+html.light [class*="Description"],
+html.light [class*="meta"],
+html.light [class*="Meta"] {
+  color: #475569 !important;
+}
+
+/* Stat numbers and counts in Light Mode */
+html.light [class*="rowVal"],
+html.light [class*="statValue"],
+html.light [class*="creditsAmount"],
+html.light [class*="count"],
+html.light [class*="Count"],
+html.light [class*="number"],
+html.light [class*="Number"],
+html.light [class*="metricVal"] {
+  color: #0F172A !important;
+  opacity: 1 !important;
+}
+
+/* Bright Mint & Slate Gradient Text for Key Highlights */
+html.light h1 span,
+html.light h2 span,
+html.light h3 span,
+html.light [class*="title"] span,
+html.light [class*="Title"] span,
+html.light [class*="heading"] span,
+html.light [class*="Heading"] span,
+html.light [class*="goldGradient"],
+html.light [class*="greenGradient"],
+html.light [class*="accentGradient"] {
+  background: linear-gradient(135deg, #0F172A 0%, #047857 35%, #18C98B 80%, #059669 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+/* All Cards, Boxes, Testimonials, and Feature Containers in Light Mode */
+html.light [class*="card"],
+html.light [class*="Card"],
+html.light [class*="box"],
+html.light [class*="Box"],
+html.light [class*="itemCard"],
+html.light [class*="featureCard"],
+html.light [class*="stepCard"],
+html.light [class*="testimonialCard"],
+html.light [class*="coinCard"],
+html.light [class*="heroCard"],
+html.light [class*="cockpitCard"],
+html.light [class*="panel"],
+html.light [class*="Panel"],
+html.light [class*="hologramHero"],
+html.light [class*="watchlistSection"],
+html.light [class*="sidebar"],
+html.light [class*="topbar"],
+html.light [class*="headerAlignment"],
+html.light [class*="statPillRow"],
+html.light [class*="glassStatCard"],
+html.light [class*="detailPillBox"],
+html.light [class*="creditsCardBox"],
+html.light [class*="actionGridBtn"],
+html.light [class*="navMenuCard"] {
+  background: #FFFFFF !important;
+  border-color: rgba(24, 201, 139, 0.28) !important;
+  box-shadow: 0 6px 25px rgba(15, 23, 42, 0.06) !important;
+  color: #0F172A !important;
+}
+
+/* Specific Containers & Section Backdrops */
+html.light [class*="heroChartSection"],
+html.light [class*="activityItemRow"],
+html.light [class*="itemRow"],
+html.light [class*="scanItemRow"],
+html.light [class*="proAccountCard"],
+html.light [class*="userCard"] {
+  background: #F1F5F9 !important;
+  border-color: rgba(24, 201, 139, 0.25) !important;
+  color: #0F172A !important;
+}
+
+/* Sidebar Navigation in Light Mode */
+html.light [class*="sidebar"] {
+  background-color: #FFFFFF !important;
+  border-right-color: rgba(24, 201, 139, 0.2) !important;
+}
+
+html.light [class*="navMenuItem"],
+html.light [class*="menu"],
+html.light [class*="sidebarmenu"] a {
+  color: #334155 !important;
+}
+
+html.light [class*="navMenuItem"]:hover,
+html.light [class*="menu"]:hover {
+  background: rgba(24, 201, 139, 0.1) !important;
+  color: #047857 !important;
+}
+
+html.light [class*="navMenuItemActive"],
+html.light [data-active="true"],
+html.light [class*="menu"].active {
+  color: #047857 !important;
+  background: rgba(24, 201, 139, 0.14) !important;
+  border-color: rgba(24, 201, 139, 0.3) !important;
+}
+
+/* SVG Line & Path Contrast Overrides for Light Mode */
+html.light svg path[stroke="#ffffff"],
+html.light svg path[stroke="#FFFFFF"],
+html.light svg path[stroke="white"],
+html.light svg line[stroke="#ffffff"],
+html.light svg line[stroke="#FFFFFF"],
+html.light svg line[stroke="white"],
+html.light svg circle[stroke="#ffffff"],
+html.light svg circle[stroke="#FFFFFF"],
+html.light svg circle[stroke="white"] {
+  stroke: #334155 !important;
+}
+
+html.light svg path[fill="#ffffff"],
+html.light svg path[fill="#FFFFFF"],
+html.light svg path[fill="white"] {
+  fill: #0F172A !important;
+}
+
+html.light line[stroke="rgba(255, 255, 255, 0.05)"],
+html.light line[stroke*="rgba(255, 255, 255"] {
+  stroke: rgba(15, 23, 42, 0.12) !important;
+}
+
+html.light text[fill="rgba(255, 255, 255, 0.5)"],
+html.light text[fill*="rgba(255, 255, 255"] {
+  fill: #475569 !important;
+}
+
+/* Ambient glow & backdrop grids in Light Mode */
+html.light [class*="ambient"],
+html.light [class*="gridOverlay"],
+html.light [class*="glow"] {
+  opacity: 0.2 !important;
+}
+
+/* Eyebrow Badges & Section Tags in Light Mode */
+html.light [class*="eyebrowBadge"],
+html.light [class*="sectionTag"],
+html.light [class*="badgeWrapper"] span,
+html.light [class*="tag"] {
+  color: #047857 !important;
+  background: rgba(24, 201, 139, 0.12) !important;
+  border-color: rgba(24, 201, 139, 0.3) !important;
+}
+
+/* Chat bubble card inside AI Analyst in Light Mode */
+html.light [class*="chatBox"],
+html.light [class*="chatBubble"],
+html.light [class*="botMessage"] {
+  background: #F1F5F9 !important;
+  color: #0F172A !important;
+  border: 1px solid rgba(24, 201, 139, 0.25) !important;
+}
+
+html.light [class*="chatBox"] p,
+html.light [class*="chatBubble"] p,
+html.light [class*="botMessage"] p {
+  color: #0F172A !important;
+}
+
+/* Footer Light Mode Support */
+html.light [class*="footer"],
+html.light footer {
+  background-color: #F1F5F9 !important;
+  border-top: 1px solid rgba(24, 201, 139, 0.25) !important;
+  color: #334155 !important;
+}
+
+html.light [class*="footer"] a,
+html.light footer a {
+  color: #334155 !important;
+}
+
+html.light [class*="footer"] a:hover,
+html.light footer a:hover {
+  color: #18C98B !important;
+}
+
