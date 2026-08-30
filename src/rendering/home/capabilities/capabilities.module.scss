@@ -7,7 +7,7 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 30%, #080603 0%, #030304 60%, #000000 100%);
+  background: radial-gradient(circle at 50% 30%, #040907 0%, #020605 60%, #000000 100%);
 
   @include respond-to("tab") {
     padding: 70px 0 50px 0;
@@ -26,7 +26,7 @@
     width: 100%;
     max-width: 1200px;
     height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(216, 162, 59, 0.2) 50%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.2) 50%, transparent 100%);
     z-index: 5;
     pointer-events: none;
   }
@@ -69,7 +69,7 @@
         margin: 0;
 
         span {
-          background: linear-gradient(90deg, #FFFFFF 0%, #FFE693 50%, #D8A23B 100%);
+          background: linear-gradient(90deg, #FFFFFF 0%, #6EE7B7 50%, #18c98b 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -104,145 +104,181 @@
     }
   }
 
-  /* Connected Cockpit Grid Container (TradeDots exact style) */
+  /* 2x2 Grid Container with gaps between individual card boxes */
   .cockpitContainer {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    background: rgba(14, 11, 5, 0.75);
-    border: 1px solid rgba(216, 162, 59, 0.18);
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    overflow: visible;
 
     @include respond-to("lg") {
-      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
     }
 
-    @include respond-to("sm") {
+    @include respond-to("tab") {
       grid-template-columns: 1fr;
-      border-radius: 18px;
+      gap: 16px;
     }
   }
 
-  /* Single Cockpit Column Card */
+  /* Individual Box Card */
   .cockpitCard {
     position: relative;
-    padding: 32px 24px;
-    border-right: 1px solid rgba(216, 162, 59, 0.12);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 520px;
+    background: rgba(4, 12, 9, 0.88);
+    border: 1px solid rgba(24, 201, 139, 0.22);
+    border-radius: 20px;
+    padding: 26px 26px;
     cursor: pointer;
-    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(24, 201, 139, 0.12);
+    transition: all 0.38s cubic-bezier(0.22, 1, 0.36, 1);
 
-    &:last-child {
-      border-right: none;
-    }
-
-    @include respond-to("lg") {
-      min-height: 480px;
-      &:nth-child(2) {
-        border-right: none;
-      }
-      &:nth-child(1), &:nth-child(2) {
-        border-bottom: 1px solid rgba(216, 162, 59, 0.12);
-      }
-    }
-
-    @include respond-to("sm") {
-      border-right: none;
-      border-bottom: 1px solid rgba(216, 162, 59, 0.12);
-      padding: 24px 18px;
-      min-height: auto;
-
-      &:last-child {
-        border-bottom: none;
-      }
-    }
-
-    &.cardDimmed {
-      opacity: 0.45;
-    }
-
-    &.cardActive {
+    &:hover, &.cardActive {
       opacity: 1;
-      background: radial-gradient(circle at 50% 15%, rgba(216, 162, 59, 0.1) 0%, transparent 70%), rgba(18, 14, 6, 0.95);
+      border-color: rgba(24, 201, 139, 0.55);
+      background: radial-gradient(circle at 50% 15%, rgba(24, 201, 139, 0.14) 0%, transparent 75%), rgba(4, 14, 10, 0.96);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 32px rgba(24, 201, 139, 0.16), inset 0 1px 0 rgba(24, 201, 139, 0.3);
+      transform: translateY(-4px);
 
       .cardHeaderMeta {
         h3 {
           color: #FFFFFF;
-          text-shadow: 0 0 12px rgba(255, 230, 147, 0.4);
+          text-shadow: 0 0 16px rgba(24, 201, 139, 0.5);
         }
       }
 
-      .cardFooter {
-        .watermarkNum {
-          color: #FFE693;
-          text-shadow: 0 0 10px rgba(255, 230, 147, 0.5);
-          transform: translateY(-2px);
-        }
+   
+    }
+
+    &.cardDimmed {
+      opacity: 0.5;
+    }
+
+    /* 2-Part Internal Split */
+    .cardTwoPartSplit {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 22px;
+      align-items: stretch;
+      width: 100%;
+      height: 100%;
+
+      @include respond-to("md") {
+        grid-template-columns: 1fr;
+        gap: 18px;
       }
+    }
+
+    .cardLeftData {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .cardRightAnim {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
     }
 
     .cardHeaderMeta {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin-bottom: 24px;
+      margin-bottom: 12px;
+
+      .topRowHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+      }
 
       .capLabelRow {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        gap: 10px;
+        .watermarkNum {
+          color: #6EE7B7;
+          text-shadow: 0 0 12px rgba(24, 201, 139, 0.6);
+          transform: translateY(-2px);
+          font-size: 50px;
+          font-weight: 700;
+          letter-spacing: 0.8px;
+        }
       }
 
-      .capNumber {
-        font-family: monospace, sans-serif;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.8px;
-        color: #9CA3AF;
-        text-transform: uppercase;
+
+      .actionArrow {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #6B7280;
+        transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+        svg {
+          transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.35s ease;
+        }
+
+        &.arrowGlow {
+          color: #34D399;
+          background: rgba(24, 201, 139, 0.22);
+          border-color: rgba(24, 201, 139, 0.6);
+          box-shadow: 0 0 22px rgba(24, 201, 139, 0.65), inset 0 0 10px rgba(24, 201, 139, 0.25);
+
+          svg {
+            transform: translate(2px, -2px) scale(1.1);
+            filter: drop-shadow(0 0 8px #34D399);
+          }
+        }
       }
 
       .comingBadge {
         font-family: monospace, sans-serif;
         font-size: 9px;
         font-weight: 700;
-        color: #FFE693;
-        background: rgba(216, 162, 59, 0.18);
-        border: 1px solid rgba(255, 230, 147, 0.4);
+        color: #6EE7B7;
+        background: rgba(24, 201, 139, 0.18);
+        border: 1px solid rgba(24, 201, 139, 0.4);
         padding: 2px 7px;
         border-radius: 12px;
         letter-spacing: 0.5px;
       }
 
       h3 {
-        font-size: 22px;
+        font-size: 24px;
         font-weight: 700;
         color: #ffffff;
         margin: 0;
-        letter-spacing: -0.3px;
+        letter-spacing: -0.4px;
         transition: color 0.3s ease;
       }
     }
 
-    /* Clean Card Footer Row with No Overlapping */
+    /* Clean Card Footer Row */
     .cardFooter {
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
       gap: 14px;
-      margin-top: 24px;
+      margin-top: 16px;
       position: relative;
       z-index: 2;
       width: 100%;
 
       .cardDesc {
-        font-size: 14px;
+        font-size: 13.5px;
         line-height: 1.55;
-        color: #ffffff;
+        color: #D1D5DB;
         margin: 0;
         flex: 1;
       }
@@ -251,7 +287,7 @@
         font-family: monospace, sans-serif;
         font-size: 28px;
         font-weight: 800;
-        color: rgba(216, 162, 59, 0.3);
+        color: rgba(24, 201, 139, 0.35);
         line-height: 1;
         flex-shrink: 0;
         margin-bottom: 2px;
@@ -261,10 +297,9 @@
     }
   }
 
-  /* Inner Interactive Widget Box (Bigger & Taller in Gold) */
+  /* Inner Interactive Widget Box */
   .widgetBox {
-    background: #0E0C06;
-    border: 1px solid rgba(216, 162, 59, 0.2);
+    background: #040907;
     border-radius: 18px;
     padding: 20px 16px;
     position: relative;
@@ -276,8 +311,8 @@
     transition: all 0.35s ease;
 
     &.widgetActive {
-      border-color: rgba(255, 230, 147, 0.7);
-      box-shadow: 0 0 28px rgba(216, 162, 59, 0.28), inset 0 0 14px rgba(216, 162, 59, 0.08);
+      border-color: rgba(24, 201, 139, 0.7);
+      box-shadow: 0 0 28px rgba(24, 201, 139, 0.28), inset 0 0 14px rgba(24, 201, 139, 0.08);
     }
 
     .widgetTopRow {
@@ -300,8 +335,8 @@
           width: 5px;
           height: 5px;
           border-radius: 50%;
-          background: #FFE693;
-          box-shadow: 0 0 6px #FFE693;
+          background: #6EE7B7;
+          box-shadow: 0 0 6px #6EE7B7;
           animation: pulseGold 2s infinite;
         }
       }
@@ -315,7 +350,7 @@
       }
 
       .proTag {
-        color: #FFE693;
+        color: #6EE7B7;
       }
 
       .resLabel {
@@ -327,7 +362,7 @@
         transition: color 0.3s ease;
 
         &.momActive {
-          color: #FFE693;
+          color: #6EE7B7;
         }
       }
 
@@ -390,8 +425,8 @@
         transition: color 0.3s ease;
 
         &.scoreActive {
-          color: #FFE693;
-          text-shadow: 0 0 8px rgba(255, 230, 147, 0.6);
+          color: #6EE7B7;
+          text-shadow: 0 0 8px rgba(24, 201, 139, 0.6);
         }
       }
     }
@@ -428,14 +463,14 @@
       }
 
       &.buyBadgeActive {
-        background: rgba(216, 162, 59, 0.2);
-        border-color: rgba(255, 230, 147, 0.5);
-        color: #FFE693;
-        box-shadow: 0 0 14px rgba(255, 230, 147, 0.4);
+        background: rgba(24, 201, 139, 0.2);
+        border-color: rgba(24, 201, 139, 0.5);
+        color: #6EE7B7;
+        box-shadow: 0 0 14px rgba(24, 201, 139, 0.4);
 
         .beaconDot {
-          background: #FFE693;
-          box-shadow: 0 0 6px #FFE693;
+          background: #6EE7B7;
+          box-shadow: 0 0 6px #6EE7B7;
           animation: pulseGold 1.5s infinite;
         }
       }
@@ -475,7 +510,7 @@
       font-family: monospace, sans-serif;
       font-size: 10px;
       font-weight: 600;
-      color: #FFE693;
+      color: #6EE7B7;
       opacity: 0.9;
     }
 
@@ -507,18 +542,18 @@
       }
 
       &.toastActive {
-        background: rgba(216, 162, 59, 0.18);
-        border-color: rgba(255, 230, 147, 0.45);
+        background: rgba(24, 201, 139, 0.18);
+        border-color: rgba(24, 201, 139, 0.45);
         color: #FFFFFF;
-        box-shadow: 0 0 16px rgba(255, 230, 147, 0.3);
+        box-shadow: 0 0 16px rgba(24, 201, 139, 0.3);
 
         .arrowIcon {
-          color: #FFE693;
+          color: #6EE7B7;
           font-weight: 700;
         }
 
         span {
-          color: #FFE693;
+          color: #6EE7B7;
         }
       }
     }
@@ -570,16 +605,16 @@
         }
 
         &.statPillActive {
-          background: rgba(216, 162, 59, 0.16);
-          border-color: rgba(255, 230, 147, 0.45);
+          background: rgba(24, 201, 139, 0.16);
+          border-color: rgba(24, 201, 139, 0.45);
 
           .statTitle {
-            color: #FFE693;
+            color: #6EE7B7;
           }
 
           .statNum {
             color: #FFFFFF;
-            text-shadow: 0 0 8px rgba(255, 230, 147, 0.6);
+            text-shadow: 0 0 8px rgba(24, 201, 139, 0.6);
           }
         }
       }

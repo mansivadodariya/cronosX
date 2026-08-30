@@ -63,17 +63,17 @@ export default function Platform() {
                 >
                     <defs>
                         <linearGradient id="goldBaseGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stopColor="#C1902E" stopOpacity="0.1" />
-                            <stop offset="20%" stopColor="#C1902E" stopOpacity="0.4" />
-                            <stop offset="50%" stopColor="#F4D17A" stopOpacity="0.6" />
-                            <stop offset="80%" stopColor="#C1902E" stopOpacity="0.4" />
-                            <stop offset="100%" stopColor="#C1902E" stopOpacity="0.1" />
+                            <stop offset="0%" stopColor="#18c98b" stopOpacity="0.1" />
+                            <stop offset="20%" stopColor="#18c98b" stopOpacity="0.4" />
+                            <stop offset="50%" stopColor="#6EE7B7" stopOpacity="0.6" />
+                            <stop offset="80%" stopColor="#18c98b" stopOpacity="0.4" />
+                            <stop offset="100%" stopColor="#18c98b" stopOpacity="0.1" />
                         </linearGradient>
 
                         <linearGradient id="goldBeamGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stopColor="#C1902E" stopOpacity="0" />
-                            <stop offset="30%" stopColor="#C1902E" stopOpacity="0.6" />
-                            <stop offset="70%" stopColor="#F4D17A" stopOpacity="1" />
+                            <stop offset="0%" stopColor="#18c98b" stopOpacity="0" />
+                            <stop offset="30%" stopColor="#18c98b" stopOpacity="0.6" />
+                            <stop offset="70%" stopColor="#6EE7B7" stopOpacity="1" />
                             <stop offset="100%" stopColor="#FFFFFF" stopOpacity="1" />
                         </linearGradient>
 

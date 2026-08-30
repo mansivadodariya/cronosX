@@ -5,7 +5,7 @@
 .intelligenceSection {
   padding: 110px 0 90px;
   position: relative;
-  background: radial-gradient(ellipse at 50% 30%, #0d0a05 0%, #060402 55%, #020202 100%);
+  background: radial-gradient(ellipse at 50% 30%, #050c0d 0%, #020406 55%, #020202 100%);
   overflow: hidden;
 
   @include respond-to("tab") {
@@ -25,7 +25,7 @@
     width: 100%;
     max-width: 1200px;
     height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(216, 162, 59, 0.25) 50%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.25) 50%, transparent 100%);
     z-index: 5;
     pointer-events: none;
   }
@@ -60,7 +60,7 @@
     margin-bottom: 18px;
 
     span {
-      background: linear-gradient(90deg, #FFFFFF 0%, #FFE693 50%, #D8A23B 100%);
+      background: linear-gradient(90deg, #FFFFFF 0%, #6EE7B7 50%, #18c98b 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -156,8 +156,8 @@
 
   &:hover {
     background: #040508;
-    border-color: rgba(216, 162, 59, 0.4);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.95), 0 0 25px rgba(216, 162, 59, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border-color: rgba(24, 201, 139, 0.4);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.95), 0 0 25px rgba(24, 201, 139, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
 }
 
@@ -165,12 +165,12 @@
 .cardBack {
   transform: rotateY(180deg);
   background: #000000;
-  border-color: rgba(216, 162, 59, 0.3);
+  border-color: rgba(24, 201, 139, 0.3);
 
   &:hover {
     background: #040508;
-    border-color: rgba(255, 230, 147, 0.5);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.95), 0 0 25px rgba(216, 162, 59, 0.2);
+    border-color: rgba(24, 201, 139, 0.5);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.95), 0 0 25px rgba(24, 201, 139, 0.2);
   }
 
   .backHeader {
@@ -185,7 +185,7 @@
       font-size: 10px;
       font-weight: 800;
       letter-spacing: 1.5px;
-      color: #FFE693;
+      color: #6EE7B7;
       text-transform: uppercase;
     }
 
@@ -227,7 +227,7 @@
       color: rgba(255, 255, 255, 0.85);
 
       .specDot {
-        color: #FFE693;
+        color: #6EE7B7;
         font-size: 12px;
       }
     }
@@ -336,7 +336,7 @@
     font-weight: 800;
     letter-spacing: 0.8px;
     text-transform: uppercase;
-    color: #FFE693;
+    color: #6EE7B7;
     display: inline-flex;
     align-items: center;
     gap: 5px;
@@ -360,10 +360,10 @@
     }
 
     .legOb {
-      color: #FFE693;
+      color: #6EE7B7;
     }
     .legFvg {
-      color: #F59E0B;
+      color: #6EE7B7;
     }
     .legLiq {
       color: #8B5CF6;
@@ -390,9 +390,9 @@
   z-index: 10;
 
   &:hover {
-    background: rgba(216, 162, 59, 0.15);
-    color: #FFE693;
-    border-color: rgba(216, 162, 59, 0.4);
+    background: rgba(24, 201, 139, 0.15);
+    color: #6EE7B7;
+    border-color: rgba(24, 201, 139, 0.4);
     transform: rotate(180deg);
   }
 }
@@ -422,10 +422,10 @@
 /* Oscillating Wave Glow Pulse */
 @keyframes waveGlowPulse {
   0%, 100% {
-    filter: drop-shadow(0 0 4px rgba(216, 162, 59, 0.4));
+    filter: drop-shadow(0 0 4px rgba(24, 201, 139, 0.4));
   }
   50% {
-    filter: drop-shadow(0 0 12px rgba(216, 162, 59, 0.9));
+    filter: drop-shadow(0 0 12px rgba(24, 201, 139, 0.9));
   }
 }
 

@@ -129,36 +129,36 @@ export default function BreakoutDetection() {
                   <svg viewBox="0 0 580 290" xmlns="http://www.w3.org/2000/svg" className={styles.chartSvg}>
                     <defs>
                       <linearGradient id="goldLineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#D8A23B" stopOpacity="0.9" />
-                        <stop offset="100%" stopColor="#FFE693" stopOpacity="1" />
+                        <stop offset="0%" stopColor="#18c98b" stopOpacity="0.9" />
+                        <stop offset="100%" stopColor="#6EE7B7" stopOpacity="1" />
                       </linearGradient>
 
                       <linearGradient id="baseLineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#645A45" stopOpacity="0.6" />
-                        <stop offset="100%" stopColor="#9E7F40" stopOpacity="0.85" />
+                        <stop offset="0%" stopColor="#18c98b" stopOpacity="0.6" />
+                        <stop offset="100%" stopColor="#6EE7B7" stopOpacity="0.85" />
                       </linearGradient>
 
                       <linearGradient id="glowAreaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="#D8A23B" stopOpacity="0.25" />
-                        <stop offset="60%" stopColor="#9E6B17" stopOpacity="0.08" />
-                        <stop offset="100%" stopColor="#D8A23B" stopOpacity="0" />
+                        <stop offset="0%" stopColor="#18c98b" stopOpacity="0.25" />
+                        <stop offset="60%" stopColor="#18c98b" stopOpacity="0.08" />
+                        <stop offset="100%" stopColor="#18c98b" stopOpacity="0" />
                       </linearGradient>
 
                       <linearGradient id="baseAreaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="#9E6B17" stopOpacity="0.08" />
-                        <stop offset="100%" stopColor="#9E6B17" stopOpacity="0" />
+                        <stop offset="0%" stopColor="#18c98b" stopOpacity="0.08" />
+                        <stop offset="100%" stopColor="#18c98b" stopOpacity="0" />
                       </linearGradient>
 
                       <radialGradient id="pointGlowHalo" cx="50%" cy="50%" r="50%">
                         <stop offset="0%" stopColor="#FFFFFF" stopOpacity="1" />
-                        <stop offset="40%" stopColor="#FFE693" stopOpacity="0.9" />
-                        <stop offset="100%" stopColor="#D8A23B" stopOpacity="0" />
+                        <stop offset="40%" stopColor="#6EE7B7" stopOpacity="0.9" />
+                        <stop offset="100%" stopColor="#18c98b" stopOpacity="0" />
                       </radialGradient>
                     </defs>
 
                     {/* Subtle Horizontal Grid lines */}
-                    <line x1="20" y1="240" x2="560" y2="240" stroke="rgba(216, 162, 59, 0.08)" strokeWidth="1" />
-                    <line x1="20" y1="125" x2="560" y2="125" stroke="rgba(216, 162, 59, 0.08)" strokeWidth="1" />
+                    <line x1="20" y1="240" x2="560" y2="240" stroke="rgba(24, 201, 139, 0.08)" strokeWidth="1" />
+                    <line x1="20" y1="125" x2="560" y2="125" stroke="rgba(24, 201, 139, 0.08)" strokeWidth="1" />
 
                     {/* Dashed Resistance Line (R · $86.20) */}
                     <g className={styles.resistanceLineGroup}>
@@ -190,8 +190,8 @@ export default function BreakoutDetection() {
                     {activeStep === 0 && (
                       <g className={styles.tipDotGroup}>
                         <circle cx="365" cy="180" r="9" className={styles.sonarRing} />
-                        <circle cx="365" cy="180" r="4" fill="#FFE693" />
-                        <circle cx="365" cy="180" r="1.8" fill="#FFFFFF" />
+                        <circle cx="365" cy="180" r="4" fill="#13f9d3ff" />
+                        <circle cx="365" cy="180" r="1.8" fill="#00ffaeff" />
                       </g>
                     )}
 
@@ -226,8 +226,8 @@ export default function BreakoutDetection() {
 
                         {/* Breakout Point Indicator */}
                         <circle cx="365" cy="180" r="12" className={styles.breakoutSonar} />
-                        <circle cx="365" cy="180" r="5" fill="none" stroke="#FFE693" strokeWidth="1.6" />
-                        <circle cx="365" cy="180" r="2.8" fill="#FFE693" />
+                        <circle cx="365" cy="180" r="5" fill="none" stroke="#FFFFFF" strokeWidth="1.6" />
+                        <circle cx="365" cy="180" r="2.8" fill="#14ffccff" />
 
                         {/* Current Price Tip Dot */}
                         <circle 

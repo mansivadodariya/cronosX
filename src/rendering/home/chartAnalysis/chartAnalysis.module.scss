@@ -7,7 +7,7 @@
     position: relative;
     text-align: center;
     overflow: hidden;
-    background: radial-gradient(ellipse at 50% 50%, #0b0906 0%, #040405 60%, #010101 100%);
+    background: radial-gradient(ellipse at 50% 50%, #040c09 0%, #020605 60%, #010101 100%);
 
     @include respond-to("tab") {
         padding: 70px 0;
@@ -26,13 +26,13 @@
         width: 100%;
         max-width: 1200px;
         height: 1px;
-        background: linear-gradient(90deg, transparent 0%, rgba(216, 162, 59, 0.25) 50%, transparent 100%);
+        background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.25) 50%, transparent 100%);
         z-index: 5;
         pointer-events: none;
     }
 
     &::before {
-        background-color: #C1902E;
+        background-color: #18c98b;
         position: absolute;
         top: 0;
         left: 50%;
@@ -73,7 +73,7 @@
             margin: 0 0 16px 0;
 
             span {
-                background: linear-gradient(90deg, #FFFFFF 0%, #FFE693 50%, #D8A23B 100%);
+                background: linear-gradient(90deg, #FFFFFF 0%, #6EE7B7 50%, #18c98b 100%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
@@ -114,11 +114,11 @@
             height: 2px;
             background: linear-gradient(90deg,
                     transparent 0%,
-                    rgba(193, 144, 46, 0.4) 15%,
-                    #F4D17A 50%,
-                    rgba(193, 144, 46, 0.4) 85%,
+                    rgba(24, 201, 139, 0.4) 15%,
+                    #18c98b 50%,
+                    rgba(24, 201, 139, 0.4) 85%,
                     transparent 100%);
-            box-shadow: 0 0 15px rgba(244, 209, 122, 0.7);
+            box-shadow: 0 0 15px rgba(24, 201, 139, 0.7);
 
             @include respond-to("md") {
                 display: none;
@@ -133,13 +133,13 @@
             height: 40px;
             border-radius: 50%;
             background: radial-gradient(circle, #1a140f 0%, #0c0907 100%);
-            border: 1.5px solid #C1902E;
-            color: #F4D17A;
+            border: 1.5px solid #18c98b;
+            color: #18c98b;
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 6;
-            box-shadow: 0 0 20px rgba(193, 144, 46, 0.4), inset 0 0 8px rgba(244, 209, 122, 0.25);
+            box-shadow: 0 0 20px rgba(24, 201, 139, 0.4), inset 0 0 8px rgba(24, 201, 139, 0.25);
 
             svg {
                 transition: transform 0.3s ease;
@@ -236,8 +236,8 @@
                     background: #ffffff;
                     box-shadow:
                         0 0 10px 4px #ffffff,
-                        0 0 25px 10px #f4d17a,
-                        0 0 50px 16px #c1902e;
+                        0 0 25px 10px rgba(24, 201, 139, 0.65),
+                        0 0 50px 16px rgba(24, 201, 139, 0.35);
                     z-index: 5;
                 }
 
@@ -247,11 +247,11 @@
                     width: 210px;
                     height: 36px;
                     border-radius: 50%;
-                    border: 2px solid rgba(244, 209, 122, 0.85);
-                    background: radial-gradient(ellipse at center, rgba(244, 209, 122, 0.3) 0%, rgba(193, 144, 46, 0.1) 60%, transparent 80%);
+                    border: 2px solid rgba(24, 201, 139, 0.85);
+                    background: radial-gradient(ellipse at center, rgba(24, 201, 139, 0.3) 0%, rgba(24, 201, 139, 0.1) 60%, transparent 80%);
                     box-shadow:
-                        0 0 20px rgba(244, 209, 122, 0.6),
-                        inset 0 0 15px rgba(244, 209, 122, 0.4);
+                        0 0 20px rgba(24, 201, 139, 0.6),
+                        inset 0 0 15px rgba(24, 201, 139, 0.4);
                     transform: perspective(300px) rotateX(45deg);
                     z-index: 2;
                 }
@@ -262,10 +262,10 @@
                     width: 140px;
                     height: 24px;
                     border-radius: 50%;
-                    border: 1.5px solid rgba(244, 209, 122, 0.65);
-                    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.4) 0%, rgba(244, 209, 122, 0.2) 60%, transparent 100%);
+                    border: 1.5px solid rgba(24, 201, 139, 0.65);
+                    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.4) 0%, rgba(24, 201, 139, 0.2) 60%, transparent 100%);
                     transform: perspective(300px) rotateX(45deg);
-                    box-shadow: 0 0 15px rgba(244, 209, 122, 0.5);
+                    box-shadow: 0 0 15px rgba(24, 201, 139, 0.5);
                     z-index: 3;
                 }
 
@@ -275,7 +275,7 @@
                     width: 250px;
                     height: 46px;
                     border-radius: 50%;
-                    background: radial-gradient(ellipse at center, rgba(244, 209, 122, 0.5) 0%, rgba(193, 144, 46, 0.2) 50%, transparent 75%);
+                    background: radial-gradient(ellipse at center, rgba(24, 201, 139, 0.5) 0%, rgba(24, 201, 139, 0.2) 50%, transparent 75%);
                     filter: blur(8px);
                     z-index: 1;
                 }
@@ -320,7 +320,7 @@
                 inset: 0;
                 border-radius: 16px;
                 padding: 1.5px;
-                background: linear-gradient(0deg, #C1902E 0%, rgba(244, 209, 122, 0.6) 30%, rgba(193, 144, 46, 0.15) 60%, transparent 100%);
+                background: linear-gradient(0deg, #18c98b 0%, rgba(24, 201, 139, 0.6) 30%, rgba(24, 201, 139, 0.15) 60%, transparent 100%);
                 -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
                 -webkit-mask-composite: xor;
                 mask-composite: exclude;
@@ -332,7 +332,7 @@
 
             &:hover {
                 transform: translateY(-5px);
-                box-shadow: 0 15px 40px -10px rgba(193, 144, 46, 0.2), inset 0 -4px 15px rgba(193, 144, 46, 0.08);
+                box-shadow: 0 15px 40px -10px rgba(24, 201, 139, 0.2), inset 0 -4px 15px rgba(24, 201, 139, 0.08);
 
                 &::before {
                     opacity: 0.25;
@@ -350,14 +350,14 @@
                 justify-content: center;
                 padding: 4px 12px;
                 border-radius: 99px;
-                background: rgba(244, 209, 122, 0.1);
-                border: 1px solid rgba(244, 209, 122, 0.35);
-                color: #F4D17A;
+                background: rgba(24, 201, 139, 0.1);
+                border: 1px solid rgba(24, 201, 139, 0.35);
+                color: #18c98b;
                 font-size: 11.5px;
                 font-weight: 700;
                 letter-spacing: 0.8px;
                 margin-bottom: 12px;
-                box-shadow: 0 0 12px rgba(244, 209, 122, 0.15);
+                box-shadow: 0 0 12px rgba(24, 201, 139, 0.15);
             }
 
             h3 {

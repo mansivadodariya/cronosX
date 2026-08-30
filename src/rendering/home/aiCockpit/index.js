@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Textbutton from '@/components/textbutton';
 import styles from './aiCockpit.module.scss';
 
@@ -55,7 +55,19 @@ export default function AiCockpit({ isHero = false, showHeader = true }) {
   const [currentTimeET, setCurrentTimeET] = useState('');
 
   const tickCounterRef = useRef(0);
+  const cockpitSectionRef = useRef(null);
   const sparklineData = [22, 26, 25, 32, 36, 40, 44, 48, 52, 58, 65, 72, 76, 82, 88, 96];
+
+  // 3D Perspective Scroll Rotation (Rotates from 52deg back to 0deg flat on scroll)
+  const { scrollYProgress } = useScroll({
+    target: cockpitSectionRef,
+    offset: ["start 98%", "center center"]
+  });
+
+  const rotateX = useTransform(scrollYProgress, [0, 1], [52, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.82, 1]);
+  const translateY = useTransform(scrollYProgress, [0, 1], [75, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.4, 1], [0.6, 0.88, 1]);
 
   // ET Clock Timer
   useEffect(() => {
@@ -210,7 +222,7 @@ export default function AiCockpit({ isHero = false, showHeader = true }) {
   const liveCandleX = chartPadding.left + (candles.length - 1) * candleSpacing + candleSpacing / 2;
 
   return (
-    <section className={`${styles.cockpitSection} ${isHero ? styles.heroMode : ''}`} aria-label="XAUUSD AI Trading Intelligence Terminal">
+    <section ref={cockpitSectionRef} className={`${styles.cockpitSection} ${isHero ? styles.heroMode : ''}`} aria-label="XAUUSD AI Trading Intelligence Terminal">
       {!isHero && <div className={styles.ambientBackdropGlow} aria-hidden="true" />}
 
       <div className={isHero ? styles.heroContainer : "container"}>
@@ -231,8 +243,19 @@ export default function AiCockpit({ isHero = false, showHeader = true }) {
           </div>
         )}
 
-        {/* ONE MASTER UNIFIED BOX */}
-        <div className={styles.masterTerminalBox}>
+        {/* 3D Perspective Scroll Container */}
+        <div className={styles.perspectiveWrapper}>
+          <motion.div 
+            className={styles.masterTerminalBox}
+            style={isHero ? {} : {
+              rotateX,
+              scale,
+              translateY,
+              opacity,
+              transformStyle: "preserve-3d",
+              transformOrigin: "top center"
+            }}
+          >
 
           {/* 2-Part Grid Layout */}
           <div className={styles.twoPartLayout}>
@@ -546,7 +569,7 @@ export default function AiCockpit({ isHero = false, showHeader = true }) {
                         animate={{ 
                           width: hoveredIntelCard === 'score' ? '96%' : '84%',
                           background: hoveredIntelCard === 'score' 
-                            ? 'linear-gradient(90deg, #10B981 0%, #34D399 65%, #FFE693 100%)' 
+                            ? 'linear-gradient(90deg, #10B981 0%, #34D399 65%, #6EE7B7 100%)' 
                             : 'rgba(255, 255, 255, 0.18)',
                           boxShadow: hoveredIntelCard === 'score' ? '0 0 16px rgba(52, 211, 153, 0.85)' : 'none'
                         }}
@@ -556,8 +579,8 @@ export default function AiCockpit({ isHero = false, showHeader = true }) {
                           className={styles.sliderKnob} 
                           animate={{ 
                             scale: hoveredIntelCard === 'score' ? 1.35 : 1,
-                            borderColor: hoveredIntelCard === 'score' ? '#FFE693' : '#10B981',
-                            boxShadow: hoveredIntelCard === 'score' ? '0 0 12px #FFE693' : '0 0 8px #34D399'
+                            borderColor: hoveredIntelCard === 'score' ? '#6EE7B7' : '#10B981',
+                            boxShadow: hoveredIntelCard === 'score' ? '0 0 12px #6EE7B7' : '0 0 8px #34D399'
                           }}
                           transition={{ duration: 0.3 }}
                         />
@@ -582,7 +605,7 @@ export default function AiCockpit({ isHero = false, showHeader = true }) {
                         <p className={styles.cardSub}>Of 1,000 assets</p>
                       </div>
                     </div>
-                    <span className={styles.deltaPillGold}>↑ +2</span>
+                    <span className={styles.deltaPillGreen}>↑ +2</span>
                   </div>
 
                   <div className={styles.rankNumberBlock}>
@@ -597,15 +620,15 @@ export default function AiCockpit({ isHero = false, showHeader = true }) {
                     <svg viewBox="0 0 220 54" className={styles.sparklineSvg} preserveAspectRatio="none">
                       <defs>
                         <linearGradient id="eqGlowGradGoldCockpit" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stopColor="#D8A23B" stopOpacity="0.45" />
-                          <stop offset="60%" stopColor="#9E6B17" stopOpacity="0.12" />
-                          <stop offset="100%" stopColor="#D8A23B" stopOpacity="0" />
+                          <stop offset="0%" stopColor="#18c98b" stopOpacity="0.45" />
+                          <stop offset="60%" stopColor="#18c98b" stopOpacity="0.12" />
+                          <stop offset="100%" stopColor="#18c98b" stopOpacity="0" />
                         </linearGradient>
                       </defs>
 
                       {hoveredIntelCard === 'rank' ? (
                         <g>
-                          {/* Luminous Area Under Upward Equity Curve in Gold */}
+                          {/* Luminous Area Under Upward Equity Curve in Green */}
                           <motion.path
                             d="M 6 46 Q 40 44 80 38 T 130 26 T 175 18 T 205 12 L 205 50 L 6 50 Z"
                             fill="url(#eqGlowGradGoldCockpit)"
@@ -614,17 +637,17 @@ export default function AiCockpit({ isHero = false, showHeader = true }) {
                             transition={{ duration: 0.5, delay: 0.15 }}
                           />
 
-                          {/* Moving Upward Equity Surge Curve in Gold */}
+                          {/* Moving Upward Equity Surge Curve in Green */}
                           <motion.path
                             d="M 6 46 Q 40 44 80 38 T 130 26 T 175 18 T 205 12"
                             fill="none"
-                            stroke="#FFE693"
+                            stroke="#6EE7B7"
                             strokeWidth="3.2"
                             strokeLinecap="round"
                             initial={{ pathLength: 0 }}
                             animate={{ pathLength: 1 }}
                             transition={{ duration: 0.65, ease: "easeOut" }}
-                            filter="drop-shadow(0 0 10px rgba(255, 230, 147, 0.95))"
+                            filter="drop-shadow(0 0 10px rgba(24, 201, 139, 0.95))"
                           />
 
                           {/* Peak Tip Dot at Top */}
@@ -636,7 +659,7 @@ export default function AiCockpit({ isHero = false, showHeader = true }) {
                             initial={{ scale: 0, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ duration: 0.3, delay: 0.55 }}
-                            filter="drop-shadow(0 0 8px #FFE693)"
+                            filter="drop-shadow(0 0 8px #6EE7B7)"
                           />
 
                           {/* Pulsating Ping Radar Ring */}
@@ -645,7 +668,7 @@ export default function AiCockpit({ isHero = false, showHeader = true }) {
                             cy="12" 
                             r="8" 
                             fill="none"
-                            stroke="#FFE693"
+                            stroke="#6EE7B7"
                             strokeWidth="1.5"
                             initial={{ scale: 0.8, opacity: 0.9 }}
                             animate={{ scale: 1.6, opacity: 0 }}
@@ -724,7 +747,8 @@ export default function AiCockpit({ isHero = false, showHeader = true }) {
 
           </div>
 
-        </div>
+        </motion.div>
+      </div>
 
       </div>
     </section>

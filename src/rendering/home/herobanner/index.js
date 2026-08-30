@@ -1,13 +1,14 @@
 "use client";
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { authNavigate } from '@/lib/authRedirect';
 import styles from './herobanner.module.scss';
 import Button from '@/components/button';
 import SideRays from '@/components/sideRays';
-import AiCockpit from '../aiCockpit';
 import CountUp from '@/components/countUp';
+
+import NetworkCircuitChart from '@/components/networkCircuitChart';
 
 const RightArrow = '/assets/icons/right.svg';
 
@@ -20,82 +21,122 @@ const metrics = [
 
 export default function Herobanner() {
   const router = useRouter();
+  const sectionRef = useRef(null);
+  const [mousePos, setMousePos] = React.useState({ x: 50, y: 50, isHovered: false });
 
-  const handleScrollToScanner = () => {
-    const sectionEl = document.querySelector('section[aria-label*="Breakout"]') || document.querySelector('section[aria-label*="Capabilities"]');
-    if (sectionEl) {
-      sectionEl.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      authNavigate(router, '/ai-strategy/live');
-    }
+  // Scroll Progress Driven Motion Animations
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"]
+  });
+
+  // As user scrolls and 2nd section overlays:
+  // - Hero content smoothly scales down slightly (1 -> 0.90)
+  // - Hero content opacity recedes (1 -> 0.3)
+  // - Hero content translates Y (0 -> 70px) for 3D depth parallax
+  const heroScale = useTransform(scrollYProgress, [0, 0.9], [1, 0.90]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.3]);
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 70]);
+  const bgOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0.2]);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setMousePos({ x, y, isHovered: true });
+  };
+
+  const handleMouseLeave = () => {
+    setMousePos(prev => ({ ...prev, isHovered: false }));
   };
 
   return (
-    <section className={styles.herobanner}>
-      {/* High-Tech Ambient Atmosphere & Glow Layers */}
-      <div className={styles.ambientGlowTop} aria-hidden="true" />
-      <div className={styles.ambientGlowCenter} aria-hidden="true" />
-      <div className={styles.ambientGlowBottom} aria-hidden="true" />
-      <div className={styles.gridOverlay} aria-hidden="true" />
-      <div className={styles.radialVignette} aria-hidden="true" />
-
-      {/* SideRays for Desktop/Laptop View */}
-      <div className={styles.sideRaysWrapper}>
-        <SideRays
-          rayColor1="#C1902E"
-          rayColor2="#F4D17A"
-          origin="top-left"
-          spread={3.4}
-          tilt={40}
-          blend={0.5}
-          speed={2.0}
-          intensity={2.2}
+    <section
+      ref={sectionRef}
+      className={styles.herobanner}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* High-Tech Ambient Atmosphere & Glow Layers wrapped in Motion Div for scroll fade */}
+      <motion.div style={{ opacity: bgOpacity }} className={styles.scrollBgWrapper}>
+        <div className={styles.ambientGlowTop} aria-hidden="true" />
+        <div className={styles.ambientGlowCenter} aria-hidden="true" />
+        <div className={styles.ambientGlowBottom} aria-hidden="true" />
+        
+        {/* Interactive Cursor Spotlight Glow */}
+        <div 
+          className={styles.interactiveSpotlight}
+          style={{
+            left: `${mousePos.x}%`,
+            top: `${mousePos.y}%`,
+            opacity: mousePos.isHovered ? 1 : 0
+          }}
+          aria-hidden="true"
         />
-      </div>
 
-      {/* Modern High-Tech Ambient Atmosphere & Animations for Mobile */}
-      <div className={styles.mobileTechAtmosphere} aria-hidden="true">
-        <div className={styles.mobileQuantumHalo} />
-        <div className={styles.mobileLaserScan} />
-        <div className={styles.mobileConstellation}>
-          <span className={`${styles.particleDot} ${styles.pDot1}`} />
-          <span className={`${styles.particleDot} ${styles.pDot2}`} />
-          <span className={`${styles.particleDot} ${styles.pDot3}`} />
-          <span className={`${styles.particleDot} ${styles.pDot4}`} />
-          <span className={`${styles.particleDot} ${styles.pDot5}`} />
+        <div className={styles.gridOverlay} aria-hidden="true" />
+        
+        {/* Localized Green Grid Spotlight (Small, tight area around pointer) */}
+        <div 
+          className={styles.greenSpotlightGrid}
+          style={{
+            opacity: mousePos.isHovered ? 1 : 0,
+            WebkitMaskImage: `radial-gradient(circle 120px at ${mousePos.x}% ${mousePos.y}%, #000 0%, transparent 100%)`,
+            maskImage: `radial-gradient(circle 120px at ${mousePos.x}% ${mousePos.y}%, #000 0%, transparent 100%)`
+          }}
+          aria-hidden="true"
+        />
+
+        <div className={styles.radialVignette} aria-hidden="true" />
+
+        {/* Modern High-Tech Ambient Atmosphere & Animations for Mobile */}
+        <div className={styles.mobileTechAtmosphere} aria-hidden="true">
+          <div className={styles.mobileQuantumHalo} />
+          <div className={styles.mobileLaserScan} />
+          <div className={styles.mobileConstellation}>
+            <span className={`${styles.particleDot} ${styles.pDot1}`} />
+            <span className={`${styles.particleDot} ${styles.pDot2}`} />
+            <span className={`${styles.particleDot} ${styles.pDot3}`} />
+            <span className={`${styles.particleDot} ${styles.pDot4}`} />
+            <span className={`${styles.particleDot} ${styles.pDot5}`} />
+          </div>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="container">
+      {/* Main Motion Div Content Container with Scroll Scaling, Opacity, and Parallax */}
+      <motion.div
+        className="container"
+        style={{
+          scale: heroScale,
+          opacity: heroOpacity,
+          y: heroY
+        }}
+      >
         <div className={styles.heroWrapper}>
 
-          {/* 1. Futuristic Pill Badge */}
+          {/* 1. Pill Badge */}
           <motion.div
             className={styles.topBadgeRow}
             initial={{ opacity: 0, y: -20, scale: 0.94 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className={styles.badge} onClick={() => authNavigate(router, '/trade-snap')}>
-              <span className={styles.pulseDot}>
-                <span className={styles.pulseRing} />
+            <div className={styles.badge} onClick={() => authNavigate(router, '/dashboard')}>
+              <span className={styles.badgeText}>
+                 Trading Bots
               </span>
-              <span className={styles.badgeTag}>CHRONOSX</span>
-              <span className={styles.badgeDivider}>•</span>
-              <span className={styles.badgeText}>Next-Gen AI Algorithmic Trading Terminal</span>
-              
             </div>
           </motion.div>
 
           {/* 2. Bold High-Impact Headline */}
           <motion.h1
             className={styles.heroTitle}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, y: 30, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.85, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
             Trade Smarter With <br />
-            <span className={styles.goldGradient}>AI That Never Sleeps</span>
+            <span className={styles.greenGradient}>AI That Never Sleeps</span>
           </motion.h1>
 
           {/* 3. Subheadline */}
@@ -122,76 +163,18 @@ export default function Herobanner() {
             />
           </motion.div>
 
-          {/* 5. Social Proof Strip */}
+          {/* 5. Main Animated Network Circuit Diagram Showcase */}
           <motion.div
-            className={styles.socialProofBar}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <div className={styles.avatarGroup}>
-              <div className={styles.avatarCircle} style={{ background: 'linear-gradient(135deg, #FFE693 0%, #C1902E 100%)' }}>JD</div>
-              <div className={styles.avatarCircle} style={{ background: 'linear-gradient(135deg, #10B981 0%, #047857 100%)' }}>MK</div>
-              <div className={styles.avatarCircle} style={{ background: 'linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)' }}>AL</div>
-              <div className={styles.avatarCircle} style={{ background: 'linear-gradient(135deg, #EC4899 0%, #BE185D 100%)' }}>SR</div>
-              <div className={`${styles.avatarCircle} ${styles.avatarCount}`}>+25K</div>
-            </div>
-
-            <div className={styles.proofText}>
-              <div className={styles.starCluster}>
-                <span className={styles.stars}>★★★★★</span>
-                <span className={styles.scoreText}>4.9/5 Rating</span>
-              </div>
-              <span className={styles.verifiedSub}>Verified by 25,000+ Institutional &amp; Prop Traders</span>
-            </div>
-
-            <div className={styles.proofDivider} />
-
-            <div className={styles.proofSpeed}>
-              <div className={styles.speedHeader}>
-                <span className={styles.speedDot} />
-                <span className={styles.speedLabel}>Neural Engine Uptime: 99.98%</span>
-              </div>
-              <span className={styles.speedSub}>⚡ &lt;12ms Sub-second Latency</span>
-            </div>
-          </motion.div>
-
-          {/* 6. SHOWSTOPPER: Live Real-Time Predictive AI Cockpit Terminal */}
-          <motion.div
-            className={styles.heroCockpitWrapper}
-            initial={{ opacity: 0, y: 35, scale: 0.98 }}
+            className={styles.circuitShowcaseRow}
+            initial={{ opacity: 0, y: 35, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.85, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
           >
-            <AiCockpit isHero={true} showHeader={false} />
-          </motion.div>
-
-          {/* 7. Key Institutional Metrics Strip */}
-          <motion.div
-            className={styles.metricsGrid}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {metrics.map((item) => (
-              <div key={item.label} className={styles.metricItem}>
-                <div className={styles.metricValue}>
-                  <CountUp
-                    to={item.target}
-                    prefix={item.prefix || ''}
-                    suffix={item.suffix || ''}
-                    decimals={item.decimals || 0}
-                    duration={2.0}
-                  />
-                </div>
-                <div className={styles.metricLabel}>{item.label}</div>
-                <div className={styles.metricSub}>{item.sub}</div>
-              </div>
-            ))}
+            <NetworkCircuitChart />
           </motion.div>
 
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

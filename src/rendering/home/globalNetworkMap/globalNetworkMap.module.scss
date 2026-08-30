@@ -7,7 +7,7 @@
   width: 100%;
   padding: 100px 0;
   overflow: hidden;
-  background: radial-gradient(ellipse at 50% 30%, #0d0a06 0%, #060402 55%, #000000 100%);
+  background: radial-gradient(ellipse at 50% 30%, #040e0a 0%, #020705 55%, #000000 100%);
 
   @include respond-to("tab") {
     padding: 70px 0;
@@ -26,7 +26,7 @@
     width: 100%;
     max-width: 1200px;
     height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(216, 162, 59, 0.25) 50%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.25) 50%, transparent 100%);
     z-index: 5;
     pointer-events: none;
   }
@@ -62,7 +62,7 @@
       margin: 0;
 
       span {
-        background: linear-gradient(90deg, #FFFFFF 0%, #FFE693 50%, #D8A23B 100%);
+        background: linear-gradient(90deg, #FFFFFF 0%, #6EE7B7 50%, #18c98b 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -99,22 +99,22 @@
     max-width: 1280px;
     margin: 0 auto;
     border-radius: 20px;
-    background: radial-gradient(circle at 75% 30%, rgba(216, 183, 19, 0.08), transparent 50%), #14100873;
-    border: 1px solid rgba(216, 183, 19, 0.35);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), inset 0 0 0 1px rgba(255, 215, 0, 0.12);
+    background: radial-gradient(circle at 75% 30%, rgba(24, 201, 139, 0.08), transparent 50%), #040c0973;
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), inset 0 0 0 1px rgba(24, 201, 139, 0.12);
     overflow: hidden;
     padding: 0;
     contain: layout paint;
     transform: translate3d(0, 0, 0);
 
-    /* Scanning Golden Light Border Beams */
+    /* Scanning Green Light Border Beams */
     .scanlineTop,
     .scanlineBottom {
       position: absolute;
       left: 0;
       width: 100%;
       height: 2px;
-      background: linear-gradient(90deg, transparent 0%, rgba(216, 162, 59, 0.9) 50%, transparent 100%);
+      background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.9) 50%, transparent 100%);
       opacity: 0.75;
       z-index: 5;
       pointer-events: none;
@@ -131,7 +131,7 @@
       animation: scanlineSweep 5s ease-in-out infinite alternate-reverse;
     }
 
-    /* Atmospheric Smoky / Foggy Golden Mist Sweep */
+    /* Atmospheric Smoky / Foggy Green Mist Sweep */
     .lightShineSweep,
     .lightShineSweep2 {
       position: absolute;
@@ -139,11 +139,11 @@
       bottom: -15%;
       height: 130%;
       width: 320px;
-        background: radial-gradient(ellipse 50% 60% at 50% 50%,
-              rgba(255, 230, 147, 0.08) 0%,
-              rgba(235, 196, 123, 0.17) 40%,
-              rgba(255, 255, 255, 0.038) 70%,
-              transparent 100%);
+      background: radial-gradient(ellipse 50% 60% at 50% 50%,
+            rgba(24, 201, 139, 0.12) 0%,
+            rgba(24, 201, 139, 0.06) 40%,
+            rgba(255, 255, 255, 0.038) 70%,
+            transparent 100%);
       filter: blur(36px);
       animation: verticalLineSweep 14s ease-in-out infinite;
       pointer-events: none;
@@ -161,7 +161,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background-image: radial-gradient(circle, rgba(226, 174, 72, 0.45) 1.2px, transparent 1.2px);
+      background-image: radial-gradient(circle, rgba(24, 201, 139, 0.35) 1.2px, transparent 1.2px);
       background-size: 16px 16px;
       opacity: 0.85;
       pointer-events: none;
@@ -212,7 +212,7 @@
 
       .latitudeLineTop,
       .latitudeLineBottom {
-        stroke: rgba(216, 162, 59, 0.35);
+        stroke: rgba(24, 201, 139, 0.35);
         stroke-width: 0.85;
         stroke-dasharray: 4 6;
       }
@@ -231,7 +231,7 @@
         opacity: 1;
         stroke-width: 1.2;
         stroke-dasharray: none;
-        stroke: #FFE693;
+        stroke: #6EE7B7;
       }
     }
 
@@ -257,8 +257,8 @@
         }
 
         .hubBadgeRect {
-          fill: rgba(26, 19, 5, 0.96);
-          stroke: #FFE693;
+          fill: rgba(4, 16, 12, 0.96);
+          stroke: #6EE7B7;
           stroke-width: 1.15;
           animation: badgeHoverShimmer 2.4s ease-in-out infinite;
         }
@@ -279,7 +279,7 @@
     /* GPU Accelerated Sonar Pulse Rings */
     .hubGlowRing {
       fill: none;
-      stroke: #D8A23B;
+      stroke: #18c98b;
       stroke-width: 1.2;
       opacity: 0.45;
       transform-box: fill-box;
@@ -288,7 +288,7 @@
     }
 
     .hubRippleRing {
-      fill: #9E6B17;
+      fill: #18c98b;
       opacity: 0.25;
       transform-box: fill-box;
       transform-origin: center;
@@ -296,7 +296,7 @@
     }
 
     .hubCoreDot {
-      fill: #D8A23B;
+      fill: #18c98b;
     }
 
     /* Native SVG City Tag Badge */
@@ -305,15 +305,15 @@
     }
 
     .hubBadgeRect {
-      fill: rgba(14, 11, 4, 0.9);
-      stroke: rgba(216, 162, 59, 0.45);
+      fill: rgba(4, 12, 9, 0.9);
+      stroke: rgba(24, 201, 139, 0.45);
       stroke-width: 0.85;
       transition: fill 0.3s ease, stroke 0.3s ease, filter 0.3s ease;
       animation: badgeBorderShimmer 5.5s ease-in-out infinite;
 
       &.specialBadgeRect {
-        fill: rgba(28, 20, 5, 0.95);
-        stroke: #FFE693;
+        fill: rgba(5, 18, 14, 0.95);
+        stroke: #6EE7B7;
       }
     }
 
@@ -329,14 +329,14 @@
       font-size: 8px;
       font-weight: 600;
       letter-spacing: 0.5px;
-      fill: #FFE693;
+      fill: #6EE7B7;
       dominant-baseline: central;
       text-anchor: middle;
       transition: fill 0.3s ease, filter 0.3s ease;
       animation: textAmbientShimmer 5.5s ease-in-out infinite;
 
       &.specialBadgeText {
-        fill: #FFE693;
+        fill: #6EE7B7;
         font-weight: 700;
       }
     }
@@ -404,49 +404,49 @@
 
   @keyframes badgeBorderShimmer {
     0%, 100% {
-      stroke: rgba(216, 162, 59, 0.4);
-      filter: drop-shadow(0 0 1px rgba(255, 230, 147, 0.15));
-      fill: rgba(14, 11, 4, 0.9);
+      stroke: rgba(24, 201, 139, 0.4);
+      filter: drop-shadow(0 0 1px rgba(24, 201, 139, 0.15));
+      fill: rgba(4, 12, 9, 0.9);
     }
     50% {
-      stroke: rgba(255, 230, 147, 0.85);
-      filter: drop-shadow(0 0 4px rgba(255, 230, 147, 0.45));
-      fill: rgba(24, 18, 5, 0.94);
+      stroke: rgba(24, 201, 139, 0.85);
+      filter: drop-shadow(0 0 4px rgba(24, 201, 139, 0.45));
+      fill: rgba(4, 20, 15, 0.94);
     }
   }
 
   @keyframes badgeHoverShimmer {
     0%, 100% {
-      stroke: #D8A23B;
-      filter: drop-shadow(0 0 4px rgba(255, 230, 147, 0.5));
-      fill: rgba(26, 20, 5, 0.95);
+      stroke: #18c98b;
+      filter: drop-shadow(0 0 4px rgba(24, 201, 139, 0.5));
+      fill: rgba(5, 22, 17, 0.95);
     }
     50% {
-      stroke: #FFE693;
-      filter: drop-shadow(0 0 8px rgba(255, 230, 147, 0.9));
-      fill: rgba(38, 30, 8, 0.98);
+      stroke: #6EE7B7;
+      filter: drop-shadow(0 0 8px rgba(24, 201, 139, 0.9));
+      fill: rgba(6, 28, 21, 0.98);
     }
   }
 
   @keyframes textAmbientShimmer {
     0%, 100% {
-      fill: #FFE693;
+      fill: #6EE7B7;
       filter: drop-shadow(0 0 0px transparent);
     }
     50% {
-      fill: #FFF4C2;
-      filter: drop-shadow(0 0 2.5px rgba(255, 230, 147, 0.55));
+      fill: #A7F3D0;
+      filter: drop-shadow(0 0 2.5px rgba(24, 201, 139, 0.55));
     }
   }
 
   @keyframes textHoverGlow {
     0%, 100% {
       fill: #FFFFFF;
-      filter: drop-shadow(0 0 3px rgba(255, 230, 147, 0.6));
+      filter: drop-shadow(0 0 3px rgba(24, 201, 139, 0.6));
     }
     50% {
-      fill: #FFFCE0;
-      filter: drop-shadow(0 0 7px rgba(255, 230, 147, 1));
+      fill: #E6FFFA;
+      filter: drop-shadow(0 0 7px rgba(24, 201, 139, 1));
     }
   }
 }

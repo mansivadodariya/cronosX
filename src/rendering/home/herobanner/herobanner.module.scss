@@ -3,12 +3,14 @@
 @use '../../../scss/font/font.scss' as *;
 
 .herobanner {
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 1;
     width: 100%;
     min-height: 100vh;
     padding: 140px 0 90px 0;
     overflow: hidden;
-    background: #040300;
+    background: #040605;
     display: flex;
     align-items: center;
 
@@ -30,24 +32,33 @@
         width: 100%;
         max-width: 1200px;
         height: 1px;
-        background: linear-gradient(90deg, transparent 0%, rgba(216, 162, 59, 0.35) 50%, transparent 100%);
+        background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.35) 50%, transparent 100%);
         z-index: 5;
         pointer-events: none;
     }
 
-    // Dynamic Ambient Atmosphere Glows
+    // Scroll background wrapper for Framer Motion animation
+    .scrollBgWrapper {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    // Dynamic Ambient Atmosphere Glows (Main #18c98b Green Aura)
     .ambientGlowTop {
         position: absolute;
         top: -160px;
         left: 50%;
         transform: translateX(-50%);
-        width: 850px;
-        height: 480px;
+        width: 900px;
+        height: 520px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(244, 209, 122, 0.22) 0%, rgba(193, 144, 46, 0.10) 45%, rgba(4, 3, 0, 0) 70%);
+        background: radial-gradient(circle, rgba(24, 201, 139, 0.32) 0%, rgba(24, 201, 139, 0.12) 45%, rgba(4, 6, 5, 0) 75%);
         filter: blur(80px);
         pointer-events: none;
         z-index: 1;
+        transition: all 0.5s ease;
     }
 
     .ambientGlowCenter {
@@ -55,13 +66,14 @@
         top: 45%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 1000px;
-        height: 600px;
+        width: 1050px;
+        height: 650px;
         border-radius: 50%;
-        background: radial-gradient(ellipse, rgba(193, 144, 46, 0.08) 0%, rgba(16, 185, 129, 0.03) 40%, rgba(4, 3, 0, 0) 75%);
+        background: radial-gradient(ellipse, rgba(24, 201, 139, 0.22) 0%, rgba(24, 201, 139, 0.08) 50%, rgba(4, 6, 5, 0) 80%);
         filter: blur(90px);
         pointer-events: none;
         z-index: 1;
+        transition: all 0.5s ease;
     }
 
     .ambientGlowBottom {
@@ -71,30 +83,58 @@
         width: 650px;
         height: 450px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(193, 144, 46, 0.12) 0%, rgba(6, 182, 212, 0.04) 40%, rgba(4, 3, 0, 0) 70%);
+        background: radial-gradient(circle, rgba(24, 201, 139, 0.2) 0%, rgba(24, 201, 139, 0.05) 40%, rgba(4, 6, 5, 0) 70%);
         filter: blur(85px);
         pointer-events: none;
         z-index: 1;
     }
 
-    // Subtle Cyber Grid Overlay
+    // Interactive Cursor Spotlight Glow (Small, subtle localized glow)
+    .interactiveSpotlight {
+        position: absolute;
+        width: 240px;
+        height: 240px;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(24, 201, 139, 0.2) 0%, rgba(24, 201, 139, 0.04) 50%, rgba(4, 6, 5, 0) 75%);
+        filter: blur(35px);
+        pointer-events: none;
+        z-index: 2;
+        transition: opacity 0.35s ease;
+    }
+
+    // Base Grid Overlay (Soft & Subtle White/Grey Grid)
     .gridOverlay {
         position: absolute;
         inset: 0;
         background-image:
-            linear-gradient(to right, rgba(244, 209, 122, 0.03) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(244, 209, 122, 0.03) 1px, transparent 1px);
-        background-size: 44px 44px;
-        mask-image: radial-gradient(ellipse at 50% 35%, #000 35%, transparent 80%);
-        -webkit-mask-image: radial-gradient(ellipse at 50% 35%, #000 35%, transparent 80%);
+            linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+        background-size: 64px 64px;
+        mask-image: radial-gradient(ellipse at 50% 35%, #000 60%, transparent 90%);
+        -webkit-mask-image: radial-gradient(ellipse at 50% 35%, #000 60%, transparent 90%);
         pointer-events: none;
         z-index: 1;
+    }
+
+    // Localized Green Spotlight Grid (Only the area around pointer gets greener!)
+    .greenSpotlightGrid {
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(to right, rgba(24, 201, 139, 0.45) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(24, 201, 139, 0.45) 1px, transparent 1px);
+        background-size: 64px 64px;
+        filter: drop-shadow(0 0 6px rgba(24, 201, 139, 0.6));
+        pointer-events: none;
+        z-index: 2;
+        transition: opacity 0.3s ease;
     }
 
     .radialVignette {
         position: absolute;
         inset: 0;
-        background: radial-gradient(circle at 50% 50%, transparent 60%, #040300 100%);
+        background: radial-gradient(circle at 50% 50%, transparent 60%, #040605 100%);
         pointer-events: none;
         z-index: 2;
     }
@@ -132,7 +172,7 @@
             width: 320px;
             height: 300px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(244, 209, 122, 0.25) 0%, rgba(193, 144, 46, 0.12) 42%, rgba(4, 3, 0, 0) 72%);
+            background: radial-gradient(circle, rgba(24, 201, 139, 0.25) 0%, rgba(24, 201, 139, 0.12) 42%, rgba(4, 6, 5, 0) 72%);
             filter: blur(45px);
             animation: mobileHaloBreathing 4.5s ease-in-out infinite alternate;
         }
@@ -142,8 +182,8 @@
             left: 0;
             right: 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent 0%, rgba(244, 209, 122, 0.7) 50%, transparent 100%);
-            box-shadow: 0 0 12px rgba(244, 209, 122, 0.85);
+            background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.7) 50%, transparent 100%);
+            box-shadow: 0 0 12px rgba(24, 201, 139, 0.85);
             animation: mobileLaserScan 6s ease-in-out infinite;
         }
 
@@ -154,8 +194,8 @@
             .particleDot {
                 position: absolute;
                 border-radius: 50%;
-                background: #FFE693;
-                box-shadow: 0 0 8px rgba(255, 230, 147, 0.9);
+                background: #6EE7B7;
+                box-shadow: 0 0 8px rgba(24, 201, 139, 0.9);
 
                 &.pDot1 {
                     top: 14%;
@@ -231,82 +271,37 @@
         .badge {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 7px 18px;
+            justify-content: center;
+            gap: 8px;
+            padding: 6px 18px;
             border-radius: 999px;
-            background: rgba(18, 15, 10, 0.9);
-            border: 1px solid rgba(193, 144, 46, 0.45);
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(244, 209, 122, 0.1);
+            background: rgba(24, 201, 139, 0.08);
+            border: 1px solid rgba(24, 201, 139, 0.22);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
             &:hover {
-                background: rgba(28, 22, 14, 0.98);
-                border-color: #F4D17A;
-                box-shadow: 0 0 30px rgba(244, 209, 122, 0.4);
+                background: rgba(24, 201, 139, 0.16);
+                border-color: rgba(24, 201, 139, 0.45);
+                box-shadow: 0 0 20px rgba(24, 201, 139, 0.25);
                 transform: translateY(-1px);
-
-                .badgeArrow {
-                    transform: translateX(4px);
-                    color: #FFFFFF;
-                }
-            }
-
-            .pulseDot {
-                position: relative;
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background: #10B981;
-                flex-shrink: 0;
-
-                .pulseRing {
-                    position: absolute;
-                    inset: -4px;
-                    border-radius: 50%;
-                    border: 1.5px solid #10B981;
-                    animation: ringPulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
-                }
-            }
-
-            .badgeTag {
-                color: #F4D17A;
-                font-family: "Euclid-Bold", sans-serif;
-                font-size: 11.5px;
-                font-weight: 700;
-                letter-spacing: 0.8px;
-                text-transform: uppercase;
-            }
-
-            .badgeDivider {
-                color: rgba(255, 255, 255, 0.25);
-                font-size: 10px;
             }
 
             .badgeText {
-                color: rgba(255, 255, 255, 0.92);
-                font-size: 13px;
-                font-family: "Euclid-Medium", sans-serif;
-                letter-spacing: 0.2px;
+                color: rgba(255, 255, 255, 0.9);
+                font-size: 13.5px;
+                font-family: var(--font-plus-jakarta), sans-serif;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                letter-spacing: 0.1px;
 
                 @include respond-to("sm") {
-                    font-size: 11px;
-                }
-            }
-
-            .badgeGlowPill {
-                background: rgba(244, 209, 122, 0.15);
-                border: 1px solid rgba(244, 209, 122, 0.4);
-                color: #F4D17A;
-                padding: 2px 7px;
-                border-radius: 99px;
-                font-size: 9.5px;
-                font-weight: 700;
-                letter-spacing: 0.6px;
-
-                @include respond-to("sm") {
-                    display: none;
+                    font-size: 12px;
                 }
             }
 
@@ -327,17 +322,16 @@
         letter-spacing: -2.4px;
         color: #FFFFFF;
         margin: 0 0 20px 0;
-        text-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
         max-width: 1000px;
 
+        .greenGradient,
         .goldGradient {
-            background: linear-gradient(90deg, #FFFFFF 0%, #FFE693 35%, #D8A23B 70%, #ddab47 100%);
+            background: linear-gradient(90deg, #ffffff 0%, #6EE7B7 30%, #18c98b 65%, #6EE7B7 100%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
+            animation: greenShimmer 4s linear infinite;
             display: inline-block;
-            animation: shineGradient 6s linear infinite;
         }
 
         @include respond-to("lg") {
@@ -386,12 +380,21 @@
         align-items: center;
         justify-content: center;
         gap: 18px;
-        margin-bottom: 38px;
+        margin-bottom: 24px;
 
         @include respond-to("sm") {
-            margin-bottom: 28px;
+            margin-bottom: 18px;
             width: 100%;
         }
+    }
+
+    // 5. Main Animated Network Circuit Showcase Row
+    .circuitShowcaseRow {
+        width: 100%;
+        max-width: 1360px;
+        margin: 10px auto 0 auto;
+        position: relative;
+        z-index: 5;
     }
 
     // 5. Social Proof Bar
@@ -534,104 +537,6 @@
         }
     }
 
-    // 6. Live AI Predictive Cockpit Terminal
-    .heroCockpitWrapper {
-        position: relative;
-        width: 100%;
-        max-width: 1380px;
-        margin: 0 auto 36px auto;
-
-        @include respond-to("sm") {
-            margin-bottom: 24px;
-        }
-    }
-
-    // 7. Key Institutional Metrics Strip (1380px Master Grid)
-    .metricsGrid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-        width: 100%;
-        max-width: 1380px;
-        margin: 0 auto;
-
-        @include respond-to("tab") {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-        }
-
-        @include respond-to("sm") {
-            grid-template-columns: 1fr;
-            gap: 14px;
-        }
-
-        .metricItem {
-            background: linear-gradient(145deg, rgba(20, 18, 14, 0.9) 0%, rgba(8, 8, 10, 0.95) 100%);
-            border: 1px solid rgba(193, 144, 46, 0.28);
-            border-radius: 18px;
-            padding: 24px 20px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(244, 209, 122, 0.15);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-
-            &::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 2px;
-                background: linear-gradient(90deg, transparent 0%, rgba(244, 209, 122, 0.6) 50%, transparent 100%);
-                opacity: 0;
-                transition: opacity 0.3s ease;
-            }
-
-            &:hover {
-                border-color: rgba(244, 209, 122, 0.65);
-                transform: translateY(-4px);
-                box-shadow: 0 18px 45px rgba(0, 0, 0, 0.8), 0 0 25px rgba(244, 209, 122, 0.14);
-
-                &::before {
-                    opacity: 1;
-                }
-            }
-
-            .metricValue {
-                font-family: var(--font-syne), "Syne", sans-serif;
-                font-size: 32px;
-                font-weight: 800;
-                line-height: 1.15;
-                letter-spacing: -0.5px;
-                margin-bottom: 6px;
-                background: linear-gradient(135deg, #FFFFFF 0%, #FFE693 45%, #D8A23B 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-
-                @include respond-to("sm") {
-                    font-size: 26px;
-                }
-            }
-
-            .metricLabel {
-                color: #FFFFFF;
-                font-family: "Euclid-Bold", sans-serif;
-                font-size: 14.5px;
-                font-weight: 700;
-                margin-bottom: 4px;
-                letter-spacing: 0.2px;
-            }
-
-            .metricSub {
-                color: rgba(255, 255, 255, 0.6);
-                font-family: "Euclid-Regular", sans-serif;
-                font-size: 12px;
-                line-height: 1.35;
-            }
-        }
-    }
 }
 
 // Keyframe Animations
@@ -728,5 +633,14 @@
     100% {
         transform: translateY(0) scale(1);
         opacity: 0.3;
+    }
+}
+
+@keyframes greenShimmer {
+    0% {
+        background-position: 0% center;
+    }
+    100% {
+        background-position: 200% center;
     }
 }

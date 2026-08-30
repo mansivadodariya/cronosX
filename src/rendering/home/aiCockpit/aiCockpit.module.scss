@@ -6,8 +6,8 @@
   position: relative;
   width: 100%;
   padding: 90px 0 100px 0;
-  overflow: hidden;
-  background: radial-gradient(ellipse at 50% 0%, #0e0a05 0%, #060402 50%, #040300 100%);
+  overflow: visible;
+  background: radial-gradient(ellipse at 50% 0%, #050e0d 0%, #020605 50%, #000403 100%);
 
   &.heroMode {
     padding: 0 !important;
@@ -40,19 +40,7 @@
     padding: 45px 0 50px 0;
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 1200px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(216, 162, 59, 0.25) 50%, transparent 100%);
-    z-index: 5;
-    pointer-events: none;
-  }
+
 
   :global(.container) {
     position: relative;
@@ -68,7 +56,7 @@
     width: 1100px;
     height: 600px;
     border-radius: 50%;
-    background: radial-gradient(ellipse, rgba(216, 162, 59, 0.12) 0%, rgba(255, 230, 147, 0.04) 45%, transparent 75%);
+    background: radial-gradient(ellipse, rgba(24, 201, 139, 0.12) 0%, rgba(24, 201, 139, 0.04) 45%, transparent 75%);
     filter: blur(120px);
     pointer-events: none;
     z-index: 1;
@@ -114,7 +102,7 @@
       }
 
       span {
-        background: linear-gradient(90deg, #FFFFFF 0%, #FFE693 50%, #D8A23B 100%);
+        background: linear-gradient(90deg, #FFFFFF 0%, #6EE7B7 50%, #18c98b 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -135,15 +123,22 @@
     }
   }
 
+  .perspectiveWrapper {
+    perspective: 2000px;
+    width: 100%;
+    position: relative;
+    z-index: 5;
+  }
+
   /* ============================================================
-     ONE MASTER UNIFIED CONTAINER BOX - OBSIDIAN GOLD GLASS
+     ONE MASTER UNIFIED CONTAINER BOX - OBSIDIAN GREEN GLASS
      ============================================================ */
   .masterTerminalBox {
-    background: radial-gradient(circle at 50% 0%, rgba(216, 162, 59, 0.07) 0%, transparent 65%), #080B12;
-    border: 1px solid rgba(255, 230, 147, 0.16);
+    background: radial-gradient(circle at 50% 0%, rgba(24, 201, 139, 0.07) 0%, transparent 65%), #080B12;
+    border: 1px solid rgba(24, 201, 139, 0.22);
     border-radius: 24px;
     padding: 24px;
-    box-shadow: 0 32px 90px rgba(0, 0, 0, 0.95), 0 0 45px rgba(216, 162, 59, 0.06), inset 0 1px 0 rgba(255, 230, 147, 0.18);
+    box-shadow: 0 32px 90px rgba(0, 0, 0, 0.95), 0 0 45px rgba(24, 201, 139, 0.08), inset 0 1px 0 rgba(24, 201, 139, 0.2);
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -183,8 +178,8 @@
      PART 1 (LEFT): Candlestick Moving Chart (Full Height)
      ============================================================ */
   .partOneChart {
-    background: radial-gradient(circle at 50% 0%, rgba(216, 162, 59, 0.04) 0%, transparent 70%), #06080E;
-    border: 1px solid rgba(255, 230, 147, 0.14);
+    background: radial-gradient(circle at 50% 0%, rgba(24, 201, 139, 0.04) 0%, transparent 70%), #06080E;
+    border: 1px solid rgba(24, 201, 139, 0.14);
     border-radius: 18px;
     overflow: hidden;
     display: flex;
@@ -209,7 +204,7 @@
       justify-content: space-between;
       padding: 12px 18px;
       background: rgba(10, 13, 21, 0.95);
-      border-bottom: 1px solid rgba(255, 230, 147, 0.1);
+      border-bottom: 1px solid rgba(24, 201, 139, 0.1);
       gap: 12px;
       flex-wrap: wrap;
       width: 100%;
@@ -263,18 +258,18 @@
           display: flex;
           align-items: center;
           gap: 7px;
-          background: rgba(216, 162, 59, 0.12);
-          border: 1px solid rgba(216, 162, 59, 0.35);
+          background: rgba(24, 201, 139, 0.12);
+          border: 1px solid rgba(24, 201, 139, 0.35);
           border-radius: 8px;
           padding: 4px 10px;
-          color: #FFE693;
+          color: #6EE7B7;
 
           .cryptoIconLetter {
             width: 17px;
             height: 17px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #FFE693 0%, #D8A23B 100%);
-            color: #080602;
+            background: linear-gradient(135deg, #6EE7B7 0%, #18c98b 100%);
+            color: #040605;
             font-size: 9.5px;
             font-weight: 900;
             display: flex;
@@ -287,7 +282,7 @@
             font-size: 12.5px;
             font-weight: 800;
             letter-spacing: 0.4px;
-            color: #FFE693;
+            color: #6EE7B7;
           }
         }
 
@@ -313,8 +308,8 @@
             }
 
             &.tfBtnActive {
-              background: rgba(216, 162, 59, 0.15);
-              color: #FFE693;
+              background: rgba(24, 201, 139, 0.15);
+              color: #6EE7B7;
             }
           }
         }
@@ -324,9 +319,9 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        background: rgba(216, 162, 59, 0.12);
-        border: 1px solid rgba(255, 230, 147, 0.4);
-        color: #FFE693;
+        background: rgba(24, 201, 139, 0.12);
+        border: 1px solid rgba(24, 201, 139, 0.4);
+        color: #6EE7B7;
         font-family: monospace, sans-serif;
         font-size: 10px;
         font-weight: 800;
@@ -338,8 +333,8 @@
           width: 5px;
           height: 5px;
           border-radius: 50%;
-          background: #FFE693;
-          box-shadow: 0 0 6px #FFE693;
+          background: #18c98b;
+          box-shadow: 0 0 6px #18c98b;
           animation: pulseDot 1.4s infinite;
         }
       }
@@ -352,7 +347,7 @@
       flex: 1 1 auto;
       min-height: 460px;
       height: 100%;
-      background: radial-gradient(circle at 45% 45%, rgba(216, 162, 59, 0.03) 0%, transparent 80%), #06080E;
+      background: radial-gradient(circle at 45% 45%, rgba(24, 201, 139, 0.03) 0%, transparent 80%), #06080E;
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -496,8 +491,8 @@
      PART 2 (RIGHT): XAU/USD Gold Intelligence Cockpit
      ============================================================ */
   .partTwoCockpit {
-    background: radial-gradient(circle at 50% 0%, rgba(216, 162, 59, 0.04) 0%, transparent 70%), #06080E;
-    border: 1px solid rgba(255, 230, 147, 0.14);
+    background: radial-gradient(circle at 50% 0%, rgba(24, 201, 139, 0.04) 0%, transparent 70%), #06080E;
+    border: 1px solid rgba(24, 201, 139, 0.14);
     border-radius: 18px;
     padding: 22px 24px;
     display: flex;
@@ -551,7 +546,7 @@
         }
 
         .activeAssetTicker {
-          color: #FFE693;
+          color: #6EE7B7;
         }
       }
 
@@ -562,11 +557,11 @@
         font-family: monospace, sans-serif;
         font-size: 10px;
         font-weight: 800;
-        color: #FFE693;
+        color: #6EE7B7;
         letter-spacing: 0.6px;
 
         .starIcon {
-          color: #FFE693;
+          color: #6EE7B7;
           font-size: 11px;
         }
       }
@@ -592,13 +587,13 @@
           width: 38px;
           height: 38px;
           border-radius: 10px;
-          background: rgba(216, 162, 59, 0.12);
-          border: 1px solid rgba(216, 162, 59, 0.35);
+          background: rgba(24, 201, 139, 0.12);
+          border: 1px solid rgba(24, 201, 139, 0.35);
           display: flex;
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
-          box-shadow: 0 0 12px rgba(216, 162, 59, 0.2);
+          box-shadow: 0 0 12px rgba(24, 201, 139, 0.2);
 
           @include respond-to("sm") {
             width: 32px;
@@ -832,18 +827,18 @@
         }
 
         &:hover {
-          background: rgba(216, 162, 59, 0.12);
-          border-color: rgba(255, 230, 147, 0.35);
-          box-shadow: 0 0 16px rgba(216, 162, 59, 0.22), inset 0 1px 0 rgba(255, 230, 147, 0.25);
+          background: rgba(24, 201, 139, 0.12);
+          border-color: rgba(24, 201, 139, 0.35);
+          box-shadow: 0 0 16px rgba(24, 201, 139, 0.22), inset 0 1px 0 rgba(24, 201, 139, 0.25);
           transform: translateY(-1px);
 
           svg {
-            color: #FFE693;
+            color: #6EE7B7;
             transform: scale(1.1);
           }
 
           span {
-            color: #FFE693;
+            color: #6EE7B7;
           }
         }
 
@@ -866,7 +861,7 @@
       }
 
       .intelCard {
-        background: radial-gradient(circle at 85% 15%, rgba(216, 162, 59, 0.07) 0%, transparent 65%), #0A0D15;
+        background: radial-gradient(circle at 85% 15%, rgba(24, 201, 139, 0.07) 0%, transparent 65%), #0A0D15;
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 16px;
         padding: 16px 18px;
@@ -900,9 +895,9 @@
         /* Rank Card Active Hover State (Gold Glow) */
         &.cardActiveRank {
           transform: translateY(-2px);
-          border-color: rgba(255, 230, 147, 0.5);
-          box-shadow: 0 22px 52px rgba(0, 0, 0, 0.88), 0 0 26px rgba(216, 162, 59, 0.24), inset 0 1px 0 rgba(255, 230, 147, 0.35);
-          background: radial-gradient(circle at 85% 15%, rgba(216, 162, 59, 0.12) 0%, transparent 65%), #0C101A;
+          border-color: rgba(24, 201, 139, 0.5);
+          box-shadow: 0 22px 52px rgba(0, 0, 0, 0.88), 0 0 26px rgba(24, 201, 139, 0.24), inset 0 1px 0 rgba(24, 201, 139, 0.35);
+          background: radial-gradient(circle at 85% 15%, rgba(24, 201, 139, 0.12) 0%, transparent 65%), #0C101A;
         }
 
         /* Dimmed State when the other card is hovered */
@@ -961,13 +956,13 @@
               width: 30px;
               height: 30px;
               border-radius: 8px;
-              background: rgba(216, 162, 59, 0.15);
-              border: 1px solid rgba(255, 230, 147, 0.4);
+              background: rgba(24, 201, 139, 0.15);
+              border: 1px solid rgba(24, 201, 139, 0.4);
               display: flex;
               align-items: center;
               justify-content: center;
               font-size: 14px;
-              box-shadow: 0 0 12px rgba(216, 162, 59, 0.25);
+              box-shadow: 0 0 12px rgba(24, 201, 139, 0.25);
               flex-shrink: 0;
             }
 
@@ -1001,9 +996,9 @@
             font-family: monospace, sans-serif;
             font-size: 10.5px;
             font-weight: 800;
-            color: #FFE693;
-            background: rgba(216, 162, 59, 0.14);
-            border: 1px solid rgba(255, 230, 147, 0.4);
+            color: #6EE7B7;
+            background: rgba(24, 201, 139, 0.14);
+            border: 1px solid rgba(24, 201, 139, 0.4);
             padding: 2px 7px;
             border-radius: 5px;
           }
@@ -1157,7 +1152,7 @@
               font-family: var(--font-anton), 'Euclid', -apple-system, sans-serif;
               font-size: 36px;
               font-weight: 400;
-              color: #FFE693;
+              color: #6EE7B7;
               line-height: 1;
               letter-spacing: 0.5px;
               display: inline-block;
@@ -1168,8 +1163,8 @@
               }
 
               &.rankActiveText {
-                color: #FFE693;
-                text-shadow: 0 0 16px rgba(255, 230, 147, 0.75);
+                color: #6EE7B7;
+                text-shadow: 0 0 16px rgba(24, 201, 139, 0.75);
                 transform: scale(1.04);
               }
             }
@@ -1190,9 +1185,9 @@
             font-family: monospace, sans-serif;
             font-size: 9.5px;
             font-weight: 800;
-            color: #FFE693;
-            background: rgba(216, 162, 59, 0.15);
-            border: 1px solid rgba(255, 230, 147, 0.4);
+            color: #6EE7B7;
+            background: rgba(24, 201, 139, 0.15);
+            border: 1px solid rgba(24, 201, 139, 0.4);
             padding: 3px 8px;
             border-radius: 6px;
             letter-spacing: 0.4px;
@@ -1256,7 +1251,7 @@
         }
 
         &:hover {
-          border-color: rgba(216, 162, 59, 0.25);
+          border-color: rgba(24, 201, 139, 0.25);
           background: rgba(14, 18, 28, 0.95);
         }
 
@@ -1280,9 +1275,9 @@
             font-family: monospace, sans-serif;
             font-size: 8.5px;
             font-weight: 800;
-            color: #FFE693;
-            background: rgba(216, 162, 59, 0.15);
-            border: 1px solid rgba(255, 230, 147, 0.35);
+            color: #6EE7B7;
+            background: rgba(24, 201, 139, 0.15);
+            border: 1px solid rgba(24, 201, 139, 0.35);
             padding: 1px 5px;
             border-radius: 4px;
             letter-spacing: 0.3px;

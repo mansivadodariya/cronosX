@@ -15,10 +15,10 @@ export default function Button({ text, icon, onClick, btnmd, type = "button" }) 
                 whileTap="tap"
                 initial="rest"
                 variants={{
-                    rest: { scale: 1, boxShadow: "0 0 0px rgba(244, 209, 122, 0)" },
+                    rest: { scale: 1, boxShadow: "0 4px 20px rgba(24, 201, 139, 0.35)" },
                     hover: {
                         scale: 1.04,
-                        boxShadow: "0 0 25px rgba(244, 209, 122, 0.6), 0 0 45px rgba(193, 144, 46, 0.35)",
+                        boxShadow: "0 0 25px rgba(24, 201, 139, 0.7), 0 0 50px rgba(24, 201, 139, 0.4)",
                         transition: { type: "spring", stiffness: 400, damping: 15 }
                     },
                     tap: {

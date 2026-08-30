@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useMotionTemplate } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { authNavigate } from '@/lib/authRedirect';
 import styles from './readytoPut.module.scss';
@@ -15,42 +15,51 @@ const ArrowRightIcon = () => (
 export default function ReadytoPut() {
   const router = useRouter();
 
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const glowOpacity = useMotionValue(0);
+
+  const handleMouseMove = ({ currentTarget, clientX, clientY }) => {
+    const { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  };
+
+  const handleMouseEnter = () => {
+    glowOpacity.set(1);
+  };
+
+  const handleMouseLeave = () => {
+    glowOpacity.set(0);
+  };
+
+  const pointerGlowBg = useMotionTemplate`radial-gradient(550px circle at ${mouseX}px ${mouseY}px, rgba(24, 201, 139, 0.24) 0%, rgba(24, 201, 139, 0.08) 45%, transparent 80%)`;
+
   return (
-    <div className={styles.readytoPut}>
-      <div className='container'>
+    <section className={styles.readytoPutSection}>
+      <motion.div 
+        className={styles.bannerCardFull}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+      >
+        {/* Top ambient glow shimmer line */}
+        <div className={styles.cardShimmerTop} />
+
+        {/* Dynamic Pointer Following Radial Glow */}
         <motion.div 
-          className={styles.bannerCard}
-          initial={{ opacity: 0, scale: 0.96, y: 30 }}
-          whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {/* Top ambient glow shimmer */}
-          <div className={styles.cardShimmerTop} />
+          className={styles.pointerGlow}
+          style={{
+            opacity: glowOpacity,
+            background: pointerGlowBg
+          }}
+        />
 
-          {/* Background candlestick & wave ambient graphic */}
-          <motion.div 
-            className={styles.bgGraphic}
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <motion.img 
-              src="/assets/images/chart-wave-right.svg" 
-              alt="Trading Wave Chart"
-              animate={{
-                y: [0, -12, 0],
-                opacity: [0.65, 0.95, 0.65]
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-          </motion.div>
-
+        <div className="container">
           <div className={styles.content}>
             <div className={styles.eyebrowBadge}>
               <span className={styles.pulseDot} />
@@ -93,8 +102,8 @@ export default function ReadytoPut() {
               </button>
             </motion.div>
           </div>
-        </motion.div>
-      </div>
-    </div>
+        </div>
+      </motion.div>
+    </section>
   );
 }

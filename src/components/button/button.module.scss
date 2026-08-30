@@ -7,10 +7,10 @@
 
 
     button {
-        background: linear-gradient(90deg, #C1902E 0%, #F4D17A 100%);
-        color: #0A0807;
+        background: #18c98b;
+        color: #040605;
         padding: 14px 30px;
-        border: none;
+        border: 1px solid rgba(24, 201, 139, 0.4);
         outline: none;
         @include font-semibold;
         font-size: 15px;
@@ -20,13 +20,16 @@
         align-items: center;
         gap: 10px;
         text-transform: uppercase;
-        font-weight: 600;
+        font-weight: 700;
         position: relative;
         overflow: hidden;
+        box-shadow: 0 4px 20px rgba(24, 201, 139, 0.35);
+        transition: all 0.3s ease;
 
         .btnText {
             display: inline-block;
             letter-spacing: 0.5px;
+            color: #040605;
         }
 
         .iconWrapper {

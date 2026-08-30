@@ -13,29 +13,29 @@ function UploadChartSvg() {
     <svg width="280" height="200" viewBox="0 0 280 200" fill="none" xmlns="http://www.w3.org/2000/svg" className={styles.interactiveSvg}>
       <defs>
         <filter id="uploadGlow" x="90" y="50" width="100" height="90" filterUnits="userSpaceOnUse">
-          <feDropShadow dx="0" dy="0" stdDeviation="8" floodColor="#FFE693" floodOpacity="0.8" />
+          <feDropShadow dx="0" dy="0" stdDeviation="8" floodColor="#6EE7B7" floodOpacity="0.8" />
         </filter>
         <linearGradient id="cloudGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#2A2012" />
-          <stop offset="100%" stopColor="#120D08" />
+          <stop offset="0%" stopColor="#062218" />
+          <stop offset="100%" stopColor="#03100B" />
         </linearGradient>
       </defs>
 
       {/* Dark glass tablet frame */}
-      <rect x="30" y="20" width="220" height="140" rx="12" fill="#0d0a08" fillOpacity="0.9" stroke="#C1902E" strokeOpacity="0.4" strokeWidth="1.5" />
+      <rect x="30" y="20" width="220" height="140" rx="12" fill="#040b08" fillOpacity="0.9" stroke="#18c98b" strokeOpacity="0.4" strokeWidth="1.5" />
       
       {/* Tablet header dots */}
-      <circle cx="48" cy="34" r="3" fill="#FFE693" fillOpacity="0.8" />
-      <circle cx="58" cy="34" r="3" fill="#D8A23B" fillOpacity="0.5" />
-      <circle cx="68" cy="34" r="3" fill="#D8A23B" fillOpacity="0.5" />
+      <circle cx="48" cy="34" r="3" fill="#6EE7B7" fillOpacity="0.8" />
+      <circle cx="58" cy="34" r="3" fill="#18c98b" fillOpacity="0.5" />
+      <circle cx="68" cy="34" r="3" fill="#18c98b" fillOpacity="0.5" />
       
       {/* Grid lines */}
-      <line x1="45" y1="55" x2="235" y2="55" stroke="#C1902E" strokeOpacity="0.15" strokeDasharray="3 3" />
-      <line x1="45" y1="90" x2="235" y2="90" stroke="#C1902E" strokeOpacity="0.15" strokeDasharray="3 3" />
-      <line x1="45" y1="125" x2="235" y2="125" stroke="#C1902E" strokeOpacity="0.15" strokeDasharray="3 3" />
-      <line x1="85" y1="45" x2="85" y2="145" stroke="#C1902E" strokeOpacity="0.15" strokeDasharray="3 3" />
-      <line x1="140" y1="45" x2="140" y2="145" stroke="#C1902E" strokeOpacity="0.15" strokeDasharray="3 3" />
-      <line x1="195" y1="45" x2="195" y2="145" stroke="#C1902E" strokeOpacity="0.15" strokeDasharray="3 3" />
+      <line x1="45" y1="55" x2="235" y2="55" stroke="#18c98b" strokeOpacity="0.15" strokeDasharray="3 3" />
+      <line x1="45" y1="90" x2="235" y2="90" stroke="#18c98b" strokeOpacity="0.15" strokeDasharray="3 3" />
+      <line x1="45" y1="125" x2="235" y2="125" stroke="#18c98b" strokeOpacity="0.15" strokeDasharray="3 3" />
+      <line x1="85" y1="45" x2="85" y2="145" stroke="#18c98b" strokeOpacity="0.15" strokeDasharray="3 3" />
+      <line x1="140" y1="45" x2="140" y2="145" stroke="#18c98b" strokeOpacity="0.15" strokeDasharray="3 3" />
+      <line x1="195" y1="45" x2="195" y2="145" stroke="#18c98b" strokeOpacity="0.15" strokeDasharray="3 3" />
 
       {/* Dynamic Background Data Bars */}
       <g opacity="0.45">
@@ -44,7 +44,7 @@ function UploadChartSvg() {
           y="95"
           width="5"
           height="30"
-          fill="#FFE693"
+          fill="#6EE7B7"
           rx="1"
           animate={{ scaleY: [0.8, 1.3, 0.8] }}
           transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
@@ -55,7 +55,7 @@ function UploadChartSvg() {
           y="75"
           width="5"
           height="40"
-          fill="#D8A23B"
+          fill="#18c98b"
           rx="1"
           animate={{ scaleY: [1.1, 0.7, 1.1] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
@@ -66,7 +66,7 @@ function UploadChartSvg() {
           y="80"
           width="5"
           height="45"
-          fill="#FFE693"
+          fill="#6EE7B7"
           rx="1"
           animate={{ scaleY: [0.7, 1.2, 0.7] }}
           transition={{ duration: 2.1, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
@@ -77,7 +77,7 @@ function UploadChartSvg() {
           y="65"
           width="5"
           height="55"
-          fill="#FFE693"
+          fill="#6EE7B7"
           rx="1"
           animate={{ scaleY: [1.2, 0.8, 1.2] }}
           transition={{ duration: 2.7, repeat: Infinity, ease: "easeInOut", delay: 0.1 }}
@@ -95,7 +95,7 @@ function UploadChartSvg() {
         <path
           d="M140 65C127.5 65 117.2 73.8 115 85.5C108.5 87 104 93 104 100C104 108.3 110.7 115 119 115H161C168.2 115 174 109.2 174 102C174 95.3 169 89.8 162.5 89.1C160.5 75.5 151.5 65 140 65Z"
           fill="url(#cloudGrad)"
-          stroke="#FFE693"
+          stroke="#6EE7B7"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -108,7 +108,7 @@ function UploadChartSvg() {
         >
           <path
             d="M140 106V85M140 85L131 94M140 85L149 94"
-            stroke="#FFE693"
+            stroke="#6EE7B7"
             strokeWidth="3.2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -125,21 +125,21 @@ function AnalysisChartSvg() {
     <svg width="280" height="200" viewBox="0 0 280 200" fill="none" xmlns="http://www.w3.org/2000/svg" className={styles.interactiveSvg}>
       <defs>
         <filter id="glassGlow" x="100" y="30" width="130" height="130" filterUnits="userSpaceOnUse">
-          <feDropShadow dx="0" dy="0" stdDeviation="10" floodColor="#FFE693" floodOpacity="0.75" />
+          <feDropShadow dx="0" dy="0" stdDeviation="10" floodColor="#6EE7B7" floodOpacity="0.75" />
         </filter>
         <radialGradient id="lensGrad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#FFE693" stopOpacity="0.25" />
-          <stop offset="70%" stopColor="#D8A23B" stopOpacity="0.12" />
+          <stop offset="0%" stopColor="#6EE7B7" stopOpacity="0.25" />
+          <stop offset="70%" stopColor="#18c98b" stopOpacity="0.12" />
           <stop offset="100%" stopColor="#000000" stopOpacity="0.4" />
         </radialGradient>
       </defs>
 
       {/* Dark glass tablet */}
-      <rect x="30" y="20" width="220" height="140" rx="12" fill="#0d0a08" fillOpacity="0.9" stroke="#C1902E" strokeOpacity="0.4" strokeWidth="1.5" />
+      <rect x="30" y="20" width="220" height="140" rx="12" fill="#040b08" fillOpacity="0.9" stroke="#18c98b" strokeOpacity="0.4" strokeWidth="1.5" />
       
       {/* Tablet header dots */}
       <circle cx="48" cy="34" r="3" fill="#EF4444" />
-      <circle cx="58" cy="34" r="3" fill="#FFE693" />
+      <circle cx="58" cy="34" r="3" fill="#6EE7B7" />
       <circle cx="68" cy="34" r="3" fill="#34D399" />
 
       {/* Moving Candlesticks in Price Action */}
@@ -210,7 +210,7 @@ function AnalysisChartSvg() {
         <rect x="201" y="45" width="8" height="40" fill="#34D399" rx="1.5" />
       </motion.g>
 
-      {/* Moving & Scanning Golden 3D Magnifying Glass */}
+      {/* Moving & Scanning Green 3D Magnifying Glass */}
       <motion.g
         filter="url(#glassGlow)"
         animate={{
@@ -226,15 +226,15 @@ function AnalysisChartSvg() {
         style={{ transformOrigin: "160px 85px" }}
       >
         {/* Glass lens fill */}
-        <circle cx="160" cy="85" r="28" fill="url(#lensGrad)" stroke="#FFE693" strokeWidth="3.5" />
-        <circle cx="160" cy="85" r="23" stroke="#D8A23B" strokeWidth="1.5" strokeOpacity="0.7" />
+        <circle cx="160" cy="85" r="28" fill="url(#lensGrad)" stroke="#6EE7B7" strokeWidth="3.5" />
+        <circle cx="160" cy="85" r="23" stroke="#18c98b" strokeWidth="1.5" strokeOpacity="0.7" />
         
         {/* Glass reflection arc */}
         <path d="M143 72C148 66 156 63 165 64" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" opacity="0.85" />
         
-        {/* Golden Handle */}
-        <line x1="180" y1="105" x2="208" y2="133" stroke="#FFE693" strokeWidth="6" strokeLinecap="round" />
-        <line x1="180" y1="105" x2="208" y2="133" stroke="#120D08" strokeWidth="2.2" strokeLinecap="round" />
+        {/* Green Handle */}
+        <line x1="180" y1="105" x2="208" y2="133" stroke="#6EE7B7" strokeWidth="6" strokeLinecap="round" />
+        <line x1="180" y1="105" x2="208" y2="133" stroke="#03100B" strokeWidth="2.2" strokeLinecap="round" />
       </motion.g>
     </svg>
   );
@@ -246,48 +246,48 @@ function TargetPlanSvg() {
     <svg width="280" height="200" viewBox="0 0 280 200" fill="none" xmlns="http://www.w3.org/2000/svg" className={styles.interactiveSvg}>
       <defs>
         <filter id="targetGlow" x="135" y="35" width="110" height="110" filterUnits="userSpaceOnUse">
-          <feDropShadow dx="0" dy="0" stdDeviation="10" floodColor="#FFE693" floodOpacity="0.85" />
+          <feDropShadow dx="0" dy="0" stdDeviation="10" floodColor="#6EE7B7" floodOpacity="0.85" />
         </filter>
         <radialGradient id="targetInnerGrad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#FFE693" />
-          <stop offset="60%" stopColor="#D8A23B" />
-          <stop offset="100%" stopColor="#8A5A12" />
+          <stop offset="0%" stopColor="#6EE7B7" />
+          <stop offset="60%" stopColor="#18c98b" />
+          <stop offset="100%" stopColor="#064E3B" />
         </radialGradient>
       </defs>
 
       {/* Clipboard on the left */}
-      <rect x="70" y="25" width="110" height="135" rx="8" fill="#1c1611" stroke="#C1902E" strokeOpacity="0.5" strokeWidth="1.5" />
+      <rect x="70" y="25" width="110" height="135" rx="8" fill="#091812" stroke="#18c98b" strokeOpacity="0.5" strokeWidth="1.5" />
       
       {/* Clipboard clip at top */}
-      <rect x="105" y="18" width="40" height="14" rx="4" fill="#FFE693" stroke="#0c0907" strokeWidth="1.5" />
-      <circle cx="125" cy="25" r="2.5" fill="#0c0907" />
+      <rect x="105" y="18" width="40" height="14" rx="4" fill="#6EE7B7" stroke="#040b08" strokeWidth="1.5" />
+      <circle cx="125" cy="25" r="2.5" fill="#040b08" />
 
       {/* Checklist items with sequential tick animations */}
-      <g stroke="#FFE693" strokeWidth="1.8" strokeLinecap="round">
+      <g stroke="#6EE7B7" strokeWidth="1.8" strokeLinecap="round">
         {/* Row 1 */}
         <motion.g animate={{ opacity: [0.6, 1, 0.6] }} transition={{ duration: 2.2, repeat: Infinity, delay: 0.1 }}>
-          <rect x="85" y="48" width="12" height="12" rx="2" fill="rgba(216, 162, 59, 0.2)" />
+          <rect x="85" y="48" width="12" height="12" rx="2" fill="rgba(24, 201, 139, 0.2)" />
           <path d="M88 54L91 57L98 50" strokeWidth="2" />
           <line x1="105" y1="54" x2="160" y2="54" strokeOpacity="0.8" />
         </motion.g>
 
         {/* Row 2 */}
         <motion.g animate={{ opacity: [0.6, 1, 0.6] }} transition={{ duration: 2.2, repeat: Infinity, delay: 0.4 }}>
-          <rect x="85" y="70" width="12" height="12" rx="2" fill="rgba(216, 162, 59, 0.2)" />
+          <rect x="85" y="70" width="12" height="12" rx="2" fill="rgba(24, 201, 139, 0.2)" />
           <path d="M88 76L91 79L98 72" strokeWidth="2" />
           <line x1="105" y1="76" x2="155" y2="76" strokeOpacity="0.8" />
         </motion.g>
 
         {/* Row 3 */}
         <motion.g animate={{ opacity: [0.6, 1, 0.6] }} transition={{ duration: 2.2, repeat: Infinity, delay: 0.7 }}>
-          <rect x="85" y="92" width="12" height="12" rx="2" fill="rgba(216, 162, 59, 0.2)" />
+          <rect x="85" y="92" width="12" height="12" rx="2" fill="rgba(24, 201, 139, 0.2)" />
           <path d="M88 98L91 101L98 94" strokeWidth="2" />
           <line x1="105" y1="98" x2="150" y2="98" strokeOpacity="0.8" />
         </motion.g>
 
         {/* Row 4 */}
         <motion.g animate={{ opacity: [0.6, 1, 0.6] }} transition={{ duration: 2.2, repeat: Infinity, delay: 1.0 }}>
-          <rect x="85" y="114" width="12" height="12" rx="2" fill="rgba(216, 162, 59, 0.2)" />
+          <rect x="85" y="114" width="12" height="12" rx="2" fill="rgba(24, 201, 139, 0.2)" />
           <path d="M88 120L91 123L98 116" strokeWidth="2" />
           <line x1="105" y1="120" x2="158" y2="120" strokeOpacity="0.8" />
         </motion.g>
@@ -301,12 +301,12 @@ function TargetPlanSvg() {
         style={{ transformOrigin: "185px 88px" }}
       >
         {/* Target outer rings */}
-        <circle cx="185" cy="88" r="38" fill="#140f0b" stroke="#FFE693" strokeWidth="3" />
-        <circle cx="185" cy="88" r="26" stroke="#D8A23B" strokeWidth="2.5" />
-        <circle cx="185" cy="88" r="15" fill="url(#targetInnerGrad)" stroke="#FFE693" strokeWidth="2" />
-        <circle cx="185" cy="88" r="6" fill="#0c0907" />
+        <circle cx="185" cy="88" r="38" fill="#040d09" stroke="#6EE7B7" strokeWidth="3" />
+        <circle cx="185" cy="88" r="26" stroke="#18c98b" strokeWidth="2.5" />
+        <circle cx="185" cy="88" r="15" fill="url(#targetInnerGrad)" stroke="#6EE7B7" strokeWidth="2" />
+        <circle cx="185" cy="88" r="6" fill="#040b08" />
 
-        {/* Gold Arrow hitting Bullseye with Impact Vibration */}
+        {/* Green Arrow hitting Bullseye with Impact Vibration */}
         <motion.g
           animate={{
             x: [0, -2, 0],
@@ -318,9 +318,9 @@ function TargetPlanSvg() {
             ease: "easeInOut"
           }}
         >
-          <path d="M218 55L188 85" stroke="#FFE693" strokeWidth="4" strokeLinecap="round" />
+          <path d="M218 55L188 85" stroke="#6EE7B7" strokeWidth="4" strokeLinecap="round" />
           {/* Arrow flights/feathers */}
-          <path d="M214 47L224 57M210 51L220 61M218 43L228 53" stroke="#FFE693" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M214 47L224 57M210 51L220 61M218 43L228 53" stroke="#6EE7B7" strokeWidth="2.5" strokeLinecap="round" />
         </motion.g>
       </motion.g>
     </svg>

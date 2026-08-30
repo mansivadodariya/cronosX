@@ -1,8 +1,12 @@
 import React from 'react'
+import styles from './home.module.scss'
 import Herobanner from './herobanner'
+import AiCockpit from './aiCockpit'
+import MetricsSection from './metricsSection'
 import CardList from './cardList'
 import Platform from './platform'
 import Capabilities from './capabilities'
+import FavoriteCoins from './favoriteCoins'
 import AiAssistant from './aiAssistant'
 import HowitWorks from './howitWorks'
 import ChartAnalysis from './chartAnalysis'
@@ -17,19 +21,24 @@ import ReadytoPut from './readytoPut'
 
 export default function HomePage() {
     return (
-        <div>
+        <div className={styles.homeWrapper}>
             <Herobanner />
-            <Capabilities />
-            <BeforeAfterComparison />
-            <MarketIntelligence />
-            <HowitWorks />
-            <BreakoutDetection />
-            <ChartAnalysis />
-            <AiAnalyst />
-            <TeamUp />
-            <Testimonials />
-            <GlobalNetworkMap />
-            <ReadytoPut />
+            <div className={styles.contentSections}>
+                <MetricsSection />
+                <AiCockpit isHero={false} showHeader={true} />
+                <Capabilities />
+                <FavoriteCoins />
+                <BeforeAfterComparison />
+                <MarketIntelligence />
+                <HowitWorks />
+                <BreakoutDetection />
+                <ChartAnalysis />
+                <AiAnalyst />
+                <TeamUp />
+                <Testimonials />
+                <GlobalNetworkMap />
+                <ReadytoPut />
+            </div>
         </div>
     )
 }

@@ -26,11 +26,11 @@ function MiniTrendGraph({ symbol = "PLTR", entry = "85.80", target = "94.20", rr
         <svg viewBox="0 0 320 64" className={styles.sparklineSvg} preserveAspectRatio="none">
           <defs>
             <linearGradient id="sparklineGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#FFE693" stopOpacity="0.4" />
+              <stop offset="0%" stopColor="#6EE7B7" stopOpacity="0.4" />
               <stop offset="100%" stopColor="#10B981" stopOpacity="0.0" />
             </linearGradient>
             <filter id="neonGlowSpark" x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="0" dy="0" stdDeviation="2.5" floodColor="#FFE693" floodOpacity="0.8" />
+              <feDropShadow dx="0" dy="0" stdDeviation="2.5" floodColor="#6EE7B7" floodOpacity="0.8" />
             </filter>
           </defs>
 
@@ -49,15 +49,15 @@ function MiniTrendGraph({ symbol = "PLTR", entry = "85.80", target = "94.20", rr
           <path
             d="M 10 48 Q 60 46, 110 38 T 210 28 T 280 16 L 305 14"
             fill="none"
-            stroke="#FFE693"
+            stroke="#6EE7B7"
             strokeWidth="2"
             strokeLinecap="round"
             filter="url(#neonGlowSpark)"
           />
 
           {/* Glowing Target Pulsing Dot */}
-          <circle cx="305" cy="14" r="3.5" fill="#FFE693" />
-          <circle cx="305" cy="14" r="6" fill="none" stroke="#FFE693" strokeWidth="1" opacity="0.8">
+          <circle cx="305" cy="14" r="3.5" fill="#6EE7B7" />
+          <circle cx="305" cy="14" r="6" fill="none" stroke="#6EE7B7" strokeWidth="1" opacity="0.8">
             <animate attributeName="r" values="3.5;8;3.5" dur="1.8s" repeatCount="indefinite" />
             <animate attributeName="opacity" values="0.8;0;0.8" dur="1.8s" repeatCount="indefinite" />
           </circle>
@@ -439,7 +439,7 @@ export default function AiAnalyst() {
                   <div className={styles.numBadge}>{item.num}</div>
                   <div className={styles.featureContent}>
                     <h3>{item.title}</h3>
-                    <p>{item.desc}</p>
+                    {/* <p>{item.desc}</p> */}
                   </div>
                 </div>
               ))}

@@ -2,26 +2,19 @@
 @use '../../../scss/breakpoints/breakpoints.scss' as *;
 @use '../../../scss/font/font.scss' as *;
 
-.readytoPut {
-    padding: 80px 0 60px 0;
+.readytoPutSection {
     position: relative;
-    background: radial-gradient(ellipse at 50% 100%, #0c0906 0%, #030303 70%);
+    width: 100%;
+    overflow: hidden;
+    background: #020605;
 
-    @include respond-to("tab") {
-        padding: 50px 0 40px 0;
-    }
-
-    @include respond-to("sm") {
-        padding: 40px 0 30px 0;
-    }
-
-    .bannerCard {
+    .bannerCardFull {
         position: relative;
-        border-radius: 28px;
-        background: radial-gradient(130% 100% at 50% 0%, #1A140F 0%, #0D0A08 55%, #040303 100%);
-        border: 1.5px solid rgba(244, 209, 122, 0.4);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(244, 209, 122, 0.15), inset 0 1px 1px rgba(244, 209, 122, 0.35);
-        padding: 80px 40px;
+        width: 100%;
+        padding: 95px 0 90px 0;
+        background: radial-gradient(120% 120% at 50% 0%, #061A13 0%, #040E0B 55%, #020605 100%);
+        border-top: 1px solid rgba(24, 201, 139, 0.35);
+        box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(24, 201, 139, 0.35);
         overflow: hidden;
         display: flex;
         flex-direction: column;
@@ -29,9 +22,12 @@
         text-align: center;
         transition: all 0.35s ease;
 
-        &:hover {
-            border-color: rgba(244, 209, 122, 0.6);
-            box-shadow: 0 24px 75px rgba(0, 0, 0, 0.95), 0 0 50px rgba(244, 209, 122, 0.22), inset 0 1px 1px rgba(244, 209, 122, 0.5);
+        @include respond-to("tab") {
+            padding: 70px 0 65px 0;
+        }
+
+        @include respond-to("sm") {
+            padding: 50px 0 45px 0;
         }
 
         .cardShimmerTop {
@@ -39,38 +35,27 @@
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 60%;
+            width: 100%;
+            max-width: 1200px;
             height: 1px;
-            background: linear-gradient(90deg, transparent 0%, rgba(244, 209, 122, 0.8) 50%, transparent 100%);
+            background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.85) 50%, transparent 100%);
             z-index: 2;
         }
 
-        /* Ambient candlestick & wave background graphic on right */
-        .bgGraphic {
+        .pointerGlow {
             position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 55%;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
+            inset: 0;
             pointer-events: none;
             z-index: 1;
-            overflow: hidden;
+            transition: opacity 0.3s ease;
+        }
 
-            img {
-                height: 95%;
-                max-height: 400px;
-                width: auto;
-                object-fit: contain;
-                filter: drop-shadow(0 0 35px rgba(244, 209, 122, 0.3));
-                user-select: none;
-            }
-
-            @include respond-to("md") {
-                display: none;
-            }
+        :global(.container) {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            justify-content: center;
+            width: 100%;
         }
 
         .content {
@@ -79,7 +64,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            max-width: 780px;
+            max-width: 820px;
+            width: 100%;
 
             .eyebrowBadge {
                 display: inline-flex;
@@ -87,9 +73,9 @@
                 gap: 8px;
                 padding: 6px 16px;
                 border-radius: 99px;
-                background: rgba(244, 209, 122, 0.08);
-                border: 1px solid rgba(244, 209, 122, 0.3);
-                color: #F4D17A;
+                background: rgba(24, 201, 139, 0.08);
+                border: 1px solid rgba(24, 201, 139, 0.3);
+                color: #6EE7B7;
                 font-size: 11px;
                 font-weight: 800;
                 letter-spacing: 1.4px;
@@ -100,8 +86,8 @@
                     width: 6px;
                     height: 6px;
                     border-radius: 50%;
-                    background: #F4D17A;
-                    box-shadow: 0 0 10px #F4D17A;
+                    background: #6EE7B7;
+                    box-shadow: 0 0 10px #6EE7B7;
                 }
             }
 
@@ -116,11 +102,11 @@
                 margin: 0 0 18px 0;
 
                 .goldText {
-                    color: #F4D17A;
+                    color: #6EE7B7;
                 }
 
                 .goldGradient {
-                    background: linear-gradient(135deg, #FFFFFF 0%, #FFF2B2 30%, #F4D17A 65%, #D4AF37 100%);
+                    background: linear-gradient(135deg, #FFFFFF 0%, #A7F3D0 30%, #6EE7B7 65%, #18c98b 100%);
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                     display: inline-block;
@@ -155,8 +141,8 @@
                 justify-content: center;
 
                 .ctaGoldBtn {
-                    background: linear-gradient(135deg, #FFF2B2 0%, #F4D17A 40%, #D4AF37 75%, #B8922C 100%);
-                    color: #000000;
+                    background: linear-gradient(135deg, #6EE7B7 0%, #18c98b 50%, #10b981 100%);
+                    color: #040605;
                     border: none;
                     padding: 15px 36px;
                     border-radius: 99px;
@@ -167,7 +153,7 @@
                     display: inline-flex;
                     align-items: center;
                     gap: 12px;
-                    box-shadow: 0 6px 24px rgba(244, 209, 122, 0.4);
+                    box-shadow: 0 6px 24px rgba(24, 201, 139, 0.4);
                     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 
                     svg {
@@ -176,7 +162,7 @@
 
                     &:hover {
                         transform: translateY(-2px) scale(1.02);
-                        box-shadow: 0 10px 32px rgba(244, 209, 122, 0.6);
+                        box-shadow: 0 10px 32px rgba(24, 201, 139, 0.65);
 
                         svg {
                             transform: translateX(4px);

@@ -6,25 +6,25 @@ import Textbutton from '@/components/textbutton';
 
 const pillars = [
   {
-    icon: '/assets/icons/hex-chart.svg',
+    icon: '/assets/icons/hex-chart.svg?v=2',
     title: 'Tier-1 Liquidity Pool',
     stat: '< 0.1 PIP SPREADS',
     desc: 'Access deep institutional order books from Tier-1 liquidity providers with zero spread markups.'
   },
   {
-    icon: '/assets/icons/hex-shield.svg',
+    icon: '/assets/icons/hex-shield.svg?v=2',
     title: 'Segregated Security',
     stat: 'FCA · ASIC · CySEC',
     desc: 'Our connected partners are fully regulated with segregated client capital and global compliance.'
   },
   {
-    icon: '/assets/icons/hex-speed.svg',
+    icon: '/assets/icons/hex-speed.svg?v=2',
     title: 'Ultra-Low Latency',
     stat: '12MS EXECUTION',
     desc: 'High-speed fiber infrastructure co-located with London (LD4) and New York (NY4) exchange servers.'
   },
   {
-    icon: '/assets/icons/hex-users.svg',
+    icon: '/assets/icons/hex-users.svg?v=2',
     title: 'Institutional Scale',
     stat: '$50B+ ROUTED',
     desc: 'Built on institutional trust. Backed by world-class platforms trusted by active traders worldwide.'
@@ -107,7 +107,7 @@ export default function TeamUp() {
                 <p>You maintain 100% control of your trading funds. ChronosX never holds client capital.</p>
               </div>
               <div className={styles.shieldVisual}>
-                <img src="/assets/images/shield-network.svg" alt="Security Shield" />
+                <img src="/assets/images/shield-network.svg?v=2" alt="Security Shield" />
               </div>
             </motion.div>
 

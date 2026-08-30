@@ -69,30 +69,30 @@ export default function GlobalNetworkMap() {
           {/* High-performance Interactive Overlay SVG */}
           <svg viewBox="0 20 833 415" xmlns="http://www.w3.org/2000/svg" className={styles.overlaySvg}>
             <defs>
-              {/* Title Matching Gold Gradient for Curves */}
+              {/* Title Matching Green Gradient for Curves */}
               <linearGradient id="goldRouteGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#9E6B17" stopOpacity="0.2" />
-                <stop offset="50%" stopColor="#D8A23B" stopOpacity="0.95" />
-                <stop offset="100%" stopColor="#9E6B17" stopOpacity="0.2" />
+                <stop offset="0%" stopColor="#18c98b" stopOpacity="0.2" />
+                <stop offset="50%" stopColor="#6EE7B7" stopOpacity="0.95" />
+                <stop offset="100%" stopColor="#18c98b" stopOpacity="0.2" />
               </linearGradient>
 
               {/* Radial gradient glow for comets */}
               <radialGradient id="cometHalo" cx="50%" cy="50%" r="50%">
                 <stop offset="0%" stopColor="#FFFFFF" stopOpacity="1" />
-                <stop offset="40%" stopColor="#FFE693" stopOpacity="0.95" />
-                <stop offset="70%" stopColor="#D8A23B" stopOpacity="0.7" />
-                <stop offset="100%" stopColor="#D8A23B" stopOpacity="0" />
+                <stop offset="40%" stopColor="#6EE7B7" stopOpacity="0.95" />
+                <stop offset="70%" stopColor="#18c98b" stopOpacity="0.7" />
+                <stop offset="100%" stopColor="#18c98b" stopOpacity="0" />
               </radialGradient>
 
-              {/* Continuous Title Gold Shimmer Sweep Gradient for Badges */}
+              {/* Continuous Title Green Shimmer Sweep Gradient for Badges */}
               <linearGradient id="badgeShimmerSweep" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#D8A23B" stopOpacity="0">
+                <stop offset="0%" stopColor="#18c98b" stopOpacity="0">
                   <animate attributeName="offset" values="-1; 1" dur="6.5s" repeatCount="indefinite" />
                 </stop>
-                <stop offset="50%" stopColor="#FFE693" stopOpacity="0.38">
+                <stop offset="50%" stopColor="#6EE7B7" stopOpacity="0.38">
                   <animate attributeName="offset" values="-0.5; 1.5" dur="6.5s" repeatCount="indefinite" />
                 </stop>
-                <stop offset="100%" stopColor="#D8A23B" stopOpacity="0">
+                <stop offset="100%" stopColor="#18c98b" stopOpacity="0">
                   <animate attributeName="offset" values="0; 2" dur="6.5s" repeatCount="indefinite" />
                 </stop>
               </linearGradient>

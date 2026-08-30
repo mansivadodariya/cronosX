@@ -3,9 +3,11 @@ import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { authNavigate } from '@/lib/authRedirect';
 import { toast } from '@/components/toast';
+import AnimatedAreaChart from '@/components/animatedAreaChart';
+import SideRays from '@/components/sideRays';
 import styles from './aiPastTradeAnalyzer.module.scss';
 
 // Sample audit presets for the interactive demo
@@ -93,6 +95,31 @@ export default function AiPastTradeAnalyzer() {
     const [uploadedImage, setUploadedImage] = useState(null);
     const fileInputRef = useRef(null);
 
+    const heroSectionRef = useRef(null);
+    const [mousePos, setMousePos] = useState({ x: 50, y: 50, isHovered: false });
+
+    const handleMouseMove = (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        setMousePos({ x, y, isHovered: true });
+    };
+
+    const handleMouseLeave = () => {
+        setMousePos(prev => ({ ...prev, isHovered: false }));
+    };
+
+    // 3D Perspective Scroll Rotation (Rotates from 52deg back to 0deg flat on scroll)
+    const { scrollYProgress } = useScroll({
+        target: heroSectionRef,
+        offset: ["start 98%", "center center"]
+    });
+
+    const rotateX = useTransform(scrollYProgress, [0, 1], [52, 0]);
+    const scale = useTransform(scrollYProgress, [0, 1], [0.82, 1]);
+    const translateY = useTransform(scrollYProgress, [0, 1], [75, 0]);
+    const opacity = useTransform(scrollYProgress, [0, 0.4, 1], [0.6, 0.88, 1]);
+
     const handleSelectPreset = (trade) => {
         setIsScanning(true);
         setScanProgress(0);
@@ -149,214 +176,280 @@ export default function AiPastTradeAnalyzer() {
             <div className={styles.ambientTopGlow} aria-hidden="true" />
             <div className={styles.ambientCenterGlow} aria-hidden="true" />
             <div className={styles.ambientBottomGlow} aria-hidden="true" />
-            <div className={styles.gridOverlay} aria-hidden="true" />
 
             {/* 1. BRAND NEW HERO BANNER UI: Futuristic AI Command Cockpit */}
-            <section className={styles.heroSection}>
+            <section ref={heroSectionRef} className={styles.heroSection}>
+                {/* 1.1 FIRST TITLE SECTION ONLY: Background Animated Area Chart & Spotlight Grid */}
+                <div
+                    className={styles.heroHeaderArea}
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
+                >
+                    <div className={styles.scrollBgWrapper}>
+                        <div className={styles.ambientGlowTop} aria-hidden="true" />
+                        <div className={styles.ambientGlowCenter} aria-hidden="true" />
+
+                        {/* Interactive Cursor Spotlight Glow */}
+                        <div
+                            className={styles.interactiveSpotlight}
+                            style={{
+                                left: `${mousePos.x}%`,
+                                top: `${mousePos.y}%`,
+                                opacity: mousePos.isHovered ? 1 : 0
+                            }}
+                            aria-hidden="true"
+                        />
+
+                        <div className={styles.gridOverlay} aria-hidden="true" />
+
+                        {/* Localized Green Grid Spotlight */}
+                        <div
+                            className={styles.greenSpotlightGrid}
+                            style={{
+                                opacity: mousePos.isHovered ? 1 : 0,
+                                WebkitMaskImage: `radial-gradient(circle 120px at ${mousePos.x}% ${mousePos.y}%, #000 0%, transparent 100%)`,
+                                maskImage: `radial-gradient(circle 120px at ${mousePos.x}% ${mousePos.y}%, #000 0%, transparent 100%)`
+                            }}
+                            aria-hidden="true"
+                        />
+
+                        <div className={styles.radialVignette} aria-hidden="true" />
+
+                        {/* Side Rays Effect Layer */}
+                   
+
+                        {/* Background Animated Vector Area Chart Behind Title Section */}
+                        <AnimatedAreaChart isBackground={true} height={360} />
+
+                        {/* High-Tech Mobile Ambient Atmosphere */}
+                        <div className={styles.mobileTechAtmosphere} aria-hidden="true">
+                            <div className={styles.mobileQuantumHalo} />
+                            <div className={styles.mobileLaserScan} />
+                            <div className={styles.mobileConstellation}>
+                                <span className={`${styles.particleDot} ${styles.pDot1}`} />
+                                <span className={`${styles.particleDot} ${styles.pDot2}`} />
+                                <span className={`${styles.particleDot} ${styles.pDot3}`} />
+                                <span className={`${styles.particleDot} ${styles.pDot4}`} />
+                                <span className={`${styles.particleDot} ${styles.pDot5}`} />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="container">
+                        <div className={styles.heroCenterWrapper}>
+                            {/* 1.1 Top Live Status Pill */}
+                            <motion.div
+                                className={styles.statusPillRow}
+                                initial={{ opacity: 0, y: -20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5 }}
+                            >
+                                <div className={styles.statusPill}>
+                                    <span className={styles.pulseDot}>
+                                        <span className={styles.pulseRing} />
+                                    </span>
+                                    <span className={styles.pillTag}>QUANT AUDIT ENGINE</span>
+                                    <span className={styles.pillDivider}>|</span>
+                                    <span className={styles.pillText}>Neural Past Trade Analyzer</span>
+                                    <span className={styles.pillBadge}>OCR V3.2</span>
+                                </div>
+                            </motion.div>
+
+                            {/* 1.2 Main Cinematic Headline */}
+                            <motion.h1
+                                className={styles.heroMainTitle}
+                                initial={{ opacity: 0, y: 25 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.1 }}
+                            >
+                                AI PAST TRADE <br />
+                                <span className={styles.goldGradient}>ANALYZER</span>
+                            </motion.h1>
+
+                            {/* 1.3 Subtitle */}
+                            <motion.p
+                                className={styles.heroTagline}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.2 }}
+                            >
+                                Learn From Every Trade. Improve Every Time.
+                            </motion.p>
+
+                            {/* 1.4 Description Narrative */}
+                            <motion.p
+                                className={styles.heroDesc}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.25 }}
+                            >
+                                Upload your past trade screenshots and let our AI deeply analyze your entries, exits, risk management, and overall trade execution. Discover what worked, what didn't, and how to become a consistently profitable trader.
+                            </motion.p>
+
+                            {/* 1.5 Hero Action CTAs */}
+                            <motion.div
+                                className={styles.heroCtaGroup}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.3 }}
+                            >
+                                <button
+                                    type="button"
+                                    onClick={scrollToAudit}
+                                    className={styles.heroPrimaryBtn}
+                                >
+                                    <span>START ANALYZING NOW</span>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                        <line x1="5" y1="12" x2="19" y2="12" />
+                                        <polyline points="12 5 19 12 12 19" />
+                                    </svg>
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onClick={() => authNavigate(router, '/dashboard')}
+                                    className={styles.heroSecondaryBtn}
+                                >
+                                    <span>EXPLORE CHRONOSX</span>
+                                </button>
+                            </motion.div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* 1.6 Centerpiece: Futuristic Holographic Trade Cockpit Stage with 3D Perspective Scroll */}
                 <div className="container">
-                    <div className={styles.heroCenterWrapper}>
-                        {/* 1.1 Top Live Status Pill */}
-                        <motion.div
-                            className={styles.statusPillRow}
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5 }}
-                        >
-                            <div className={styles.statusPill}>
-                                <span className={styles.pulseDot}>
-                                    <span className={styles.pulseRing} />
-                                </span>
-                                <span className={styles.pillTag}>QUANT AUDIT ENGINE</span>
-                                <span className={styles.pillDivider}>|</span>
-                                <span className={styles.pillText}>Neural Past Trade Analyzer</span>
-                                <span className={styles.pillBadge}>OCR V3.2</span>
-                            </div>
-                        </motion.div>
-
-                        {/* 1.2 Main Cinematic Headline */}
-                        <motion.h1
-                            className={styles.heroMainTitle}
-                            initial={{ opacity: 0, y: 25 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.1 }}
-                        >
-                            AI PAST TRADE <br />
-                            <span className={styles.goldGradient}>ANALYZER</span>
-                        </motion.h1>
-
-                        {/* 1.3 Subtitle */}
-                        <motion.p
-                            className={styles.heroTagline}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                        >
-                            Learn From Every Trade. Improve Every Time.
-                        </motion.p>
-
-                        {/* 1.4 Description Narrative */}
-                        <motion.p
-                            className={styles.heroDesc}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.25 }}
-                        >
-                            Upload your past trade screenshots and let our AI deeply analyze your entries, exits, risk management, and overall trade execution. Discover what worked, what didn't, and how to become a consistently profitable trader.
-                        </motion.p>
-
-                        {/* 1.5 Hero Action CTAs */}
-                        <motion.div
-                            className={styles.heroCtaGroup}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.3 }}
-                        >
-                            <button
-                                type="button"
-                                onClick={scrollToAudit}
-                                className={styles.heroPrimaryBtn}
+                    <div className={styles.perspectiveWrapper}>
+                            <motion.div
+                                className={styles.cockpitStage}
+                                style={{
+                                    rotateX,
+                                    scale,
+                                    translateY,
+                                    opacity,
+                                    transformStyle: "preserve-3d",
+                                    transformOrigin: "top center"
+                                }}
                             >
-                                <span>START ANALYZING NOW</span>
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                    <line x1="5" y1="12" x2="19" y2="12" />
-                                    <polyline points="12 5 19 12 12 19" />
-                                </svg>
-                            </button>
+                                <div className={styles.cockpitFrame}>
+                                    <div className={styles.cockpitTopGlow} />
 
-                            <button
-                                type="button"
-                                onClick={() => authNavigate(router, '/dashboard')}
-                                className={styles.heroSecondaryBtn}
-                            >
-                                <span>EXPLORE CHRONOSX</span>
-                            </button>
-                        </motion.div>
-
-                        {/* 1.6 Centerpiece: Futuristic Holographic Trade Cockpit Stage */}
-                        <motion.div
-                            className={styles.cockpitStage}
-                            initial={{ opacity: 0, y: 40, scale: 0.95 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            transition={{ duration: 0.7, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                        >
-                            <div className={styles.cockpitFrame}>
-                                <div className={styles.cockpitTopGlow} />
-
-                                {/* Cockpit Header Bar */}
-                                <div className={styles.cockpitNavHeader}>
-                                    <div className={styles.cockpitBrand}>
-                                        <span className={styles.cockpitDotGreen} />
-                                        <span className={styles.cockpitTitleText}>CHRONOSX // NEURAL AUDITOR COCKPIT</span>
-                                    </div>
-
-                                    {/* Quick Preset Selector */}
-                                    <div className={styles.cockpitPresetTabs}>
-                                        {SAMPLE_TRADES.map((trade) => (
-                                            <button
-                                                key={trade.id}
-                                                type="button"
-                                                onClick={() => handleSelectPreset(trade)}
-                                                className={`${styles.tabBtn} ${selectedTrade.id === trade.id ? styles.tabBtnActive : ''}`}
-                                            >
-                                                {trade.pair}
-                                            </button>
-                                        ))}
-                                    </div>
-
-                                    <div className={styles.cockpitTelemetryBadge}>
-                                        <span>SPEED: <strong>1.2s</strong></span>
-                                        <span className={styles.telemetryDivider}>|</span>
-                                        <span>ACCURACY: <strong>99.4%</strong></span>
-                                    </div>
-                                </div>
-
-                                {/* Cockpit Interactive 3-Column Display */}
-                                <div className={styles.cockpitBodyGrid}>
-                                    {/* 1. Left Telemetry Column */}
-                                    <div className={styles.telemetryColLeft}>
-                                        <div className={styles.telemetryCard}>
-                                            <span className={styles.telemetryLabel}>TRADE OUTCOME</span>
-                                            <div className={selectedTrade.result.includes('WIN') ? styles.winBig : styles.lossBig}>
-                                                {selectedTrade.result}
-                                            </div>
-                                            <div className={styles.lossPct}>{selectedTrade.percent}</div>
+                                    {/* Cockpit Header Bar */}
+                                    <div className={styles.cockpitNavHeader}>
+                                        <div className={styles.cockpitBrand}>
+                                            <span className={styles.cockpitDotGreen} />
+                                            <span className={styles.cockpitTitleText}>CHRONOSX // NEURAL AUDITOR COCKPIT</span>
                                         </div>
 
-                                        <div className={styles.telemetryCard}>
-                                            <span className={styles.telemetryLabel}>EXECUTION SCORE</span>
-                                            <div className={styles.scoreRow}>
-                                                <span className={styles.scoreBig}>{selectedTrade.score}</span>
-                                                <span className={styles.scoreMax}>/ 100</span>
-                                            </div>
-                                            <div className={styles.scoreStatusPill}>
-                                                {selectedTrade.score >= 70 ? 'Grade: Solid' : 'Grade: Needs Improvement'}
-                                            </div>
+                                        {/* Quick Preset Selector */}
+                                        <div className={styles.cockpitPresetTabs}>
+                                            {SAMPLE_TRADES.map((trade) => (
+                                                <button
+                                                    key={trade.id}
+                                                    type="button"
+                                                    onClick={() => handleSelectPreset(trade)}
+                                                    className={`${styles.tabBtn} ${selectedTrade.id === trade.id ? styles.tabBtnActive : ''}`}
+                                                >
+                                                    {trade.pair}
+                                                </button>
+                                            ))}
                                         </div>
 
-                                        <div className={styles.telemetryCard}>
-                                            <span className={styles.telemetryLabel}>RISK REWARD RATIO</span>
-                                            <div className={styles.rrVal}>{selectedTrade.rr}</div>
+                                        <div className={styles.cockpitTelemetryBadge}>
+                                            <span>SPEED: <strong>1.2s</strong></span>
+                                            <span className={styles.telemetryDivider}>|</span>
+                                            <span>ACCURACY: <strong>99.4%</strong></span>
                                         </div>
                                     </div>
 
-                                    {/* 2. Center: 3D Holographic AI Brain Pedestal with Laser Scan */}
-                                    <div className={styles.hologramCenterCol}>
-                                        <div className={styles.hologramVisualWrap}>
-                                            <Image
-                                                src="/assets/images/ai-past-trade-analyzer/brain-pedestal.jpg"
-                                                alt="AI Holographic Trade Pedestal"
-                                                width={480}
-                                                height={480}
-                                                priority
-                                                className={styles.brainImg}
-                                            />
-                                            <div className={styles.hologramLaser} />
-                                            <div className={styles.hologramVignette} />
-
-                                            {/* Floating Interactive Callout Badges */}
-                                            <div className={styles.pinWrongEntry}>
-                                                <span className={styles.pinDotRed} />
-                                                <span>Wrong Entry: {selectedTrade.wrongEntryPrice}</span>
+                                    {/* Cockpit Interactive 3-Column Display */}
+                                    <div className={styles.cockpitBodyGrid}>
+                                        {/* 1. Left Telemetry Column */}
+                                        <div className={styles.telemetryColLeft}>
+                                            <div className={styles.telemetryCard}>
+                                                <span className={styles.telemetryLabel}>TRADE OUTCOME</span>
+                                                <div className={selectedTrade.result.includes('WIN') ? styles.winBig : styles.lossBig}>
+                                                    {selectedTrade.result}
+                                                </div>
+                                                <div className={styles.lossPct}>{selectedTrade.percent}</div>
                                             </div>
 
-                                            <div className={styles.pinBetterEntry}>
-                                                <span className={styles.pinDotGreen} />
-                                                <span>Better Entry: {selectedTrade.betterEntryPrice}</span>
+                                            <div className={styles.telemetryCard}>
+                                                <span className={styles.telemetryLabel}>EXECUTION SCORE</span>
+                                                <div className={styles.scoreRow}>
+                                                    <span className={styles.scoreBig}>{selectedTrade.score}</span>
+                                                    <span className={styles.scoreMax}>/ 100</span>
+                                                </div>
+                                                <div className={styles.scoreStatusPill}>
+                                                    {selectedTrade.score >= 70 ? 'Grade: Solid' : 'Grade: Needs Improvement'}
+                                                </div>
+                                            </div>
+
+                                            <div className={styles.telemetryCard}>
+                                                <span className={styles.telemetryLabel}>RISK REWARD RATIO</span>
+                                                <div className={styles.rrVal}>{selectedTrade.rr}</div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    {/* 3. Right: Diagnostic Findings & Action Plan */}
-                                    <div className={styles.diagnosticColRight}>
-                                        <div className={styles.diagHeader}>
-                                            <span className={styles.diagBadge}>AI DIAGNOSTIC FINDINGS</span>
+                                        {/* 2. Center: 3D Holographic AI Brain Pedestal with Laser Scan */}
+                                        <div className={styles.hologramCenterCol}>
+                                            <div className={styles.hologramVisualWrap}>
+                                                <Image
+                                                    src="/assets/images/ai-past-trade-analyzer/brain-pedestal.jpg"
+                                                    alt="AI Holographic Trade Pedestal"
+                                                    width={480}
+                                                    height={480}
+                                                    priority
+                                                    className={styles.brainImg}
+                                                />
+                                                <div className={styles.hologramLaser} />
+                                                <div className={styles.hologramVignette} />
+
+                                                {/* Floating Interactive Callout Badges */}
+                                                <div className={styles.pinWrongEntry}>
+                                                    <span className={styles.pinDotRed} />
+                                                    <span>Wrong Entry: {selectedTrade.wrongEntryPrice}</span>
+                                                </div>
+
+                                                <div className={styles.pinBetterEntry}>
+                                                    <span className={styles.pinDotGreen} />
+                                                    <span>Better Entry: {selectedTrade.betterEntryPrice}</span>
+                                                </div>
+                                            </div>
                                         </div>
 
-                                        <p className={styles.verdictText}>
-                                            “{selectedTrade.verdict}”
-                                        </p>
-
-                                        {/* Primary Mistake Item */}
-                                        <div className={styles.mistakeHighlightBox}>
-                                            <div className={styles.boxTitleRow}>
-                                                <span className={styles.boxDotRed}>✕</span>
-                                                <h5>PRIMARY EXECUTION FLAW</h5>
+                                        {/* 3. Right: Diagnostic Findings & Action Plan */}
+                                        <div className={styles.diagnosticColRight}>
+                                            <div className={styles.diagHeader}>
+                                                <span className={styles.diagBadge}>AI DIAGNOSTIC FINDINGS</span>
                                             </div>
-                                            <p>{selectedTrade.mistakes[0]}</p>
-                                        </div>
 
-                                        {/* Primary Improvement Item */}
-                                        <div className={styles.improveHighlightBox}>
-                                            <div className={styles.boxTitleRow}>
-                                                <span className={styles.boxDotGreen}>✓</span>
-                                                <h5>ACTIONABLE FIX</h5>
+                                            <p className={styles.verdictText}>
+                                                “{selectedTrade.verdict}”
+                                            </p>
+
+                                            {/* Primary Mistake Item */}
+                                            <div className={styles.mistakeHighlightBox}>
+                                                <div className={styles.boxTitleRow}>
+                                                    <span className={styles.boxDotRed}>✕</span>
+                                                    <h5>PRIMARY EXECUTION FLAW</h5>
+                                                </div>
+                                                <p>{selectedTrade.mistakes[0]}</p>
                                             </div>
-                                            <p>{selectedTrade.improvements[0]}</p>
+
+                                            {/* Primary Improvement Item */}
+                                            <div className={styles.improveHighlightBox}>
+                                                <div className={styles.boxTitleRow}>
+                                                    <span className={styles.boxDotGreen}>✓</span>
+                                                    <h5>ACTIONABLE FIX</h5>
+                                                </div>
+                                                <p>{selectedTrade.improvements[0]}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </motion.div>
+                            </motion.div>
+                        </div>
 
                         {/* 1.7 3 Value Pillar Bento Cards (Below Cockpit) */}
                         <div className={styles.heroBentoRow}>
@@ -399,7 +492,6 @@ export default function AiPastTradeAnalyzer() {
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </section>
 

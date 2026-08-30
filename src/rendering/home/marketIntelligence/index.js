@@ -41,9 +41,9 @@ export default function MarketIntelligence() {
       ctx.clearRect(0, 0, W, H);
 
       const tfs = [
-        { c: "rgba(216,162,59,0.9)", a: H * 0.28, f: 0.015, lw: 2.5, l: "4H" },
-        { c: "rgba(244,209,122,0.65)", a: H * 0.18, f: 0.035, lw: 1.8, l: "1H" },
-        { c: "rgba(193,144,46,0.5)", a: H * 0.1, f: 0.07, lw: 1.2, l: "15m" }
+        { c: "rgba(24,201,139,0.9)", a: H * 0.28, f: 0.015, lw: 2.5, l: "4H" },
+        { c: "rgba(110,231,183,0.75)", a: H * 0.18, f: 0.035, lw: 1.8, l: "1H" },
+        { c: "rgba(24,201,139,0.5)", a: H * 0.1, f: 0.07, lw: 1.2, l: "15m" }
       ];
 
       tfs.forEach((tf, i) => {
@@ -58,9 +58,9 @@ export default function MarketIntelligence() {
       });
 
       const azX = W * 0.62 + Math.sin(t * 0.001) * 20;
-      ctx.fillStyle = "rgba(216,162,59,0.08)";
+      ctx.fillStyle = "rgba(24,201,139,0.08)";
       ctx.fillRect(azX - 20, 0, 40, H);
-      ctx.strokeStyle = "rgba(216,162,59,0.25)";
+      ctx.strokeStyle = "rgba(24,201,139,0.25)";
       ctx.setLineDash([4, 4]);
       ctx.beginPath();
       ctx.moveTo(azX, 0);
@@ -68,7 +68,7 @@ export default function MarketIntelligence() {
       ctx.stroke();
       ctx.setLineDash([]);
 
-      ctx.fillStyle = "rgba(244,209,122,0.85)";
+      ctx.fillStyle = "rgba(110,231,183,0.85)";
       ctx.beginPath();
       ctx.moveTo(azX, MY - 30);
       ctx.lineTo(azX - 8, MY - 15);
@@ -122,9 +122,9 @@ export default function MarketIntelligence() {
     }
 
     const zones = [
-      { y: baseH * 0.25, h: 18, col: "rgba(216,162,59,0.1)", bor: "rgba(216,162,59,0.3)", x1: 3, x2: 18 },
-      { y: baseH * 0.58, h: 14, col: "rgba(244,209,122,0.06)", bor: "rgba(244,209,122,0.2)", x1: 12, x2: 30 },
-      { y: baseH * 0.72, h: 20, col: "rgba(193,144,46,0.07)", bor: "rgba(193,144,46,0.2)", x1: 25, x2: 45 }
+      { y: baseH * 0.25, h: 18, col: "rgba(24,201,139,0.1)", bor: "rgba(24,201,139,0.3)", x1: 3, x2: 18 },
+      { y: baseH * 0.58, h: 14, col: "rgba(110,231,183,0.06)", bor: "rgba(110,231,183,0.2)", x1: 12, x2: 30 },
+      { y: baseH * 0.72, h: 20, col: "rgba(24,201,139,0.07)", bor: "rgba(24,201,139,0.2)", x1: 25, x2: 45 }
     ];
 
     function draw(t) {
@@ -183,8 +183,8 @@ export default function MarketIntelligence() {
         if (!c) return;
         const x = si * cw + 5 + cw / 2;
         const y = c.bull ? c.l - 8 : c.h + 8;
-        const col = c.bull ? "rgba(216,162,59,0.95)" : "rgba(255,77,106,0.9)";
-        const glow = c.bull ? "rgba(216,162,59,0.3)" : "rgba(255,77,106,0.3)";
+        const col = c.bull ? "rgba(24,201,139,0.95)" : "rgba(255,77,106,0.9)";
+        const glow = c.bull ? "rgba(24,201,139,0.3)" : "rgba(255,77,106,0.3)";
         ctx.beginPath();
         ctx.arc(x, y, 3 + Math.sin(t * 0.003 + idx), 0, Math.PI * 2);
         ctx.fillStyle = col;
@@ -234,7 +234,7 @@ export default function MarketIntelligence() {
 
       ctx.fillStyle = "rgba(255,77,106,0.04)";
       ctx.fillRect(0, 0, W, H * 0.2);
-      ctx.fillStyle = "rgba(216,162,59,0.05)";
+      ctx.fillStyle = "rgba(24,201,139,0.05)";
       ctx.fillRect(0, H * 0.8, W, H * 0.2);
 
       ctx.strokeStyle = "rgba(255,77,106,0.15)";
@@ -244,7 +244,7 @@ export default function MarketIntelligence() {
       ctx.lineTo(W, H * 0.2);
       ctx.stroke();
 
-      ctx.strokeStyle = "rgba(216,162,59,0.2)";
+      ctx.strokeStyle = "rgba(24,201,139,0.2)";
       ctx.beginPath();
       ctx.moveTo(0, H * 0.8);
       ctx.lineTo(W, H * 0.8);
@@ -257,9 +257,9 @@ export default function MarketIntelligence() {
       ctx.lineTo(W, MY);
       ctx.stroke();
 
-      // Fast Wave (Gold)
+      // Fast Wave (Green)
       ctx.beginPath();
-      ctx.strokeStyle = "rgba(216,162,59,0.9)";
+      ctx.strokeStyle = "rgba(24,201,139,0.9)";
       ctx.lineWidth = 2;
       for (let x = 0; x < W; x++) {
         const y = MY + Math.sin(x * 0.025 + t * 0.001) * H * 0.35 + Math.sin(x * 0.06 - t * 5e-4) * H * 0.1;
@@ -267,9 +267,9 @@ export default function MarketIntelligence() {
       }
       ctx.stroke();
 
-      // Slow Wave (Purple)
+      // Slow Wave (Light Mint)
       ctx.beginPath();
-      ctx.strokeStyle = "rgba(194, 255, 97, 0.6)";
+      ctx.strokeStyle = "rgba(110, 231, 183, 0.75)";
       ctx.lineWidth = 1.5;
       for (let x = 0; x < W; x++) {
         const y = MY + Math.sin((x - 8) * 0.025 + t * 0.001) * H * 0.35 + Math.sin((x - 8) * 0.06 - t * 5e-4) * H * 0.1;
@@ -280,7 +280,7 @@ export default function MarketIntelligence() {
       // Synchronized Volume Squeeze Histogram Bars
       for (let x = 0; x < W; x += 3) {
         const val = Math.sin(x * 0.025 + t * 0.001) * H * 0.35 + Math.sin(x * 0.06 - t * 5e-4) * H * 0.1;
-        ctx.fillStyle = val > 0 ? "rgba(255,77,106,0.25)" : "rgba(216,162,59,0.28)";
+        ctx.fillStyle = val > 0 ? "rgba(255,77,106,0.25)" : "rgba(24,201,139,0.28)";
         ctx.fillRect(x, MY, 2, val * 0.3);
       }
 
@@ -304,11 +304,11 @@ export default function MarketIntelligence() {
         if (pm >= ps && m < s && MY + m < MY - H * 0.2) {
           ctx.beginPath();
           ctx.arc(x, MY + m, 4 + Math.sin(t * 0.004), 0, Math.PI * 2);
-          ctx.fillStyle = "rgba(216,162,59,0.95)";
+          ctx.fillStyle = "rgba(24,201,139,0.95)";
           ctx.fill();
           ctx.beginPath();
           ctx.arc(x, MY + m, 8, 0, Math.PI * 2);
-          ctx.fillStyle = "rgba(216,162,59,0.3)";
+          ctx.fillStyle = "rgba(24,201,139,0.3)";
           ctx.fill();
         }
       }
@@ -316,7 +316,7 @@ export default function MarketIntelligence() {
       ctx.font = '600 7px system-ui, -apple-system, sans-serif';
       ctx.fillStyle = "rgba(255,77,106,0.35)";
       ctx.fillText("OVERBOUGHT", 6, H * 0.2 - 4);
-      ctx.fillStyle = "rgba(216,162,59,0.4)";
+      ctx.fillStyle = "rgba(24,201,139,0.4)";
       ctx.fillText("OVERSOLD", 6, H * 0.8 + 12);
 
       ctx.restore();
