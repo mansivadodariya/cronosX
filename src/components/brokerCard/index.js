@@ -20,14 +20,14 @@ const ChevronRightIcon = () => (
 );
 
 const LinkHighlightIcon = () => (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
         <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
     </svg>
 );
 
 const ServerHighlightIcon = () => (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
         <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
         <line x1="6" y1="6" x2="6.01" y2="6" strokeWidth="3" />
@@ -68,41 +68,41 @@ export default function BrokerCard({ broker, detailHref }) {
                     </div>
                 )}
                 <svg className={styles.chartGraphic} viewBox="0 0 400 120" fill="none" preserveAspectRatio="none">
-                    <line x1="0" y1="30" x2="400" y2="30" stroke="rgba(244,209,122,0.1)" strokeDasharray="3 3" />
-                    <line x1="0" y1="60" x2="400" y2="60" stroke="rgba(244,209,122,0.1)" strokeDasharray="3 3" />
-                    <line x1="0" y1="90" x2="400" y2="90" stroke="rgba(244,209,122,0.1)" strokeDasharray="3 3" />
+                    <line x1="0" y1="30" x2="400" y2="30" stroke="rgba(24,201,139,0.1)" strokeDasharray="3 3" />
+                    <line x1="0" y1="60" x2="400" y2="60" stroke="rgba(24,201,139,0.1)" strokeDasharray="3 3" />
+                    <line x1="0" y1="90" x2="400" y2="90" stroke="rgba(24,201,139,0.1)" strokeDasharray="3 3" />
 
-                    <rect x="220" y="50" width="4" height="25" fill="#C1902E" opacity="0.6" />
-                    <line x1="222" y1="40" x2="222" y2="85" stroke="#C1902E" strokeWidth="1.5" opacity="0.6" />
+                    <rect x="220" y="50" width="4" height="25" fill="#10B981" opacity="0.6" />
+                    <line x1="222" y1="40" x2="222" y2="85" stroke="#10B981" strokeWidth="1.5" opacity="0.6" />
 
-                    <rect x="240" y="40" width="4" height="30" fill="#F4D17A" opacity="0.7" />
-                    <line x1="242" y1="30" x2="242" y2="80" stroke="#F4D17A" strokeWidth="1.5" opacity="0.7" />
+                    <rect x="240" y="40" width="4" height="30" fill="#18C98B" opacity="0.7" />
+                    <line x1="242" y1="30" x2="242" y2="80" stroke="#18C98B" strokeWidth="1.5" opacity="0.7" />
 
-                    <rect x="260" y="55" width="4" height="20" fill="#FFE79A" opacity="0.6" />
-                    <line x1="262" y1="45" x2="262" y2="85" stroke="#FFE79A" strokeWidth="1.5" opacity="0.6" />
+                    <rect x="260" y="55" width="4" height="20" fill="#6EE7B7" opacity="0.6" />
+                    <line x1="262" y1="45" x2="262" y2="85" stroke="#6EE7B7" strokeWidth="1.5" opacity="0.6" />
 
-                    <rect x="280" y="35" width="4" height="40" fill="#F4D17A" opacity="0.8" />
-                    <line x1="282" y1="20" x2="282" y2="85" stroke="#F4D17A" strokeWidth="1.5" opacity="0.8" />
+                    <rect x="280" y="35" width="4" height="40" fill="#18C98B" opacity="0.8" />
+                    <line x1="282" y1="20" x2="282" y2="85" stroke="#18C98B" strokeWidth="1.5" opacity="0.8" />
 
-                    <rect x="300" y="45" width="4" height="25" fill="#C1902E" opacity="0.7" />
-                    <line x1="302" y1="35" x2="302" y2="80" stroke="#C1902E" strokeWidth="1.5" opacity="0.7" />
+                    <rect x="300" y="45" width="4" height="25" fill="#10B981" opacity="0.7" />
+                    <line x1="302" y1="35" x2="302" y2="80" stroke="#10B981" strokeWidth="1.5" opacity="0.7" />
 
-                    <rect x="320" y="25" width="4" height="45" fill="#F4D17A" opacity="0.9" />
-                    <line x1="322" y1="15" x2="322" y2="80" stroke="#F4D17A" strokeWidth="1.5" opacity="0.9" />
+                    <rect x="320" y="25" width="4" height="45" fill="#18C98B" opacity="0.9" />
+                    <line x1="322" y1="15" x2="322" y2="80" stroke="#18C98B" strokeWidth="1.5" opacity="0.9" />
 
-                    <rect x="340" y="35" width="4" height="30" fill="#FFE79A" opacity="0.8" />
-                    <line x1="342" y1="25" x2="342" y2="75" stroke="#FFE79A" strokeWidth="1.5" opacity="0.8" />
+                    <rect x="340" y="35" width="4" height="30" fill="#6EE7B7" opacity="0.8" />
+                    <line x1="342" y1="25" x2="342" y2="75" stroke="#6EE7B7" strokeWidth="1.5" opacity="0.8" />
 
-                    <rect x="360" y="15" width="4" height="50" fill="#F4D17A" opacity="0.95" />
-                    <line x1="362" y1="5" x2="362" y2="75" stroke="#F4D17A" strokeWidth="1.5" opacity="0.95" />
+                    <rect x="360" y="15" width="4" height="50" fill="#18C98B" opacity="0.95" />
+                    <line x1="362" y1="5" x2="362" y2="75" stroke="#18C98B" strokeWidth="1.5" opacity="0.95" />
 
-                    <path d="M 200 80 Q 240 60, 270 45 T 330 25 T 380 10" fill="none" stroke="#F4D17A" strokeWidth="2.5" />
+                    <path d="M 200 80 Q 240 60, 270 45 T 330 25 T 380 10" fill="none" stroke="#18C98B" strokeWidth="2.5" />
                     <path d="M 200 80 Q 240 60, 270 45 T 330 25 T 380 10 L 380 120 L 200 120 Z" fill="url(#goldBrokerGrad)" opacity="0.25" />
                     
                     <defs>
                         <linearGradient id="goldBrokerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stopColor="#F4D17A" />
-                            <stop offset="100%" stopColor="#C1902E" stopOpacity="0" />
+                            <stop offset="0%" stopColor="#18C98B" />
+                            <stop offset="100%" stopColor="#10B981" stopOpacity="0" />
                         </linearGradient>
                     </defs>
                 </svg>

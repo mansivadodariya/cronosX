@@ -26,7 +26,7 @@
     }
 
     &::before {
-        background-color: #C1902E;
+        background-color: #10B981;
         position: absolute;
         top: 20%;
         left: 50%;
@@ -126,7 +126,7 @@
                 inset: 0;
                 border-radius: 16px;
                 padding: 1.5px;
-                background: linear-gradient(0deg, #C1902E 0%, rgba(244, 209, 122, 0.6) 30%, rgba(193, 144, 46, 0.15) 60%, transparent 100%);
+                background: linear-gradient(0deg, #10B981 0%, rgba(24, 201, 139, 0.6) 30%, rgba(24, 201, 139, 0.15) 60%, transparent 100%);
                 -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
                 -webkit-mask-composite: xor;
                 mask-composite: exclude;
@@ -138,7 +138,7 @@
 
             &:hover {
                 transform: translateY(-5px);
-                box-shadow: 0 15px 40px -10px rgba(193, 144, 46, 0.2), inset 0 -4px 15px rgba(193, 144, 46, 0.08);
+                box-shadow: 0 15px 40px -10px rgba(24, 201, 139, 0.2), inset 0 -4px 15px rgba(24, 201, 139, 0.08);
 
                 &::before {
                     opacity: 0.25;
@@ -213,7 +213,7 @@
                     align-items: center;
                     justify-content: space-between;
                     background: rgba(9, 7, 6, 0.9);
-                    border: 1px solid rgba(193, 144, 46, 0.2);
+                    border: 1px solid rgba(24, 201, 139, 0.2);
                     border-radius: 10px;
                     padding: 16px 10px;
 
@@ -243,7 +243,7 @@
                     .divider {
                         width: 1px;
                         height: 38px;
-                        background-color: rgba(193, 144, 46, 0.15);
+                        background-color: rgba(24, 201, 139, 0.15);
                     }
                 }
             }

@@ -197,7 +197,7 @@ const PriceChart = ({ data, symbol = 'Asset', theme = 'dark' }) => {
         title: {
             text: `${symbol} Price Action`,
             align: 'left', margin: 10, offsetX: 10,
-            style: { color: '#F4D17A', fontSize: '16px', fontWeight: 700 }
+            style: { color: '#18C98B', fontSize: '16px', fontWeight: 700 }
         },
         legend: {
             show: true, position: 'top', horizontalAlign: 'right',
@@ -215,7 +215,7 @@ const PriceChart = ({ data, symbol = 'Asset', theme = 'dark' }) => {
             tooltip: { enabled: true },
             labels: { style: { colors: 'rgba(255, 255, 255, 0.65)' }, formatter: (val) => val?.toFixed(4) ?? val }
         },
-        grid: { borderColor: 'rgba(193, 144, 46, 0.15)', strokeDashArray: 4 },
+        grid: { borderColor: 'rgba(24, 201, 139, 0.15)', strokeDashArray: 4 },
         annotations: { yaxis: yAxisAnnotations },
         stroke: { width: strokeWidths, curve: 'straight', dashArray: dashArrays },
         colors: seriesColors,
@@ -269,11 +269,11 @@ const SentimentRadar = ({ indicators, theme = 'dark' }) => {
         yaxis: { show: false, min: 0, max: 100 },
         fill: {
             opacity: 0.45, type: 'gradient',
-            gradient: { shade: 'dark', gradientToColors: ['#C1902E'], shadeIntensity: 1, type: 'horizontal', stops: [0, 100] }
+            gradient: { shade: 'dark', gradientToColors: ['#10B981'], shadeIntensity: 1, type: 'horizontal', stops: [0, 100] }
         },
-        stroke: { width: 2, colors: ['#F4D17A'] },
-        markers: { size: 4, colors: ['#F4D17A'], strokeWidth: 2, strokeColors: '#000000' },
-        plotOptions: { radar: { polygons: { strokeColors: 'rgba(193, 144, 46, 0.2)', connectorColors: 'rgba(193, 144, 46, 0.1)' } } },
+        stroke: { width: 2, colors: ['#18C98B'] },
+        markers: { size: 4, colors: ['#18C98B'], strokeWidth: 2, strokeColors: '#000000' },
+        plotOptions: { radar: { polygons: { strokeColors: 'rgba(24, 201, 139, 0.2)', connectorColors: 'rgba(24, 201, 139, 0.1)' } } },
         tooltip: { theme: 'dark' }
     };
 
@@ -291,14 +291,14 @@ const Gauge = ({ value, title, theme = 'dark' }) => {
             radialBar: {
                 startAngle: -110, endAngle: 110,
                 hollow: { size: '65%', background: '#0D0E13' },
-                track: { background: 'rgba(193, 144, 46, 0.2)', strokeWidth: '100%', margin: 5 },
+                track: { background: 'rgba(24, 201, 139, 0.2)', strokeWidth: '100%', margin: 5 },
                 dataLabels: {
-                    name: { show: true, color: '#F4D17A', offsetY: -10, fontSize: '12px', fontWeight: 600 },
+                    name: { show: true, color: '#18C98B', offsetY: -10, fontSize: '12px', fontWeight: 600 },
                     value: { show: true, fontSize: '22px', fontWeight: 700, color: '#ffffff', offsetY: 0, formatter: (val) => val.toFixed(1) }
                 }
             }
         },
-        fill: { type: 'gradient', gradient: { shade: 'dark', type: 'horizontal', gradientToColors: ['#C1902E'], stops: [0, 100] } },
+        fill: { type: 'gradient', gradient: { shade: 'dark', type: 'horizontal', gradientToColors: ['#10B981'], stops: [0, 100] } },
         stroke: { lineCap: 'round' },
         labels: [title]
     };

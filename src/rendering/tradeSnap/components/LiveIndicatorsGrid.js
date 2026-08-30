@@ -45,7 +45,7 @@ export default function LiveIndicatorsGrid({ liveIndicators, marketAssessment })
                             className={styles.indicatorBarFill}
                             style={{
                                 width: `${Math.min(Math.max(rsi.value, 0), 100)}%`,
-                                backgroundColor: rsi.value >= 70 ? '#EF4444' : rsi.value <= 30 ? '#10B981' : '#F4D17A'
+                                backgroundColor: rsi.value >= 70 ? '#EF4444' : rsi.value <= 30 ? '#10B981' : '#18C98B'
                             }}
                         />
                     </div>

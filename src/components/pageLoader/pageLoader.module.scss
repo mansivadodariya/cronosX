@@ -34,18 +34,18 @@
                 position: absolute;
                 inset: 0;
                 border-radius: 50%;
-                border: 2.5px solid rgba(244, 209, 122, 0.15);
-                border-top-color: #F4D17A;
-                border-right-color: #F4D17A;
+                border: 2.5px solid rgba(24, 201, 139, 0.15);
+                border-top-color: #18C98B;
+                border-right-color: #18C98B;
                 animation: spinLoader 0.9s linear infinite;
-                filter: drop-shadow(0 0 8px rgba(244, 209, 122, 0.4));
+                filter: drop-shadow(0 0 8px rgba(24, 201, 139, 0.4));
             }
 
             .logoImg {
                 width: 36px;
                 height: 36px;
                 object-fit: contain;
-                filter: drop-shadow(0 0 10px rgba(244, 209, 122, 0.4));
+                filter: drop-shadow(0 0 10px rgba(24, 201, 139, 0.4));
                 animation: pulseEmblem 1.5s ease-in-out infinite;
             }
         }
@@ -70,7 +70,7 @@
                 span {
                     width: 4px;
                     height: 4px;
-                    background: #F4D17A;
+                    background: #18C98B;
                     border-radius: 50%;
                     animation: dotFade 1.2s infinite ease-in-out;
 

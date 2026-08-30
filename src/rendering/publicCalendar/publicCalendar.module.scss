@@ -4,7 +4,7 @@
 .publicCalendarWrapper {
     padding: 130px 24px 80px;
     min-height: 85vh;
-    background: #000000;
+    background: #040605;
     color: #FFFFFF;
     position: relative;
     overflow: hidden;
@@ -25,7 +25,7 @@
         transform: translateX(-50%);
         width: 800px;
         height: 380px;
-        background: radial-gradient(circle, rgba(244, 209, 122, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+        background: radial-gradient(circle, rgba(24, 201, 139, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
         pointer-events: none;
         z-index: 0;
     }
@@ -46,10 +46,10 @@
         justify-content: space-between;
         gap: 24px;
         background: radial-gradient(120% 120% at 50% 0%, #151510 0%, #080805 100%);
-        border: 1.5px solid rgba(244, 209, 122, 0.4);
+        border: 1.5px solid rgba(24, 201, 139, 0.4);
         border-radius: 16px;
         padding: 28px 32px;
-        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(244, 209, 122, 0.1);
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(24, 201, 139, 0.1);
 
         @include respond-to('md') {
             flex-direction: column;
@@ -77,7 +77,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: linear-gradient(180deg, #F4D17A 0%, #C1902E 100%);
+            background: linear-gradient(180deg, #18C98B 0%, #10B981 100%);
             color: #000000;
             font-size: 14px;
             font-weight: 700;
@@ -86,11 +86,11 @@
             text-decoration: none;
             flex-shrink: 0;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 15px rgba(244, 209, 122, 0.25);
+            box-shadow: 0 4px 15px rgba(24, 201, 139, 0.25);
 
             &:hover {
                 transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(244, 209, 122, 0.4);
+                box-shadow: 0 6px 20px rgba(24, 201, 139, 0.4);
             }
         }
     }

@@ -290,7 +290,7 @@ export default function BeforeAfterComparison() {
                 <rect width="80" height="27" rx="6" fill="url(#sellBadgeGrad)" stroke="rgba(255, 255, 255, 0.28)" strokeWidth="0.8" />
                 <polygon points="40,32 35,27 45,27" fill="#BE123C" />
                 <text x="40" y="11.5" fill="#FFFFFF" fontSize="8" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" letterSpacing="0.6" textAnchor="middle">SELL SIGNAL</text>
-                <text x="40" y="22.5" fill="#FFE693" fontSize="9.5" fontFamily="system-ui, -apple-system, monospace" fontWeight="800" textAnchor="middle">$545.00</text>
+                <text x="40" y="22.5" fill="#A7F3D0" fontSize="9.5" fontFamily="system-ui, -apple-system, monospace" fontWeight="800" textAnchor="middle">$545.00</text>
               </g>
               <line x1={padding.left + 2 * candleWidth} y1={priceToY(472)} x2={padding.left + 8 * candleWidth} y2={priceToY(472)} stroke="#EF5350" strokeDasharray="3 3" strokeWidth="1" />
               <circle cx={padding.left + 7.5 * candleWidth} cy={priceToY(472)} r="3.5" fill="#EF5350" />
@@ -328,7 +328,7 @@ export default function BeforeAfterComparison() {
                 <rect width="80" height="27" rx="6" fill="url(#sellBadgeGrad)" stroke="rgba(255, 255, 255, 0.28)" strokeWidth="0.8" />
                 <polygon points="40,32 35,27 45,27" fill="#BE123C" />
                 <text x="40" y="11.5" fill="#FFFFFF" fontSize="8" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" letterSpacing="0.6" textAnchor="middle">SELL SIGNAL</text>
-                <text x="40" y="22.5" fill="#FFE693" fontSize="9.5" fontFamily="system-ui, -apple-system, monospace" fontWeight="800" textAnchor="middle">$585.00</text>
+                <text x="40" y="22.5" fill="#A7F3D0" fontSize="9.5" fontFamily="system-ui, -apple-system, monospace" fontWeight="800" textAnchor="middle">$585.00</text>
               </g>
 
               <line x1={padding.left + 42 * candleWidth} y1={priceToY(536)} x2={padding.left + 46 * candleWidth} y2={priceToY(536)} stroke="#EF5350" strokeDasharray="3 3" strokeWidth="1" />

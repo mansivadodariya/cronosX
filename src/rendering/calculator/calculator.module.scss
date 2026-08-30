@@ -32,7 +32,7 @@
     flex-wrap: wrap;
     gap: 16px;
     padding-bottom: 20px;
-    border-bottom: 1px solid rgba(193, 144, 46, 0.2);
+    border-bottom: 1px solid rgba(24, 201, 139, 0.2);
 
     @include respond-to('tab') {
         flex-direction: column;
@@ -65,12 +65,12 @@
             height: 48px;
             border-radius: 14px;
             background: radial-gradient(130% 100% at 50% 0%, #2A2415 0%, #12100A 100%);
-            border: 1.5px solid rgba(244, 209, 122, 0.4);
+            border: 1.5px solid rgba(24, 201, 139, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #F4D17A;
-            box-shadow: 0 0 20px rgba(244, 209, 122, 0.15);
+            color: #18C98B;
+            box-shadow: 0 0 20px rgba(24, 201, 139, 0.15);
             flex-shrink: 0;
 
             @include respond-to('tab') {
@@ -134,9 +134,9 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        background: rgba(244, 209, 122, 0.1);
-        border: 1px solid rgba(244, 209, 122, 0.3);
-        color: #F4D17A;
+        background: rgba(24, 201, 139, 0.1);
+        border: 1px solid rgba(24, 201, 139, 0.3);
+        color: #18C98B;
         font-size: 11px;
         font-weight: 700;
         letter-spacing: 0.8px;
@@ -158,7 +158,7 @@
     gap: 8px;
     padding: 6px;
     background: #08080B;
-    border: 1px solid rgba(193, 144, 46, 0.22);
+    border: 1px solid rgba(24, 201, 139, 0.22);
     border-radius: 14px;
     margin-bottom: 28px;
     overflow-x: auto;
@@ -226,9 +226,9 @@
 
         &.activeTab {
             background: radial-gradient(130% 100% at 50% 0%, #2A2415 0%, #171510 100%);
-            border-color: rgba(244, 209, 122, 0.45);
-            color: #F4D17A;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 12px rgba(244, 209, 122, 0.12);
+            border-color: rgba(24, 201, 139, 0.45);
+            color: #18C98B;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 12px rgba(24, 201, 139, 0.12);
         }
     }
 }
@@ -258,7 +258,7 @@
 // Form Card Box
 .formCard {
     background: radial-gradient(130% 100% at 50% 0%, #141316 0%, #09090C 100%);
-    border: 1px solid rgba(193, 144, 46, 0.25);
+    border: 1px solid rgba(24, 201, 139, 0.25);
     border-radius: 20px;
     padding: 28px;
     box-shadow: 0 18px 48px rgba(0, 0, 0, 0.7);
@@ -300,9 +300,9 @@
 
         span {
             font-size: 12px;
-            color: #F4D17A;
-            background: rgba(244, 209, 122, 0.08);
-            border: 1px solid rgba(244, 209, 122, 0.2);
+            color: #18C98B;
+            background: rgba(24, 201, 139, 0.08);
+            border: 1px solid rgba(24, 201, 139, 0.2);
             padding: 3px 8px;
             border-radius: 6px;
             white-space: nowrap;
@@ -368,7 +368,7 @@
         width: 100%;
         height: 46px;
         background: #040406;
-        border: 1px solid rgba(193, 144, 46, 0.25);
+        border: 1px solid rgba(24, 201, 139, 0.25);
         border-radius: 10px;
         padding: 0 14px;
         font-size: 14px;
@@ -386,8 +386,8 @@
         }
 
         &:focus {
-            border-color: #F4D17A;
-            box-shadow: 0 0 12px rgba(244, 209, 122, 0.2);
+            border-color: #18C98B;
+            box-shadow: 0 0 12px rgba(24, 201, 139, 0.2);
             background: #09090D;
         }
 
@@ -415,7 +415,7 @@
         width: 100%;
         height: 46px;
         background: #040406;
-        border: 1px solid rgba(193, 144, 46, 0.25);
+        border: 1px solid rgba(24, 201, 139, 0.25);
         border-radius: 10px;
         padding: 0 14px;
         font-size: 14px;
@@ -438,13 +438,13 @@
         }
 
         &:hover {
-            border-color: rgba(244, 209, 122, 0.5);
+            border-color: rgba(24, 201, 139, 0.5);
             background: #08080C;
         }
 
         &.isOpen {
-            border-color: #F4D17A;
-            box-shadow: 0 0 14px rgba(244, 209, 122, 0.25);
+            border-color: #18C98B;
+            box-shadow: 0 0 14px rgba(24, 201, 139, 0.25);
             background: #09090D;
         }
 
@@ -456,7 +456,7 @@
         }
 
         .chevronIcon {
-            color: #F4D17A;
+            color: #18C98B;
             transition: transform 0.22s ease;
             flex-shrink: 0;
 
@@ -473,19 +473,19 @@
         right: 0;
         z-index: 100;
         background: radial-gradient(130% 100% at 50% 0%, #17151C 0%, #0B0A0E 100%);
-        border: 1.5px solid rgba(244, 209, 122, 0.4);
+        border: 1.5px solid rgba(24, 201, 139, 0.4);
         border-radius: 12px;
         padding: 6px;
         max-height: 240px;
         overflow-y: auto;
-        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.85), 0 0 20px rgba(244, 209, 122, 0.12);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.85), 0 0 20px rgba(24, 201, 139, 0.12);
         animation: fadeInDown 0.15s ease-out;
 
         &::-webkit-scrollbar {
             width: 4px;
         }
         &::-webkit-scrollbar-thumb {
-            background: rgba(193, 144, 46, 0.35);
+            background: rgba(24, 201, 139, 0.35);
             border-radius: 4px;
         }
     }
@@ -511,17 +511,17 @@
         }
 
         &:hover {
-            background: rgba(244, 209, 122, 0.12);
+            background: rgba(24, 201, 139, 0.12);
             color: #FFFFFF;
         }
 
         &.isSelected {
-            background: linear-gradient(135deg, rgba(244, 209, 122, 0.2) 0%, rgba(212, 175, 55, 0.1) 100%);
-            color: #F4D17A;
+            background: linear-gradient(135deg, rgba(24, 201, 139, 0.2) 0%, rgba(24, 201, 139, 0.1) 100%);
+            color: #18C98B;
             font-weight: 700;
 
             .checkMark {
-                color: #F4D17A;
+                color: #18C98B;
             }
         }
 
@@ -556,15 +556,15 @@
         }
 
         &:hover {
-            border-color: #F4D17A;
-            color: #F4D17A;
-            background: rgba(244, 209, 122, 0.08);
+            border-color: #18C98B;
+            color: #18C98B;
+            background: rgba(24, 201, 139, 0.08);
         }
 
         &.activeChip {
-            background: rgba(244, 209, 122, 0.15);
-            border-color: #F4D17A;
-            color: #F4D17A;
+            background: rgba(24, 201, 139, 0.15);
+            border-color: #18C98B;
+            color: #18C98B;
         }
     }
 }
@@ -575,7 +575,7 @@
     gap: 8px;
     padding: 4px;
     background: #040406;
-    border: 1px solid rgba(193, 144, 46, 0.2);
+    border: 1px solid rgba(24, 201, 139, 0.2);
     border-radius: 10px;
 
     @include respond-to('sm') {
@@ -615,9 +615,9 @@
         }
 
         &.goldActive {
-            background: rgba(244, 209, 122, 0.15);
-            color: #F4D17A;
-            border: 1px solid rgba(244, 209, 122, 0.35);
+            background: rgba(24, 201, 139, 0.15);
+            color: #18C98B;
+            border: 1px solid rgba(24, 201, 139, 0.35);
         }
     }
 }
@@ -633,7 +633,7 @@
     .calculateBtn {
         width: 100%;
         height: 48px;
-        background: linear-gradient(135deg, #F4D17A 0%, #D4AF37 50%, #B8922C 100%);
+        background: linear-gradient(135deg, #18C98B 0%, #059669 50%, #047857 100%);
         border: none;
         border-radius: 12px;
         color: #0B0B0E;
@@ -644,7 +644,7 @@
         align-items: center;
         justify-content: center;
         gap: 8px;
-        box-shadow: 0 8px 24px rgba(244, 209, 122, 0.25);
+        box-shadow: 0 8px 24px rgba(24, 201, 139, 0.25);
         transition: all 0.22s ease;
 
         @include respond-to('sm') {
@@ -655,7 +655,7 @@
 
         &:hover {
             transform: translateY(-1px);
-            box-shadow: 0 10px 28px rgba(244, 209, 122, 0.35);
+            box-shadow: 0 10px 28px rgba(24, 201, 139, 0.35);
             filter: brightness(1.05);
 
             @include respond-to('sm') {
@@ -672,13 +672,13 @@
 // Results Side Card
 .resultsCard {
     background: radial-gradient(130% 100% at 50% 0%, #191610 0%, #09090C 100%);
-    border: 1px solid rgba(244, 209, 122, 0.35);
+    border: 1px solid rgba(24, 201, 139, 0.35);
     border-radius: 20px;
     padding: 28px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: 0 20px 52px rgba(0, 0, 0, 0.8), 0 0 24px rgba(244, 209, 122, 0.06);
+    box-shadow: 0 20px 52px rgba(0, 0, 0, 0.8), 0 0 24px rgba(24, 201, 139, 0.06);
     box-sizing: border-box;
 
     @include respond-to('tab') {
@@ -697,7 +697,7 @@
         justify-content: space-between;
         margin-bottom: 20px;
         padding-bottom: 14px;
-        border-bottom: 1px solid rgba(244, 209, 122, 0.15);
+        border-bottom: 1px solid rgba(24, 201, 139, 0.15);
         flex-wrap: wrap;
         gap: 8px;
 
@@ -710,7 +710,7 @@
             font-size: 16px;
             font-weight: 700;
             margin: 0;
-            color: #F4D17A;
+            color: #18C98B;
             font-family: "Euclid-Bold", sans-serif;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -722,7 +722,7 @@
 
         .copyBtn {
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(244, 209, 122, 0.2);
+            border: 1px solid rgba(24, 201, 139, 0.2);
             color: rgba(255, 255, 255, 0.8);
             border-radius: 6px;
             padding: 4px 10px;
@@ -739,15 +739,15 @@
             }
 
             &:hover {
-                background: rgba(244, 209, 122, 0.15);
-                color: #F4D17A;
+                background: rgba(24, 201, 139, 0.15);
+                color: #18C98B;
             }
         }
     }
 
     .primaryResultBlock {
         background: #040406;
-        border: 1px solid rgba(193, 144, 46, 0.25);
+        border: 1px solid rgba(24, 201, 139, 0.25);
         border-radius: 14px;
         padding: 22px;
         text-align: center;
@@ -775,7 +775,7 @@
         .resultValue {
             font-size: 36px;
             font-weight: 800;
-            color: #F4D17A;
+            color: #18C98B;
             font-family: "Euclid-Bold", sans-serif;
             letter-spacing: -0.5px;
             word-break: break-word;
@@ -918,9 +918,9 @@
     }
 
     .pivotRow td {
-        color: #F4D17A;
+        color: #18C98B;
         font-weight: 700;
-        background: rgba(244, 209, 122, 0.05);
+        background: rgba(24, 201, 139, 0.05);
     }
 
     .supportRow td {
@@ -928,8 +928,8 @@
     }
 
     .goldenRatio td {
-        color: #F4D17A;
+        color: #18C98B;
         font-weight: 700;
-        background: rgba(244, 209, 122, 0.08);
+        background: rgba(24, 201, 139, 0.08);
     }
 }

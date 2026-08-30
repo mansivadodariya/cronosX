@@ -10,7 +10,7 @@ import LanguageToggle from '@/components/languageToggle';
 import { supabase } from '@/lib/supabaseClient';
 
 const CoinDocIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="12" cy="12" r="10" />
     <rect x="9" y="7" width="6" height="10" rx="1" />
     <path d="M11 10h2M11 13h2" />
@@ -139,7 +139,7 @@ const Topbar = ({ onMenuClick }) => {
       <div className={styles.topbar}>
         <div className={styles.left}>
           <button className={styles.menuBtn} onClick={onMenuClick} aria-label="Open menu">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="3" y1="12" x2="21" y2="12"></line>
               <line x1="3" y1="6" x2="21" y2="6"></line>
               <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -158,7 +158,7 @@ const Topbar = ({ onMenuClick }) => {
     <div className={styles.topbar}>
       <div className={styles.left}>
         <button className={styles.menuBtn} onClick={onMenuClick} aria-label="Open menu">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="3" y1="12" x2="21" y2="12"></line>
             <line x1="3" y1="6" x2="21" y2="6"></line>
             <line x1="3" y1="18" x2="21" y2="18"></line>

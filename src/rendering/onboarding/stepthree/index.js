@@ -59,11 +59,11 @@ const UsdJpyIcon = () => (
 const GoldBarsIcon = () => (
     <div className={styles.goldBarsWrapper}>
         <svg width="34" height="26" viewBox="0 0 40 30" fill="none">
-            <path d="M12 4L16 0H24L28 4L24 8H16L12 4Z" fill="#F4D17A" />
-            <path d="M16 8H24L28 4V6L24 10H16L12 6V4L16 8Z" fill="#D4AF37" />
-            <path d="M4 14L8 10H18L22 14L18 18H8L4 14Z" fill="#FFE79A" />
-            <path d="M8 18H18L22 14V17L18 21H8L4 17V14L8 18Z" fill="#B8860B" />
-            <path d="M18 14L22 10H32L36 14L32 18H22L18 14Z" fill="#F4D17A" />
+            <path d="M12 4L16 0H24L28 4L24 8H16L12 4Z" fill="#18C98B" />
+            <path d="M16 8H24L28 4V6L24 10H16L12 6V4L16 8Z" fill="#059669" />
+            <path d="M4 14L8 10H18L22 14L18 18H8L4 14Z" fill="#6EE7B7" />
+            <path d="M8 18H18L22 14V17L18 21H8L4 17V14L8 18Z" fill="#047857" />
+            <path d="M18 14L22 10H32L36 14L32 18H22L18 14Z" fill="#18C98B" />
             <path d="M22 18H32L36 14V17L32 21H22L18 17V14L22 18Z" fill="#996515" />
         </svg>
     </div>
@@ -112,9 +112,9 @@ const IndicesIcon = () => (
 const OtherIcon = () => (
     <div className={styles.otherBadge}>
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-            <circle cx="6" cy="12" r="2.5" fill="#F4D17A" />
-            <circle cx="12" cy="12" r="2.5" fill="#F4D17A" />
-            <circle cx="18" cy="12" r="2.5" fill="#F4D17A" />
+            <circle cx="6" cy="12" r="2.5" fill="#18C98B" />
+            <circle cx="12" cy="12" r="2.5" fill="#18C98B" />
+            <circle cx="18" cy="12" r="2.5" fill="#18C98B" />
         </svg>
     </div>
 );
@@ -245,8 +245,8 @@ export default function Stepthree({ selectedOptions: controlledOptions, onToggle
                 {/* Preferences Notice */}
                 <div className={styles.preferenceNotice}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                        <circle cx="12" cy="12" r="9" stroke="#F4D17A" strokeWidth="1.6" />
-                        <path d="M12 8V8.01M12 11V16" stroke="#F4D17A" strokeWidth="1.8" strokeLinecap="round" />
+                        <circle cx="12" cy="12" r="9" stroke="#18C98B" strokeWidth="1.6" />
+                        <path d="M12 8V8.01M12 11V16" stroke="#18C98B" strokeWidth="1.8" strokeLinecap="round" />
                     </svg>
                     <span>You can update this later in your preferences.</span>
                 </div>

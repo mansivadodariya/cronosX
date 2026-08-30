@@ -1,12 +1,12 @@
 @use '../../scss/main.scss' as *;
 @use '../../scss/breakpoints/breakpoints.scss' as *;
 
-$primary: #F4D17A;
-$primaryDark: #C1902E;
-$bgDark: #060706;
-$cardDark: #0D0E13;
-$border: rgba(193, 144, 46, 0.35);
-$borderSubtle: rgba(193, 144, 46, 0.18);
+$primary: #18C98B;
+$primaryDark: #10B981;
+$bgDark: #040605;
+$cardDark: #040D09;
+$border: rgba(24, 201, 139, 0.35);
+$borderSubtle: rgba(24, 201, 139, 0.18);
 $text: #FFFFFF;
 $textMuted: rgba(255, 255, 255, 0.65);
 $success: #34D399;
@@ -25,14 +25,17 @@ $danger: #F87171;
    1. GLOBAL AI MARKET MOOD BAROMETER
    ============================================================ */
 .marketBarometer {
-    background: #060706;
-    border: 1px solid $border;
-    border-radius: 12px;
-    padding: 10px 18px;
+    background: 
+        radial-gradient(ellipse 25% 85% at 0% 50%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 75%),
+        radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.12) 0%, rgba(110, 231, 183, 0.05) 50%, transparent 70%),
+        radial-gradient(ellipse 25% 85% at 100% 50%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 75%),
+        #121514;
+    border-radius: 20px;
+    padding: 12px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04);
     flex-wrap: wrap;
     gap: 12px;
 
@@ -65,7 +68,7 @@ $danger: #F87171;
         }
 
         .barometerDivider {
-            color: rgba(193, 144, 46, 0.3);
+            color: rgba(24, 201, 139, 0.3);
             font-size: 13px;
 
             @include respond-to('sm') {
@@ -89,7 +92,7 @@ $danger: #F87171;
             }
 
             .baroValueGold {
-                color: #F4D17A;
+                color: #18C98B;
                 font-weight: 700;
             }
         }
@@ -129,14 +132,32 @@ $danger: #F87171;
 /* ============================================================
    2. FUTURISTIC HOLOGRAPHIC HERO TERMINAL
    ============================================================ */
+.topHeroRowGrid {
+    display: grid;
+    grid-template-columns: 1fr 620px;
+    gap: 16px;
+    align-items: stretch;
+
+    @include respond-to('xl') {
+        grid-template-columns: 1fr 540px;
+    }
+
+    @include respond-to('lg') {
+        grid-template-columns: 1fr;
+    }
+}
+
 .hologramHero {
-    background: #030404;
-    border: 1px solid rgba(193, 144, 46, 0.45);
-    border-radius: 18px;
+    background: 
+        radial-gradient(ellipse 25% 85% at 0% 50%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 75%),
+        radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.12) 0%, rgba(110, 231, 183, 0.05) 50%, transparent 70%),
+        radial-gradient(ellipse 25% 85% at 100% 50%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 75%),
+        #121514;
+    border-radius: 20px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(244, 209, 122, 0.08);
-    padding: 22px 28px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    padding: 26px 30px;
 
     @include respond-to('md') {
         padding: 18px 16px;
@@ -152,14 +173,14 @@ $danger: #F87171;
     .heroBackdropImg {
         object-fit: cover;
         object-position: center right;
-        opacity: 0.3;
+        opacity: 0.25;
     }
 
     .heroOverlayFade {
         position: absolute;
         inset: 0;
-        background: radial-gradient(circle at 75% 50%, transparent 0%, rgba(3, 4, 4, 0.85) 60%, #030404 100%),
-                    linear-gradient(90deg, #030404 0%, rgba(3, 4, 4, 0.6) 45%, transparent 100%);
+        background: radial-gradient(circle at 75% 50%, transparent 0%, rgba(4, 6, 5, 0.85) 60%, #040605 100%),
+                    linear-gradient(90deg, #040605 0%, rgba(4, 6, 5, 0.6) 45%, transparent 100%);
     }
 }
 
@@ -180,13 +201,13 @@ $danger: #F87171;
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        background: rgba(244, 209, 122, 0.14);
-        border: 1px solid rgba(244, 209, 122, 0.4);
-        color: #F4D17A;
+        background: rgba(24, 201, 139, 0.14);
+        border: 1px solid rgba(24, 201, 139, 0.35);
+        color: #18C98B;
         font-size: 11.5px;
         font-weight: 700;
         padding: 4px 12px;
-        border-radius: 6px;
+        border-radius: 99px;
         width: fit-content;
         letter-spacing: 0.5px;
     }
@@ -204,7 +225,7 @@ $danger: #F87171;
         }
 
         .nameGradient {
-            background: linear-gradient(180deg, #FFFFFF 0%, #F4D17A 100%);
+            background: linear-gradient(180deg, #FFFFFF 0%, #18C98B 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -224,6 +245,201 @@ $danger: #F87171;
         margin: 0;
         max-width: 680px;
     }
+}
+
+.heroChartSection {
+    margin-top: 18px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    .chartHeaderRow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+
+        .chartTitleGroup {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            .chartPulseDot {
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background: #18C98B;
+                box-shadow: 0 0 12px #18C98B;
+                flex-shrink: 0;
+            }
+
+            .titleTextCol {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+
+                .chartTitle {
+                    color: #FFFFFF;
+                    font-size: 15px;
+                    font-weight: 700;
+                    font-family: "Euclid-Bold", sans-serif;
+                }
+
+                .chartSubtitle {
+                    color: rgba(255, 255, 255, 0.48);
+                    font-size: 11.5px;
+                    font-family: "Euclid-Regular", sans-serif;
+                }
+            }
+        }
+
+        .headerRightGroup {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .chartSubBadge {
+                background: rgba(24, 201, 139, 0.16);
+                border: 1px solid rgba(24, 201, 139, 0.35);
+                color: #18C98B;
+                font-size: 11.5px;
+                font-weight: 700;
+                padding: 4px 12px;
+                border-radius: 99px;
+            }
+
+            .timeframeFilterGroup {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 8px;
+                padding: 3px;
+
+                .tfBtn {
+                    background: transparent;
+                    border: none;
+                    color: rgba(255, 255, 255, 0.55);
+                    font-size: 11px;
+                    font-weight: 600;
+                    padding: 3px 10px;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+
+                    &:hover {
+                        color: #FFFFFF;
+                    }
+
+                    &.activeTf {
+                        background: #18C98B;
+                        color: #040605;
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+    }
+
+    .splineCanvasWrap {
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .floatingChartTooltip {
+            position: absolute;
+            top: -28px;
+            transform: translateX(-50%);
+            background: #121514;
+            border: 1px solid rgba(24, 201, 139, 0.4);
+            border-radius: 8px;
+            padding: 4px 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            z-index: 10;
+            pointer-events: none;
+
+            .tooltipDay {
+                color: rgba(255, 255, 255, 0.6);
+                font-size: 11px;
+            }
+
+            .tooltipVal {
+                color: #18C98B;
+                font-size: 12px;
+                font-weight: 700;
+            }
+        }
+
+        .splineSvg {
+            width: 100%;
+            height: 140px;
+            overflow: visible;
+
+            .chartNodeGroup {
+                cursor: pointer;
+
+                &:hover {
+                    .nodeCircle {
+                        r: 7;
+                        fill: #00F2FE;
+                    }
+                    .nodeGlow {
+                        r: 14;
+                        fill: rgba(0, 242, 254, 0.35);
+                    }
+                }
+            }
+        }
+
+        .chartTimeLabels {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+
+            .dayLabelItem {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 2px;
+
+                .dayName {
+                    color: rgba(255, 255, 255, 0.5);
+                    font-size: 11.5px;
+                    font-family: "Euclid-Medium", sans-serif;
+                }
+
+                .dayVal {
+                    color: #FFFFFF;
+                    font-size: 12px;
+                    font-weight: 700;
+                    font-family: "Euclid-Bold", sans-serif;
+                }
+
+                &.todayLabel {
+                    .dayName {
+                        color: #18C98B;
+                        font-weight: 700;
+                    }
+                    .dayVal {
+                        color: #18C98B;
+                    }
+                }
+            }
+        }
+    }
+}
 
     .heroFastActions {
         display: flex;
@@ -233,34 +449,36 @@ $danger: #F87171;
         flex-wrap: wrap;
 
         .actionButtonGold {
-            background: linear-gradient(180deg, #F4D17A 0%, #C1902E 100%);
-            color: #000000;
+            background: #FFFFFF;
+            color: #040605;
             font-size: 13.5px;
             font-weight: 700;
             font-family: "Euclid-Bold", sans-serif;
-            padding: 11px 22px;
-            border-radius: 10px;
+            padding: 10px 22px;
+            border-radius: 99px;
             display: flex;
             align-items: center;
             gap: 8px;
             text-decoration: none;
-            box-shadow: 0 4px 20px rgba(244, 209, 122, 0.35);
+            border: none;
+            box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2);
             transition: all 0.2s ease;
 
             &:hover {
                 transform: translateY(-2px);
-                box-shadow: 0 6px 25px rgba(244, 209, 122, 0.5);
+                box-shadow: 0 6px 24px rgba(255, 255, 255, 0.35);
+                color: #040605;
             }
         }
 
         .actionButtonOutline {
-            background: rgba(22, 19, 14, 0.9);
-            border: 1px solid rgba(193, 144, 46, 0.45);
-            color: #F4D17A;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.85);
             font-size: 13.5px;
             font-weight: 600;
-            padding: 11px 20px;
-            border-radius: 10px;
+            padding: 10px 20px;
+            border-radius: 99px;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -268,13 +486,12 @@ $danger: #F87171;
             transition: all 0.2s ease;
 
             &:hover {
-                background: rgba(244, 209, 122, 0.12);
-                border-color: #F4D17A;
+                background: rgba(255, 255, 255, 0.14);
+                border-color: rgba(255, 255, 255, 0.25);
                 color: #FFFFFF;
             }
         }
     }
-}
 
 .heroRightCol {
     display: flex;
@@ -286,17 +503,17 @@ $danger: #F87171;
 }
 
 .signalOracleCard {
-    background: rgba(13, 14, 19, 0.85);
+    background: radial-gradient(circle at 85% 15%, rgba(24, 201, 139, 0.18) 0%, rgba(10, 16, 13, 0.95) 50%, #040605 100%);
     backdrop-filter: blur(16px);
-    border: 1px solid rgba(244, 209, 122, 0.4);
-    border-radius: 16px;
-    padding: 18px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 20px;
     width: 100%;
     max-width: 400px;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(244, 209, 122, 0.05);
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 
     .oracleHeader {
         display: flex;
@@ -378,7 +595,7 @@ $danger: #F87171;
             }
 
             strong {
-                color: #F4D17A;
+                color: #18C98B;
                 font-size: 13px;
             }
         }
@@ -392,7 +609,7 @@ $danger: #F87171;
 
         .confidenceFill {
             height: 100%;
-            background: linear-gradient(90deg, #F4D17A 0%, #34D399 100%);
+            background: linear-gradient(90deg, #18C98B 0%, #34D399 100%);
             border-radius: 99px;
         }
     }
@@ -401,7 +618,7 @@ $danger: #F87171;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 8px;
-        background: #060706;
+        background: #040605;
         border: 1px solid $borderSubtle;
         border-radius: 10px;
         padding: 10px;
@@ -432,9 +649,9 @@ $danger: #F87171;
     }
 
     .oracleExecuteBtn {
-        background: rgba(244, 209, 122, 0.12);
-        border: 1px solid rgba(244, 209, 122, 0.35);
-        color: #F4D17A;
+        background: rgba(24, 201, 139, 0.12);
+        border: 1px solid rgba(24, 201, 139, 0.35);
+        color: #18C98B;
         border-radius: 8px;
         padding: 9px 14px;
         font-size: 12.5px;
@@ -446,7 +663,7 @@ $danger: #F87171;
         transition: all 0.2s ease;
 
         &:hover {
-            background: rgba(244, 209, 122, 0.22);
+            background: rgba(24, 201, 139, 0.22);
             color: #FFFFFF;
         }
     }
@@ -470,9 +687,12 @@ $danger: #F87171;
 }
 
 .glassStatCard {
-    background: linear-gradient(145deg, rgba(20, 18, 14, 0.85) 0%, rgba(8, 8, 10, 0.95) 100%);
-    border: 1px solid rgba(193, 144, 46, 0.25);
-    border-radius: 18px;
+    background: 
+        radial-gradient(ellipse 25% 85% at 0% 50%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 75%),
+        radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.12) 0%, rgba(110, 231, 183, 0.05) 50%, transparent 70%),
+        radial-gradient(ellipse 25% 85% at 100% 50%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 75%),
+        #121514;
+    border-radius: 20px;
     padding: 20px 22px;
     display: flex;
     flex-direction: column;
@@ -480,7 +700,7 @@ $danger: #F87171;
     gap: 12px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(244, 209, 122, 0.1);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04);
     cursor: pointer;
     transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -491,15 +711,14 @@ $danger: #F87171;
         right: 0;
         width: 140px;
         height: 140px;
-        background: radial-gradient(circle at top right, rgba(244, 209, 122, 0.09) 0%, transparent 70%);
+        background: radial-gradient(circle at top right, rgba(24, 201, 139, 0.12) 0%, transparent 70%);
         pointer-events: none;
         transition: opacity 0.3s ease;
     }
 
     &:hover {
         transform: translateY(-5px);
-        border-color: rgba(244, 209, 122, 0.65);
-        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7), 0 0 24px rgba(244, 209, 122, 0.16), inset 0 1px 0 rgba(244, 209, 122, 0.25);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7), 0 0 24px rgba(24, 201, 139, 0.2);
 
         &::before {
             opacity: 1;
@@ -525,12 +744,12 @@ $danger: #F87171;
             width: 44px;
             height: 44px;
             border-radius: 12px;
-            background: linear-gradient(135deg, rgba(244, 209, 122, 0.18) 0%, rgba(193, 144, 46, 0.05) 100%);
-            border: 1.5px solid rgba(244, 209, 122, 0.35);
+            background: linear-gradient(135deg, rgba(24, 201, 139, 0.18) 0%, rgba(24, 201, 139, 0.05) 100%);
+            border: 1.5px solid rgba(24, 201, 139, 0.35);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 14px rgba(244, 209, 122, 0.1);
+            box-shadow: 0 0 14px rgba(24, 201, 139, 0.1);
             transition: all 0.2s ease;
         }
 
@@ -538,9 +757,9 @@ $danger: #F87171;
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(244, 209, 122, 0.08);
-            border: 1px solid rgba(244, 209, 122, 0.28);
-            color: #F4D17A;
+            background: rgba(24, 201, 139, 0.08);
+            border: 1px solid rgba(24, 201, 139, 0.28);
+            color: #18C98B;
             font-size: 11px;
             font-weight: 700;
             padding: 4px 10px;
@@ -550,9 +769,9 @@ $danger: #F87171;
             .badgeDot {
                 width: 5px;
                 height: 5px;
-                background: #F4D17A;
+                background: #18C98B;
                 border-radius: 50%;
-                box-shadow: 0 0 6px #F4D17A;
+                box-shadow: 0 0 6px #18C98B;
                 animation: dotGlow 1.8s infinite ease-in-out;
             }
         }
@@ -592,7 +811,7 @@ $danger: #F87171;
         display: flex;
         align-items: center;
         gap: 6px;
-        color: #F4D17A;
+        color: #18C98B;
         font-size: 11.5px;
         font-weight: 700;
         font-family: "Euclid-Bold", sans-serif;
@@ -600,7 +819,7 @@ $danger: #F87171;
         letter-spacing: 0.5px;
         margin-top: 6px;
         padding-top: 10px;
-        border-top: 1px solid rgba(244, 209, 122, 0.1);
+        border-top: 1px solid rgba(24, 201, 139, 0.1);
         transition: all 0.2s ease;
 
         svg {
@@ -618,7 +837,7 @@ $danger: #F87171;
    4. LIVE WATCHLIST GRID
    ============================================================ */
 .watchlistSection {
-    background: #060706;
+    background: #040605;
     border: 1px solid $border;
     border-radius: 18px;
     padding: 22px 24px;
@@ -643,8 +862,8 @@ $danger: #F87171;
                 width: 36px;
                 height: 36px;
                 border-radius: 8px;
-                background: rgba(244, 209, 122, 0.12);
-                border: 1px solid rgba(244, 209, 122, 0.3);
+                background: rgba(24, 201, 139, 0.12);
+                border: 1px solid rgba(24, 201, 139, 0.3);
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -685,8 +904,8 @@ $danger: #F87171;
                 transition: all 0.15s ease;
 
                 &.tfActive {
-                    background: rgba(244, 209, 122, 0.2);
-                    color: #F4D17A;
+                    background: rgba(24, 201, 139, 0.2);
+                    color: #18C98B;
                     font-weight: 700;
                 }
             }
@@ -709,7 +928,7 @@ $danger: #F87171;
 
     .watchCard {
         background: #0D0E13;
-        border: 1px solid rgba(193, 144, 46, 0.22);
+        border: 1px solid rgba(24, 201, 139, 0.22);
         border-radius: 12px;
         padding: 12px 14px;
         display: flex;
@@ -719,8 +938,8 @@ $danger: #F87171;
         transition: all 0.2s ease;
 
         &:hover {
-            border-color: rgba(244, 209, 122, 0.6);
-            background: rgba(244, 209, 122, 0.05);
+            border-color: rgba(24, 201, 139, 0.6);
+            background: rgba(24, 201, 139, 0.05);
             transform: translateY(-2px);
         }
 
@@ -760,8 +979,8 @@ $danger: #F87171;
                 }
 
                 &.sigNeutral {
-                    background: rgba(244, 209, 122, 0.15);
-                    color: #F4D17A;
+                    background: rgba(24, 201, 139, 0.15);
+                    color: #18C98B;
                 }
             }
         }
@@ -806,7 +1025,7 @@ $danger: #F87171;
             }
 
             .openStrategyText {
-                color: #F4D17A;
+                color: #18C98B;
                 font-weight: 600;
             }
         }
@@ -817,7 +1036,7 @@ $danger: #F87171;
    5. COPILOT PROMPT BAR
    ============================================================ */
 .copilotPromptSection {
-    background: #060706;
+    background: #040605;
     border: 1px solid $borderSubtle;
     border-radius: 12px;
     padding: 10px 18px;
@@ -840,7 +1059,7 @@ $danger: #F87171;
             width: 26px;
             height: 26px;
             border-radius: 6px;
-            background: rgba(244, 209, 122, 0.12);
+            background: rgba(24, 201, 139, 0.12);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -855,7 +1074,7 @@ $danger: #F87171;
 
         .copilotPillBtn {
             background: #0D0E13;
-            border: 1px solid rgba(193, 144, 46, 0.25);
+            border: 1px solid rgba(24, 201, 139, 0.25);
             border-radius: 8px;
             padding: 6px 12px;
             color: rgba(255, 255, 255, 0.85);
@@ -866,9 +1085,9 @@ $danger: #F87171;
             transition: all 0.2s ease;
 
             &:hover {
-                background: rgba(244, 209, 122, 0.15);
-                border-color: #F4D17A;
-                color: #F4D17A;
+                background: rgba(24, 201, 139, 0.15);
+                border-color: #18C98B;
+                color: #18C98B;
             }
         }
     }
@@ -936,8 +1155,8 @@ $danger: #F87171;
                 transition: all 0.15s ease;
 
                 &.filterTabActive {
-                    background: rgba(244, 209, 122, 0.2);
-                    color: #F4D17A;
+                    background: rgba(24, 201, 139, 0.2);
+                    color: #18C98B;
                     font-weight: 700;
                 }
             }
@@ -945,11 +1164,6 @@ $danger: #F87171;
     }
 
     .feedCardContainer {
-        background: #060706;
-        border: 1px solid $border;
-        border-radius: 16px;
-        padding: 16px;
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
 
         .activityItemsList {
             display: flex;
@@ -958,8 +1172,7 @@ $danger: #F87171;
         }
 
         .activityRowItem {
-            background: #0D0E13;
-            border: 1px solid rgba(193, 144, 46, 0.18);
+            background: #151816;
             border-radius: 12px;
             padding: 14px 18px;
             display: grid;
@@ -980,8 +1193,8 @@ $danger: #F87171;
             }
 
             &:hover {
-                border-color: rgba(244, 209, 122, 0.5);
-                background: rgba(244, 209, 122, 0.04);
+                border-color: rgba(24, 201, 139, 0.5);
+                background: rgba(24, 201, 139, 0.04);
                 box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
 
                 .actAction {
@@ -1000,8 +1213,8 @@ $danger: #F87171;
                     width: 36px;
                     height: 36px;
                     border-radius: 10px;
-                    background: rgba(244, 209, 122, 0.1);
-                    border: 1px solid rgba(244, 209, 122, 0.3);
+                    background: rgba(24, 201, 139, 0.1);
+                    border: 1px solid rgba(24, 201, 139, 0.3);
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -1033,9 +1246,9 @@ $danger: #F87171;
                     .actTypeTag {
                         font-size: 10px;
                         font-weight: 700;
-                        color: #F4D17A;
-                        background: rgba(244, 209, 122, 0.08);
-                        border: 1px solid rgba(244, 209, 122, 0.2);
+                        color: #18C98B;
+                        background: rgba(24, 201, 139, 0.08);
+                        border: 1px solid rgba(24, 201, 139, 0.2);
                         border-radius: 4px;
                         padding: 1px 6px;
                         flex-shrink: 0;
@@ -1078,7 +1291,7 @@ $danger: #F87171;
             }
 
             .actAction {
-                color: #F4D17A;
+                color: #18C98B;
                 font-size: 12px;
                 font-weight: 700;
                 display: flex;
@@ -1103,12 +1316,12 @@ $danger: #F87171;
                 width: 48px;
                 height: 48px;
                 border-radius: 50%;
-                background: rgba(244, 209, 122, 0.08);
-                border: 1px solid rgba(244, 209, 122, 0.25);
+                background: rgba(24, 201, 139, 0.08);
+                border: 1px solid rgba(24, 201, 139, 0.25);
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                box-shadow: 0 0 16px rgba(244, 209, 122, 0.1);
+                box-shadow: 0 0 16px rgba(24, 201, 139, 0.1);
             }
 
             p {
@@ -1117,19 +1330,19 @@ $danger: #F87171;
             }
 
             .firstScanBtn {
-                color: #F4D17A;
+                color: #18C98B;
                 font-size: 13px;
                 font-weight: 700;
                 text-decoration: none;
                 padding: 6px 14px;
-                background: rgba(244, 209, 122, 0.08);
-                border: 1px solid rgba(244, 209, 122, 0.25);
+                background: rgba(24, 201, 139, 0.08);
+                border: 1px solid rgba(24, 201, 139, 0.25);
                 border-radius: 8px;
                 transition: all 0.2s ease;
 
                 &:hover {
-                    background: rgba(244, 209, 122, 0.18);
-                    border-color: #F4D17A;
+                    background: rgba(24, 201, 139, 0.18);
+                    border-color: #18C98B;
                     transform: translateY(-1px);
                 }
             }
@@ -1146,8 +1359,8 @@ $danger: #F87171;
             .miniSpinner {
                 width: 20px;
                 height: 20px;
-                border: 2px solid rgba(244, 209, 122, 0.2);
-                border-top-color: #F4D17A;
+                border: 2px solid rgba(24, 201, 139, 0.2);
+                border-top-color: #18C98B;
                 border-radius: 50%;
                 animation: spin 0.8s linear infinite;
             }
@@ -1190,8 +1403,8 @@ $danger: #F87171;
     }
 
     .hubFeatureCard {
-        background: #060706;
-        border: 1px solid rgba(193, 144, 46, 0.22);
+        background: #060908;
+        border: 1px solid rgba(24, 201, 139, 0.12);
         border-radius: 14px;
         padding: 18px;
         display: flex;
@@ -1207,16 +1420,16 @@ $danger: #F87171;
 
         &:hover {
             transform: translateY(-3px);
-            border-color: rgba(244, 209, 122, 0.6);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(244, 209, 122, 0.12);
+            border-color: rgba(24, 201, 139, 0.6);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(24, 201, 139, 0.12);
 
             .hubIconCircleGold {
-                box-shadow: 0 4px 18px rgba(244, 209, 122, 0.45);
+                box-shadow: 0 4px 18px rgba(24, 201, 139, 0.45);
                 transform: scale(1.08);
             }
 
             .hubCta {
-                color: #FFE79A;
+                color: #6EE7B7;
                 svg {
                     transform: translateX(4px);
                 }
@@ -1227,11 +1440,11 @@ $danger: #F87171;
             width: 40px;
             height: 40px;
             border-radius: 12px;
-            background: linear-gradient(145deg, #FFF2B2 0%, #F4D17A 35%, #D4AF37 70%, #B8922C 100%);
+            background: linear-gradient(145deg, #A7F3D0 0%, #18C98B 35%, #059669 70%, #047857 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 3px 12px rgba(244, 209, 122, 0.3);
+            box-shadow: 0 3px 12px rgba(24, 201, 139, 0.3);
             flex-shrink: 0;
             transition: all 0.25s ease;
         }
@@ -1249,7 +1462,7 @@ $danger: #F87171;
             display: flex;
             align-items: center;
             gap: 6px;
-            color: #F4D17A;
+            color: #18C98B;
             font-size: 11.5px;
             font-weight: 700;
             transition: color 0.2s ease;
@@ -1274,4 +1487,204 @@ $danger: #F87171;
 
 @keyframes spin {
     to { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   7. DAILY STATS TELEMETRY SIDE CARD (MATCHING REFERENCE IMAGE 2)
+   ============================================================ */
+.dailyStatsSideCard {
+    background: 
+        radial-gradient(ellipse 25% 85% at 0% 50%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 75%),
+        radial-gradient(ellipse 50% 60% at 50% 30%, rgba(0, 242, 254, 0.12) 0%, rgba(110, 231, 183, 0.05) 50%, transparent 70%),
+        radial-gradient(ellipse 25% 85% at 100% 50%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 75%),
+        #121514;
+    border-radius: 20px;
+    padding: 24px 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 18px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    height: 100%;
+    width: 100%;
+
+    .dailyStatsHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .headerTitleWrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 17px;
+            font-weight: 700;
+            font-family: "Euclid-Bold", sans-serif;
+
+            .infoBtn {
+                width: 20px;
+                height: 20px;
+                border-radius: 5px;
+                background: rgba(255, 255, 255, 0.1);
+                border: none;
+                color: rgba(255, 255, 255, 0.6);
+                font-size: 11.5px;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background: rgba(255, 255, 255, 0.2);
+                    color: #FFFFFF;
+                }
+            }
+        }
+
+        .shareBtn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: rgba(255, 255, 255, 0.65);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.16);
+                color: #FFFFFF;
+            }
+        }
+    }
+
+    .dailyStatsRows {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        flex: 1;
+
+        @include respond-to('md') {
+            grid-template-columns: 1fr;
+        }
+
+        .statPillRow {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: 
+                radial-gradient(ellipse 70% 80% at 100% 0%, rgba(24, 201, 139, 0.14) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 80%),
+                radial-gradient(ellipse 60% 60% at 0% 100%, rgba(0, 242, 254, 0.08) 0%, transparent 70%),
+                rgba(18, 21, 20, 0.75);
+            border: 1px solid rgba(24, 201, 139, 0.22);
+            border-radius: 16px;
+            padding: 18px 20px;
+            gap: 14px;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            height: 100%;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+            &:hover {
+                background: 
+                    radial-gradient(ellipse 80% 90% at 100% 0%, rgba(24, 201, 139, 0.22) 0%, rgba(16, 185, 129, 0.08) 55%, transparent 80%),
+                    radial-gradient(ellipse 70% 70% at 0% 100%, rgba(0, 242, 254, 0.14) 0%, transparent 70%),
+                    rgba(18, 21, 20, 0.85);
+                border-color: rgba(24, 201, 139, 0.5);
+                transform: translateY(-3px);
+                box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6), 0 0 20px rgba(24, 201, 139, 0.2);
+
+                .rowCtaLink {
+                    color: #FFFFFF;
+
+                    svg {
+                        transform: translateX(4px);
+                    }
+                }
+            }
+
+            .rowTopHeader {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 12px;
+                width: 100%;
+
+                .rowTitleWrap {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+                    flex: 1;
+
+                    .rowTitle {
+                        color: #FFFFFF;
+                        font-size: 15px;
+                        font-weight: 700;
+                        font-family: "Euclid-Bold", sans-serif;
+                        line-height: 1.25;
+                    }
+
+                    .rowDesc {
+                        color: rgba(255, 255, 255, 0.48);
+                        font-size: 11.5px;
+                        font-family: "Euclid-Regular", sans-serif;
+                        line-height: 1.35;
+                    }
+                }
+
+                .rowIconWrap {
+                    width: 42px;
+                    height: 42px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+
+                    &.greenIcon {
+                        background: rgba(24, 201, 139, 0.16);
+                        border: 1px solid rgba(24, 201, 139, 0.35);
+                        color: #18C98B;
+                        box-shadow: 0 0 12px rgba(24, 201, 139, 0.25);
+                    }
+                }
+            }
+
+            .bigNumWrap {
+                display: flex;
+                align-items: baseline;
+                padding: 6px 0;
+
+                .statBigNum {
+                    font-size: 34px;
+                    font-weight: 800;
+                    color: #FFFFFF;
+                    font-family: "Euclid-Bold", sans-serif;
+                    line-height: 1;
+                    letter-spacing: -0.5px;
+                    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+                }
+            }
+
+            .rowCtaLink {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                color: #18C98B;
+                font-size: 12.5px;
+                font-weight: 700;
+                transition: all 0.2s ease;
+
+                svg {
+                    transition: transform 0.2s ease;
+                }
+            }
+        }
+    }
 }

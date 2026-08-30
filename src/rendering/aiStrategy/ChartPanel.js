@@ -314,28 +314,28 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
             height: initialHeight,
             layout: {
                 background: { type: 'solid', color: 'transparent' },
-                textColor: '#F4D17A',
+                textColor: '#18C98B',
                 fontSize: 11,
                 fontFamily: "'Euclid-Medium', sans-serif",
                 attributionLogo: false,
             },
             grid: {
-                vertLines: { color: 'rgba(193, 144, 46, 0.1)' },
-                horzLines: { color: 'rgba(193, 144, 46, 0.1)' },
+                vertLines: { color: 'rgba(24, 201, 139, 0.1)' },
+                horzLines: { color: 'rgba(24, 201, 139, 0.1)' },
             },
             crosshair: {
-                vertLine: { color: 'rgba(244, 209, 122, 0.4)', width: 1 },
-                horzLine: { color: 'rgba(244, 209, 122, 0.4)', width: 1 },
+                vertLine: { color: 'rgba(24, 201, 139, 0.4)', width: 1 },
+                horzLine: { color: 'rgba(24, 201, 139, 0.4)', width: 1 },
             },
             timeScale: {
-                borderColor: 'rgba(193, 144, 46, 0.25)',
+                borderColor: 'rgba(24, 201, 139, 0.25)',
                 timeVisible: true,
                 secondsVisible: false,
                 rightOffset: 10,
                 barSpacing: 8,
             },
             rightPriceScale: {
-                borderColor: 'rgba(193, 144, 46, 0.25)',
+                borderColor: 'rgba(24, 201, 139, 0.25)',
                 scaleMargins: { top: 0.05, bottom: 0.04 },
             },
         });

@@ -9,9 +9,9 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background: rgba(244, 209, 122, 0.08);
-    border: 1px solid rgba(193, 144, 46, 0.35);
-    color: #F4D17A;
+    background: rgba(24, 201, 139, 0.08);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    color: #18C98B;
     font-size: 13.5px;
     font-weight: 600;
     font-family: "Euclid-SemiBold", sans-serif;
@@ -25,7 +25,7 @@
     svg {
         width: 16px;
         height: 16px;
-        color: #F4D17A;
+        color: #18C98B;
         stroke: currentColor;
         transition: transform 0.25s ease, color 0.25s ease;
     }
@@ -35,13 +35,13 @@
     }
 
     &:hover {
-        background: linear-gradient(180deg, rgba(244, 209, 122, 0.2) 0%, rgba(193, 144, 46, 0.15) 100%);
-        color: #FFE79A;
-        border-color: rgba(244, 209, 122, 0.8);
-        box-shadow: 0 0 16px rgba(244, 209, 122, 0.25);
+        background: linear-gradient(180deg, rgba(24, 201, 139, 0.2) 0%, rgba(24, 201, 139, 0.15) 100%);
+        color: #6EE7B7;
+        border-color: rgba(24, 201, 139, 0.8);
+        box-shadow: 0 0 16px rgba(24, 201, 139, 0.25);
 
         svg {
-            color: #FFE79A;
+            color: #6EE7B7;
             transform: rotate(-15deg);
         }
     }

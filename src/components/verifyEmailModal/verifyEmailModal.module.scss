@@ -19,14 +19,14 @@
     padding: 60px 28px 28px;
     border-radius: 20px;
     overflow: hidden;
-    border: 1px solid rgba(244, 209, 122, 0.35);
+    border: 1px solid rgba(24, 201, 139, 0.35);
     background: radial-gradient(130% 100% at 50% 0%, #171510 0%, #0A0A0D 100%);
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.95), 0 0 32px rgba(244, 209, 122, 0.08);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.95), 0 0 32px rgba(24, 201, 139, 0.08);
     color: #FFFFFF;
 
     .layer {
         border-radius: 442px;
-        background: #F4D17A;
+        background: #18C98B;
         filter: blur(36px);
         width: 80%;
         height: 16px;
@@ -112,7 +112,7 @@
     top: 16px;
     right: 16px;
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(244, 209, 122, 0.25);
+    border: 1px solid rgba(24, 201, 139, 0.25);
     font-size: 14px;
     cursor: pointer;
     color: rgba(255, 255, 255, 0.7);
@@ -126,9 +126,9 @@
     transition: all 0.2s ease;
 
     &:hover {
-        background: rgba(244, 209, 122, 0.15);
-        color: #F4D17A;
-        border-color: #F4D17A;
+        background: rgba(24, 201, 139, 0.15);
+        color: #18C98B;
+        border-color: #18C98B;
         transform: scale(1.05);
     }
 }

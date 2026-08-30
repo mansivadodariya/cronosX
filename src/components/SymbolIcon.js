@@ -286,7 +286,7 @@ function renderBadgeContent(code, cx, cy, r) {
   // Generic fallback badge
   return (
     <g key={idPrefix}>
-      <circle cx={cx} cy={cy} r={r} fill="#C1902E" />
+      <circle cx={cx} cy={cy} r={r} fill="#10B981" />
       <text x={cx} y={cy + 4.5} fontSize="11" fontWeight="bold" fill="#FFFFFF" textAnchor="middle" fontFamily="sans-serif">
         {c.charAt(0) || '$'}
       </text>

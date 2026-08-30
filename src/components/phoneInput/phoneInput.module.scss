@@ -19,7 +19,7 @@
 
 .wrapper {
     position: relative;
-    border: 1.5px solid rgba(193, 144, 46, 0.65);
+    border: 1.5px solid rgba(24, 201, 139, 0.65);
     background: #08080A;
     border-radius: 8px;
     height: 52px;
@@ -29,8 +29,8 @@
     overflow: hidden;
 
     &:focus-within {
-        border-color: #F4D17A;
-        box-shadow: 0 0 14px rgba(244, 209, 122, 0.25);
+        border-color: #18C98B;
+        box-shadow: 0 0 14px rgba(24, 201, 139, 0.25);
     }
 
     &.hasError {
@@ -64,7 +64,7 @@
         gap: 6px !important;
         padding: 0 10px 0 0 !important;
         margin: 0 !important;
-        border-right: 1px solid rgba(193, 144, 46, 0.3) !important;
+        border-right: 1px solid rgba(24, 201, 139, 0.3) !important;
         flex-shrink: 0 !important;
         height: 24px !important;
         position: relative !important;
@@ -82,7 +82,7 @@
     :global(.PhoneInputCountrySelectArrow) {
         width: 8px !important;
         height: 8px !important;
-        border-color: #F4D17A !important;
+        border-color: #18C98B !important;
         opacity: 1 !important;
         margin-left: 2px !important;
     }
@@ -155,7 +155,7 @@
     .phoneInput {
         :global(.PhoneInputCountry) {
             border-right: none !important;
-            border-left: 1px solid rgba(193, 144, 46, 0.3) !important;
+            border-left: 1px solid rgba(24, 201, 139, 0.3) !important;
             padding: 0 0 0 10px !important;
         }
 

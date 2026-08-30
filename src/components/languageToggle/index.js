@@ -6,7 +6,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import styles from './languageToggle.module.scss';
 
 const GlobeIcon = () => (
-  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="12" cy="12" r="10" />
     <line x1="2" y1="12" x2="22" y2="12" />
     <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
@@ -71,7 +71,7 @@ export default function LanguageToggle({ className = '' }) {
         <span
           className={`${styles.chevronIcon} ${isOpen ? styles.rotated : ''}`}
         >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="6 9 12 15 18 9" />
           </svg>
         </span>
@@ -95,7 +95,7 @@ export default function LanguageToggle({ className = '' }) {
               >
                 <span>{item.label}</span>
                 {language === item.code && (
-                  <svg className={styles.checkIcon} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className={styles.checkIcon} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                 )}

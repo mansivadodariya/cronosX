@@ -515,7 +515,7 @@
           &.symTabActive {
             background: linear-gradient(135deg, rgba(216, 162, 59, 0.25) 0%, rgba(255, 230, 147, 0.12) 100%);
             border-color: rgba(255, 230, 147, 0.65);
-            color: #FFE693;
+            color: #A7F3D0;
             box-shadow: 0 0 14px rgba(216, 162, 59, 0.25);
           }
         }
@@ -565,7 +565,7 @@
             @include font-bold;
             font-size: 10px;
             letter-spacing: 0.6px;
-            color: #D8A23B;
+            color: #18C98B;
           }
         }
 
@@ -648,8 +648,8 @@
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background: #FFE693;
-            box-shadow: 0 0 8px #FFE693;
+            background: #A7F3D0;
+            box-shadow: 0 0 8px #A7F3D0;
             animation: pulseGlow 1.4s infinite ease-in-out;
           }
 
@@ -657,7 +657,7 @@
             @include font-bold;
             font-size: 9.5px;
             letter-spacing: 0.8px;
-            color: #D8A23B;
+            color: #18C98B;
           }
         }
 
@@ -732,7 +732,7 @@
             .pStepBadge {
               @include font-bold;
               font-size: 9px;
-              color: #D8A23B;
+              color: #18C98B;
               background: rgba(216, 162, 59, 0.15);
               border: 1px solid rgba(216, 162, 59, 0.3);
               padding: 1px 5px;
@@ -755,7 +755,7 @@
           .pStatus {
             @include font-bold;
             font-size: 11.5px;
-            color: #FFE693;
+            color: #A7F3D0;
           }
 
           .pDetail {
@@ -798,7 +798,7 @@
         .tValGold {
           @include font-bold;
           font-size: 11.5px;
-          color: #FFE693;
+          color: #A7F3D0;
         }
 
         .tValGreen {
@@ -840,15 +840,15 @@
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background: #FFE693;
-            box-shadow: 0 0 8px #FFE693;
+            background: #A7F3D0;
+            box-shadow: 0 0 8px #A7F3D0;
             animation: pulseGlow 1.4s infinite ease-in-out;
           }
 
           .consoleTitle {
             @include font-bold;
             font-size: 10.5px;
-            color: #D8A23B;
+            color: #18C98B;
             letter-spacing: 0.5px;
           }
         }
@@ -937,7 +937,7 @@
         .hudValGold {
           @include font-bold;
           font-size: 11px;
-          color: #FFE693;
+          color: #A7F3D0;
         }
 
         .hudValGreen {

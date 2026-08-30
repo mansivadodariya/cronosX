@@ -5,7 +5,7 @@
 /* ========================================================================= */
 .pageWrapper {
     position: relative;
-    background-color: #040300;
+    background-color: #040605;
     color: #FFFFFF;
     overflow: hidden;
     min-height: 100vh;
@@ -19,7 +19,7 @@
     transform: translateX(-50%);
     width: 950px;
     height: 620px;
-    background: radial-gradient(circle, rgba(244, 209, 122, 0.15) 0%, rgba(193, 144, 46, 0.05) 50%, transparent 75%);
+    background: radial-gradient(circle, rgba(24, 201, 139, 0.15) 0%, rgba(24, 201, 139, 0.05) 50%, transparent 75%);
     pointer-events: none;
     z-index: 0;
     filter: blur(80px);
@@ -32,7 +32,7 @@
     transform: translate(-50%, -50%);
     width: 1000px;
     height: 700px;
-    background: radial-gradient(circle, rgba(244, 209, 122, 0.08) 0%, rgba(16, 185, 129, 0.04) 40%, transparent 70%);
+    background: radial-gradient(circle, rgba(24, 201, 139, 0.08) 0%, rgba(16, 185, 129, 0.04) 40%, transparent 70%);
     pointer-events: none;
     z-index: 0;
     filter: blur(100px);
@@ -45,7 +45,7 @@
     transform: translateX(-50%);
     width: 800px;
     height: 500px;
-    background: radial-gradient(circle, rgba(244, 209, 122, 0.12) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(24, 201, 139, 0.12) 0%, transparent 70%);
     pointer-events: none;
     z-index: 0;
     filter: blur(90px);
@@ -65,12 +65,12 @@
 .sectionDivider {
     width: 100%;
     height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(244, 209, 122, 0.25) 50%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.25) 50%, transparent 100%);
     margin: 0;
 }
 
 .goldGradient {
-    background: linear-gradient(135deg, #F4D17A 0%, #E6B042 50%, #C1902E 100%);
+    background: linear-gradient(135deg, #18C98B 0%, #E6B042 50%, #10B981 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
@@ -97,8 +97,8 @@
     gap: 6px;
     padding: 6px 14px;
     border-radius: 9999px;
-    background: rgba(244, 209, 122, 0.08);
-    border: 1px solid rgba(244, 209, 122, 0.25);
+    background: rgba(24, 201, 139, 0.08);
+    border: 1px solid rgba(24, 201, 139, 0.25);
     margin-bottom: 16px;
 
     span {
@@ -106,7 +106,7 @@
         font-weight: 800;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: #F4D17A;
+        color: #18C98B;
     }
 }
 
@@ -173,8 +173,8 @@
     padding: 6px 16px;
     border-radius: 9999px;
     background: rgba(18, 15, 10, 0.85);
-    border: 1px solid rgba(244, 209, 122, 0.35);
-    box-shadow: 0 0 20px rgba(244, 209, 122, 0.12), inset 0 0 10px rgba(244, 209, 122, 0.05);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    box-shadow: 0 0 20px rgba(24, 201, 139, 0.12), inset 0 0 10px rgba(24, 201, 139, 0.05);
     backdrop-filter: blur(12px);
 
     @include respond-to('sm') {
@@ -218,7 +218,7 @@
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.08em;
-    color: #F4D17A;
+    color: #18C98B;
 }
 
 .pillDivider {
@@ -298,7 +298,7 @@
     gap: 10px;
     padding: 16px 36px;
     border-radius: 12px;
-    background: linear-gradient(135deg, #F4D17A 0%, #E6B042 50%, #C1902E 100%);
+    background: linear-gradient(135deg, #18C98B 0%, #E6B042 50%, #10B981 100%);
     color: #040300;
     font-size: 14px;
     font-weight: 800;
@@ -306,12 +306,12 @@
     text-transform: uppercase;
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 25px rgba(244, 209, 122, 0.35);
+    box-shadow: 0 4px 25px rgba(24, 201, 139, 0.35);
     transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
 
     &:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 35px rgba(244, 209, 122, 0.55);
+        box-shadow: 0 8px 35px rgba(24, 201, 139, 0.55);
     }
 
     @include respond-to('sm') {
@@ -328,8 +328,8 @@
     padding: 15px 28px;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(244, 209, 122, 0.3);
-    color: #F4D17A;
+    border: 1px solid rgba(24, 201, 139, 0.3);
+    color: #18C98B;
     font-size: 13.5px;
     font-weight: 700;
     letter-spacing: 0.04em;
@@ -338,8 +338,8 @@
     transition: all 0.3s ease;
 
     &:hover {
-        background: rgba(244, 209, 122, 0.12);
-        border-color: #F4D17A;
+        background: rgba(24, 201, 139, 0.12);
+        border-color: #18C98B;
         transform: translateY(-2px);
     }
 
@@ -372,14 +372,14 @@
     padding: 16px;
     border-radius: 14px;
     background: rgba(14, 12, 8, 0.8);
-    border: 1px solid rgba(244, 209, 122, 0.18);
+    border: 1px solid rgba(24, 201, 139, 0.18);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(12px);
     transition: transform 0.25s ease, border-color 0.25s ease;
 
     &:hover {
         transform: translateY(-3px);
-        border-color: rgba(244, 209, 122, 0.45);
+        border-color: rgba(24, 201, 139, 0.45);
     }
 }
 
@@ -394,9 +394,9 @@
 }
 
 .iconGold {
-    background: rgba(244, 209, 122, 0.15);
-    border: 1px solid rgba(244, 209, 122, 0.35);
-    color: #F4D17A;
+    background: rgba(24, 201, 139, 0.15);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    color: #18C98B;
 }
 
 .iconAmber {
@@ -454,8 +454,8 @@
     margin: 0 auto;
     border-radius: 20px;
     background: rgba(10, 9, 6, 0.95);
-    border: 1px solid rgba(244, 209, 122, 0.3);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(244, 209, 122, 0.1);
+    border: 1px solid rgba(24, 201, 139, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(24, 201, 139, 0.1);
     backdrop-filter: blur(20px);
     overflow: hidden;
 }
@@ -467,7 +467,7 @@
     justify-content: space-between;
     padding: 14px 22px;
     background: rgba(18, 15, 10, 0.98);
-    border-bottom: 1px solid rgba(244, 209, 122, 0.2);
+    border-bottom: 1px solid rgba(24, 201, 139, 0.2);
     gap: 14px;
 
     @include respond-to('tab') {
@@ -506,7 +506,7 @@
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.08em;
-    color: #F4D17A;
+    color: #18C98B;
     text-transform: uppercase;
 }
 
@@ -543,16 +543,16 @@
     transition: all 0.2s ease;
 
     &:hover {
-        background: rgba(244, 209, 122, 0.12);
-        color: #F4D17A;
+        background: rgba(24, 201, 139, 0.12);
+        color: #18C98B;
     }
 }
 
 .stratBtnActive {
-    background: rgba(244, 209, 122, 0.2) !important;
-    border-color: rgba(244, 209, 122, 0.6) !important;
-    color: #F4D17A !important;
-    box-shadow: 0 0 10px rgba(244, 209, 122, 0.15);
+    background: rgba(24, 201, 139, 0.2) !important;
+    border-color: rgba(24, 201, 139, 0.6) !important;
+    color: #18C98B !important;
+    box-shadow: 0 0 10px rgba(24, 201, 139, 0.15);
 }
 
 .telemetryStatus {
@@ -592,13 +592,13 @@
     transition: background 0.2s ease;
 
     &:hover {
-        background: rgba(244, 209, 122, 0.06);
+        background: rgba(24, 201, 139, 0.06);
     }
 }
 
 .pairTabBtnActive {
-    background: rgba(244, 209, 122, 0.12) !important;
-    border-bottom: 2px solid #F4D17A !important;
+    background: rgba(24, 201, 139, 0.12) !important;
+    border-bottom: 2px solid #18C98B !important;
 }
 
 .pairTabTop {
@@ -664,20 +664,20 @@
 /* Left Column: 100-Point Score Dial Card */
 .scoreDialCol {
     padding: 24px;
-    border-right: 1px solid rgba(244, 209, 122, 0.15);
+    border-right: 1px solid rgba(24, 201, 139, 0.15);
     display: flex;
     flex-direction: column;
 
     @include respond-to('md') {
         border-right: none;
-        border-bottom: 1px solid rgba(244, 209, 122, 0.15);
+        border-bottom: 1px solid rgba(24, 201, 139, 0.15);
         padding: 20px;
     }
 }
 
 .dialCard {
     background: rgba(14, 12, 8, 0.85);
-    border: 1px solid rgba(244, 209, 122, 0.2);
+    border: 1px solid rgba(24, 201, 139, 0.2);
     border-radius: 16px;
     padding: 22px;
     height: 100%;
@@ -698,7 +698,7 @@
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 0.08em;
-    color: #F4D17A;
+    color: #18C98B;
     display: block;
     margin-bottom: 2px;
 }
@@ -729,7 +729,7 @@
 .priceValue {
     font-size: 17px;
     font-weight: 900;
-    color: #F4D17A;
+    color: #18C98B;
 }
 
 /* Meter Container */
@@ -857,7 +857,7 @@
     color: #9CA3AF;
 
     strong {
-        color: #F4D17A;
+        color: #18C98B;
     }
 }
 
@@ -932,19 +932,19 @@
     width: 36px;
     height: 36px;
     border-radius: 8px;
-    background: rgba(244, 209, 122, 0.15);
-    border: 1px solid rgba(244, 209, 122, 0.35);
+    background: rgba(24, 201, 139, 0.15);
+    border: 1px solid rgba(24, 201, 139, 0.35);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #F4D17A;
+    color: #18C98B;
 }
 
 .pillarHeaderTag {
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 0.08em;
-    color: #F4D17A;
+    color: #18C98B;
     display: block;
 }
 
@@ -969,9 +969,9 @@
     transition: all 0.2s ease;
 
     &:hover {
-        background: rgba(244, 209, 122, 0.15);
-        border-color: rgba(244, 209, 122, 0.4);
-        color: #F4D17A;
+        background: rgba(24, 201, 139, 0.15);
+        border-color: rgba(24, 201, 139, 0.4);
+        color: #18C98B;
     }
 }
 
@@ -986,7 +986,7 @@
     padding: 12px 16px;
     border-radius: 10px;
     background: rgba(18, 15, 10, 0.8);
-    border: 1px solid rgba(244, 209, 122, 0.15);
+    border: 1px solid rgba(24, 201, 139, 0.15);
 }
 
 .pillarItemTop {
@@ -1011,7 +1011,7 @@
 .pillarScoreNum {
     font-size: 12.5px;
     font-weight: 800;
-    color: #F4D17A;
+    color: #18C98B;
 }
 
 .pillarProgressBar {
@@ -1025,7 +1025,7 @@
 
 .pillarProgressFill {
     height: 100%;
-    background: linear-gradient(90deg, #F4D17A 0%, #10B981 100%);
+    background: linear-gradient(90deg, #18C98B 0%, #10B981 100%);
     transition: width 0.4s ease;
 }
 
@@ -1049,7 +1049,7 @@
         font-size: 10.5px;
         font-weight: 800;
         letter-spacing: 0.06em;
-        color: #F4D17A;
+        color: #18C98B;
         margin-bottom: 4px;
     }
 
@@ -1068,7 +1068,7 @@
     gap: 8px;
     padding: 12px;
     border-radius: 10px;
-    background: linear-gradient(135deg, #F4D17A 0%, #E6B042 100%);
+    background: linear-gradient(135deg, #18C98B 0%, #E6B042 100%);
     color: #040300;
     font-size: 13px;
     font-weight: 800;
@@ -1121,15 +1121,15 @@
     padding: 28px 24px;
     border-radius: 18px;
     background: rgba(14, 12, 8, 0.85);
-    border: 1px solid rgba(244, 209, 122, 0.16);
+    border: 1px solid rgba(24, 201, 139, 0.16);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(16px);
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
 
     &:hover {
-        border-color: rgba(244, 209, 122, 0.5);
-        box-shadow: 0 14px 40px rgba(244, 209, 122, 0.15);
+        border-color: rgba(24, 201, 139, 0.5);
+        box-shadow: 0 14px 40px rgba(24, 201, 139, 0.15);
 
         .cardGlowHover {
             opacity: 1;
@@ -1143,7 +1143,7 @@
     right: -50px;
     width: 140px;
     height: 140px;
-    background: radial-gradient(circle, rgba(244, 209, 122, 0.2) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(24, 201, 139, 0.2) 0%, transparent 70%);
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
@@ -1160,18 +1160,18 @@
     width: 48px;
     height: 48px;
     border-radius: 12px;
-    background: rgba(244, 209, 122, 0.12);
-    border: 1px solid rgba(244, 209, 122, 0.28);
+    background: rgba(24, 201, 139, 0.12);
+    border: 1px solid rgba(24, 201, 139, 0.28);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #F4D17A;
+    color: #18C98B;
 }
 
 .featureNum {
     font-size: 14px;
     font-weight: 900;
-    color: rgba(244, 209, 122, 0.4);
+    color: rgba(24, 201, 139, 0.4);
     letter-spacing: 0.05em;
 }
 
@@ -1220,7 +1220,7 @@
     .statVal {
         font-size: 13px;
         font-weight: 800;
-        color: #F4D17A;
+        color: #18C98B;
     }
 }
 
@@ -1246,7 +1246,7 @@
     margin: 0 auto;
     border-radius: 20px;
     background: rgba(12, 10, 6, 0.9);
-    border: 1px solid rgba(244, 209, 122, 0.25);
+    border: 1px solid rgba(24, 201, 139, 0.25);
     box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
     overflow: hidden;
 }
@@ -1263,7 +1263,7 @@
 
     thead {
         background: rgba(22, 18, 12, 0.98);
-        border-bottom: 1px solid rgba(244, 209, 122, 0.25);
+        border-bottom: 1px solid rgba(24, 201, 139, 0.25);
 
         th {
             padding: 18px 22px;
@@ -1284,7 +1284,7 @@
 
         .thAiEngine {
             width: 34%;
-            background: rgba(244, 209, 122, 0.08);
+            background: rgba(24, 201, 139, 0.08);
         }
     }
 
@@ -1303,7 +1303,7 @@
         }
 
         .rowHighlight {
-            background: rgba(244, 209, 122, 0.02);
+            background: rgba(24, 201, 139, 0.02);
         }
 
         td {
@@ -1377,9 +1377,9 @@
         }
 
         .tdAiEngine {
-            background: rgba(244, 209, 122, 0.04);
-            border-left: 1px solid rgba(244, 209, 122, 0.15);
-            border-right: 1px solid rgba(244, 209, 122, 0.15);
+            background: rgba(24, 201, 139, 0.04);
+            border-left: 1px solid rgba(24, 201, 139, 0.15);
+            border-right: 1px solid rgba(24, 201, 139, 0.15);
         }
 
         .aiEngineTextWrap {
@@ -1389,7 +1389,7 @@
         }
 
         .aiEngineText {
-            color: #F4D17A;
+            color: #18C98B;
             font-weight: 700;
         }
     }
@@ -1399,7 +1399,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: #F4D17A !important;
+    color: #18C98B !important;
     font-weight: 800;
 }
 
@@ -1429,17 +1429,17 @@
 .faqItem {
     border-radius: 14px;
     background: rgba(14, 12, 8, 0.85);
-    border: 1px solid rgba(244, 209, 122, 0.18);
+    border: 1px solid rgba(24, 201, 139, 0.18);
     overflow: hidden;
     transition: border-color 0.25s ease, background 0.25s ease;
 
     &:hover {
-        border-color: rgba(244, 209, 122, 0.4);
+        border-color: rgba(24, 201, 139, 0.4);
     }
 }
 
 .faqItemOpen {
-    border-color: #F4D17A !important;
+    border-color: #18C98B !important;
     background: rgba(20, 17, 11, 0.95) !important;
 }
 
@@ -1463,7 +1463,7 @@
 .qIcon {
     font-size: 14px;
     font-weight: 900;
-    color: #F4D17A;
+    color: #18C98B;
     flex-shrink: 0;
 }
 
@@ -1479,7 +1479,7 @@
 }
 
 .faqToggleIcon {
-    color: #F4D17A;
+    color: #18C98B;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1537,8 +1537,8 @@
     padding: 65px 40px;
     text-align: center;
     background: linear-gradient(135deg, rgba(22, 18, 11, 0.95), rgba(12, 10, 6, 0.98));
-    border: 1px solid rgba(244, 209, 122, 0.35);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(244, 209, 122, 0.15);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(24, 201, 139, 0.15);
     overflow: hidden;
 
     @include respond-to('sm') {
@@ -1554,7 +1554,7 @@
     transform: translate(-50%, -50%);
     width: 600px;
     height: 400px;
-    background: radial-gradient(circle, rgba(244, 209, 122, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(24, 201, 139, 0.15) 0%, transparent 70%);
     pointer-events: none;
     z-index: 0;
     filter: blur(60px);
@@ -1565,8 +1565,8 @@
     align-items: center;
     padding: 5px 14px;
     border-radius: 9999px;
-    background: rgba(244, 209, 122, 0.12);
-    border: 1px solid rgba(244, 209, 122, 0.3);
+    background: rgba(24, 201, 139, 0.12);
+    border: 1px solid rgba(24, 201, 139, 0.3);
     margin-bottom: 20px;
     position: relative;
     z-index: 1;
@@ -1575,7 +1575,7 @@
         font-size: 11px;
         font-weight: 800;
         letter-spacing: 0.1em;
-        color: #F4D17A;
+        color: #18C98B;
         text-transform: uppercase;
     }
 }
@@ -1635,7 +1635,7 @@
     gap: 10px;
     padding: 16px 36px;
     border-radius: 12px;
-    background: linear-gradient(135deg, #F4D17A 0%, #E6B042 50%, #C1902E 100%);
+    background: linear-gradient(135deg, #18C98B 0%, #E6B042 50%, #10B981 100%);
     color: #040300;
     font-size: 14px;
     font-weight: 800;
@@ -1643,12 +1643,12 @@
     text-transform: uppercase;
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 25px rgba(244, 209, 122, 0.35);
+    box-shadow: 0 4px 25px rgba(24, 201, 139, 0.35);
     transition: all 0.3s ease;
 
     &:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 35px rgba(244, 209, 122, 0.55);
+        box-shadow: 0 8px 35px rgba(24, 201, 139, 0.55);
     }
 
     @include respond-to('sm') {
@@ -1664,8 +1664,8 @@
     padding: 15px 28px;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(244, 209, 122, 0.3);
-    color: #F4D17A;
+    border: 1px solid rgba(24, 201, 139, 0.3);
+    color: #18C98B;
     font-size: 13.5px;
     font-weight: 700;
     letter-spacing: 0.04em;
@@ -1673,8 +1673,8 @@
     transition: all 0.3s ease;
 
     &:hover {
-        background: rgba(244, 209, 122, 0.12);
-        border-color: #F4D17A;
+        background: rgba(24, 201, 139, 0.12);
+        border-color: #18C98B;
         transform: translateY(-2px);
     }
 

@@ -356,7 +356,7 @@ export default function VisionAnalysisAccordions({ chartSections, textSummary, i
                         {/* Fair Value Gaps */}
                         {fvgs.length > 0 && (
                             <div className={styles.visionLevelsGroup}>
-                                <h5 className={styles.visionGroupTitleGreen} style={{ color: '#F4D17A', display: 'flex', alignItems: 'center', gap: 6 }}>
+                                <h5 className={styles.visionGroupTitleGreen} style={{ color: '#18C98B', display: 'flex', alignItems: 'center', gap: 6 }}>
                                     <ZonesIcon size={14} /> Fair Value Gaps (FVG)
                                 </h5>
                                 <div className={styles.visionCardsCol}>
@@ -407,8 +407,8 @@ export default function VisionAnalysisAccordions({ chartSections, textSummary, i
                             </div>
                         )}
                         {target.level_range && (
-                            <div className={styles.visionActionCardGreen} style={{ borderColor: 'rgba(193, 144, 46, 0.4)', background: 'rgba(244, 209, 122, 0.08)' }}>
-                                <h5 className={styles.visionActionTitleGreen} style={{ color: '#F4D17A' }}>Target Zone: {target.level_range}</h5>
+                            <div className={styles.visionActionCardGreen} style={{ borderColor: 'rgba(24, 201, 139, 0.4)', background: 'rgba(24, 201, 139, 0.08)' }}>
+                                <h5 className={styles.visionActionTitleGreen} style={{ color: '#18C98B' }}>Target Zone: {target.level_range}</h5>
                                 {target.target_type && (
                                     <p className={styles.visionActionText}><strong>Target Type:</strong> {target.target_type}</p>
                                 )}
@@ -448,17 +448,17 @@ export default function VisionAnalysisAccordions({ chartSections, textSummary, i
                 return (
                     <div className={styles.visionSectionDetails}>
                         {sectionData.opening_phase && (
-                            <div className={styles.visionLevelCardGreen} style={{ borderColor: 'rgba(193, 144, 46, 0.25)', background: 'rgba(13, 14, 19, 0.6)' }}>
+                            <div className={styles.visionLevelCardGreen} style={{ borderColor: 'rgba(24, 201, 139, 0.25)', background: 'rgba(13, 14, 19, 0.6)' }}>
                                 <p className={styles.visionLevelInfo}><strong>Opening Phase:</strong> {sectionData.opening_phase}</p>
                             </div>
                         )}
                         {sectionData.mid_session && (
-                            <div className={styles.visionLevelCardGreen} style={{ borderColor: 'rgba(193, 144, 46, 0.25)', background: 'rgba(13, 14, 19, 0.6)' }}>
+                            <div className={styles.visionLevelCardGreen} style={{ borderColor: 'rgba(24, 201, 139, 0.25)', background: 'rgba(13, 14, 19, 0.6)' }}>
                                 <p className={styles.visionLevelInfo}><strong>Mid Session:</strong> {sectionData.mid_session}</p>
                             </div>
                         )}
                         {sectionData.late_session && (
-                            <div className={styles.visionLevelCardGreen} style={{ borderColor: 'rgba(193, 144, 46, 0.25)', background: 'rgba(13, 14, 19, 0.6)' }}>
+                            <div className={styles.visionLevelCardGreen} style={{ borderColor: 'rgba(24, 201, 139, 0.25)', background: 'rgba(13, 14, 19, 0.6)' }}>
                                 <p className={styles.visionLevelInfo}><strong>Late Session:</strong> {sectionData.late_session}</p>
                             </div>
                         )}
@@ -497,7 +497,7 @@ export default function VisionAnalysisAccordions({ chartSections, textSummary, i
                     <div className={styles.visionSectionDetails}>
                         <div className={styles.visionCardsCol}>
                             {candles.map((c, idx) => (
-                                <div key={idx} className={styles.visionLevelCardGreen} style={{ borderColor: 'rgba(193, 144, 46, 0.25)', background: 'rgba(13, 14, 19, 0.6)' }}>
+                                <div key={idx} className={styles.visionLevelCardGreen} style={{ borderColor: 'rgba(24, 201, 139, 0.25)', background: 'rgba(13, 14, 19, 0.6)' }}>
                                     <div className={styles.visionBadgesRow}>
                                         <Badge text={c.observation || `Candle Pattern #${idx + 1}`} color="blue" />
                                         {c.location_context && <Badge text={c.location_context} color="slate" />}
@@ -522,7 +522,7 @@ export default function VisionAnalysisAccordions({ chartSections, textSummary, i
                     <div className={styles.visionSectionDetails}>
                         <div className={styles.visionCardsCol}>
                             {patterns.map((p, idx) => (
-                                <div key={idx} className={styles.visionLevelCardGreen} style={{ borderColor: 'rgba(193, 144, 46, 0.25)', background: 'rgba(13, 14, 19, 0.6)' }}>
+                                <div key={idx} className={styles.visionLevelCardGreen} style={{ borderColor: 'rgba(24, 201, 139, 0.25)', background: 'rgba(13, 14, 19, 0.6)' }}>
                                     <div className={styles.visionBadgesRow}>
                                         <Badge text={p.structure_description || `Pattern #${idx + 1}`} color="amber" />
                                     </div>

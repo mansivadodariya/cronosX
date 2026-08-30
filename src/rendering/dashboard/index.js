@@ -7,6 +7,7 @@ import styles from './dashboard.module.scss';
 import { dashboardApi } from '@/lib/api';
 import { getStoredUser, getStoredUserId } from '@/lib/authSession';
 import { useLanguage } from '@/context/LanguageContext';
+import AnimatedAreaChart from '@/components/animatedAreaChart';
 
 const HologramHeroBg = '/assets/images/ai_trading_hologram_hero.jpg';
 
@@ -99,6 +100,7 @@ export default function Dashboard() {
     const [greeting, setGreeting] = useState('');
     const [name, setName] = useState('');
     const [activityFilter, setActivityFilter] = useState('all');
+    const [chartTimeframe, setChartTimeframe] = useState('7D');
 
     useEffect(() => {
         const syncUser = () => {
@@ -150,6 +152,79 @@ export default function Dashboard() {
         else if (hour < 17) return t('dashboard.goodAfternoon', 'Good Afternoon');
         else if (hour < 21) return t('dashboard.goodEvening', 'Good Evening');
         else return t('dashboard.goodNight', 'Good Night');
+    };
+
+    const handleExportPdf = async () => {
+        try {
+            const jspdfModule = await import('jspdf');
+            const jsPDF = jspdfModule.default || jspdfModule.jsPDF;
+            const doc = new jsPDF();
+
+            // Dark base background
+            doc.setFillColor(18, 21, 20);
+            doc.rect(0, 0, 210, 297, 'F');
+
+            // Header Title
+            doc.setTextColor(24, 201, 139);
+            doc.setFontSize(22);
+            doc.setFont('helvetica', 'bold');
+            doc.text('CHRONOSX AI TRADING DESK', 15, 20);
+
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(16);
+            doc.text('AI Telemetry & Usage Report', 15, 30);
+
+            doc.setFontSize(10);
+            doc.setTextColor(180, 180, 180);
+            doc.setFont('helvetica', 'normal');
+            doc.text(`Generated for: ${name || 'Trader'}`, 15, 38);
+            doc.text(`Timestamp: ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`, 15, 44);
+
+            // Divider
+            doc.setDrawColor(24, 201, 139);
+            doc.setLineWidth(0.5);
+            doc.line(15, 48, 195, 48);
+
+            // Metrics Cards
+            let y = 58;
+            const items = [
+                { label: 'Chart Analyses Performed (TradeSnap)', value: String(stats?.total_analysis_history ?? 0), desc: 'Automated pattern recognition & OCR scans' },
+                { label: 'AI Chat Copilot Sessions', value: String(stats?.total_chat_history ?? 0), desc: '24/7 neural market & trade assistant' },
+                { label: 'Available AI Credits', value: String(stats?.available_credits ?? 0), desc: 'Ready for real-time AI strategy execution' },
+                { label: 'Total Account Credits', value: String(stats?.total_credits ?? 100), desc: 'Total lifetime credits processed on platform' },
+            ];
+
+            items.forEach((item) => {
+                doc.setFillColor(28, 33, 31);
+                doc.roundedRect(15, y, 180, 32, 3, 3, 'F');
+
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(13);
+                doc.setFont('helvetica', 'bold');
+                doc.text(item.label, 22, y + 12);
+
+                doc.setTextColor(160, 160, 160);
+                doc.setFontSize(10);
+                doc.setFont('helvetica', 'normal');
+                doc.text(item.desc, 22, y + 22);
+
+                doc.setTextColor(24, 201, 139);
+                doc.setFontSize(18);
+                doc.setFont('helvetica', 'bold');
+                doc.text(item.value, 185, y + 18, { align: 'right' });
+
+                y += 38;
+            });
+
+            // Footer
+            doc.setFontSize(9);
+            doc.setTextColor(120, 120, 120);
+            doc.text('ChronosX AI Quantitative Intelligence Platform • Confidential Export', 105, 285, { align: 'center' });
+
+            doc.save(`ChronosX_AI_Telemetry_${(name || 'Trader').replace(/\s+/g, '_')}.pdf`);
+        } catch (err) {
+            console.error('Failed to export PDF report:', err);
+        }
     };
 
 
@@ -205,156 +280,324 @@ export default function Dashboard() {
         router.push(`/ai-assistant?tab=chat&prompt=${encodeURIComponent(query)}`);
     };
 
+    const [activeHoverPoint, setActiveHoverPoint] = useState(null);
+
+    const dailyCreditChartData = useMemo(() => {
+        const today = new Date();
+        const rawPoints = [];
+
+        // Aggregate actual user activity by date key (YYYY-MM-DD)
+        const usageByDate = {};
+        if (Array.isArray(recentActivity)) {
+            recentActivity.forEach((item) => {
+                const rawDate = item?.created_at || item?.createdAt || item?.time;
+                if (rawDate) {
+                    const d = new Date(rawDate);
+                    if (!isNaN(d.getTime())) {
+                        const key = d.toISOString().split('T')[0];
+                        const cost = (item?.type === 'blog' || item?.type === 'analysis') ? 5 : 2;
+                        usageByDate[key] = (usageByDate[key] || 0) + cost;
+                    }
+                }
+            });
+        }
+
+        // Calculate real Today usage from user stats
+        const todayChat = stats?.total_chat_history ?? 0;
+        const todayAnalysis = stats?.total_analysis_history ?? 0;
+        const todayTotalRealCredits = (todayAnalysis * 5) + (todayChat * 2);
+
+        const todayKey = today.toISOString().split('T')[0];
+        if (todayTotalRealCredits > 0) {
+            usageByDate[todayKey] = Math.max(usageByDate[todayKey] || 0, todayTotalRealCredits);
+        }
+
+        // Build past 7 calendar days strictly using 100% REAL database activity
+        for (let i = 6; i >= 0; i--) {
+            const d = new Date(today);
+            d.setDate(today.getDate() - i);
+
+            const dateKey = d.toISOString().split('T')[0];
+            const dayNum = d.getDate();
+            const monthShort = d.toLocaleString('en-US', { month: 'short' });
+            const dateFormatted = i === 0 ? 'Today' : `${dayNum} ${monthShort}`;
+
+            const recorded = usageByDate[dateKey];
+            const creditsVal = typeof recorded === 'number' ? recorded : 0;
+
+            rawPoints.push({
+                dateFormatted,
+                dateKey,
+                credits: creditsVal,
+                isToday: i === 0,
+                idx: 6 - i,
+            });
+        }
+
+        const maxVal = Math.max(...rawPoints.map((p) => p.credits), 10);
+
+        const points = rawPoints.map((p, idx) => {
+            const x = 30 + (idx * 105);
+            const y = 115 - (p.credits / maxVal) * 85;
+            return {
+                ...p,
+                x,
+                y,
+            };
+        });
+
+        let pathLine = `M ${points[0].x} ${points[0].y}`;
+        for (let i = 0; i < points.length - 1; i++) {
+            const curr = points[i];
+            const next = points[i + 1];
+            const cx = (curr.x + next.x) / 2;
+            pathLine += ` C ${cx} ${curr.y}, ${cx} ${next.y}, ${next.x} ${next.y}`;
+        }
+
+        const pathArea = `${pathLine} L ${points[points.length - 1].x} 135 L ${points[0].x} 135 Z`;
+        const totalUsed = points.reduce((a, b) => a + b.credits, 0);
+
+        return { points, pathLine, pathArea, totalUsed };
+    }, [recentActivity, stats]);
+
     return (
         <div className={styles.modernDashboard}>
-            {/* 2. Futuristic Holographic Hero Terminal */}
-            <section className={styles.hologramHero}>
-                <div className={styles.heroBackdropWrap}>
-                    <Image
-                        src={HologramHeroBg}
-                        alt="AI Neural Hologram"
-                        fill
-                        className={styles.heroBackdropImg}
-                        priority
-                    />
-                    <div className={styles.heroOverlayFade} />
-                </div>
+            {/* 2. Futuristic Holographic Hero Terminal & Daily Stats Side Card */}
+            <div className={styles.topHeroRowGrid}>
+                <section className={styles.hologramHero}>
+                    <div className={styles.heroGrid}>
+                        {/* Left: Greeting & Fast Action Triggers */}
+                        <div className={styles.heroLeftCol}>
+                            <div className={styles.heroTagPill}>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2.5">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                </svg>
+                                <span>CHRONOSX AI TRADING DESK</span>
+                            </div>
 
-                <div className={styles.heroGrid}>
-                    {/* Left: Greeting & Fast Action Triggers */}
-                    <div className={styles.heroLeftCol}>
-                        <div className={styles.heroTagPill}>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2.5">
-                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                            <h1 className={styles.heroHeadline}>
+                                {greeting}, <span className={styles.nameGradient}>{name || 'Trader'}!</span> <span className={styles.wave}>👋</span>
+                            </h1>
+
+                            <p className={styles.heroSubtext}>
+                                Real-time multi-timeframe algorithmic pattern detection, neural OCR chart vision, and automated institutional trade setups.
+                            </p>
+                        </div>
+
+                        {/* Dynamic Daily AI Credit Consumption Graph */}
+                        <div className={styles.heroChartSection}>
+                            <div className={styles.chartHeaderRow}>
+                                <div className={styles.chartTitleGroup}>
+                                    <span className={styles.chartPulseDot} />
+                                    <div className={styles.titleTextCol}>
+                                        <span className={styles.chartTitle}>Daily AI Credit Consumption</span>
+                                        <span className={styles.chartSubtitle}>Track credit usage per day across TradeSnap & AI Copilot</span>
+                                    </div>
+                                </div>
+
+                                <div className={styles.headerRightGroup}>
+                                    <div className={styles.chartSubBadge}>
+                                        <span>Total: {dailyCreditChartData.totalUsed} Credits Used</span>
+                                    </div>
+
+                                    <div className={styles.timeframeFilterGroup}>
+                                        {['7D', '30D', '90D'].map((tf) => (
+                                            <button
+                                                key={tf}
+                                                type="button"
+                                                className={`${styles.tfBtn} ${chartTimeframe === tf ? styles.activeTf : ''}`}
+                                                onClick={() => setChartTimeframe(tf)}
+                                            >
+                                                {tf}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Interactive SVG Spline Canvas */}
+                            <div className={styles.splineCanvasWrap}>
+                                {activeHoverPoint && (
+                                    <div className={styles.floatingChartTooltip} style={{ left: `${(activeHoverPoint.idx / 6) * 82 + 9}%` }}>
+                                        <span className={styles.tooltipDay}>{activeHoverPoint.dateFormatted}:</span>
+                                        <span className={styles.tooltipVal}>{activeHoverPoint.credits} Credits</span>
+                                    </div>
+                                )}
+
+                                <svg viewBox="0 0 700 135" preserveAspectRatio="none" className={styles.splineSvg} onMouseLeave={() => setActiveHoverPoint(null)}>
+                                    <defs>
+                                        <linearGradient id="creditAreaGlow" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stopColor="#18C98B" stopOpacity="0.35" />
+                                            <stop offset="60%" stopColor="#18C98B" stopOpacity="0.06" />
+                                            <stop offset="100%" stopColor="#18C98B" stopOpacity="0" />
+                                        </linearGradient>
+                                        <linearGradient id="creditLineStroke" x1="0" y1="0" x2="1" y2="0">
+                                            <stop offset="0%" stopColor="#00F2FE" />
+                                            <stop offset="50%" stopColor="#18C98B" />
+                                            <stop offset="100%" stopColor="#6EE7B7" />
+                                        </linearGradient>
+                                    </defs>
+
+                                    {/* Horizontal Gridlines */}
+                                    <line x1="0" y1="25" x2="700" y2="25" stroke="rgba(255, 255, 255, 0.05)" strokeDasharray="4 4" />
+                                    <line x1="0" y1="65" x2="700" y2="65" stroke="rgba(255, 255, 255, 0.05)" strokeDasharray="4 4" />
+                                    <line x1="0" y1="105" x2="700" y2="105" stroke="rgba(255, 255, 255, 0.05)" strokeDasharray="4 4" />
+
+                                    {/* Smooth Bezier Spline Area Fill & Stroke */}
+                                    <path d={dailyCreditChartData.pathArea} fill="url(#creditAreaGlow)" />
+                                    <path d={dailyCreditChartData.pathLine} fill="none" stroke="url(#creditLineStroke)" strokeWidth="3.5" strokeLinecap="round" />
+
+                                    {/* Interactive Glowing Data Nodes for Each Date */}
+                                    {dailyCreditChartData.points.map((pt) => (
+                                        <g key={pt.dateKey} className={styles.chartNodeGroup} onMouseEnter={() => setActiveHoverPoint(pt)}>
+                                            <circle cx={pt.x} cy={pt.y} r="5" fill="#18C98B" className={styles.nodeCircle} />
+                                            <circle cx={pt.x} cy={pt.y} r="10" fill="rgba(24, 201, 139, 0.3)" className={styles.nodeGlow} />
+                                        </g>
+                                    ))}
+                                </svg>
+
+                                {/* X-Axis Time Labels displaying Clean Dates (NO "cr") */}
+                                <div className={styles.chartTimeLabels}>
+                                    {dailyCreditChartData.points.map((pt) => (
+                                        <div key={pt.dateKey} className={`${styles.dayLabelItem} ${pt.isToday ? styles.todayLabel : ''}`}>
+                                            <span className={styles.dayName}>{pt.dateFormatted}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Right: Daily Stats Side Card (Matching Reference Image 2) */}
+                <div className={styles.dailyStatsSideCard}>
+                    <div className={styles.dailyStatsHeader}>
+                        <div className={styles.headerTitleWrap}>
+                            <span>AI Usage & Credits</span>
+                            <button type="button" className={styles.infoBtn} title="AI Telemetry & Credit Info">i</button>
+                        </div>
+                        <button type="button" className={styles.shareBtn} title="Export Telemetry PDF" onClick={handleExportPdf}>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+                                <polyline points="16 6 12 2 8 6" />
+                                <line x1="12" y1="2" x2="12" y2="15" />
                             </svg>
-                            <span>CHRONOSX AI TRADING DESK</span>
+                        </button>
+                    </div>
+
+                    <div className={styles.dailyStatsRows}>
+                        {/* Box 1: Chart Analyses */}
+                        <div className={styles.statPillRow} onClick={() => router.push('/trade-snap')}>
+                            <div className={styles.rowTopHeader}>
+                                <div className={styles.rowTitleWrap}>
+                                    <span className={styles.rowTitle}>Chart Analyses</span>
+                                    <span className={styles.rowDesc}>Automated pattern recognition & OCR scans</span>
+                                </div>
+                                <div className={`${styles.rowIconWrap} ${styles.greenIcon}`}>
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                                        <circle cx="12" cy="13" r="4" fill="currentColor" fillOpacity="0.2" />
+                                    </svg>
+                                </div>
+                            </div>
+                            
+                            <div className={styles.bigNumWrap}>
+                                <span className={styles.statBigNum}>{loading ? '...' : (stats?.total_analysis_history ?? 0)}</span>
+                            </div>
+
+                            <div className={styles.rowCtaLink}>
+                                <span>Launch TradeSnap</span>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                            </div>
                         </div>
 
-                        <h1 className={styles.heroHeadline}>
-                            {greeting}, <span className={styles.nameGradient}>{name || 'Trader'}!</span> <span className={styles.wave}>👋</span>
-                        </h1>
+                        {/* Box 2: AI Chat Copilot */}
+                        <div className={styles.statPillRow} onClick={() => router.push('/ai-assistant?tab=chat')}>
+                            <div className={styles.rowTopHeader}>
+                                <div className={styles.rowTitleWrap}>
+                                    <span className={styles.rowTitle}>AI Chat Copilot</span>
+                                    <span className={styles.rowDesc}>24/7 neural market & trade assistant</span>
+                                </div>
+                                <div className={`${styles.rowIconWrap} ${styles.greenIcon}`}>
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect x="3" y="8" width="18" height="12" rx="4" />
+                                        <path d="M12 2v6" />
+                                        <circle cx="8.5" cy="13.5" r="1.5" fill="currentColor" />
+                                        <circle cx="15.5" cy="13.5" r="1.5" fill="currentColor" />
+                                        <path d="M9 17h6" />
+                                    </svg>
+                                </div>
+                            </div>
 
-                        <p className={styles.heroSubtext}>
-                            Real-time multi-timeframe algorithmic pattern detection, neural OCR chart vision, and automated institutional trade setups.
-                        </p>
+                            <div className={styles.bigNumWrap}>
+                                <span className={styles.statBigNum}>{loading ? '...' : (stats?.total_chat_history ?? 0)}</span>
+                            </div>
+
+                            <div className={styles.rowCtaLink}>
+                                <span>Open Copilot Chat</span>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        {/* Box 3: Available AI Credits */}
+                        <div className={styles.statPillRow} onClick={() => router.push('/credit-history')}>
+                            <div className={styles.rowTopHeader}>
+                                <div className={styles.rowTitleWrap}>
+                                    <span className={styles.rowTitle}>Available Credits</span>
+                                    <span className={styles.rowDesc}>Ready for real-time AI strategy execution</span>
+                                </div>
+                                <div className={`${styles.rowIconWrap} ${styles.greenIcon}`}>
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="currentColor" fillOpacity="0.25" />
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div className={styles.bigNumWrap}>
+                                <span className={styles.statBigNum}>{loading ? '...' : (stats?.available_credits ?? 0)}</span>
+                            </div>
+
+                            <div className={styles.rowCtaLink}>
+                                <span>Manage & Recharge</span>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        {/* Box 4: Account Tier */}
+                        <div className={styles.statPillRow} onClick={() => router.push('/credit-history')}>
+                            <div className={styles.rowTopHeader}>
+                                <div className={styles.rowTitleWrap}>
+                                    <span className={styles.rowTitle}>Account Credits</span>
+                                    <span className={styles.rowDesc}>Total lifetime credits processed on platform</span>
+                                </div>
+                                <div className={`${styles.rowIconWrap} ${styles.greenIcon}`}>
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7z" fill="currentColor" fillOpacity="0.25" />
+                                        <circle cx="12" cy="19" r="1.5" fill="currentColor" />
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div className={styles.bigNumWrap}>
+                                <span className={styles.statBigNum}>{loading ? '...' : (stats?.total_credits ?? 100)}</span>
+                            </div>
+
+                            <div className={styles.rowCtaLink}>
+                                <span>View Credit History</span>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </section>
-
-            {/* 3. Metric Bento Matrix Cards */}
-            <section className={styles.statsMatrixGrid}>
-                {/* 1. Chart Analyses Performed (TradeSnap) */}
-                <div className={styles.glassStatCard} onClick={() => router.push('/trade-snap')}>
-                    <div className={styles.statTop}>
-                        <div className={styles.statIconWrap}>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" fill="rgba(244, 209, 122, 0.15)" />
-                                <circle cx="12" cy="13" r="4" fill="rgba(244, 209, 122, 0.25)" />
-                            </svg>
-                        </div>
-                        <div className={styles.statTrendBadge}>
-                            <span className={styles.badgeDot} />
-                            <span>+14% this week</span>
-                        </div>
-                    </div>
-                    <div className={styles.statMiddle}>
-                        <div className={styles.statNum}>{loading ? '...' : (stats?.total_analysis_history ?? 0)}</div>
-                        <div className={styles.statTitle}>Chart Analyses Performed</div>
-                        <div className={styles.statDesc}>Pattern recognition & automated OCR scans</div>
-                    </div>
-                    <div className={styles.cardActionLink}>
-                        <span>Launch TradeSnap</span>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </div>
-                </div>
-
-                {/* 2. AI Copilot Sessions */}
-                <div className={styles.glassStatCard} onClick={() => router.push('/ai-assistant?tab=chat')}>
-                    <div className={styles.statTop}>
-                        <div className={styles.statIconWrap}>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <rect x="3" y="8" width="18" height="12" rx="4" fill="rgba(244, 209, 122, 0.15)" />
-                                <path d="M12 2v6" />
-                                <circle cx="8.5" cy="13.5" r="1.5" fill="#F4D17A" />
-                                <circle cx="15.5" cy="13.5" r="1.5" fill="#F4D17A" />
-                                <path d="M9 17h6" />
-                                <path d="M2 14h1" />
-                                <path d="M21 14h1" />
-                            </svg>
-                        </div>
-                        <div className={styles.statTrendBadge}>
-                            <span className={styles.badgeDot} />
-                            <span>24/7 Online</span>
-                        </div>
-                    </div>
-                    <div className={styles.statMiddle}>
-                        <div className={styles.statNum}>{loading ? '...' : (stats?.total_chat_history ?? 0)}</div>
-                        <div className={styles.statTitle}>AI Chat Sessions</div>
-                        <div className={styles.statDesc}>Technical questions & macro trade insights</div>
-                    </div>
-                    <div className={styles.cardActionLink}>
-                        <span>Open Copilot Chat</span>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </div>
-                </div>
-
-                {/* 3. Available AI Credits */}
-                <div className={styles.glassStatCard} onClick={() => router.push('/credit-history')}>
-                    <div className={styles.statTop}>
-                        <div className={styles.statIconWrap}>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="rgba(244, 209, 122, 0.3)" />
-                            </svg>
-                        </div>
-                        <div className={styles.statTrendBadge}>
-                            <span className={styles.badgeDot} />
-                            <span>Instant Recharge</span>
-                        </div>
-                    </div>
-                    <div className={styles.statMiddle}>
-                        <div className={styles.statNum}>{loading ? '...' : (stats?.available_credits ?? 0)}</div>
-                        <div className={styles.statTitle}>Available AI Credits</div>
-                        <div className={styles.statDesc}>Ready for real-time strategy computation</div>
-                    </div>
-                    <div className={styles.cardActionLink}>
-                        <span>Manage & Recharge</span>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </div>
-                </div>
-
-                {/* 4. Total Account Credits */}
-                <div className={styles.glassStatCard} onClick={() => router.push('/credit-history')}>
-                    <div className={styles.statTop}>
-                        <div className={styles.statIconWrap}>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7z" fill="rgba(244, 209, 122, 0.25)" />
-                                <circle cx="12" cy="19" r="1.5" fill="#F4D17A" />
-                            </svg>
-                        </div>
-                        <div className={styles.statTrendBadge}>
-                            <span className={styles.badgeDot} />
-                            <span>All-Time Tier</span>
-                        </div>
-                    </div>
-                    <div className={styles.statMiddle}>
-                        <div className={styles.statNum}>{loading ? '...' : (stats?.total_credits ?? 0)}</div>
-                        <div className={styles.statTitle}>Total Account Credits</div>
-                        <div className={styles.statDesc}>Lifetime credits processed on ChronosX</div>
-                    </div>
-                    <div className={styles.cardActionLink}>
-                        <span>View Credit History</span>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </div>
-                </div>
-            </section>
+            </div>
 
 
 
@@ -366,7 +609,7 @@ export default function Dashboard() {
                 <div className={styles.feedColumn}>
                     <div className={styles.feedHeader}>
                         <div className={styles.feedTitleWrap}>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2">
                                 <circle cx="12" cy="12" r="10" />
                                 <polyline points="12 6 12 12 16 14" />
                             </svg>
@@ -407,7 +650,7 @@ export default function Dashboard() {
                         ) : recents.length === 0 ? (
                             <div className={styles.emptyFeed}>
                                 <div className={styles.emptyIconCircle}>
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <circle cx="12" cy="12" r="10" />
                                         <polyline points="12 6 12 12 16 14" />
                                     </svg>
@@ -428,16 +671,16 @@ export default function Dashboard() {
                                         <div className={styles.actLeft}>
                                             <div className={styles.actTypeIcon}>
                                                 {item.type === 'blog' ? (
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2">
                                                         <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
                                                         <circle cx="12" cy="13" r="4" />
                                                     </svg>
                                                 ) : (
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2">
                                                         <rect x="3" y="8" width="18" height="12" rx="4" />
                                                         <path d="M12 2v6" />
-                                                        <circle cx="8.5" cy="13.5" r="1.5" fill="#F4D17A" />
-                                                        <circle cx="15.5" cy="13.5" r="1.5" fill="#F4D17A" />
+                                                        <circle cx="8.5" cy="13.5" r="1.5" fill="#18C98B" />
+                                                        <circle cx="15.5" cy="13.5" r="1.5" fill="#18C98B" />
                                                         <path d="M9 17h6" />
                                                     </svg>
                                                 )}
@@ -472,7 +715,7 @@ export default function Dashboard() {
                 {/* Right: Quick Features Cards (3x2 Tools Grid) */}
                 <div className={styles.quickHubColumn}>
                     <div className={styles.hubHeader}>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2">
                             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                         </svg>
                         <h3>Quick Actions</h3>

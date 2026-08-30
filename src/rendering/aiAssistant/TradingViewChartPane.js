@@ -31,7 +31,7 @@ export const DEFAULT_INDICATOR_CONFIGS = {
     ema10: { length: 10, source: 'close', color: '#00E5FF', lineWidth: 1.5 },
     ema20: { length: 20, source: 'close', color: '#FFD600', lineWidth: 1.5 },
     ema50: { length: 50, source: 'close', color: '#AA00FF', lineWidth: 1.5 },
-    bollinger: { length: 20, stdDev: 2, source: 'close', color: 'rgba(244, 209, 122, 0.7)', lineWidth: 1 },
+    bollinger: { length: 20, stdDev: 2, source: 'close', color: 'rgba(24, 201, 139, 0.7)', lineWidth: 1 },
     pivot: { type: 'Standard', pColor: '#FFD600', rColor: '#EF5350', sColor: '#26A69A', lineWidth: 1 },
     rsi: { length: 14, overbought: 70, oversold: 30, color: '#AA00FF', lineWidth: 1.8 },
     macd: { fast: 12, slow: 26, signal: 9, macdColor: '#00E5FF', signalColor: '#FFD600', lineWidth: 1.8 },
@@ -283,7 +283,7 @@ export function getIndicatorData(candles, type, period = 20, source = 'close') {
     return calculateEMA(candles, period, source);
 }
 
-export const MA_COLOR_PALETTE = ['#FFD600', '#00E5FF', '#AA00FF', '#FF9100', '#FF1744', '#00E676', '#26A69A', '#E91E63', '#F4D17A'];
+export const MA_COLOR_PALETTE = ['#FFD600', '#00E5FF', '#AA00FF', '#FF9100', '#FF1744', '#00E676', '#26A69A', '#E91E63', '#18C98B'];
 
 function calculateBollingerBands(candles, period = 20, stdDevMult = 2, source = 'close') {
     const upper = [];
@@ -507,7 +507,7 @@ const TradingViewChartPane = forwardRef(function TradingViewChartPane(
     const [backgroundColor, setBackgroundColor] = useState(isDark ? '#08090c' : '#FFFFFF');
     const [extendedSession, setExtendedSession] = useState(false);
     const [preMarketColor, setPreMarketColor] = useState('#FF6D00');
-    const [postMarketColor, setPostMarketColor] = useState('#F4D17A');
+    const [postMarketColor, setPostMarketColor] = useState('#18C98B');
 
     // Draft Settings State (Applied ONLY when clicking Apply Settings)
     const [draftBullishColor, setDraftBullishColor] = useState('#26a69a');
@@ -515,7 +515,7 @@ const TradingViewChartPane = forwardRef(function TradingViewChartPane(
     const [draftBackgroundColor, setDraftBackgroundColor] = useState(isDark ? '#08090c' : '#FFFFFF');
     const [draftExtendedSession, setDraftExtendedSession] = useState(false);
     const [draftPreMarketColor, setDraftPreMarketColor] = useState('#FF6D00');
-    const [draftPostMarketColor, setDraftPostMarketColor] = useState('#F4D17A');
+    const [draftPostMarketColor, setDraftPostMarketColor] = useState('#18C98B');
 
     const closeAllDropdowns = () => {
         setSymbolDropdownOpen(false);
@@ -953,12 +953,12 @@ const TradingViewChartPane = forwardRef(function TradingViewChartPane(
             crosshair: {
                 mode: 1, // CrosshairMode.Normal
                 vertLine: {
-                    color: 'rgba(244, 209, 122, 0.5)',
+                    color: 'rgba(24, 201, 139, 0.5)',
                     width: 1,
                     style: 2,
                 },
                 horzLine: {
-                    color: 'rgba(244, 209, 122, 0.5)',
+                    color: 'rgba(24, 201, 139, 0.5)',
                     width: 1,
                     style: 2,
                 },
@@ -1115,14 +1115,14 @@ const TradingViewChartPane = forwardRef(function TradingViewChartPane(
                 }
                 if (chartType === 'line') {
                     seriesRef.current = chartRef.current.addSeries(LineSeries, {
-                        color: '#F4D17A',
+                        color: '#18C98B',
                         lineWidth: 2,
                     });
                 } else if (chartType === 'area') {
                     seriesRef.current = chartRef.current.addSeries(AreaSeries, {
-                        topColor: 'rgba(244, 209, 122, 0.46)',
-                        bottomColor: 'rgba(244, 209, 122, 0.0)',
-                        lineColor: '#F4D17A',
+                        topColor: 'rgba(24, 201, 139, 0.46)',
+                        bottomColor: 'rgba(24, 201, 139, 0.0)',
+                        lineColor: '#18C98B',
                         lineWidth: 2,
                     });
                 } else {

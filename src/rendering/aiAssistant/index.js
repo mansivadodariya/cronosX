@@ -1020,8 +1020,8 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                                             <defs>
                                                 <linearGradient id="badgeSparkleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                                    <stop offset="0%" stopColor="#F4D17A" />
-                                                    <stop offset="100%" stopColor="#C1902E" />
+                                                    <stop offset="0%" stopColor="#18C98B" />
+                                                    <stop offset="100%" stopColor="#10B981" />
                                                 </linearGradient>
                                             </defs>
                                             <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" fill="url(#badgeSparkleGrad)" />

@@ -18,15 +18,15 @@ import { supabase } from '@/lib/supabaseClient';
 // SVG Icons for Header & Footer
 const SkipIcon = () => (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5 4L13 12L5 20V4Z" fill="#F4D17A" />
-        <path d="M13 4L21 12L13 20V4Z" fill="#F4D17A" />
+        <path d="M5 4L13 12L5 20V4Z" fill="#18C98B" />
+        <path d="M13 4L21 12L13 20V4Z" fill="#18C98B" />
     </svg>
 );
 
 const ShieldCheckIcon = () => (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <path d="M12 22C12 22 20 18 20 12V5L12 2L4 5V12C4 18 12 22 12 22Z" stroke="#F4D17A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M9 12L11 14L15 10" stroke="#F4D17A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M12 22C12 22 20 18 20 12V5L12 2L4 5V12C4 18 12 22 12 22Z" stroke="#18C98B" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M9 12L11 14L15 10" stroke="#18C98B" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
 
@@ -171,7 +171,7 @@ export default function Onboarding() {
                 <div className={styles.ambientGlowTop} aria-hidden="true" />
                 <div className={styles.ambientGlowBottom} aria-hidden="true" />
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', zIndex: 10 }}>
-                    <div style={{ width: '40px', height: '40px', border: '3.5px solid rgba(244, 209, 122, 0.2)', borderTopColor: '#F4D17A', borderRadius: '50%', animation: 'spin 0.85s linear infinite' }} />
+                    <div style={{ width: '40px', height: '40px', border: '3.5px solid rgba(24, 201, 139, 0.2)', borderTopColor: '#18C98B', borderRadius: '50%', animation: 'spin 0.85s linear infinite' }} />
                     <p style={{ color: '#A0AEC0', fontSize: '13.5px', margin: 0, fontWeight: 600, letterSpacing: '0.3px' }}>
                         Verifying profile status...
                     </p>

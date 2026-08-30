@@ -855,7 +855,7 @@ const AnalysisSkeleton = () => (
                                     <div className={styles.purpleAiBulletsList}>
                                         {ai_summary.trend && (
                                             <div className={styles.aiBulletSection}>
-                                                <span className={styles.sectionLabel} style={{ color: '#F4D17A' }}>TREND</span>
+                                                <span className={styles.sectionLabel} style={{ color: '#18C98B' }}>TREND</span>
                                                 <p {...getBidiProps(ai_summary.trend)}>{ai_summary.trend}</p>
                                             </div>
                                         )}

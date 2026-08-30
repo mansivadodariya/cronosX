@@ -58,7 +58,7 @@ export function ToastProvider({ children }) {
                     style: {
                         background: '#0D0E15',
                         color: '#FFFFFF',
-                        border: '1px solid rgba(244, 209, 122, 0.35)',
+                        border: '1px solid rgba(24, 201, 139, 0.35)',
                         padding: '12px 20px',
                         borderRadius: '10px',
                         fontSize: '13.5px',
@@ -88,10 +88,10 @@ export function ToastProvider({ children }) {
                     loading: {
                         style: {
                             background: 'linear-gradient(135deg, #161A26 0%, #0A0D14 100%)',
-                            color: '#F4D17A',
-                            border: '1px solid rgba(244, 209, 122, 0.4)',
+                            color: '#18C98B',
+                            border: '1px solid rgba(24, 201, 139, 0.4)',
                         },
-                        iconTheme: { primary: '#F4D17A', secondary: '#0A0D14' },
+                        iconTheme: { primary: '#18C98B', secondary: '#0A0D14' },
                     },
                 }}
             />

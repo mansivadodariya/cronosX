@@ -465,14 +465,14 @@ export default function Profile() {
             {/* Top Page Header */}
             <div className={styles.pageHeader}>
                 <div className={styles.headerIconCircle}>
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                        <circle cx="12" cy="7" r="4" />
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="3" />
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
                     </svg>
                 </div>
                 <div className={styles.headerTitleMeta}>
-                    <h1>{t('profile.myProfile', 'My Profile')}</h1>
-                    <p>{t('profile.subtitle', 'Manage your personal information and account preferences')}</p>
+                    <h1>{t('profile.mySettings', 'Settings')}</h1>
+                    <p>{t('profile.settingsSubtitle', 'Manage your personal profile, security settings, and account preferences')}</p>
                 </div>
             </div>
 
@@ -510,7 +510,7 @@ export default function Profile() {
                                 <div className={styles.heroCardHeader}>
                                     <div className={styles.heroCardHeaderLeft}>
                                         <div className={styles.cardHeaderIcon}>
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                                                 <circle cx="12" cy="7" r="4" />
                                             </svg>
@@ -569,7 +569,7 @@ export default function Profile() {
                             <div className={styles.personalDetailsCard}>
                                 <div className={styles.detailsCardHeader}>
                                     <div className={styles.cardHeaderIcon}>
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                             <polyline points="14 2 14 8 20 8" />
                                             <line x1="16" y1="13" x2="8" y2="13" />
@@ -584,7 +584,7 @@ export default function Profile() {
                                         {/* Full Name */}
                                         <div className={styles.detailPillBox}>
                                             <div className={styles.pillIcon}>
-                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                                                     <circle cx="12" cy="7" r="4" />
                                                 </svg>
@@ -598,7 +598,7 @@ export default function Profile() {
                                         {/* Email Address */}
                                         <div className={styles.detailPillBox}>
                                             <div className={styles.pillIcon}>
-                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                                                     <polyline points="22,6 12,13 2,6" />
                                                 </svg>
@@ -612,7 +612,7 @@ export default function Profile() {
                                         {/* Phone Number */}
                                         <div className={styles.detailPillBox}>
                                             <div className={styles.pillIcon}>
-                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                                                 </svg>
                                             </div>
@@ -625,7 +625,7 @@ export default function Profile() {
                                         {/* Referral Code Box */}
                                         <div className={styles.detailPillBox}>
                                             <div className={styles.pillIcon}>
-                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
                                                     <circle cx="9" cy="7" r="4" />
                                                     <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
@@ -637,13 +637,13 @@ export default function Profile() {
                                                 <div className={styles.referralCodePillRow}>
                                                     <strong className={styles.pillValue}>{activeRefCode || '—'}</strong>
                                                     <button type="button" onClick={handleCopyLink} className={styles.refActionIcon} title="Copy Link">
-                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                                                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                                         </svg>
                                                     </button>
                                                     <button type="button" onClick={handleShareLink} className={styles.refActionIcon} title="Share Link">
-                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                             <circle cx="18" cy="5" r="3" />
                                                             <circle cx="6" cy="12" r="3" />
                                                             <circle cx="18" cy="19" r="3" />
@@ -870,7 +870,7 @@ export default function Profile() {
                             {/* Phone Verification - currently commented out */}
                             {/* <div className={styles.verifItem}>
                                 <div className={styles.verifLeft}>
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={form.phone_number ? "#10b981" : "#F4D17A"} strokeWidth="2">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={form.phone_number ? "#10b981" : "#18C98B"} strokeWidth="2">
                                         <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
                                         <line x1="12" y1="18" x2="12.01" y2="18" />
                                     </svg>
@@ -892,7 +892,7 @@ export default function Profile() {
                         <h4 className={styles.rightCardTitle}>{t('profile.quickActions', 'Quick Actions')}</h4>
                         <div className={styles.quickActionsGrid}>
                             <button type="button" className={styles.actionGridBtn} onClick={() => setShowPasswordModal(true)}>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2">
                                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                                     <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                                 </svg>
@@ -901,7 +901,7 @@ export default function Profile() {
 
                             {canViewPlans() && (
                                 <button type="button" className={styles.actionGridBtn} onClick={() => router.push('/plans')}>
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2">
                                         <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14v2H5v-2z" />
                                     </svg>
                                     <span>Subscription Plans</span>
@@ -909,7 +909,7 @@ export default function Profile() {
                             )}
 
                             <button type="button" className={styles.actionGridBtn} onClick={() => setActiveTab('credit_history')}>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2">
                                     <rect x="2" y="5" width="20" height="14" rx="2" />
                                     <line x1="2" y1="10" x2="22" y2="10" />
                                 </svg>
@@ -917,7 +917,7 @@ export default function Profile() {
                             </button>
 
                             <button type="button" className={styles.actionGridBtn} onClick={() => setActiveTab('activity_log')}>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2">
                                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                     <polyline points="14 2 14 8 20 8" />
                                     <line x1="16" y1="13" x2="8" y2="13" />
@@ -927,7 +927,7 @@ export default function Profile() {
                             </button>
 
                             <button type="button" className={styles.actionGridBtn} onClick={() => { setActiveTab('profile'); setIsEditing(true); }}>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2">
                                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                                 </svg>
@@ -949,7 +949,7 @@ export default function Profile() {
                     <div className={styles.securityPriorityCard}>
                         <div className={styles.securityPriorityLeft}>
                             <div className={styles.secShieldIcon}>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2">
                                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                                     <polyline points="9 12 11 14 15 10" />
                                 </svg>
@@ -959,15 +959,7 @@ export default function Profile() {
                                 <p>We use bank-level encryption to protect your data</p>
                             </div>
                         </div>
-                        <div className={styles.secShieldImgWrap}>
-                            <Image
-                                src={GoldSecurityShield}
-                                alt="Security Shield"
-                                width={48}
-                                height={48}
-                                className={styles.shieldImg}
-                            />
-                        </div>
+                       
                     </div>
                 </div>
             </div>

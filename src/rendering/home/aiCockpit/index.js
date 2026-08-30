@@ -447,7 +447,7 @@ export default function AiCockpit({ isHero = false, showHeader = true }) {
               <div className={styles.assetHeaderRow}>
                 <div className={styles.identityLeft}>
                   <div className={styles.logoGold}>
-                    <svg viewBox="0 0 24 24" width="22" height="22" fill="#FFE693">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="#A7F3D0">
                       <path d="M12 2L3 8l9 6 9-6-9-6zm0 8.3L6.1 6.5 12 2.6l5.9 3.9L12 10.3zm0 3.7l-9-6v3.2l9 6 9-6v-3.2l-9 6zm0 5l-9-6v3.2l9 6 9-6v-3.2l-9 6z"/>
                     </svg>
                   </div>

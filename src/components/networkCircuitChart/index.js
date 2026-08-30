@@ -50,6 +50,18 @@ export default function NetworkCircuitChart({ isBackground = false }) {
               <stop offset="100%" stopColor="#020806" stopOpacity="0.95" />
             </linearGradient>
 
+            <radialGradient id="glassCardBgRadial" cx="85%" cy="15%" r="85%">
+              <stop offset="0%" stopColor="#18C98B" stopOpacity="0.25" />
+              <stop offset="45%" stopColor="#0C1611" stopOpacity="0.96" />
+              <stop offset="100%" stopColor="#040605" stopOpacity="0.98" />
+            </radialGradient>
+
+            <radialGradient id="glassCardBgRadialBottom" cx="15%" cy="85%" r="85%">
+              <stop offset="0%" stopColor="#18C98B" stopOpacity="0.28" />
+              <stop offset="50%" stopColor="#0C1611" stopOpacity="0.96" />
+              <stop offset="100%" stopColor="#040605" stopOpacity="0.98" />
+            </radialGradient>
+
             {/* Left Card Bar Gradients */}
             <linearGradient id="cyanBarGrad" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stopColor="#00F2FE" />
@@ -371,8 +383,8 @@ export default function NetworkCircuitChart({ isBackground = false }) {
             {/* Card Outer Container */}
             <rect
               x="0" y="52" width="300" height="280" rx="20"
-              fill="url(#glassCardBg)"
-              stroke="#18C98B" strokeOpacity="0.35" strokeWidth="1.2"
+              fill="url(#glassCardBgRadial)"
+              stroke="rgba(255,255,255,0.08)" strokeWidth="1"
             />
 
             {/* Title & Header */}
@@ -457,8 +469,8 @@ export default function NetworkCircuitChart({ isBackground = false }) {
             {/* Card Outer Container */}
             <rect
               x="1095" y="52" width="300" height="280" rx="20"
-              fill="url(#glassCardBg)"
-              stroke="#18C98B" strokeOpacity="0.35" strokeWidth="1.2"
+              fill="url(#glassCardBgRadialBottom)"
+              stroke="rgba(255,255,255,0.08)" strokeWidth="1"
             />
 
             {/* Title & Header */}

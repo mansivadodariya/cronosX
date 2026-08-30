@@ -25,7 +25,7 @@ export default function RiskFlagsStack({ riskFlags }) {
                         ? styles.riskWarningCard
                         : styles.riskInfoCard;
 
-                    const iconColor = isDanger ? '#EF4444' : isWarning ? '#F59E0B' : '#F4D17A';
+                    const iconColor = isDanger ? '#EF4444' : isWarning ? '#F59E0B' : '#18C98B';
 
                     return (
                         <div key={index} className={`${styles.riskCard} ${cardClass}`}>

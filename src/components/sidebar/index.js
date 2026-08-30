@@ -287,7 +287,7 @@ const NavSkeleton = ({ count = 6, isCollapsed }) => {
             gap: '12px'
           }}
         >
-          <div style={{ width: '20px', height: '20px', borderRadius: '4px', backgroundColor: 'rgba(244, 209, 122, 0.1)' }} />
+          <div style={{ width: '20px', height: '20px', borderRadius: '4px', backgroundColor: 'rgba(24, 201, 139, 0.1)' }} />
           {!isCollapsed && (
             <div style={{ width: '65%', height: '14px', borderRadius: '4px', backgroundColor: 'rgba(255, 255, 255, 0.05)' }} />
           )}
@@ -584,7 +584,7 @@ const Sidebar = ({ onClose, isCollapsed = false, onToggleCollapse }) => {
                     height="14"
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke="#F4D17A"
+                    stroke="#18C98B"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"

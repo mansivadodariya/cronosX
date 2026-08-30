@@ -30,7 +30,7 @@ export const AVAILABLE_INDICATORS = [
         category: 'overlays',
         categoryLabel: 'Main Overlay',
         tag: 'BB',
-        dotColor: '#F4D17A',
+        dotColor: '#18C98B',
         searchTerms: ['bb', 'bollinger bands', 'volatility bands'],
     },
     {

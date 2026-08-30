@@ -117,7 +117,7 @@ export default function FibonacciCalculator() {
                         <h3>Fibonacci Levels Breakdown</h3>
                     </div>
 
-                    <h4 style={{ fontSize: '13px', color: '#F4D17A', margin: '0 0 8px', textTransform: 'uppercase' }}>
+                    <h4 style={{ fontSize: '13px', color: '#18C98B', margin: '0 0 8px', textTransform: 'uppercase' }}>
                         Retracement Targets
                     </h4>
                     <table className={styles.levelsTable}>

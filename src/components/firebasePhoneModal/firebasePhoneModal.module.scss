@@ -18,13 +18,13 @@
 
 .modalCard {
     background: radial-gradient(130% 100% at 50% 0%, #171510 0%, #0A0A0D 100%);
-    border: 1px solid rgba(244, 209, 122, 0.35);
+    border: 1px solid rgba(24, 201, 139, 0.35);
     border-radius: 20px;
     width: 100%;
     max-width: 460px;
     padding: 36px 28px 32px;
     position: relative;
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.95), 0 0 32px rgba(244, 209, 122, 0.08);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.95), 0 0 32px rgba(24, 201, 139, 0.08);
     color: #FFFFFF;
     overflow: hidden;
 
@@ -36,7 +36,7 @@
 
 .topGlowLayer {
     border-radius: 442px;
-    background: #F4D17A;
+    background: #18C98B;
     filter: blur(36px);
     width: 80%;
     height: 14px;
@@ -53,7 +53,7 @@
     top: 16px;
     right: 16px;
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(244, 209, 122, 0.25);
+    border: 1px solid rgba(24, 201, 139, 0.25);
     color: rgba(255, 255, 255, 0.7);
     width: 32px;
     height: 32px;
@@ -67,9 +67,9 @@
     z-index: 10;
 
     &:hover {
-        background: rgba(244, 209, 122, 0.15);
-        color: #F4D17A;
-        border-color: #F4D17A;
+        background: rgba(24, 201, 139, 0.15);
+        color: #18C98B;
+        border-color: #18C98B;
         transform: scale(1.05);
     }
 }
@@ -118,7 +118,7 @@
     font-family: "Euclid-Regular", sans-serif;
 
     strong {
-        color: #F4D17A;
+        color: #18C98B;
         font-weight: 700;
     }
 }
@@ -133,15 +133,15 @@
     display: flex;
     align-items: center;
     background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(244, 209, 122, 0.25);
+    border: 1px solid rgba(24, 201, 139, 0.25);
     border-radius: 8px;
     padding: 10px 14px;
     color: #FFFFFF;
     transition: all 0.2s ease;
 
     &:focus-within {
-        border-color: #F4D17A;
-        box-shadow: 0 0 0 3px rgba(244, 209, 122, 0.15);
+        border-color: #18C98B;
+        box-shadow: 0 0 0 3px rgba(24, 201, 139, 0.15);
         background: rgba(255, 255, 255, 0.07);
     }
 
@@ -179,7 +179,7 @@
     height: 52px;
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(244, 209, 122, 0.25);
+    border: 1px solid rgba(24, 201, 139, 0.25);
     color: #FFFFFF;
     font-size: 20px;
     font-weight: 700;
@@ -188,16 +188,16 @@
     transition: all 0.2s ease;
 
     &:focus {
-        border-color: #F4D17A;
-        box-shadow: 0 0 0 3px rgba(244, 209, 122, 0.2);
+        border-color: #18C98B;
+        box-shadow: 0 0 0 3px rgba(24, 201, 139, 0.2);
         background: rgba(255, 255, 255, 0.08);
         transform: translateY(-1px);
     }
 
     &.filled {
-        background: rgba(244, 209, 122, 0.12);
-        border-color: #F4D17A;
-        color: #F4D17A;
+        background: rgba(24, 201, 139, 0.12);
+        border-color: #18C98B;
+        color: #18C98B;
     }
 }
 
@@ -223,14 +223,14 @@
     color: rgba(255, 255, 255, 0.6);
 
     strong {
-        color: #F4D17A;
+        color: #18C98B;
     }
 }
 
 .resendBtn {
     background: none;
     border: none;
-    color: #F4D17A;
+    color: #18C98B;
     font-weight: 700;
     font-size: 13px;
     cursor: pointer;

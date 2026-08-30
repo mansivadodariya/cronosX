@@ -17,7 +17,7 @@ import { getBidiProps } from '@/lib/bidi';
 const BrokerHeroGraphic = '/assets/images/broker_infrastructure_hero.jpg';
 
 const SearchIcon = () => (
-    <svg className={styles.searchIcon} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg className={styles.searchIcon} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="11" cy="11" r="8" />
         <line x1="21" y1="21" x2="16.65" y2="16.65" />
     </svg>
@@ -97,7 +97,7 @@ export default function BrokerPage() {
 
                 <div className={styles.heroContent}>
                     <div {...getBidiProps(t('broker.hubBadge', 'Broker & Platform Hub'), styles.badge)}>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2.5">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2.5">
                             <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
                             <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
                             <line x1="6" y1="6" x2="6.01" y2="6" strokeWidth="3" />
@@ -189,7 +189,7 @@ export default function BrokerPage() {
             ) : (
                 <div className={styles.emptyState}>
                     <div className={styles.emptyIconBox}>
-                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="1.5">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="1.5">
                             <circle cx="11" cy="11" r="8" />
                             <line x1="21" y1="21" x2="16.65" y2="16.65" />
                         </svg>

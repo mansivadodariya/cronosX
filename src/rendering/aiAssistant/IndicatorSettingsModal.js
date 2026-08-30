@@ -302,7 +302,7 @@ export default function IndicatorSettingsModal({
                                         <div className={styles.colorInputWrapper}>
                                             <input
                                                 type="color"
-                                                value={draft.color.startsWith('#') ? draft.color : '#F4D17A'}
+                                                value={draft.color.startsWith('#') ? draft.color : '#18C98B'}
                                                 onChange={(e) => setDraft(prev => ({ ...prev, color: e.target.value }))}
                                             />
                                             <input

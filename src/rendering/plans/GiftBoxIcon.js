@@ -3,10 +3,10 @@ import React from 'react';
 // Top Header Hexagonal Gift Icon
 export const HexGiftBoxIcon = () => (
     <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-        <polygon points="16 2 29 9.5 29 24.5 16 32 3 24.5 3 9.5" stroke="#C1902E" strokeWidth="1.8" fill="rgba(193, 144, 46, 0.08)" />
-        <path d="M10 13h12v12H10z" stroke="#F4D17A" strokeWidth="1.5" fill="none" />
-        <path d="M16 13v12M10 18h12" stroke="#F4D17A" strokeWidth="1.5" />
-        <path d="M12 11c-1.5-1.5-1.5-3 0-3s3 1.5 4 2.5c1-1 2.5-2.5 4-2.5s1.5 1.5 0 3c-1 1-2.5 1.5-4 2-1.5-.5-3-1-4-2z" fill="#F4D17A" />
+        <polygon points="16 2 29 9.5 29 24.5 16 32 3 24.5 3 9.5" stroke="#10B981" strokeWidth="1.8" fill="rgba(24, 201, 139, 0.08)" />
+        <path d="M10 13h12v12H10z" stroke="#18C98B" strokeWidth="1.5" fill="none" />
+        <path d="M16 13v12M10 18h12" stroke="#18C98B" strokeWidth="1.5" />
+        <path d="M12 11c-1.5-1.5-1.5-3 0-3s3 1.5 4 2.5c1-1 2.5-2.5 4-2.5s1.5 1.5 0 3c-1 1-2.5 1.5-4 2-1.5-.5-3-1-4-2z" fill="#18C98B" />
     </svg>
 );
 
@@ -31,7 +31,7 @@ export const Gold3DGiftBox = () => (
                 objectFit: 'contain',
                 display: 'block',
                 mixBlendMode: 'screen',
-                filter: 'drop-shadow(0 0 16px rgba(244, 209, 122, 0.45))',
+                filter: 'drop-shadow(0 0 16px rgba(24, 201, 139, 0.45))',
             }}
         />
     </div>

@@ -4,7 +4,7 @@
 .publicCalculatorWrapper {
     padding: 130px 24px 80px;
     min-height: 85vh;
-    background: #000000;
+    background: #040605;
     color: #FFFFFF;
     position: relative;
     overflow: hidden;
@@ -35,7 +35,7 @@
         transform: translateX(-50%);
         width: 800px;
         height: 380px;
-        background: radial-gradient(circle, rgba(244, 209, 122, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+        background: radial-gradient(circle, rgba(24, 201, 139, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
         pointer-events: none;
         z-index: 0;
 
@@ -59,7 +59,7 @@
         margin-top: 48px;
         padding: 28px 32px;
         background: radial-gradient(120% 120% at 50% 0%, #1c180f 0%, #0d0b07 100%);
-        border: 1px solid rgba(244, 209, 122, 0.3);
+        border: 1px solid rgba(24, 201, 139, 0.3);
         border-radius: 16px;
         display: flex;
         align-items: center;
@@ -121,7 +121,7 @@
 
         .ctaBtn {
             padding: 12px 24px;
-            background: linear-gradient(135deg, #F4D17A 0%, #D4AF37 100%);
+            background: linear-gradient(135deg, #18C98B 0%, #059669 100%);
             color: #1A1200;
             font-size: 14px;
             font-weight: 700;
@@ -131,7 +131,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            box-shadow: 0 4px 18px rgba(244, 209, 122, 0.3);
+            box-shadow: 0 4px 18px rgba(24, 201, 139, 0.3);
             transition: all 0.25s ease;
             white-space: nowrap;
             flex-shrink: 0;
@@ -151,7 +151,7 @@
 
             &:hover {
                 transform: translateY(-2px);
-                box-shadow: 0 6px 24px rgba(244, 209, 122, 0.45);
+                box-shadow: 0 6px 24px rgba(24, 201, 139, 0.45);
 
                 @include respond-to('sm') {
                     transform: none;

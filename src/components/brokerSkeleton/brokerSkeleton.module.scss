@@ -10,9 +10,9 @@
 .skeletonPulse {
   background: linear-gradient(
     90deg,
-    rgba(244, 209, 122, 0.04) 0%,
-    rgba(244, 209, 122, 0.12) 50%,
-    rgba(244, 209, 122, 0.04) 100%
+    rgba(24, 201, 139, 0.04) 0%,
+    rgba(24, 201, 139, 0.12) 50%,
+    rgba(24, 201, 139, 0.04) 100%
   );
   background-size: 200% 100%;
   animation: shimmer 1.6s infinite ease-in-out;
@@ -21,8 +21,8 @@
 
 /* Card Skeleton */
 .cardSkeleton {
-  background: #060706;
-  border: 1px solid rgba(193, 144, 46, 0.3);
+  background: #040605;
+  border: 1px solid rgba(24, 201, 139, 0.3);
   border-radius: 18px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
@@ -37,7 +37,7 @@
   background: linear-gradient(135deg, #0C0B09 0%, #17130A 50%, #261D0C 100%);
   position: relative;
   padding: 14px 16px;
-  border-bottom: 1px solid rgba(193, 144, 46, 0.2);
+  border-bottom: 1px solid rgba(24, 201, 139, 0.2);
 }
 
 .logoCircle {
@@ -86,12 +86,12 @@
   height: 38px;
   border-radius: 8px;
   background: #0D0E13;
-  border: 1px solid rgba(193, 144, 46, 0.15);
+  border: 1px solid rgba(24, 201, 139, 0.15);
 }
 
 .cardFooter {
   padding: 14px 16px;
-  border-top: 1px solid rgba(193, 144, 46, 0.15);
+  border-top: 1px solid rgba(24, 201, 139, 0.15);
   display: flex;
   gap: 10px;
 }

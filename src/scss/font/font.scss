@@ -37,7 +37,7 @@
 }
 
 @mixin text-gradient {
-    background: linear-gradient(180deg, #FFE79A 0%, #E5B248 40%, #B87E1B 80%, #E5B248 100%);
+    background: linear-gradient(180deg, #A7F3D0 0%, #6EE7B7 40%, #18C98B 80%, #10B981 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -48,7 +48,7 @@
 }
 
 @mixin heading-gold-gradient {
-    background: linear-gradient(90deg, #FFFFFF 0%, #FFE693 50%, #D8A23B 100%);
+    background: linear-gradient(90deg, #FFFFFF 0%, #A7F3D0 50%, #18C98B 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -62,7 +62,7 @@
     color: #FFFFFF;
 
     span {
-        background: linear-gradient(90deg, #FFFFFF 0%, #FFE693 50%, #D8A23B 100%);
+        background: linear-gradient(90deg, #FFFFFF 0%, #A7F3D0 50%, #18C98B 100%);
         background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;

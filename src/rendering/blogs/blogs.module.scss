@@ -4,7 +4,7 @@
 .blogsWrapper {
     padding: 130px 24px 80px;
     min-height: 85vh;
-    background: #000000;
+    background: #040605;
     color: #FFFFFF;
     position: relative;
     overflow: hidden;
@@ -35,7 +35,7 @@
         transform: translateX(-50%);
         width: 900px;
         height: 450px;
-        background: radial-gradient(circle, rgba(244, 209, 122, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+        background: radial-gradient(circle, rgba(24, 201, 139, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
         pointer-events: none;
         z-index: 0;
 
@@ -74,13 +74,13 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        background: rgba(244, 209, 122, 0.1);
-        border: 1px solid rgba(244, 209, 122, 0.3);
+        background: rgba(24, 201, 139, 0.1);
+        border: 1px solid rgba(24, 201, 139, 0.3);
         padding: 6px 16px;
         border-radius: 30px;
         font-size: 12px;
         font-weight: 700;
-        color: #F4D17A;
+        color: #18C98B;
         letter-spacing: 0.5px;
         margin-bottom: 16px;
         text-transform: uppercase;
@@ -166,7 +166,7 @@
             left: 16px;
             top: 50%;
             transform: translateY(-50%);
-            color: rgba(244, 209, 122, 0.6);
+            color: rgba(24, 201, 139, 0.6);
             pointer-events: none;
 
             @include respond-to('sm') {
@@ -180,7 +180,7 @@
             width: 100%;
             height: 48px;
             background: #090B08;
-            border: 1.5px solid rgba(193, 144, 46, 0.3);
+            border: 1.5px solid rgba(24, 201, 139, 0.3);
             border-radius: 12px;
             padding: 0 16px 0 46px;
             color: #FFFFFF;
@@ -201,8 +201,8 @@
             }
 
             &:focus {
-                border-color: #F4D17A;
-                box-shadow: 0 0 16px rgba(244, 209, 122, 0.2);
+                border-color: #18C98B;
+                box-shadow: 0 0 16px rgba(24, 201, 139, 0.2);
             }
         }
     }
@@ -243,15 +243,15 @@
 
             &:hover {
                 color: #FFFFFF;
-                border-color: rgba(244, 209, 122, 0.4);
+                border-color: rgba(24, 201, 139, 0.4);
             }
 
             &.activeCat {
-                background: linear-gradient(135deg, rgba(244, 209, 122, 0.25) 0%, rgba(212, 175, 55, 0.15) 100%);
-                border-color: #F4D17A;
-                color: #F4D17A;
+                background: linear-gradient(135deg, rgba(24, 201, 139, 0.25) 0%, rgba(24, 201, 139, 0.15) 100%);
+                border-color: #18C98B;
+                color: #18C98B;
                 font-weight: 700;
-                box-shadow: 0 0 12px rgba(244, 209, 122, 0.15);
+                box-shadow: 0 0 12px rgba(24, 201, 139, 0.15);
             }
         }
     }
@@ -260,11 +260,11 @@
 // Featured Hero Card
 .featuredCard {
     background: radial-gradient(120% 120% at 50% 0%, #161814 0%, #060705 100%);
-    border: 1.5px solid rgba(193, 144, 46, 0.4);
+    border: 1.5px solid rgba(24, 201, 139, 0.4);
     border-radius: 20px;
     padding: 32px;
     margin-bottom: 48px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(244, 209, 122, 0.1);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(24, 201, 139, 0.1);
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
     gap: 32px;
@@ -298,8 +298,8 @@
 
     &:hover {
         transform: translateY(-4px);
-        border-color: #F4D17A;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(244, 209, 122, 0.2);
+        border-color: #18C98B;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(24, 201, 139, 0.2);
 
         @include respond-to('sm') {
             transform: none;
@@ -311,7 +311,7 @@
 
         .readMoreArrow {
             transform: translateX(6px);
-            color: #F4D17A;
+            color: #18C98B;
         }
     }
 
@@ -346,7 +346,7 @@
             min-height: 240px;
             border-radius: 14px;
             overflow: hidden;
-            border: 1px solid rgba(193, 144, 46, 0.3);
+            border: 1px solid rgba(24, 201, 139, 0.3);
 
             @include respond-to('md') {
                 min-height: 220px;
@@ -383,7 +383,7 @@
         }
 
         .featuredBadge {
-            background: linear-gradient(135deg, #F4D17A 0%, #D4AF37 100%);
+            background: linear-gradient(135deg, #18C98B 0%, #059669 100%);
             color: #1A1200;
             font-size: 11px;
             font-weight: 800;
@@ -412,7 +412,7 @@
             }
 
             .catTag {
-                color: #F4D17A;
+                color: #18C98B;
                 font-weight: 600;
             }
         }
@@ -477,8 +477,8 @@
                 height: 38px;
                 border-radius: 50%;
                 background: radial-gradient(120% 120% at 50% 0%, #2A2415 0%, #12100A 100%);
-                border: 1px solid rgba(244, 209, 122, 0.5);
-                color: #F4D17A;
+                border: 1px solid rgba(24, 201, 139, 0.5);
+                color: #18C98B;
                 font-size: 13px;
                 font-weight: 700;
                 display: flex;
@@ -523,7 +523,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            color: #F4D17A;
+            color: #18C98B;
             font-size: 13.5px;
             font-weight: 700;
 
@@ -570,7 +570,7 @@
 // Individual Blog Card
 .blogCard {
     background: radial-gradient(120% 120% at 50% 0%, #111310 0%, #060705 100%);
-    border: 1px solid rgba(193, 144, 46, 0.25);
+    border: 1px solid rgba(24, 201, 139, 0.25);
     border-radius: 16px;
     padding: 16px;
     display: flex;
@@ -590,8 +590,8 @@
 
     &:hover {
         transform: translateY(-4px);
-        border-color: rgba(244, 209, 122, 0.6);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(244, 209, 122, 0.12);
+        border-color: rgba(24, 201, 139, 0.6);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(24, 201, 139, 0.12);
 
         @include respond-to('sm') {
             transform: none;
@@ -603,7 +603,7 @@
 
         .cardArrow {
             transform: translateX(4px);
-            color: #F4D17A;
+            color: #18C98B;
         }
     }
 
@@ -643,10 +643,10 @@
             left: 10px;
             font-size: 10.5px;
             font-weight: 700;
-            color: #F4D17A;
+            color: #18C98B;
             background: rgba(6, 7, 5, 0.85);
             backdrop-filter: blur(6px);
-            border: 1px solid rgba(244, 209, 122, 0.35);
+            border: 1px solid rgba(24, 201, 139, 0.35);
             padding: 3px 8px;
             border-radius: 6px;
             text-transform: uppercase;
@@ -757,9 +757,9 @@
                 width: 28px;
                 height: 28px;
                 border-radius: 50%;
-                background: rgba(244, 209, 122, 0.15);
-                border: 1px solid rgba(244, 209, 122, 0.4);
-                color: #F4D17A;
+                background: rgba(24, 201, 139, 0.15);
+                border: 1px solid rgba(24, 201, 139, 0.4);
+                color: #18C98B;
                 font-size: 10px;
                 font-weight: 700;
                 display: flex;
@@ -796,8 +796,8 @@
 .emptyState {
     text-align: center;
     padding: 60px 20px;
-    background: #060706;
-    border: 1px solid rgba(193, 144, 46, 0.2);
+    background: #040605;
+    border: 1px solid rgba(24, 201, 139, 0.2);
     border-radius: 16px;
     color: rgba(255, 255, 255, 0.6);
 
@@ -827,10 +827,10 @@
 
     button {
         padding: 8px 18px;
-        background: rgba(244, 209, 122, 0.15);
-        border: 1px solid rgba(244, 209, 122, 0.3);
+        background: rgba(24, 201, 139, 0.15);
+        border: 1px solid rgba(24, 201, 139, 0.3);
         border-radius: 8px;
-        color: #F4D17A;
+        color: #18C98B;
         font-size: 13px;
         font-weight: 600;
         cursor: pointer;

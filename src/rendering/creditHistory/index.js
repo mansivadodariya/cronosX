@@ -96,7 +96,7 @@ export default function CreditHistory({ embedMode = false }) {
             {!embedMode && (
                 <div className={styles.header}>
                     <div className={styles.headerIconCircle}>
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <rect x="2" y="5" width="20" height="14" rx="2" />
                             <line x1="2" y1="10" x2="22" y2="10" />
                         </svg>
@@ -112,7 +112,7 @@ export default function CreditHistory({ embedMode = false }) {
             <div className={styles.statsGrid}>
                 <div className={styles.statCard}>
                     <div className={styles.statIconBox}>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2">
                             <rect x="2" y="5" width="20" height="14" rx="2" />
                             <line x1="2" y1="10" x2="22" y2="10" />
                         </svg>
@@ -154,7 +154,7 @@ export default function CreditHistory({ embedMode = false }) {
                 <div className={styles.historyHeader}>
                     <div className={styles.historyHeaderLeft}>
                         <div className={styles.cardHeaderIcon}>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2">
                                 <circle cx="12" cy="12" r="10" />
                                 <polyline points="12 6 12 12 16 14" />
                             </svg>
@@ -172,7 +172,7 @@ export default function CreditHistory({ embedMode = false }) {
                     </div>
                 ) : creditHistory.length === 0 ? (
                     <div className={styles.emptyState}>
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(244, 209, 122, 0.4)" strokeWidth="1.5">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(24, 201, 139, 0.4)" strokeWidth="1.5">
                             <rect x="2" y="5" width="20" height="14" rx="2" />
                             <line x1="2" y1="10" x2="22" y2="10" />
                         </svg>

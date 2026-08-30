@@ -22,21 +22,21 @@
         align-items: center;
         width: 100%;
         background: #08080A;
-        border: 1.5px solid rgba(193, 144, 46, 0.65);
+        border: 1.5px solid rgba(24, 201, 139, 0.65);
         border-radius: 8px;
         height: 52px;
         overflow: hidden;
         transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
         &:focus-within {
-            border-color: #F4D17A;
-            box-shadow: 0 0 14px rgba(244, 209, 122, 0.25);
+            border-color: #18C98B;
+            box-shadow: 0 0 14px rgba(24, 201, 139, 0.25);
         }
 
         &:has(input:disabled) {
             opacity: 0.65;
             cursor: not-allowed;
-            border-color: rgba(193, 144, 46, 0.35);
+            border-color: rgba(24, 201, 139, 0.35);
 
             input {
                 cursor: not-allowed;
@@ -53,7 +53,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #F4D17A;
+            color: #18C98B;
             z-index: 2;
 
             img {
@@ -136,7 +136,7 @@
             align-items: center !important;
             justify-content: center !important;
             cursor: pointer !important;
-            color: #C1902E !important;
+            color: #10B981 !important;
             transition: color 0.2s ease-in-out, transform 0.15s ease !important;
             outline: none !important;
             box-shadow: none !important;
@@ -145,7 +145,7 @@
             user-select: none !important;
 
             &:hover {
-                color: #F4D17A !important;
+                color: #18C98B !important;
             }
 
             &:active {

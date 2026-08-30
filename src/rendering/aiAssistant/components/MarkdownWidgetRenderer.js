@@ -184,7 +184,7 @@ export const InlineCandlestickWidget = ({ symbol = 'XAUUSD', visualData, isDark 
             text: `${symbol} Price Action & Key Levels`,
             align: 'left',
             margin: 10,
-            style: { color: '#F4D17A', fontSize: '13px', fontWeight: 700 }
+            style: { color: '#18C98B', fontSize: '13px', fontWeight: 700 }
         },
         legend: {
             show: true,
@@ -206,7 +206,7 @@ export const InlineCandlestickWidget = ({ symbol = 'XAUUSD', visualData, isDark 
                 formatter: (val) => val?.toFixed(val > 100 ? 2 : 4) ?? val
             }
         },
-        grid: { borderColor: 'rgba(193, 144, 46, 0.15)', strokeDashArray: 4 },
+        grid: { borderColor: 'rgba(24, 201, 139, 0.15)', strokeDashArray: 4 },
         annotations: { yaxis: yAxisAnnotations },
         stroke: { width: strokeWidths, curve: 'straight', dashArray: dashArrays },
         colors: seriesColors,
@@ -271,23 +271,23 @@ export const InlineSentimentRadarWidget = ({ symbol = 'XAUUSD', visualData, isDa
             type: 'gradient',
             gradient: {
                 shade: isDark ? 'dark' : 'light',
-                gradientToColors: ['#C1902E'],
+                gradientToColors: ['#10B981'],
                 shadeIntensity: 1,
                 stops: [0, 100]
             }
         },
-        stroke: { width: 2, colors: ['#F4D17A'] },
+        stroke: { width: 2, colors: ['#18C98B'] },
         markers: {
             size: 5,
-            colors: ['#F4D17A'],
+            colors: ['#18C98B'],
             strokeWidth: 2,
             strokeColors: '#000000'
         },
         plotOptions: {
             radar: {
                 polygons: {
-                    strokeColors: 'rgba(193, 144, 46, 0.25)',
-                    connectorColors: 'rgba(193, 144, 46, 0.15)'
+                    strokeColors: 'rgba(24, 201, 139, 0.25)',
+                    connectorColors: 'rgba(24, 201, 139, 0.15)'
                 }
             }
         },

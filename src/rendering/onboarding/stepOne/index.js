@@ -8,37 +8,37 @@ const OnboardingTradeImg = '/assets/images/onboarding-trade.png';
 // SVG Icons
 const ScalpingIcon = () => (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="#F4D17A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="#18C98B" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
 
 const DayTradingIcon = () => (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="12" cy="12" r="9" stroke="#F4D17A" strokeWidth="1.8" />
-        <path d="M12 7V12L15 14.5" stroke="#F4D17A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="12" cy="12" r="9" stroke="#18C98B" strokeWidth="1.8" />
+        <path d="M12 7V12L15 14.5" stroke="#18C98B" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
 
 const SwingTradingIcon = () => (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3 16.5L8.5 11L12.5 15L20.5 7" stroke="#F4D17A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M15 7H20.5V12.5" stroke="#F4D17A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M3 16.5L8.5 11L12.5 15L20.5 7" stroke="#18C98B" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M15 7H20.5V12.5" stroke="#18C98B" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
 
 const PositionTradingIcon = () => (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M6 20V14" stroke="#F4D17A" strokeWidth="2.4" strokeLinecap="round" />
-        <path d="M12 20V10" stroke="#F4D17A" strokeWidth="2.4" strokeLinecap="round" />
-        <path d="M18 20V5" stroke="#F4D17A" strokeWidth="2.4" strokeLinecap="round" />
+        <path d="M6 20V14" stroke="#18C98B" strokeWidth="2.4" strokeLinecap="round" />
+        <path d="M12 20V10" stroke="#18C98B" strokeWidth="2.4" strokeLinecap="round" />
+        <path d="M18 20V5" stroke="#18C98B" strokeWidth="2.4" strokeLinecap="round" />
     </svg>
 );
 
 const QuestionIcon = () => (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="12" cy="12" r="9" stroke="#F4D17A" strokeWidth="1.8" />
-        <path d="M9.5 9.5C9.5 8.12 10.62 7 12 7C13.38 7 14.5 8.12 14.5 9.5C14.5 10.6 13.78 11.53 12.8 11.85C12.33 12.01 12 12.44 12 12.94V13.5" stroke="#F4D17A" strokeWidth="1.8" strokeLinecap="round" />
-        <circle cx="12" cy="16.5" r="0.85" fill="#F4D17A" />
+        <circle cx="12" cy="12" r="9" stroke="#18C98B" strokeWidth="1.8" />
+        <path d="M9.5 9.5C9.5 8.12 10.62 7 12 7C13.38 7 14.5 8.12 14.5 9.5C14.5 10.6 13.78 11.53 12.8 11.85C12.33 12.01 12 12.44 12 12.94V13.5" stroke="#18C98B" strokeWidth="1.8" strokeLinecap="round" />
+        <circle cx="12" cy="16.5" r="0.85" fill="#18C98B" />
     </svg>
 );
 

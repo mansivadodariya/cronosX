@@ -620,8 +620,8 @@ Trade Rationale: ${selectedPreset.rationale}
                                             <text x="440" y="222" fill="#EF4444" fontSize="10" fontWeight="700">SL: {selectedPreset.stopLoss.split(' ')[0]}</text>
 
                                             {/* Pattern Bounding Box */}
-                                            <rect x="180" y="90" width="220" height="110" fill="rgba(244, 209, 122, 0.05)" stroke="rgba(244, 209, 122, 0.4)" strokeDasharray="3 3" rx="6" />
-                                            <text x="190" y="108" fill="#F4D17A" fontSize="10" fontWeight="800">PATTERN: {selectedPreset.patternDetected.toUpperCase()}</text>
+                                            <rect x="180" y="90" width="220" height="110" fill="rgba(24, 201, 139, 0.05)" stroke="rgba(24, 201, 139, 0.4)" strokeDasharray="3 3" rx="6" />
+                                            <text x="190" y="108" fill="#18C98B" fontSize="10" fontWeight="800">PATTERN: {selectedPreset.patternDetected.toUpperCase()}</text>
 
                                             {/* Candlesticks sequence */}
                                             <line x1="40" y1="160" x2="40" y2="220" stroke="#10B981" strokeWidth="2" />
@@ -903,7 +903,7 @@ Trade Rationale: ${selectedPreset.rationale}
                                         <th className={styles.thAiTrade}>
                                             <div className={styles.aiTradeHeaderBadge}>
                                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="#F4D17A" fillOpacity="0.3" />
+                                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="#18C98B" fillOpacity="0.3" />
                                                 </svg>
                                                 <span>OUR AI TRADE (AI SNAP)</span>
                                             </div>

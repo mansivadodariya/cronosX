@@ -5,7 +5,7 @@
     position: relative;
     padding: 150px 0 90px 0;
     min-height: 100vh;
-    background: #040300;
+    background: #040605;
     color: #ffffff;
     overflow: hidden;
 
@@ -27,7 +27,7 @@
     width: 900px;
     height: 480px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(244, 209, 122, 0.18) 0%, rgba(193, 144, 46, 0.08) 45%, rgba(4, 3, 0, 0) 70%);
+    background: radial-gradient(circle, rgba(24, 201, 139, 0.18) 0%, rgba(24, 201, 139, 0.08) 45%, rgba(4, 3, 0, 0) 70%);
     filter: blur(85px);
     pointer-events: none;
     z-index: 0;
@@ -41,7 +41,7 @@
     width: 850px;
     height: 650px;
     border-radius: 50%;
-    background: radial-gradient(ellipse, rgba(193, 144, 46, 0.08) 0%, rgba(244, 209, 122, 0.04) 40%, rgba(4, 3, 0, 0) 75%);
+    background: radial-gradient(ellipse, rgba(24, 201, 139, 0.08) 0%, rgba(24, 201, 139, 0.04) 40%, rgba(4, 3, 0, 0) 75%);
     filter: blur(95px);
     pointer-events: none;
     z-index: 0;
@@ -54,7 +54,7 @@
     width: 600px;
     height: 600px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(244, 209, 122, 0.1) 0%, rgba(16, 185, 129, 0.04) 40%, rgba(4, 3, 0, 0) 70%);
+    background: radial-gradient(circle, rgba(24, 201, 139, 0.1) 0%, rgba(16, 185, 129, 0.04) 40%, rgba(4, 3, 0, 0) 70%);
     filter: blur(90px);
     pointer-events: none;
     z-index: 0;
@@ -65,8 +65,8 @@
     position: absolute;
     inset: 0;
     background-image:
-        linear-gradient(to right, rgba(244, 209, 122, 0.025) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(244, 209, 122, 0.025) 1px, transparent 1px);
+        linear-gradient(to right, rgba(24, 201, 139, 0.025) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(24, 201, 139, 0.025) 1px, transparent 1px);
     background-size: 40px 40px;
     mask-image: radial-gradient(ellipse at 50% 30%, #000 40%, transparent 80%);
     -webkit-mask-image: radial-gradient(ellipse at 50% 30%, #000 40%, transparent 80%);
@@ -103,8 +103,8 @@
     padding: 7px 18px;
     border-radius: 999px;
     background: rgba(18, 15, 10, 0.9);
-    border: 1px solid rgba(193, 144, 46, 0.45);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 0 12px rgba(244, 209, 122, 0.1);
+    border: 1px solid rgba(24, 201, 139, 0.45);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 0 12px rgba(24, 201, 139, 0.1);
     backdrop-filter: blur(12px);
 
     @include respond-to('sm') {
@@ -137,7 +137,7 @@
 }
 
 .pillTag {
-    color: #F4D17A;
+    color: #18C98B;
     font-family: var(--font-plus-jakarta), sans-serif;
     font-size: 11px;
     font-weight: 700;
@@ -198,7 +198,7 @@
 }
 
 .goldGradient {
-    background: linear-gradient(90deg, #FFFFFF 0%, #FFE693 30%, #D8A23B 70%, #F4D17A 100%);
+    background: linear-gradient(90deg, #FFFFFF 0%, #A7F3D0 30%, #18C98B 70%, #18C98B 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -258,10 +258,10 @@
 
 .infoCard {
     background: linear-gradient(165deg, rgba(22, 18, 12, 0.92) 0%, rgba(10, 9, 8, 0.97) 100%);
-    border: 1px solid rgba(193, 144, 46, 0.35);
+    border: 1px solid rgba(24, 201, 139, 0.35);
     border-radius: 24px;
     padding: 40px 36px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(244, 209, 122, 0.15);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(24, 201, 139, 0.15);
     backdrop-filter: blur(20px);
     position: relative;
     display: flex;
@@ -285,8 +285,8 @@
     left: 20%;
     right: 20%;
     height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(244, 209, 122, 0.8) 50%, transparent 100%);
-    box-shadow: 0 0 16px rgba(244, 209, 122, 0.6);
+    background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.8) 50%, transparent 100%);
+    box-shadow: 0 0 16px rgba(24, 201, 139, 0.6);
     pointer-events: none;
 }
 
@@ -297,9 +297,9 @@
 
 .infoBadge {
     display: inline-block;
-    background: rgba(244, 209, 122, 0.12);
-    border: 1px solid rgba(244, 209, 122, 0.35);
-    color: #F4D17A;
+    background: rgba(24, 201, 139, 0.12);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    color: #18C98B;
     font-size: 10.5px;
     font-weight: 800;
     letter-spacing: 0.8px;
@@ -337,7 +337,7 @@
 
 .infoItem {
     background: rgba(0, 0, 0, 0.45);
-    border: 1px solid rgba(193, 144, 46, 0.22);
+    border: 1px solid rgba(24, 201, 139, 0.22);
     border-radius: 16px;
     padding: 18px 20px;
     display: flex;
@@ -347,7 +347,7 @@
     position: relative;
 
     &:hover {
-        border-color: rgba(244, 209, 122, 0.5);
+        border-color: rgba(24, 201, 139, 0.5);
         background: rgba(18, 14, 9, 0.65);
         transform: translateY(-2px);
     }
@@ -357,12 +357,12 @@
     width: 44px;
     height: 44px;
     border-radius: 12px;
-    background: rgba(244, 209, 122, 0.1);
-    border: 1px solid rgba(244, 209, 122, 0.25);
+    background: rgba(24, 201, 139, 0.1);
+    border: 1px solid rgba(24, 201, 139, 0.25);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #F4D17A;
+    color: #18C98B;
     flex-shrink: 0;
     margin-top: 2px;
 }
@@ -379,7 +379,7 @@
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.8px;
-    color: #F4D17A;
+    color: #18C98B;
     text-transform: uppercase;
     margin-bottom: 4px;
 }
@@ -396,7 +396,7 @@
     text-overflow: ellipsis;
 
     &:hover {
-        color: #F4D17A;
+        color: #18C98B;
     }
 }
 
@@ -430,9 +430,9 @@
     margin-top: 6px;
 
     &:hover {
-        background: rgba(244, 209, 122, 0.15);
-        border-color: rgba(244, 209, 122, 0.4);
-        color: #F4D17A;
+        background: rgba(24, 201, 139, 0.15);
+        border-color: rgba(24, 201, 139, 0.4);
+        color: #18C98B;
     }
 }
 
@@ -469,10 +469,10 @@
 
 .formGlassCard {
     background: linear-gradient(165deg, rgba(20, 16, 10, 0.92) 0%, rgba(8, 7, 6, 0.97) 100%);
-    border: 1px solid rgba(193, 144, 46, 0.35);
+    border: 1px solid rgba(24, 201, 139, 0.35);
     border-radius: 24px;
     padding: 40px 38px 44px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(244, 209, 122, 0.15);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(24, 201, 139, 0.15);
     backdrop-filter: blur(20px);
     position: relative;
     width: 100%;
@@ -493,8 +493,8 @@
     left: 20%;
     right: 20%;
     height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(244, 209, 122, 0.8) 50%, transparent 100%);
-    box-shadow: 0 0 16px rgba(244, 209, 122, 0.6);
+    background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.8) 50%, transparent 100%);
+    box-shadow: 0 0 16px rgba(24, 201, 139, 0.6);
     pointer-events: none;
 }
 
@@ -505,9 +505,9 @@
 
 .formHeaderBadge {
     display: inline-block;
-    background: rgba(244, 209, 122, 0.12);
-    border: 1px solid rgba(244, 209, 122, 0.35);
-    color: #F4D17A;
+    background: rgba(24, 201, 139, 0.12);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    color: #18C98B;
     font-size: 10.5px;
     font-weight: 800;
     letter-spacing: 0.8px;
@@ -569,7 +569,7 @@
 }
 
 .required {
-    color: #F4D17A;
+    color: #18C98B;
 }
 
 /* Standard Input & Select Wrapper */
@@ -578,15 +578,15 @@
     display: flex;
     align-items: center;
     background: rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(193, 144, 46, 0.28);
+    border: 1px solid rgba(24, 201, 139, 0.28);
     border-radius: 12px;
     height: 48px;
     box-sizing: border-box;
     transition: border-color 0.25s ease, box-shadow 0.25s ease;
 
     &:focus-within {
-        border-color: #F4D17A;
-        box-shadow: 0 0 16px rgba(244, 209, 122, 0.25);
+        border-color: #18C98B;
+        box-shadow: 0 0 16px rgba(24, 201, 139, 0.25);
     }
 
     .fieldIcon {
@@ -594,7 +594,7 @@
         left: 14px;
         top: 50%;
         transform: translateY(-50%);
-        color: rgba(244, 209, 122, 0.7);
+        color: rgba(24, 201, 139, 0.7);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -652,7 +652,7 @@
     right: 14px;
     top: 50%;
     transform: translateY(-50%);
-    color: rgba(244, 209, 122, 0.8);
+    color: rgba(24, 201, 139, 0.8);
     pointer-events: none;
     display: flex;
     align-items: center;
@@ -665,7 +665,7 @@
     display: flex;
     align-items: center;
     background: rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(193, 144, 46, 0.28);
+    border: 1px solid rgba(24, 201, 139, 0.28);
     border-radius: 12px;
     height: 48px;
     padding: 0 14px 0 12px;
@@ -673,8 +673,8 @@
     transition: border-color 0.25s ease, box-shadow 0.25s ease;
 
     &:focus-within {
-        border-color: #F4D17A;
-        box-shadow: 0 0 16px rgba(244, 209, 122, 0.25);
+        border-color: #18C98B;
+        box-shadow: 0 0 16px rgba(24, 201, 139, 0.25);
     }
 }
 
@@ -694,7 +694,7 @@
         height: 22px !important;
         padding-right: 12px !important;
         margin: 0 12px 0 0 !important;
-        border-right: 1px solid rgba(193, 144, 46, 0.35) !important;
+        border-right: 1px solid rgba(24, 201, 139, 0.35) !important;
         position: relative !important;
         flex-shrink: 0 !important;
         box-sizing: border-box !important;
@@ -728,7 +728,7 @@
         margin-left: 6px !important;
         margin-top: -2px !important;
         border-style: solid !important;
-        border-color: #F4D17A !important;
+        border-color: #18C98B !important;
         border-top-width: 0 !important;
         border-left-width: 0 !important;
         border-bottom-width: 1.5px !important;
@@ -808,14 +808,14 @@
 
 .textareaWrapper {
     background: rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(193, 144, 46, 0.28);
+    border: 1px solid rgba(24, 201, 139, 0.28);
     border-radius: 12px;
     padding: 12px 14px;
     transition: border-color 0.25s ease, box-shadow 0.25s ease;
 
     &:focus-within {
-        border-color: #F4D17A;
-        box-shadow: 0 0 16px rgba(244, 209, 122, 0.25);
+        border-color: #18C98B;
+        box-shadow: 0 0 16px rgba(24, 201, 139, 0.25);
     }
 
     textarea {
@@ -859,7 +859,7 @@
 
 .submitButton {
     width: 100%;
-    background: linear-gradient(135deg, #FFE693 0%, #D8A23B 50%, #C1902E 100%);
+    background: linear-gradient(135deg, #A7F3D0 0%, #18C98B 50%, #10B981 100%);
     color: #040300;
     border: none;
     border-radius: 12px;
@@ -876,7 +876,7 @@
     white-space: nowrap;
 
     &:hover:not(:disabled) {
-        box-shadow: 0 6px 28px rgba(244, 209, 122, 0.6);
+        box-shadow: 0 6px 28px rgba(24, 201, 139, 0.6);
     }
 
     &:disabled {
@@ -953,13 +953,13 @@
 }
 
 .highlightEmail {
-    color: #F4D17A;
+    color: #18C98B;
 }
 
 .resetBtn {
-    background: rgba(244, 209, 122, 0.15);
-    border: 1px solid rgba(244, 209, 122, 0.4);
-    color: #F4D17A;
+    background: rgba(24, 201, 139, 0.15);
+    border: 1px solid rgba(24, 201, 139, 0.4);
+    color: #18C98B;
     padding: 12px 26px;
     border-radius: 12px;
     font-size: 14px;
@@ -968,9 +968,9 @@
     transition: all 0.2s ease;
 
     &:hover {
-        background: #F4D17A;
+        background: #18C98B;
         color: #040300;
-        box-shadow: 0 0 20px rgba(244, 209, 122, 0.4);
+        box-shadow: 0 0 20px rgba(24, 201, 139, 0.4);
     }
 }
 
@@ -991,9 +991,9 @@
 
 .faqBadge {
     display: inline-block;
-    background: rgba(244, 209, 122, 0.12);
-    border: 1px solid rgba(244, 209, 122, 0.35);
-    color: #F4D17A;
+    background: rgba(24, 201, 139, 0.12);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    color: #18C98B;
     font-size: 10.5px;
     font-weight: 800;
     letter-spacing: 0.8px;
@@ -1033,19 +1033,19 @@
 
 .faqCard {
     background: linear-gradient(160deg, rgba(20, 16, 10, 0.8) 0%, rgba(10, 9, 8, 0.9) 100%);
-    border: 1px solid rgba(193, 144, 46, 0.22);
+    border: 1px solid rgba(24, 201, 139, 0.22);
     border-radius: 14px;
     overflow: hidden;
     transition: all 0.3s ease;
 
     &:hover {
-        border-color: rgba(244, 209, 122, 0.45);
+        border-color: rgba(24, 201, 139, 0.45);
     }
 
     &.faqCardOpen {
-        border-color: rgba(244, 209, 122, 0.6);
+        border-color: rgba(24, 201, 139, 0.6);
         background: linear-gradient(160deg, rgba(26, 21, 13, 0.92) 0%, rgba(12, 10, 8, 0.98) 100%);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 20px rgba(244, 209, 122, 0.08);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 20px rgba(24, 201, 139, 0.08);
     }
 }
 
@@ -1076,7 +1076,7 @@
 }
 
 .faqChevron {
-    color: #F4D17A;
+    color: #18C98B;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1122,15 +1122,15 @@
 
 .ctaCard {
     position: relative;
-    background: radial-gradient(ellipse at 50% -20%, rgba(244, 209, 122, 0.25) 0%, rgba(20, 16, 10, 0.95) 70%);
-    border: 1px solid rgba(244, 209, 122, 0.4);
+    background: radial-gradient(ellipse at 50% -20%, rgba(24, 201, 139, 0.25) 0%, rgba(20, 16, 10, 0.95) 70%);
+    border: 1px solid rgba(24, 201, 139, 0.4);
     border-radius: 24px;
     padding: 44px 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 32px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(244, 209, 122, 0.2);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(24, 201, 139, 0.2);
     overflow: hidden;
 
     @include respond-to('md') {
@@ -1147,8 +1147,8 @@
     left: 30%;
     right: 30%;
     height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(244, 209, 122, 0.9) 50%, transparent 100%);
-    box-shadow: 0 0 20px rgba(244, 209, 122, 0.8);
+    background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.9) 50%, transparent 100%);
+    box-shadow: 0 0 20px rgba(24, 201, 139, 0.8);
     pointer-events: none;
 }
 
@@ -1188,7 +1188,7 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: linear-gradient(135deg, #FFE693 0%, #D8A23B 50%, #C1902E 100%);
+    background: linear-gradient(135deg, #A7F3D0 0%, #18C98B 50%, #10B981 100%);
     color: #040300;
     padding: 16px 32px;
     border-radius: 14px;
@@ -1202,6 +1202,6 @@
 
     &:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 35px rgba(244, 209, 122, 0.7);
+        box-shadow: 0 10px 35px rgba(24, 201, 139, 0.7);
     }
 }

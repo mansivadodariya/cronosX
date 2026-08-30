@@ -123,7 +123,7 @@ export const LandingPageLiveCard = ({ symbol = 'XAUUSD', className = '' }) => {
                             width: '36px',
                             height: '36px',
                             borderRadius: '50%',
-                            background: '#d4af37',
+                            background: '#059669',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',

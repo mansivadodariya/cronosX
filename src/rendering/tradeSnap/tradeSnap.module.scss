@@ -1,10 +1,10 @@
 @use '../../scss/main.scss' as *;
 @use '../../scss/breakpoints/breakpoints.scss' as *;
 
-$primary: #F4D17A;
+$primary: #18C98B;
 $text: #FFFFFF;
 $muted: rgba(255, 255, 255, 0.6);
-$border: rgba(193, 144, 46, 0.25);
+$border: rgba(24, 201, 139, 0.35);
 $danger: #FF5757;
 $success: #10b981;
 
@@ -114,10 +114,10 @@ $success: #10b981;
     }
 
     .panel {
-        border: 1px solid rgba(193, 144, 46, 0.25);
+        border: 1px solid rgba(24, 201, 139, 0.25);
         border-radius: 12px;
         background: #0D0E13;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(244, 209, 122, 0.03);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(24, 201, 139, 0.03);
         overflow: hidden;
     }
 
@@ -129,7 +129,7 @@ $success: #10b981;
         gap: 12px;
         padding: 16px 20px;
         background: rgba(20, 18, 14, 0.85);
-        border-bottom: 1px solid rgba(193, 144, 46, 0.18);
+        border-bottom: 1px solid rgba(24, 201, 139, 0.18);
 
         h3 {
             display: flex;
@@ -142,7 +142,7 @@ $success: #10b981;
             font-family: "Euclid-SemiBold", sans-serif;
 
             svg {
-                color: #F4D17A;
+                color: #18C98B;
             }
         }
     }
@@ -159,7 +159,7 @@ $success: #10b981;
         }
 
         select {
-            border: 1px solid rgba(193, 144, 46, 0.3);
+            border: 1px solid rgba(24, 201, 139, 0.3);
             border-radius: 8px;
             padding: 6px 10px;
             font-size: 13px;
@@ -168,8 +168,8 @@ $success: #10b981;
             outline: none;
 
             &:focus {
-                border-color: #F4D17A;
-                box-shadow: 0 0 10px rgba(244, 209, 122, 0.2);
+                border-color: #18C98B;
+                box-shadow: 0 0 10px rgba(24, 201, 139, 0.2);
             }
         }
     }
@@ -179,7 +179,7 @@ $success: #10b981;
         width: 100%;
         aspect-ratio: 16 / 9;
         background: #060608;
-        border-bottom: 1px solid rgba(193, 144, 46, 0.15);
+        border-bottom: 1px solid rgba(24, 201, 139, 0.15);
     }
 
     .video {
@@ -199,7 +199,7 @@ $success: #10b981;
         text-align: center;
         padding: 24px;
         color: #FFFFFF;
-        background: radial-gradient(circle at center, rgba(244, 209, 122, 0.05) 0%, #060608 70%);
+        background: radial-gradient(circle at center, rgba(24, 201, 139, 0.05) 0%, #060608 70%);
 
         h3 {
             margin: 14px 0 6px;
@@ -217,9 +217,9 @@ $success: #10b981;
         .placeholderIcon {
             width: 52px;
             height: 52px;
-            color: #F4D17A;
+            color: #18C98B;
             opacity: 0.9;
-            filter: drop-shadow(0 0 12px rgba(244, 209, 122, 0.35));
+            filter: drop-shadow(0 0 12px rgba(24, 201, 139, 0.35));
         }
     }
 
@@ -253,16 +253,16 @@ $success: #10b981;
     .btnPrimary,
     .btnAnalyze {
         padding: 12px 28px;
-        background: linear-gradient(135deg, #FFE79A 0%, #F4D17A 45%, #C1902E 100%);
+        background: linear-gradient(135deg, #6EE7B7 0%, #18C98B 45%, #10B981 100%);
         color: #000000;
         font-weight: 700;
         font-family: "Euclid-Bold", sans-serif;
         border-radius: 10px;
-        box-shadow: 0 4px 20px rgba(244, 209, 122, 0.35);
+        box-shadow: 0 4px 20px rgba(24, 201, 139, 0.35);
 
         &:hover:not(:disabled) {
             transform: translateY(-1px);
-            box-shadow: 0 6px 26px rgba(244, 209, 122, 0.5);
+            box-shadow: 0 6px 26px rgba(24, 201, 139, 0.5);
             filter: brightness(1.03);
         }
 
@@ -273,7 +273,7 @@ $success: #10b981;
         &:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            background: rgba(193, 144, 46, 0.3);
+            background: rgba(24, 201, 139, 0.3);
             color: rgba(255, 255, 255, 0.4);
             box-shadow: none;
         }
@@ -292,12 +292,12 @@ $success: #10b981;
 
     .btnSecondary {
         padding: 10px 20px;
-        background: #060706;
+        background: #040605;
         color: $primary;
-        border: 1px solid rgba(193, 144, 46, 0.2);
+        border: 1px solid rgba(24, 201, 139, 0.2);
 
         &:hover:not(:disabled) {
-            background: rgba(193, 144, 46, 0.15);
+            background: rgba(24, 201, 139, 0.15);
         }
     }
 
@@ -325,7 +325,7 @@ $success: #10b981;
         padding: 9px 20px;
         border-radius: 8px;
         background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(244, 209, 122, 0.25);
+        border: 1px solid rgba(24, 201, 139, 0.25);
         color: #ffffff;
         font-size: 13px;
         font-weight: 600;
@@ -334,18 +334,18 @@ $success: #10b981;
         font-family: "Euclid-Medium", sans-serif;
 
         &:hover {
-            background: rgba(244, 209, 122, 0.15);
-            border-color: #F4D17A;
-            color: #F4D17A;
-            box-shadow: 0 0 12px rgba(244, 209, 122, 0.15);
+            background: rgba(24, 201, 139, 0.15);
+            border-color: #18C98B;
+            color: #18C98B;
+            box-shadow: 0 0 12px rgba(24, 201, 139, 0.15);
         }
     }
 
     .btnSecondary {
         padding: 8px 18px;
         border-radius: 8px;
-        background: linear-gradient(135deg, #F4D17A 0%, #D4AF37 100%);
-        border: 1px solid #F4D17A;
+        background: linear-gradient(135deg, #18C98B 0%, #059669 100%);
+        border: 1px solid #18C98B;
         color: #000000;
         font-size: 13px;
         font-weight: 700;
@@ -355,7 +355,7 @@ $success: #10b981;
 
         &:hover {
             transform: translateY(-1px);
-            box-shadow: 0 4px 14px rgba(244, 209, 122, 0.4);
+            box-shadow: 0 4px 14px rgba(24, 201, 139, 0.4);
             filter: brightness(1.05);
         }
     }
@@ -363,7 +363,7 @@ $success: #10b981;
     .timerBadge {
         padding: 10px 18px;
         border-radius: 8px;
-        background: #060706;
+        background: #040605;
         color: $text;
         font-size: 14px;
         font-weight: 600;
@@ -478,7 +478,7 @@ $success: #10b981;
         }
 
         &::-webkit-scrollbar-thumb {
-            background: rgba(193, 144, 46, 0.2);
+            background: rgba(24, 201, 139, 0.2);
             border-radius: 3px;
         }
     }
@@ -507,13 +507,13 @@ $success: #10b981;
     .historyGroup {
         margin-bottom: 20px;
         background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(193, 144, 46, 0.18);
+        border: 1px solid rgba(24, 201, 139, 0.18);
         border-radius: 14px;
         padding: 16px;
         transition: border-color 0.2s ease;
 
         &:hover {
-            border-color: rgba(244, 209, 122, 0.4);
+            border-color: rgba(24, 201, 139, 0.4);
         }
     }
 
@@ -523,7 +523,7 @@ $success: #10b981;
         gap: 8px;
         font-size: 13px;
         font-weight: 600;
-        color: #F4D17A;
+        color: #18C98B;
         margin-bottom: 12px;
     }
 
@@ -547,7 +547,7 @@ $success: #10b981;
         transition: box-shadow 0.2s ease;
 
         &:hover {
-            box-shadow: 0 6px 20px rgba(193, 144, 46, 0.08);
+            box-shadow: 0 6px 20px rgba(24, 201, 139, 0.08);
         }
     }
 
@@ -576,7 +576,7 @@ $success: #10b981;
     .tradeTypeBadge {
         padding: 2px 8px;
         border-radius: 100px;
-        background: #060706;
+        background: #040605;
         color: $primary;
         font-size: 11px;
         font-weight: 600;
@@ -737,9 +737,9 @@ $success: #10b981;
 
     .targetsBox {
         padding: 12px;
-        background: rgba(193, 144, 46, 0.06);
+        background: rgba(24, 201, 139, 0.06);
         border-radius: 8px;
-        border: 1px solid rgba(193, 144, 46, 0.1);
+        border: 1px solid rgba(24, 201, 139, 0.1);
     }
 
     .targetsLabel {
@@ -807,7 +807,7 @@ $success: #10b981;
             color: $primary;
             padding: 4px 10px;
             background: #fff;
-            border: 1px solid rgba(193, 144, 46, 0.2);
+            border: 1px solid rgba(24, 201, 139, 0.2);
             border-radius: 6px;
         }
     }
@@ -857,7 +857,7 @@ $success: #10b981;
         border: 1px solid $border;
         border-radius: 16px;
         background: #fff;
-        box-shadow: 0 8px 32px rgba(193, 144, 46, 0.08);
+        box-shadow: 0 8px 32px rgba(24, 201, 139, 0.08);
 
         h3 {
             margin: 16px 0 8px;
@@ -879,7 +879,7 @@ $success: #10b981;
         height: 72px;
         margin: 0 auto;
         border-radius: 50%;
-        background: linear-gradient(135deg, #060706, rgba(193, 144, 46, 0.15));
+        background: linear-gradient(135deg, #060706, rgba(24, 201, 139, 0.15));
         display: flex;
         align-items: center;
         justify-content: center;
@@ -913,16 +913,16 @@ $success: #10b981;
     overflow-y: auto;
     background: radial-gradient(130% 100% at 50% 0%, #171510 0%, #0A0A0D 100%);
     border-radius: 18px;
-    border: 1px solid rgba(244, 209, 122, 0.35);
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.95), 0 0 32px rgba(244, 209, 122, 0.08);
+    border: 1px solid rgba(24, 201, 139, 0.35);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.95), 0 0 32px rgba(24, 201, 139, 0.08);
     color: #ffffff;
 }
 
 .modalHeader {
     position: relative;
     padding: 24px 56px 18px 24px;
-    border-bottom: 1px solid rgba(244, 209, 122, 0.18);
-    background: linear-gradient(180deg, rgba(244, 209, 122, 0.04) 0%, transparent 100%);
+    border-bottom: 1px solid rgba(24, 201, 139, 0.18);
+    background: linear-gradient(180deg, rgba(24, 201, 139, 0.04) 0%, transparent 100%);
 
     [dir="rtl"] & {
         padding: 24px 24px 18px 56px;
@@ -949,7 +949,7 @@ $success: #10b981;
     position: absolute;
     top: 18px;
     right: 20px;
-    border: 1px solid rgba(244, 209, 122, 0.25);
+    border: 1px solid rgba(24, 201, 139, 0.25);
     background: rgba(255, 255, 255, 0.04);
     color: rgba(255, 255, 255, 0.75);
     width: 32px;
@@ -963,9 +963,9 @@ $success: #10b981;
     transition: all 0.2s ease;
 
     &:hover {
-        background: rgba(244, 209, 122, 0.15);
-        color: #F4D17A;
-        border-color: #F4D17A;
+        background: rgba(24, 201, 139, 0.15);
+        color: #18C98B;
+        border-color: #18C98B;
         transform: scale(1.05);
     }
 
@@ -985,7 +985,7 @@ $success: #10b981;
     justify-content: flex-end;
     gap: 12px;
     padding: 18px 24px 24px;
-    border-top: 1px solid rgba(244, 209, 122, 0.15);
+    border-top: 1px solid rgba(24, 201, 139, 0.15);
     background: rgba(0, 0, 0, 0.2);
 }
 
@@ -1004,7 +1004,7 @@ $success: #10b981;
     &:hover,
     &:focus-visible {
         border-color: $primary;
-        background: rgba(193, 144, 46, 0.03);
+        background: rgba(24, 201, 139, 0.03);
         outline: none;
     }
 }
@@ -1074,7 +1074,7 @@ $success: #10b981;
 
         .tabSwitcher {
             background: #08080A;
-            border: 1px solid rgba(193, 144, 46, 0.25);
+            border: 1px solid rgba(24, 201, 139, 0.25);
             border-radius: 12px;
 
             button {
@@ -1082,27 +1082,27 @@ $success: #10b981;
 
                 &:hover {
                     color: #FFFFFF;
-                    background: rgba(244, 209, 122, 0.08);
+                    background: rgba(24, 201, 139, 0.08);
                 }
 
                 &.tabActive {
-                    background: linear-gradient(135deg, rgba(48, 40, 20, 0.95) 0%, rgba(20, 18, 12, 0.98) 100%);
-                    border-color: rgba(244, 209, 122, 0.55);
-                    color: #F4D17A;
-                    box-shadow: 0 0 16px rgba(244, 209, 122, 0.15), inset 0 0 10px rgba(244, 209, 122, 0.08);
+                    background: linear-gradient(135deg, rgba(6, 30, 20, 0.95) 0%, rgba(20, 18, 12, 0.98) 100%);
+                    border-color: rgba(24, 201, 139, 0.55);
+                    color: #18C98B;
+                    box-shadow: 0 0 16px rgba(24, 201, 139, 0.15), inset 0 0 10px rgba(24, 201, 139, 0.08);
                 }
             }
         }
 
         .panel {
             background: #0D0E13;
-            border-color: rgba(193, 144, 46, 0.25);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(244, 209, 122, 0.03);
+            border-color: rgba(24, 201, 139, 0.25);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(24, 201, 139, 0.03);
         }
 
         .panelHeader {
             background: rgba(20, 18, 14, 0.85);
-            border-bottom-color: rgba(193, 144, 46, 0.18);
+            border-bottom-color: rgba(24, 201, 139, 0.18);
 
             h3 {
                 color: #ffffff;
@@ -1114,14 +1114,14 @@ $success: #10b981;
 
             select {
                 background: #08080A;
-                border-color: rgba(193, 144, 46, 0.3);
+                border-color: rgba(24, 201, 139, 0.3);
                 color: #ffffff;
             }
         }
 
         .snapshotHeader {
             background: rgba(20, 18, 14, 0.85);
-            border-bottom-color: rgba(193, 144, 46, 0.18);
+            border-bottom-color: rgba(24, 201, 139, 0.18);
 
             h3 {
                 color: #ffffff;
@@ -1140,18 +1140,18 @@ $success: #10b981;
         .dualSnapshot {
             img {
                 background: #060608;
-                border-color: rgba(193, 144, 46, 0.25);
+                border-color: rgba(24, 201, 139, 0.25);
             }
         }
 
         .resultsPanel {
             background: #0D0E13;
-            border-color: rgba(193, 144, 46, 0.25);
+            border-color: rgba(24, 201, 139, 0.25);
         }
 
         .resultsHeader {
             background: rgba(20, 18, 14, 0.85);
-            border-bottom-color: rgba(193, 144, 46, 0.18);
+            border-bottom-color: rgba(24, 201, 139, 0.18);
 
             h3 {
                 color: #ffffff;
@@ -1164,7 +1164,7 @@ $success: #10b981;
 
         .resultCard {
             background: #08080A;
-            border-color: rgba(193, 144, 46, 0.25);
+            border-color: rgba(24, 201, 139, 0.25);
         }
 
         .resultHeader {
@@ -1197,12 +1197,12 @@ $success: #10b981;
         }
 
         .targetsBox {
-            background: rgba(193, 144, 46, 0.15);
-            border-color: rgba(193, 144, 46, 0.25);
+            background: rgba(24, 201, 139, 0.15);
+            border-color: rgba(24, 201, 139, 0.25);
         }
 
         .targetsLabel {
-            color: #F4D17A;
+            color: #18C98B;
         }
 
         .targetRow {
@@ -1221,7 +1221,7 @@ $success: #10b981;
             strong {
                 background: #252529;
                 border-color: #2d2d34;
-                color: #F4D17A;
+                color: #18C98B;
             }
         }
 
@@ -1268,7 +1268,7 @@ $success: #10b981;
         .btnSecondary {
             background: #252529;
             border-color: #2d2d34;
-            color: #F4D17A;
+            color: #18C98B;
 
             &:hover:not(:disabled) {
                 background: #2d2d34;
@@ -1320,7 +1320,7 @@ $success: #10b981;
         color: #ffffff;
         &:hover {
             background: #2d2d34;
-            color: #F4D17A;
+            color: #18C98B;
         }
     }
 

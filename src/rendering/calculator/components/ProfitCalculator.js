@@ -190,7 +190,7 @@ export default function ProfitCalculator({ onCopy, copied }) {
                         {profitResult.riskRewardRatio && (
                             <div className={styles.breakdownItem}>
                                 <span>Risk / Reward Ratio</span>
-                                <span style={{ color: '#F4D17A' }}>1 : {profitResult.riskRewardRatio}</span>
+                                <span style={{ color: '#18C98B' }}>1 : {profitResult.riskRewardRatio}</span>
                             </div>
                         )}
                         {profitResult.riskAmount > 0 && (

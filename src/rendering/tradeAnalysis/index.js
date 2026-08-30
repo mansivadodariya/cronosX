@@ -10,10 +10,10 @@ import { analyzeTradesReport, getSampleTradeCsvFile, validateStatementFiles } fr
 // SVG Icons
 const PdfIcon = () => (
     <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-        <path d="M14 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2Z" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M14 2V8H20" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M10 12H14" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M10 16H14" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M14 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2Z" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M14 2V8H20" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M10 12H14" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M10 16H14" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
 
@@ -59,7 +59,7 @@ const CloseIcon = () => (
 );
 
 const ScaleIcon = () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
         <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
         <path d="M7 21h10" />
@@ -69,7 +69,7 @@ const ScaleIcon = () => (
 );
 
 const TargetIcon = () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="10" />
         <circle cx="12" cy="12" r="6" />
         <circle cx="12" cy="12" r="2" />
@@ -92,7 +92,7 @@ const DangerCircleIcon = () => (
 );
 
 const BarChartIcon = () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F4D17A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <line x1="18" y1="20" x2="18" y2="10" />
         <line x1="12" y1="20" x2="12" y2="4" />
         <line x1="6" y1="20" x2="6" y2="14" />
@@ -108,21 +108,21 @@ const CopyIcon = () => (
 
 const AiBrainGraphic = () => (
     <svg width="140" height="100" viewBox="0 0 140 100" fill="none" opacity="0.85">
-        <path d="M70 18C48 18 34 30 34 48C34 60 41 70 52 74C50 82 46 90 40 96C52 96 64 90 70 84C76 90 88 96 100 96C94 90 90 82 88 74C99 70 106 60 106 48C106 30 92 18 70 18Z" stroke="#F4D17A" strokeWidth="1.8" strokeDasharray="3 3" />
-        <circle cx="70" cy="30" r="4.5" fill="#F4D17A" />
-        <circle cx="52" cy="42" r="3.5" fill="#F4D17A" />
-        <circle cx="88" cy="42" r="3.5" fill="#F4D17A" />
+        <path d="M70 18C48 18 34 30 34 48C34 60 41 70 52 74C50 82 46 90 40 96C52 96 64 90 70 84C76 90 88 96 100 96C94 90 90 82 88 74C99 70 106 60 106 48C106 30 92 18 70 18Z" stroke="#18C98B" strokeWidth="1.8" strokeDasharray="3 3" />
+        <circle cx="70" cy="30" r="4.5" fill="#18C98B" />
+        <circle cx="52" cy="42" r="3.5" fill="#18C98B" />
+        <circle cx="88" cy="42" r="3.5" fill="#18C98B" />
         <circle cx="44" cy="58" r="3.5" fill="#38BDF8" />
         <circle cx="96" cy="58" r="3.5" fill="#38BDF8" />
         <circle cx="60" cy="66" r="4" fill="#10B981" />
         <circle cx="80" cy="66" r="4" fill="#10B981" />
-        <line x1="70" y1="30" x2="52" y2="42" stroke="#F4D17A" strokeWidth="1.2" />
-        <line x1="70" y1="30" x2="88" y2="42" stroke="#F4D17A" strokeWidth="1.2" />
-        <line x1="52" y1="42" x2="44" y2="58" stroke="#F4D17A" strokeWidth="1.2" />
-        <line x1="88" y1="42" x2="96" y2="58" stroke="#F4D17A" strokeWidth="1.2" />
-        <line x1="52" y1="42" x2="60" y2="66" stroke="#F4D17A" strokeWidth="1.2" />
-        <line x1="88" y1="42" x2="80" y2="66" stroke="#F4D17A" strokeWidth="1.2" />
-        <line x1="60" y1="66" x2="80" y2="66" stroke="#F4D17A" strokeWidth="1.2" />
+        <line x1="70" y1="30" x2="52" y2="42" stroke="#18C98B" strokeWidth="1.2" />
+        <line x1="70" y1="30" x2="88" y2="42" stroke="#18C98B" strokeWidth="1.2" />
+        <line x1="52" y1="42" x2="44" y2="58" stroke="#18C98B" strokeWidth="1.2" />
+        <line x1="88" y1="42" x2="96" y2="58" stroke="#18C98B" strokeWidth="1.2" />
+        <line x1="52" y1="42" x2="60" y2="66" stroke="#18C98B" strokeWidth="1.2" />
+        <line x1="88" y1="42" x2="80" y2="66" stroke="#18C98B" strokeWidth="1.2" />
+        <line x1="60" y1="66" x2="80" y2="66" stroke="#18C98B" strokeWidth="1.2" />
     </svg>
 );
 
