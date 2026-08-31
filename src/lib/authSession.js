@@ -74,8 +74,6 @@ export function getStoredUser() {
 
 import { supabase } from '@/lib/supabaseClient';
 
-let hydrationInFlight = null;
-
 /**
  * Hydrate missing user identity fields (first_name, last_name, email, profile_picture)
  * from Supabase or backend API and update localStorage & fire user:updated event.
@@ -94,12 +92,6 @@ export async function hydrateUserFromProfile(userId, currentUser = null) {
     if (hasIdentity) {
         return existing;
     }
-
-    if (hydrationInFlight && hydrationInFlight.userId === uid) {
-        return hydrationInFlight.promise;
-    }
-
-    const runHydration = async () => {
 
     try {
         let profileData = null;
@@ -164,21 +156,11 @@ export async function hydrateUserFromProfile(userId, currentUser = null) {
             window.dispatchEvent(new CustomEvent('user:updated'));
             return mergedUser;
         }
-        } catch (e) {
-            console.warn('Failed to hydrate user profile:', e);
-        }
+    } catch (e) {
+        console.warn('Failed to hydrate user profile:', e);
+    }
 
-        return existing;
-    };
-
-    const promise = runHydration().finally(() => {
-        if (hydrationInFlight?.userId === uid) {
-            hydrationInFlight = null;
-        }
-    });
-
-    hydrationInFlight = { userId: uid, promise };
-    return promise;
+    return existing;
 }
 
 /**

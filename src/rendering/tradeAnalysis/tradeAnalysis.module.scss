@@ -1523,6 +1523,960 @@ $cyanAccent: #38BDF8;
     }
 }
 
+/* ============================================================
+   AI ENTRY & EXECUTION QUALITY ANALYSIS CARD
+   ============================================================ */
+.entryAnalysisCard {
+    background: $cardObsidian;
+    border: 1px solid rgba(244, 209, 122, 0.25);
+    border-radius: 16px;
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #F4D17A, #10B981, transparent);
+    }
+
+    .entryCardHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+
+        .entryHeaderLeft {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            .entryIconBadge {
+                width: 42px;
+                height: 42px;
+                border-radius: 10px;
+                background: rgba(244, 209, 122, 0.1);
+                border: 1px solid rgba(244, 209, 122, 0.3);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: $primaryGold;
+                flex-shrink: 0;
+            }
+
+            .titleWithBadge {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                flex-wrap: wrap;
+
+                h3 {
+                    font-size: 17px;
+                    font-weight: 800;
+                    color: $textWhite;
+                    margin: 0;
+                    letter-spacing: -0.2px;
+                }
+
+                .qualityBadge {
+                    font-size: 11px;
+                    font-weight: 800;
+                    letter-spacing: 0.6px;
+                    text-transform: uppercase;
+                    padding: 3px 10px;
+                    border-radius: 99px;
+
+                    &.qualityStrong {
+                        background: rgba(16, 185, 129, 0.15);
+                        border: 1px solid rgba(16, 185, 129, 0.45);
+                        color: #34D399;
+                        box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
+                    }
+
+                    &.qualityModerate {
+                        background: rgba(245, 158, 11, 0.15);
+                        border: 1px solid rgba(245, 158, 11, 0.45);
+                        color: #FBBF24;
+                    }
+                }
+            }
+
+            .entrySub {
+                font-size: 12.5px;
+                color: $textMuted;
+                margin: 4px 0 0 0;
+            }
+        }
+    }
+
+    /* 6-Metric KPI Grid */
+    .entryKpiGrid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 12px;
+
+        @include respond-to('lg') {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @include respond-to('sm') {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .entryKpiCard {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 10px;
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.04);
+                border-color: rgba(244, 209, 122, 0.25);
+            }
+
+            .kpiTop {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 11px;
+                font-weight: 700;
+                color: $textMuted;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+
+                svg {
+                    color: $primaryGold;
+                    flex-shrink: 0;
+                }
+            }
+
+            .kpiValue {
+                font-size: 15px;
+                font-weight: 800;
+                color: $textWhite;
+
+                &.greenText {
+                    color: #34D399;
+                }
+
+                &.amberText {
+                    color: #FBBF24;
+                }
+
+                &.redText {
+                    color: #F87171;
+                }
+            }
+
+            .kpiValueHighlight {
+                font-size: 13px;
+                font-weight: 800;
+                color: $primaryGold;
+                font-family: monospace, sans-serif;
+            }
+
+            .kpiSub {
+                font-size: 10.5px;
+                color: $textDim;
+            }
+        }
+    }
+
+    /* Strategic Assessment & Volatility Context */
+    .entryContextRow {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+
+        @include respond-to('md') {
+            grid-template-columns: 1fr;
+        }
+
+        .setupConditionBox,
+        .volatilityBox {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 12px;
+            padding: 16px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .boxTag {
+                font-size: 10.5px;
+                font-weight: 800;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                color: $primaryGold;
+            }
+
+            h4 {
+                font-size: 14.5px;
+                font-weight: 700;
+                color: $textWhite;
+                margin: 0;
+            }
+
+            p {
+                font-size: 12.5px;
+                color: rgba(255, 255, 255, 0.78);
+                line-height: 1.55;
+                margin: 0;
+            }
+
+            .volatilityText {
+                font-size: 12.5px;
+                color: rgba(255, 255, 255, 0.78);
+                line-height: 1.55;
+                margin: 0;
+            }
+
+            .newsTagRow {
+                display: flex;
+                align-items: baseline;
+                gap: 8px;
+                margin-top: 4px;
+                padding-top: 8px;
+                border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+                .newsLabel {
+                    font-size: 11px;
+                    font-weight: 700;
+                    color: $primaryGold;
+                    text-transform: uppercase;
+                    flex-shrink: 0;
+                }
+
+                .newsEvents {
+                    font-size: 11.5px;
+                    color: $textMuted;
+                }
+            }
+        }
+    }
+
+    /* Strengths & Execution Risks Grid */
+    .entryStrengthsRisksGrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+
+        @include respond-to('sm') {
+            grid-template-columns: 1fr;
+        }
+
+        .entryColBox {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 12px;
+            padding: 16px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+
+            .entryColHeader {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+
+                h4 {
+                    font-size: 13.5px;
+                    font-weight: 800;
+                    letter-spacing: 0.4px;
+                    color: $textWhite;
+                    margin: 0;
+                }
+            }
+
+            .entryItemsList {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+
+                .strengthItem {
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 8px;
+                    font-size: 12.5px;
+                    color: rgba(255, 255, 255, 0.85);
+                    line-height: 1.5;
+
+                    .checkBullet {
+                        color: #10B981;
+                        font-weight: 800;
+                        flex-shrink: 0;
+                    }
+                }
+
+                .riskItem {
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 8px;
+                    font-size: 12.5px;
+                    color: rgba(255, 255, 255, 0.85);
+                    line-height: 1.5;
+
+                    .riskBullet {
+                        color: #F59E0B;
+                        font-weight: 800;
+                        flex-shrink: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* TABLE ACTION BUTTONS */
+.tableAnalyzeBtn {
+    background: rgba(244, 209, 122, 0.12);
+    border: 1px solid rgba(244, 209, 122, 0.35);
+    color: $primaryGold;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+
+    svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    &:hover {
+        background: $primaryGold;
+        color: #000000;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(244, 209, 122, 0.3);
+    }
+}
+
+.rowAnalyzeBtn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #FFFFFF;
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 11.5px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+
+    svg {
+        width: 12px;
+        height: 12px;
+        color: $primaryGold;
+    }
+
+    &:hover:not(:disabled) {
+        background: rgba(244, 209, 122, 0.18);
+        border-color: $primaryGold;
+        color: $primaryGold;
+        transform: translateY(-1px);
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+}
+
+/* INDIVIDUAL TRADE AUDIT MODAL */
+.tradeAuditModalContainer {
+    background: #0D0F12;
+    border: 1px solid rgba(244, 209, 122, 0.3);
+    border-radius: 18px;
+    width: 100%;
+    max-width: 680px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(244, 209, 122, 0.15);
+    display: flex;
+    flex-direction: column;
+    animation: modalIn 0.25s ease-out;
+
+    .modalHeader {
+        padding: 18px 24px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .modalHeaderTitleGroup {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            .sparkleIconBox {
+                width: 36px;
+                height: 36px;
+                border-radius: 8px;
+                background: rgba(244, 209, 122, 0.12);
+                border: 1px solid rgba(244, 209, 122, 0.3);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: $primaryGold;
+            }
+
+            h3 {
+                font-size: 16px;
+                font-weight: 800;
+                color: $textWhite;
+                margin: 0;
+            }
+
+            .modalSub {
+                font-size: 11.5px;
+                color: $textMuted;
+                display: block;
+                margin-top: 2px;
+            }
+        }
+
+        .closeBtn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: $textMuted;
+            border-radius: 8px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.12);
+                color: #FFFFFF;
+            }
+        }
+    }
+
+    .tradeModalBody {
+        padding: 22px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+
+        .tradeDetailsBanner {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 14px 18px;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+
+            @include respond-to('sm') {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .detailItem {
+                display: flex;
+                flex-direction: column;
+                gap: 3px;
+
+                .detailLabel {
+                    font-size: 10.5px;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    color: $textMuted;
+                    letter-spacing: 0.4px;
+                }
+
+                .detailValue {
+                    font-size: 13px;
+                    font-weight: 700;
+                    color: $textWhite;
+                }
+
+                .detailValueBold {
+                    font-size: 14px;
+                    font-weight: 800;
+                    color: $textWhite;
+                }
+
+                .greenPill {
+                    font-size: 11px;
+                    font-weight: 800;
+                    color: #34D399;
+                    background: rgba(16, 185, 129, 0.15);
+                    padding: 2px 6px;
+                    border-radius: 4px;
+                    width: fit-content;
+                }
+
+                .redPill {
+                    font-size: 11px;
+                    font-weight: 800;
+                    color: #F87171;
+                    background: rgba(239, 68, 68, 0.15);
+                    padding: 2px 6px;
+                    border-radius: 4px;
+                    width: fit-content;
+                }
+
+                .detailValueGreen {
+                    font-size: 13.5px;
+                    font-weight: 800;
+                    color: #34D399;
+                }
+
+                .detailValueRed {
+                    font-size: 13.5px;
+                    font-weight: 800;
+                    color: #F87171;
+                }
+            }
+        }
+
+        .modalTabRow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 12px;
+
+            .modalTabBtn {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                padding: 8px 14px;
+                border-radius: 8px;
+                background: transparent;
+                border: 1px solid transparent;
+                color: $textDim;
+                font-size: 12px;
+                font-weight: 700;
+                cursor: pointer;
+                transition: all 0.2s ease;
+
+                svg {
+                    width: 14px;
+                    height: 14px;
+                }
+
+                &:hover {
+                    color: $textWhite;
+                    background: rgba(255, 255, 255, 0.04);
+                }
+
+                &.active {
+                    color: $primaryGold;
+                    background: rgba(244, 209, 122, 0.1);
+                    border-color: rgba(244, 209, 122, 0.3);
+                }
+            }
+        }
+
+        .auditResultContent {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+
+            .auditScoreCard {
+                background: linear-gradient(135deg, rgba(244, 209, 122, 0.08) 0%, rgba(16, 185, 129, 0.06) 100%);
+                border: 1px solid rgba(244, 209, 122, 0.3);
+                border-radius: 12px;
+                padding: 16px 20px;
+                display: flex;
+                align-items: center;
+                gap: 18px;
+
+                .scoreCircle {
+                    width: 56px;
+                    height: 56px;
+                    border-radius: 50%;
+                    background: rgba(0, 0, 0, 0.5);
+                    border: 2px solid $primaryGold;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+
+                    .scoreNum {
+                        font-size: 16px;
+                        font-weight: 800;
+                        color: $primaryGold;
+                        line-height: 1;
+                    }
+
+                    .scoreMax {
+                        font-size: 9px;
+                        color: $textMuted;
+                    }
+                }
+
+                .scoreText {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+
+                    .scoreTitleRow {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+
+                        h4 {
+                            font-size: 15px;
+                            font-weight: 800;
+                            color: $textWhite;
+                            margin: 0;
+                        }
+
+                        .auditApiBadge {
+                            font-size: 10px;
+                            font-weight: 800;
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                            color: #34D399;
+                            background: rgba(16, 185, 129, 0.15);
+                            border: 1px solid rgba(16, 185, 129, 0.3);
+                            padding: 2px 6px;
+                            border-radius: 4px;
+                        }
+                    }
+
+                    p {
+                        font-size: 12.5px;
+                        color: rgba(255, 255, 255, 0.8);
+                        margin: 0;
+                        line-height: 1.5;
+                    }
+                }
+            }
+
+            .subScoresMatrixGrid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 10px;
+
+                .subScoreCard {
+                    background: rgba(0, 0, 0, 0.35);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border-radius: 10px;
+                    padding: 10px 12px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+
+                    .subScoreLabel {
+                        font-size: 11px;
+                        font-weight: 700;
+                        color: $textDim;
+                        text-transform: uppercase;
+                    }
+
+                    .subScoreValueBox {
+                        display: flex;
+                        align-items: baseline;
+                        gap: 2px;
+
+                        .scoreGreen { color: #34D399; font-size: 15px; font-weight: 800; }
+                        .scoreAmber { color: #FBBF24; font-size: 15px; font-weight: 800; }
+                        .scoreRed { color: #F87171; font-size: 15px; font-weight: 800; }
+
+                        .subScoreDenom {
+                            font-size: 10px;
+                            color: $textDim;
+                        }
+                    }
+                }
+            }
+
+            .macroContextCard {
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 12px;
+                padding: 16px 18px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .boxTitleRow {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+
+                    h4 {
+                        font-size: 13.5px;
+                        font-weight: 800;
+                        color: $textWhite;
+                        margin: 0;
+                    }
+
+                    .newsRiskBadge {
+                        font-size: 10px;
+                        font-weight: 800;
+                        padding: 2px 7px;
+                        border-radius: 4px;
+                        text-transform: uppercase;
+                        margin-left: auto;
+
+                        &.riskHigh {
+                            background: rgba(248, 113, 113, 0.15);
+                            color: #F87171;
+                            border: 1px solid rgba(248, 113, 113, 0.3);
+                        }
+
+                        &.riskLow {
+                            background: rgba(52, 211, 153, 0.15);
+                            color: #34D399;
+                            border: 1px solid rgba(52, 211, 153, 0.3);
+                        }
+                    }
+                }
+
+                .regimeRow {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 8px;
+
+                    .regimeTag, .sentimentTag {
+                        font-size: 11.5px;
+                        font-weight: 700;
+                        padding: 3px 8px;
+                        border-radius: 6px;
+                        background: rgba(255, 255, 255, 0.05);
+                        border: 1px solid rgba(255, 255, 255, 0.1);
+                        color: rgba(255, 255, 255, 0.9);
+                    }
+                }
+
+                .macroAssessmentText {
+                    font-size: 12.5px;
+                    color: rgba(255, 255, 255, 0.8);
+                    margin: 0;
+                    line-height: 1.5;
+                }
+
+                .economicEventsStack {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 6px;
+                    margin-top: 4px;
+
+                    .eventStackLabel {
+                        font-size: 11px;
+                        font-weight: 700;
+                        color: $textDim;
+                        text-transform: uppercase;
+                    }
+
+                    .eventRowItem {
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        gap: 8px;
+                        font-size: 12px;
+                        background: rgba(0, 0, 0, 0.25);
+                        padding: 6px 10px;
+                        border-radius: 6px;
+                        border: 1px solid rgba(255, 255, 255, 0.05);
+
+                        .eventBadge {
+                            font-size: 10px;
+                            font-weight: 800;
+                            color: #FBBF24;
+                        }
+
+                        .eventName {
+                            color: $textWhite;
+                            font-weight: 600;
+                        }
+
+                        .eventValues {
+                            margin-left: auto;
+                            color: $textDim;
+
+                            strong {
+                                color: #34D399;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .mistakesBox,
+            .recommendationsBox,
+            .suggestionsBox {
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 12px;
+                padding: 16px 18px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .boxTitleRow {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+
+                    h4 {
+                        font-size: 13.5px;
+                        font-weight: 800;
+                        color: $textWhite;
+                        margin: 0;
+                    }
+                }
+
+                .auditList {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+
+                    .auditItemBad {
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 8px;
+                        font-size: 12.5px;
+                        color: rgba(255, 255, 255, 0.85);
+
+                        span {
+                            color: #F87171;
+                            font-weight: 800;
+                            flex-shrink: 0;
+                        }
+
+                        p {
+                            margin: 0;
+                            line-height: 1.45;
+                        }
+                    }
+
+                    .auditItemGood {
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 8px;
+                        font-size: 12.5px;
+                        color: rgba(255, 255, 255, 0.85);
+
+                        span {
+                            color: #34D399;
+                            font-weight: 800;
+                            flex-shrink: 0;
+                        }
+
+                        p {
+                            margin: 0;
+                            line-height: 1.45;
+                        }
+                    }
+
+                    .auditItemSuggestion {
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 8px;
+                        font-size: 12.5px;
+                        color: rgba(255, 255, 255, 0.9);
+
+                        .bulbIcon {
+                            font-size: 13px;
+                            flex-shrink: 0;
+                        }
+
+                        p {
+                            margin: 0;
+                            line-height: 1.45;
+                        }
+                    }
+                }
+            }
+
+            .diagnosticDetailsBox {
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 12px;
+                padding: 16px 18px;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+
+                .boxTitleRow {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+
+                    h4 {
+                        font-size: 13.5px;
+                        font-weight: 800;
+                        color: $textWhite;
+                        margin: 0;
+                    }
+                }
+
+                .diagnosticGrid {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 12px;
+
+                    .diagCard {
+                        background: rgba(0, 0, 0, 0.3);
+                        border: 1px solid rgba(255, 255, 255, 0.05);
+                        border-radius: 8px;
+                        padding: 12px;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 6px;
+
+                        h5 {
+                            font-size: 12px;
+                            font-weight: 700;
+                            color: $primaryGold;
+                            margin: 0;
+                            text-transform: uppercase;
+                        }
+
+                        p {
+                            font-size: 12px;
+                            color: rgba(255, 255, 255, 0.8);
+                            margin: 0;
+                            line-height: 1.45;
+                        }
+                    }
+                }
+            }
+        }
+
+        .modalReportWrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+
+            .reportHeaderActions {
+                display: flex;
+                justify-content: flex-end;
+            }
+        }
+    }
+}
+
 .reportTakeawayBox {
     background: rgba(24, 201, 139, 0.08);
     border: 1px solid rgba(24, 201, 139, 0.35);

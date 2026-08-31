@@ -152,12 +152,99 @@ export async function analyzeTradesReport(files, _isRetry = false) {
         broker_metadata: data.broker_metadata || {},
         trades: Array.isArray(data.trades) ? data.trades : [],
         summary: data.summary || {},
+        entry_analysis: data.entry_analysis || data.summary?.entry_analysis || null,
         report: data.report || data.summary?.formatted_report || '',
         raw_trades_count: data.raw_trades_count || data.trades?.length || 0,
         normalized_trades_count: data.normalized_trades_count || data.trades?.length || 0,
         deduplicated_trades_count: data.deduplicated_trades_count || 0,
         llm_usage: data.llm_usage || null,
     };
+}
+
+/**
+ * Calls POST /api/v1/trade-analyze/trade/{trade_id}/analyze
+ * @param {string|number} tradeId
+ * @param {boolean} [_isRetry]
+ * @returns {Promise<object>}
+ */
+export async function analyzeIndividualTrade(tradeId, _isRetry = false) {
+    if (!tradeId) {
+        throw new Error('Trade ID is required for analysis.');
+    }
+
+    const token = getAccessToken();
+    const base = getBackendUrl();
+    const directUrl = base ? `${base}/api/v1/trade-analyze/trade/${encodeURIComponent(tradeId)}/analyze` : `/api/v1/trade-analyze/trade/${encodeURIComponent(tradeId)}/analyze`;
+
+    const headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true',
+    };
+
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    let res;
+    try {
+        res = await fetch(directUrl, {
+            method: 'POST',
+            headers,
+        });
+    } catch (netErr) {
+        // Fallback to Next.js proxy route
+        if (directUrl !== `/api/v1/trade-analyze/trade/${tradeId}/analyze`) {
+            try {
+                res = await fetch(`/api/v1/trade-analyze/trade/${tradeId}/analyze`, {
+                    method: 'POST',
+                    headers,
+                });
+            } catch (_) {
+                console.error('Trade analysis network error:', netErr);
+                throw new Error('Could not connect to the individual trade analysis engine.');
+            }
+        } else {
+            console.error('Trade analysis network error:', netErr);
+            throw new Error('Could not connect to the individual trade analysis engine.');
+        }
+    }
+
+    if (res.status === 401 && !_isRetry) {
+        const newToken = await tryRefreshToken();
+        if (newToken) {
+            return analyzeIndividualTrade(tradeId, true);
+        }
+        clearAuthAndRedirect();
+        throw new Error('Your session has expired. Please log in again.');
+    }
+
+    const data = await res.json().catch(() => null);
+
+    if (!res.ok) {
+        let msg = 'Failed to analyze trade.';
+        if (data?.detail) {
+            if (Array.isArray(data.detail)) {
+                msg = data.detail.map((d) => d.msg || d.message || JSON.stringify(d)).join(', ');
+            } else if (typeof data.detail === 'string') {
+                msg = data.detail;
+            } else if (typeof data.detail === 'object') {
+                msg = data.detail.message || data.detail.msg || JSON.stringify(data.detail);
+            }
+        } else if (data?.message) {
+            msg = data.message;
+        }
+        const err = new Error(msg);
+        err.status = res.status;
+        err.raw = data;
+        throw err;
+    }
+
+    if (!data) {
+        throw new Error('Received an empty response from the trade analysis server.');
+    }
+
+    return data;
 }
 
 /**

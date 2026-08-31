@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState, useRef } from 'react';
-import { getLivePriceWsUrl } from '@/lib/useLivePrice';
 
 /**
  * LandingPageLiveCard
@@ -25,7 +24,17 @@ export const LandingPageLiveCard = ({ symbol = 'XAUUSD', className = '' }) => {
         let isMounted = true;
         let ws = null;
 
-        const wsUrl = getLivePriceWsUrl(cleanSymbol);
+        const protocol = typeof window !== 'undefined' && window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || process.env.NEXT_PUBLIC_API_URL;
+        let host = 'overbook-cognitive-platonic.ngrok-free.dev';
+
+        if (backendUrl) {
+            host = backendUrl.replace(/^https?:\/\//, '').replace(/\/+$/, '');
+        } else if (typeof window !== 'undefined' && window.location.host) {
+            host = window.location.host;
+        }
+
+        const wsUrl = `${protocol}//${host}/api/v1/websocket/live-price?symbol=${cleanSymbol}`;
 
         const connect = () => {
             try {
