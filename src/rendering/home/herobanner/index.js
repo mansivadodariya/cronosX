@@ -77,13 +77,7 @@ export default function Herobanner() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className={styles.badge} onClick={() => authNavigate(router, '/trade-snap')}>
-              <span className={styles.pulseDot}>
-                <span className={styles.pulseRing} />
-              </span>
-              <span className={styles.badgeTag}>CHRONOSX</span>
-              <span className={styles.badgeDivider}>•</span>
-              <span className={styles.badgeText}>Next-Gen AI Algorithmic Trading Terminal</span>
-              
+              <span className={styles.badgeText}>Next-Gen AI Algorithmic Trading Terminal</span> 
             </div>
           </motion.div>
 
