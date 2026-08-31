@@ -186,16 +186,28 @@ const SideRays = ({
       }
       window.addEventListener('resize', updateSize);
 
+      let isVisible = true;
+      let intersectionObserver = null;
+
       const loop = (t) => {
         if (isDestroyed || !renderer) return;
-        uniforms.iTime.value = t * 0.001;
-        try {
-          renderer.render({ scene: mesh });
-        } catch (e) {
-          console.error("SideRays render error:", e);
+        if (isVisible) {
+          uniforms.iTime.value = t * 0.001;
+          try {
+            renderer.render({ scene: mesh });
+          } catch (e) {
+            console.error("SideRays render error:", e);
+          }
         }
         animationId = requestAnimationFrame(loop);
       };
+
+      if (typeof IntersectionObserver !== 'undefined') {
+        intersectionObserver = new IntersectionObserver(([entry]) => {
+          isVisible = entry.isIntersecting;
+        }, { threshold: 0 });
+        intersectionObserver.observe(container);
+      }
 
       animationId = requestAnimationFrame(loop);
 
@@ -207,6 +219,9 @@ const SideRays = ({
         window.removeEventListener('resize', updateSize);
         if (resizeObserver) {
           resizeObserver.disconnect();
+        }
+        if (intersectionObserver) {
+          intersectionObserver.disconnect();
         }
         if (renderer && renderer.gl) {
           try {

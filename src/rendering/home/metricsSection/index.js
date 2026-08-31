@@ -2,7 +2,7 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import CountUp from '@/components/countUp';
-import Textbutton from '@/components/textbutton';
+import SectionHeader from '@/components/sectionHeader';
 import styles from './metricsSection.module.scss';
 
 // Motion variants for entry animations
@@ -82,27 +82,13 @@ export default function MetricsSection() {
       <div className={styles.ambientGlow} />
 
       <div className="container">
-        {/* Section Header with Staggered Entry Motion */}
-        <motion.div
-          className={styles.headerGroup}
-          variants={headerContainerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <motion.div className={styles.badgeWrapper} variants={headerItemVariants}>
-            <Textbutton text="HAVE REGISTERED METRICS" />
-          </motion.div>
-          
-          <motion.h2 className={styles.title} variants={headerItemVariants}>
-            Engineered for Elite Traders <br />
-            <span>&amp; Institutions</span>
-          </motion.h2>
-          
-          <motion.p className={styles.subtitle} variants={headerItemVariants}>
-            High-frequency neural pattern recognition operating across global markets with ultra-low latency.
-          </motion.p>
-        </motion.div>
+        {/* Section Header */}
+        <SectionHeader
+          badge="HAVE REGISTERED METRICS"
+          title1="Engineered for Elite Traders"
+          title2="& Institutions"
+          description="High-frequency neural pattern recognition operating across global markets with ultra-low latency."
+        />
 
         {/* Centered Brick Wall Grid with Localized Green Laser Border Spotlight & Staggered Entry Motions */}
         <motion.div

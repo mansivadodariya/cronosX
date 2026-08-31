@@ -10,7 +10,97 @@
   background: radial-gradient(ellipse at 50% 50%, #040c09 0%, #020605 60%, #000000 100%);
 
   :global(html.light) & {
-    background: #F8FAFC !important;
+    background: #FFFFFF !important;
+
+    .chartCard {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: none !important;
+
+      .tickerTag {
+        color: #0F172A !important;
+      }
+
+      .statusTag {
+        color: #475569 !important;
+        background: #F1F5F9 !important;
+        border: 1px solid #E2E8F0 !important;
+
+        &.statusBroken {
+          color: #047857 !important;
+          background: rgba(16, 185, 129, 0.12) !important;
+          border-color: rgba(5, 150, 105, 0.35) !important;
+          box-shadow: none !important;
+        }
+      }
+
+      .breakoutLineLabel,
+      .resistanceVal {
+        color: #047857 !important;
+      }
+
+      .toastCard {
+        background: #FFFFFF !important;
+        border: 1px solid #E2E8F0 !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+
+        .toastBadge {
+          background: rgba(16, 185, 129, 0.12) !important;
+          border-color: rgba(5, 150, 105, 0.35) !important;
+          color: #047857 !important;
+        }
+
+        .toastTime {
+          color: #047857 !important;
+        }
+
+        .toastMainTitle {
+          color: #0F172A !important;
+        }
+
+        .toastSubtitle {
+          color: #64748B !important;
+        }
+      }
+    }
+
+    .stepBlock {
+      &.stepActive {
+        .numberBadge {
+          background: rgba(16, 185, 129, 0.15) !important;
+          border-color: #059669 !important;
+          color: #047857 !important;
+          box-shadow: none !important;
+        }
+
+        h3 {
+          color: #0F172A !important;
+        }
+
+        .stepDesc {
+          color: #334155 !important;
+        }
+      }
+
+      .stepHeader {
+        .numberBadge {
+          color: #059669 !important;
+          border-color: rgba(5, 150, 105, 0.3) !important;
+          background: rgba(16, 185, 129, 0.08) !important;
+          box-shadow: none !important;
+        }
+
+        h3 {
+          color: #0F172A !important;
+        }
+      }
+
+      .stepDesc {
+        color: #64748B !important;
+      }
+    }
   }
 
   @include respond-to("tab") {

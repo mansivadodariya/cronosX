@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './howitWorks.module.scss';
 import Link from 'next/link';
+import SectionHeader from '@/components/sectionHeader';
 
 const steps = [
   {
@@ -59,17 +60,13 @@ export default function HowitWorks() {
 
           {/* ── LEFT: Text ── */}
           <div className={styles.left}>
-            <span className={styles.badge}>CHRONOSX &middot; THE ENGINE</span>
-
-            <h2 className={styles.title}>
-              Trade Smart.<br />
-              Earn Credits.<br />
-              <span>Repeat Forever.</span>
-            </h2>
-
-            <p className={styles.desc}>
-              ChronosX is the AI behind your institutional edge — every market, every session, every tool.
-            </p>
+            <SectionHeader
+              align="left"
+              badge="CHRONOSX · THE ENGINE"
+              title1="Trade Smart."
+              title2="Earn Credits. Repeat Forever."
+              description="ChronosX is the AI behind your institutional edge — every market, every session, every tool."
+            />
 
             <p className={styles.sub}>
               Connect your Newera account to unlock perpetual AI intelligence. Every completed trade cycle automatically refills your credits for unlimited free analysis.

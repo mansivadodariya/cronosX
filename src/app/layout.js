@@ -5,6 +5,7 @@ import WhatsappButton from "@/components/whatsappButton";
 import PageLoader from "@/components/pageLoader";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { ThemeProvider } from "@/context/ThemeContext";
+import SmoothScrollProvider from "@/components/smoothScroll";
 
 const antonSans = Anton({
   variable: "--font-anton",
@@ -128,9 +129,11 @@ export default function RootLayout({ children }) {
         <ThemeProvider>
           <LanguageProvider>
             <ToastProvider>
-              {children}
-              <PageLoader />
-              <WhatsappButton />
+              <SmoothScrollProvider>
+                {children}
+                <PageLoader />
+                <WhatsappButton />
+              </SmoothScrollProvider>
             </ToastProvider>
           </LanguageProvider>
         </ThemeProvider>

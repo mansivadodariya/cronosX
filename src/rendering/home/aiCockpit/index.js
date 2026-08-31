@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import Textbutton from '@/components/textbutton';
+import SectionHeader from '@/components/sectionHeader';
 import styles from './aiCockpit.module.scss';
 
 
@@ -229,18 +229,12 @@ export default function AiCockpit({ isHero = false, showHeader = true }) {
         
         {/* Section Header */}
         {!isHero && showHeader && (
-          <div className={styles.sectionHeader}>
-            <div className={styles.badgeWrapper}>
-              <Textbutton text="AI INTELLIGENCE COCKPIT" />
-            </div>
-            <h2>
-              Real-Time Live Terminal. <br />
-              <span>Predictive Cockpit.</span>
-            </h2>
-            <p>
-              Institutional-grade real-time market engine. Stream live gold tick candles, track composite AI conviction scores, and monitor volume flows in one unified terminal.
-            </p>
-          </div>
+          <SectionHeader
+            badge="AI INTELLIGENCE COCKPIT"
+            title1="Real-Time Live Terminal."
+            title2="Predictive Cockpit."
+            description="Institutional-grade real-time market engine. Stream live gold tick candles, track composite AI conviction scores, and monitor volume flows in one unified terminal."
+          />
         )}
 
         {/* 3D Perspective Scroll Container */}

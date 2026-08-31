@@ -150,6 +150,9 @@
     max-width: 100%;
     box-sizing: border-box;
     overflow: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    will-change: transform;
 
     :global(html.light) & {
       background: #FFFFFF !important;
@@ -158,14 +161,14 @@
 
       [class*="partOneChart"],
       [class*="partTwoCockpit"] {
-        background: #F8FAFC !important;
-        border-color: rgba(24, 201, 139, 0.25) !important;
+        background: #FFFFFF !important;
+        border-color: #E2E8F0 !important;
         box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04) !important;
       }
 
       [class*="partHeader"] {
-        background: #FFFFFF !important;
-        border-color: rgba(24, 201, 139, 0.2) !important;
+        background: #F8FAFC !important;
+        border-color: #E2E8F0 !important;
       }
 
       [class*="svgChartContainer"] {
@@ -174,7 +177,7 @@
 
       [class*="yAxisScaleGutter"] {
         background: #F1F5F9 !important;
-        border-color: rgba(24, 201, 139, 0.2) !important;
+        border-color: #E2E8F0 !important;
         span { color: #475569 !important; }
       }
 
@@ -188,15 +191,128 @@
       [class*="breadcrumbText"],
       [class*="metaSub"],
       [class*="subLabel"] {
-        color: #475569 !important;
+        color: #64748B !important;
       }
 
       [class*="metricCard"],
       [class*="statBox"],
       [class*="infoCard"] {
-        background: #FFFFFF !important;
-        border-color: rgba(24, 201, 139, 0.25) !important;
+        background: #F8FAFC !important;
+        border-color: #E2E8F0 !important;
         color: #0F172A !important;
+      }
+
+      /* Light Grey Styling for Bottom 3-Column Meta Matrix Cards */
+      .metaCol,
+      [class*="metaCol"] {
+        background: #F1F5F9 !important;
+        border: 1px solid #E2E8F0 !important;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+
+        &:hover {
+          background: #E2E8F0 !important;
+          border-color: rgba(16, 185, 129, 0.45) !important;
+        }
+
+        .metaLabel,
+        [class*="metaLabel"] {
+          color: #64748B !important;
+          font-weight: 800 !important;
+        }
+
+        .metaVal,
+        [class*="metaVal"] {
+          color: #0F172A !important;
+          font-weight: 800 !important;
+        }
+
+        .metaSub,
+        [class*="metaSub"] {
+          color: #64748B !important;
+        }
+
+        .metaBadgeGold,
+        [class*="metaBadgeGold"] {
+          background: rgba(16, 185, 129, 0.12) !important;
+          color: #047857 !important;
+          border: 1px solid rgba(16, 185, 129, 0.35) !important;
+        }
+
+        .metaBadgeGreen,
+        [class*="metaBadgeGreen"] {
+          background: rgba(16, 185, 129, 0.12) !important;
+          color: #047857 !important;
+          border: 1px solid rgba(16, 185, 129, 0.35) !important;
+        }
+
+        .metaBadgeLive,
+        [class*="metaBadgeLive"] {
+          background: rgba(2, 132, 199, 0.12) !important;
+          color: #0284C7 !important;
+          border: 1px solid rgba(2, 132, 199, 0.35) !important;
+        }
+
+        .signalBadgeGreen,
+        [class*="signalBadgeGreen"] {
+          color: #047857 !important;
+          font-weight: 800 !important;
+
+          .signalDot,
+          [class*="signalDot"] {
+            background: #059669 !important;
+            box-shadow: 0 0 6px rgba(5, 150, 105, 0.5) !important;
+          }
+        }
+      }
+
+      /* Live WebSocket Footer Bar in Light Mode */
+      .cockpitFooterBar,
+      [class*="cockpitFooterBar"] {
+        border-top: 1px solid #E2E8F0 !important;
+        color: #64748B !important;
+
+        .footerLeft,
+        [class*="footerLeft"] {
+          span {
+            color: #475569 !important;
+          }
+
+          .liveGreenDotSmall,
+          [class*="liveGreenDotSmall"] {
+            background: #059669 !important;
+            box-shadow: 0 0 6px rgba(5, 150, 105, 0.5) !important;
+          }
+        }
+
+        .footerRight,
+        [class*="footerRight"] {
+          span {
+            color: #64748B !important;
+          }
+        }
+      }
+
+      .tabLink,
+      [class*="tabLink"] {
+        background: #F1F5F9 !important;
+        border-color: #E2E8F0 !important;
+
+        span { color: #334155 !important; }
+        svg { color: #64748B !important; }
+
+        &:hover {
+          background: #E2E8F0 !important;
+          border-color: rgba(16, 185, 129, 0.4) !important;
+          span { color: #047857 !important; }
+          svg { color: #047857 !important; }
+        }
+      }
+
+      .intelCard,
+      [class*="intelCard"] {
+        background: #F8FAFC !important;
+        border: 1px solid #E2E8F0 !important;
+        box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04) !important;
       }
     }
 

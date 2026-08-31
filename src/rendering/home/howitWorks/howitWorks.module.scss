@@ -631,6 +631,47 @@
       }
     }
   }
+
+  :global(html.light) & {
+    background: #FFFFFF !important;
+
+    .tvBox {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      outline: none !important;
+      box-shadow: none !important;
+
+      &::before {
+        display: none !important;
+      }
+    }
+
+    .sub {
+      color: #64748B !important;
+    }
+
+    .cta {
+      background: #047857 !important;
+      color: #FFFFFF !important;
+      box-shadow: none !important;
+    }
+
+    .dots .dot {
+      background: #CBD5E1 !important;
+      &.dotActive {
+        background: #047857 !important;
+      }
+    }
+
+    .simCard,
+    .meta,
+    .stepPill,
+    .inputBar,
+    .statusBadge,
+    .creditBox {
+      box-shadow: none !important;
+    }
+  }
 }
 
 /* ─── Keyframes ─── */

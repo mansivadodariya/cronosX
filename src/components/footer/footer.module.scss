@@ -7,10 +7,7 @@
     position: relative;
     background: #040605;
     overflow: hidden;
-
-    :global(html.light) & {
-        background: #F1F5F9 !important;
-    }
+    border-top: 1px solid rgba(24, 201, 139, 0.15);
 
     @include respond-to("md") {
         padding: 24px 0 36px 0;
@@ -361,23 +358,102 @@
                 justify-content: center;
                 transition: all 0.3s ease;
                 text-decoration: none;
+                color: #18c98b;
 
-                img {
+                .socialIcon {
                     width: 16px;
                     height: 16px;
                     display: block;
-                    opacity: 0.85;
-                    transition: opacity 0.2s ease;
+                    background-color: currentColor;
+                    mask-size: contain;
+                    mask-position: center;
+                    mask-repeat: no-repeat;
+                    -webkit-mask-size: contain;
+                    -webkit-mask-position: center;
+                    -webkit-mask-repeat: no-repeat;
+                    transition: all 0.2s ease;
                 }
 
                 &:hover {
+                    color: #6EE7B7;
                     border-color: #6EE7B7;
                     box-shadow: 0 0 16px rgba(24, 201, 139, 0.4);
                     transform: translateY(-2px);
                     background: rgba(8, 28, 20, 0.95);
+                }
+            }
+        }
+    }
 
-                    img {
-                        opacity: 1;
+    :global(html.light) & {
+        border-top: 1px solid #E2E8F0 !important;
+
+        .brandCol {
+            .brandDesc {
+                color: #475569 !important;
+            }
+            .statusBadge {
+                background: rgba(16, 185, 129, 0.12) !important;
+                border-color: rgba(5, 150, 105, 0.35) !important;
+                color: #047857 !important;
+            }
+        }
+
+        .navCol {
+            h4 {
+                color: #0F172A !important;
+                &::after {
+                    background: #047857 !important;
+                }
+            }
+            ul li a {
+                color: #475569 !important;
+                &:hover {
+                    color: #047857 !important;
+                }
+            }
+        }
+
+        .disclaimerSection {
+            p {
+                color: #64748B !important;
+                a {
+                    color: #475569 !important;
+                    &:hover {
+                        color: #047857 !important;
+                    }
+                }
+            }
+            .fullDisclaimerLink a {
+                color: #047857 !important;
+            }
+        }
+
+        .divider {
+            background: #E2E8F0 !important;
+        }
+
+        .bottomSection {
+            p {
+                color: #64748B !important;
+            }
+
+            .socialList .socialBtn {
+                background: #FFFFFF !important;
+                border: 1px solid #CBD5E1 !important;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+
+                .socialIcon {
+                    background-color: #0F172A !important;
+                    opacity: 1 !important;
+                }
+
+                &:hover {
+                    background: #F1F5F9 !important;
+                    border-color: #047857 !important;
+
+                    .socialIcon {
+                        background-color: #047857 !important;
                     }
                 }
             }

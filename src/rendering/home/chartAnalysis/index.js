@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { authNavigate } from '@/lib/authRedirect';
 import styles from './chartAnalysis.module.scss';
-import Textbutton from '@/components/textbutton';
+import SectionHeader from '@/components/sectionHeader';
 import Button from '@/components/button';
 
 // Animated SVG 1: Upload Your Chart
@@ -356,32 +356,12 @@ export default function ChartAnalysis() {
   return (
     <div className={styles.chartAnalysis}>
       <div className='container'>
-        <motion.div 
-          className={styles.header}
-          initial={{ opacity: 0, y: 35 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <motion.div 
-            className={styles.badgeWrapper}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <Textbutton text="CHART ANALYSIS" />
-          </motion.div>
-
-          <h2>
-            Analyze Any Trade <br />
-            Setup in <span>3 Simple Steps</span>
-          </h2>
-
-          <p className={styles.subtext}>
-            Upload a chart and let AI uncover the potential trade opportunities.
-          </p>
-        </motion.div>
+        <SectionHeader
+          badge="CHART ANALYSIS"
+          title1="Analyze Any Trade"
+          title2="Setup in 3 Simple Steps"
+          description="Upload a chart and let AI uncover the potential trade opportunities."
+        />
 
         <div className={styles.stepsFlow}>
           {/* Connector Arrow between step 1 and 2 */}

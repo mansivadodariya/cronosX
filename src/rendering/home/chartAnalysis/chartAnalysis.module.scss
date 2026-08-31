@@ -10,7 +10,47 @@
     background: radial-gradient(ellipse at 50% 50%, #040c09 0%, #020605 60%, #010101 100%);
 
     :global(html.light) & {
-        background: #F8FAFC !important;
+        background: #FFFFFF !important;
+
+        .graphicImg {
+            .interactiveSvg, img {
+                filter: none !important;
+            }
+        }
+
+        .pedestal {
+            opacity: 0.2 !important;
+            .pedestalLight,
+            .pedestalRingOuter,
+            .pedestalRingInner {
+                box-shadow: none !important;
+            }
+        }
+
+        .connectorBadgeOne,
+        .connectorBadgeTwo {
+            background: #F1F5F9 !important;
+            border-color: rgba(5, 150, 105, 0.4) !important;
+            box-shadow: none !important;
+        }
+
+        .stepsFlow::before {
+            box-shadow: none !important;
+        }
+
+        .stepTitle {
+            color: #0F172A !important;
+        }
+
+        .stepDesc {
+            color: #64748B !important;
+        }
+
+        .stepBadge {
+            background: rgba(16, 185, 129, 0.12) !important;
+            border-color: rgba(5, 150, 105, 0.35) !important;
+            color: #047857 !important;
+        }
     }
 
     @include respond-to("tab") {

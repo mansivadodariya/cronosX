@@ -2,7 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import styles from './teamUp.module.scss';
-import Textbutton from '@/components/textbutton';
+import SectionHeader from '@/components/sectionHeader';
 
 const pillars = [
   {
@@ -35,7 +35,6 @@ export default function TeamUp() {
   return (
     <section className={styles.teamUp} aria-label="Supported Brokers and Platforms">
 
-
       <div className="container">
         <div className={styles.gridWrapper}>
 
@@ -47,20 +46,13 @@ export default function TeamUp() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className={styles.badgeWrapper}>
-              <Textbutton text="WE TEAM UP" />
-            </div>
-
-            <h2 className={styles.sectionHeading}>
-              Direct Market Access to <br />
-              <span>World-Class Liquidity</span>
-            </h2>
-
-            <div className={styles.titleDivider}></div>
-
-            <p className={styles.desc}>
-              Seamless connections to top institutional liquidity providers, futures exchanges, and charting platforms ensuring <span>speed, security & execution reliability</span> in every trade.
-            </p>
+            <SectionHeader
+              align="left"
+              badge="WE TEAM UP"
+              title1="Direct Market Access to"
+              title2="World-Class Liquidity"
+              description="Seamless connections to top institutional liquidity providers, futures exchanges, and charting platforms ensuring speed, security & execution reliability in every trade."
+            />
           </motion.div>
 
 

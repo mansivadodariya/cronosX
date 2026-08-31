@@ -163,7 +163,13 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src={item.icon} alt={item.label} />
+                <span
+                  className={styles.socialIcon}
+                  style={{
+                    maskImage: `url(${item.icon})`,
+                    WebkitMaskImage: `url(${item.icon})`
+                  }}
+                />
               </a>
             ))}
           </div>

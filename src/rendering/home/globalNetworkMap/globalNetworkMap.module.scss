@@ -10,7 +10,13 @@
   background: radial-gradient(ellipse at 50% 30%, #040e0a 0%, #020705 55%, #000000 100%);
 
   :global(html.light) & {
-    background: #F8FAFC !important;
+    background: #FFFFFF !important;
+
+    .mapCard {
+      background: radial-gradient(circle at 75% 30%, rgba(24, 201, 139, 0.14) 0%, transparent 60%), #07130F !important;
+      border: 1px solid rgba(24, 201, 139, 0.45) !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+    }
   }
 
   @include respond-to("tab") {
@@ -40,70 +46,13 @@
     z-index: 9;
   }
 
-  .header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 50px;
-    position: relative;
-    z-index: 3;
-    text-align: center;
-
-    .badgeWrapper {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 24px;
-    }
-
-    h2 {
-      font-family: var(--font-syne), "Syne", sans-serif;
-      font-size: 46px;
-      font-weight: 800;
-      line-height: 1.12;
-      letter-spacing: -1.2px;
-      color: #FFFFFF;
-      text-align: center;
-      margin: 0;
-
-      span {
-        background: linear-gradient(90deg, #FFFFFF 0%, #6EE7B7 50%, #18c98b 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        display: inline;
-      }
-
-      @include respond-to("tab") {
-        font-size: 34px;
-        letter-spacing: -0.8px;
-      }
-
-      @include respond-to("sm") {
-        font-size: 28px;
-      }
-    }
-
-    .subtext {
-      color: #D1D5DB;
-      font-size: 16px;
-      line-height: 1.6;
-      max-width: 680px;
-      margin: 16px auto 0 auto;
-      text-align: center;
-
-      @include respond-to("tab") {
-        font-size: 14px;
-      }
-    }
-  }
-
   /* Map Card Container */
   .mapCard {
     position: relative;
     max-width: 1280px;
     margin: 0 auto;
     border-radius: 20px;
-    background: radial-gradient(circle at 75% 30%, rgba(24, 201, 139, 0.08), transparent 50%), #040c0973;
+    background: radial-gradient(circle at 75% 30%, rgba(24, 201, 139, 0.12) 0%, transparent 60%), #07130F;
     border: 1px solid rgba(24, 201, 139, 0.35);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), inset 0 0 0 1px rgba(24, 201, 139, 0.12);
     overflow: hidden;

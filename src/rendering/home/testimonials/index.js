@@ -2,7 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import styles from './testimonials.module.scss';
-import Textbutton from '@/components/textbutton';
+import SectionHeader from '@/components/sectionHeader';
 
 const testimonialsData = [
   {
@@ -56,32 +56,12 @@ export default function Testimonials() {
   return (
     <div className={styles.testimonials}>
       <div className='container'>
-        <motion.div 
-          className={styles.header}
-          initial={{ opacity: 0, y: 35 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <motion.div 
-            className={styles.badgeWrapper}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <Textbutton text="TESTIMONIALS" />
-          </motion.div>
-
-          <h2>
-            Used by Serious <br />
-            <span>Forex Traders</span>
-          </h2>
-
-          <p className={styles.subtext}>
-            Real reviews from active traders using ChronosX.
-          </p>
-        </motion.div>
+        <SectionHeader
+          badge="TESTIMONIALS"
+          title1="Used by Serious"
+          title2="Forex Traders"
+          description="Real reviews from active traders using ChronosX."
+        />
 
         {/* Standard Width Marquee with Foggy Edge Layers */}
         <div className={styles.marqueeWrapper}>

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './marketIntelligence.module.scss';
-import Textbutton from '@/components/textbutton';
+import SectionHeader from '@/components/sectionHeader';
 
 export default function MarketIntelligence() {
   const [flippedCards, setFlippedCards] = useState({ 0: false, 1: false, 2: false });
@@ -335,18 +335,12 @@ export default function MarketIntelligence() {
       <div className="container">
 
         {/* Section Header */}
-        <div className={styles.headerLayout}>
-          <div className={styles.badgeWrapper}>
-            <Textbutton text="CHRONOSX CORE ENGINE" />
-          </div>
-          <h2>
-            Three layers of market <br />
-            <span>intelligence</span>
-          </h2>
-          <p>
-            ChronosX stacks institutional multi-timeframe validation, smart money order flow, and AI signal filtering into one unified trading suite.
-          </p>
-        </div>
+        <SectionHeader
+          badge="CHRONOSX CORE ENGINE"
+          title1="Three layers of market"
+          title2="intelligence"
+          description="ChronosX stacks institutional multi-timeframe validation, smart money order flow, and AI signal filtering into one unified trading suite."
+        />
 
         {/* 3-Column Interactive Moving Cards with Hover Flip */}
         <div className={styles.layersGrid}>

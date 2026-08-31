@@ -12,12 +12,183 @@
   :global(html.light) & {
     background: #F8FAFC !important;
 
+
+
+    .cockpitCard {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: none !important;
+
+      &:hover, &.cardActive {
+        background: #FFFFFF !important;
+        border-color: rgba(16, 185, 129, 0.5) !important;
+        box-shadow: none !important;
+
+        .cardHeaderMeta h3 {
+          color: #0F172A !important;
+          text-shadow: none !important;
+        }
+      }
+
+      .cardHeaderMeta {
+        .capLabelRow .watermarkNum {
+          color: #0F172A !important;
+          text-shadow: none !important;
+        }
+
+        h3 {
+          color: #0F172A !important;
+          text-shadow: none !important;
+        }
+
+        .actionArrow {
+          background: #F1F5F9 !important;
+          border-color: #E2E8F0 !important;
+          color: #64748B !important;
+          box-shadow: none !important;
+
+          &.arrowGlow {
+            background: rgba(16, 185, 129, 0.15) !important;
+            border-color: rgba(16, 185, 129, 0.45) !important;
+            color: #047857 !important;
+            box-shadow: none !important;
+
+            svg {
+              filter: none !important;
+            }
+          }
+        }
+
+        .comingBadge {
+          background: rgba(16, 185, 129, 0.12) !important;
+          border-color: rgba(16, 185, 129, 0.35) !important;
+          color: #047857 !important;
+        }
+      }
+
+      .cardFooter {
+        .cardDesc {
+          color: #64748B !important;
+        }
+        .watermarkNum {
+          color: #CBD5E1 !important;
+        }
+      }
+    }
+
+    .widgetBox {
+      background: #F8FAFC !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: none !important;
+
+      &.widgetActive {
+        border-color: rgba(16, 185, 129, 0.45) !important;
+        box-shadow: none !important;
+      }
+
+      .widgetTopRow {
+        .liveTag {
+          color: #475569 !important;
+        }
+        .subMeta,
+        .tickerText,
+        .resLabel,
+        .equityLabel,
+        .sampleBadge {
+          color: #64748B !important;
+        }
+        .proTag,
+        .momText.momActive {
+          color: #047857 !important;
+        }
+      }
+    }
+
+    .convictionList {
+      .convRow {
+        .rankNum { color: #64748B !important; }
+        .symText { color: #0F172A !important; }
+        .trackBar {
+          background: #E2E8F0 !important;
+        }
+        .scoreText {
+          color: #475569 !important;
+          &.scoreActive {
+            color: #047857 !important;
+            text-shadow: none !important;
+          }
+        }
+      }
+    }
+
+    .candlestickArea {
+      .buyBadge {
+        background: #F1F5F9 !important;
+        border-color: #E2E8F0 !important;
+        color: #64748B !important;
+        box-shadow: none !important;
+
+        &.buyBadgeActive {
+          background: rgba(16, 185, 129, 0.12) !important;
+          border-color: rgba(16, 185, 129, 0.35) !important;
+          color: #047857 !important;
+          box-shadow: none !important;
+        }
+      }
+      .widgetFooterMeta {
+        color: #64748B !important;
+      }
+    }
+
+    .breakoutArea {
+      .resLevelMarker {
+        color: #047857 !important;
+      }
+      .breakoutToast {
+        background: #F1F5F9 !important;
+        border-color: #E2E8F0 !important;
+        color: #64748B !important;
+        box-shadow: none !important;
+
+        &.toastActive {
+          background: rgba(16, 185, 129, 0.12) !important;
+          border-color: rgba(16, 185, 129, 0.35) !important;
+          color: #047857 !important;
+          box-shadow: none !important;
+
+          .arrowIcon, span {
+            color: #047857 !important;
+          }
+        }
+      }
+    }
+
+    .equityArea {
+      .statBoxesRow {
+        .statPill {
+          background: #F1F5F9 !important;
+          border-color: #E2E8F0 !important;
+          box-shadow: none !important;
+
+          .statTitle { color: #64748B !important; }
+          .statNum { color: #0F172A !important; text-shadow: none !important; }
+
+          &.statPillActive {
+            background: rgba(16, 185, 129, 0.12) !important;
+            border-color: rgba(16, 185, 129, 0.35) !important;
+            box-shadow: none !important;
+            .statTitle, .statNum { color: #047857 !important; text-shadow: none !important; }
+          }
+        }
+      }
+    }
+
     svg path[stroke="rgba(255, 255, 255, 0.2)"],
     svg line[stroke="rgba(255, 255, 255, 0.2)"] {
-      stroke: rgba(15, 23, 42, 0.35) !important;
+      stroke: rgba(15, 23, 42, 0.25) !important;
     }
     svg circle[fill="rgba(255, 255, 255, 0.4)"] {
-      fill: rgba(15, 23, 42, 0.5) !important;
+      fill: rgba(15, 23, 42, 0.4) !important;
     }
   }
 

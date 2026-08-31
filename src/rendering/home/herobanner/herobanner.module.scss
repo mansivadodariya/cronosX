@@ -3,8 +3,7 @@
 @use '../../../scss/font/font.scss' as *;
 
 .herobanner {
-    position: sticky;
-    top: 0;
+    position: relative;
     z-index: 1;
     width: 100%;
     min-height: 100vh;
@@ -16,6 +15,63 @@
 
     :global(html.light) & {
         background: #F8FAFC !important;
+
+        .gridOverlay {
+            background-image:
+                linear-gradient(to right, rgba(15, 42, 34, 0.14) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(15, 23, 42, 0.14) 1px, transparent 1px) !important;
+            mask-image: radial-gradient(ellipse at 50% 35%, #000 80%, transparent 100%) !important;
+            -webkit-mask-image: radial-gradient(ellipse at 50% 35%, #000 80%, transparent 100%) !important;
+            opacity: 0.2 !important;
+        }
+
+        .greenSpotlightGrid {
+            background-image:
+                linear-gradient(to right, rgba(5, 150, 105, 0.45) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(5, 150, 105, 0.45) 1px, transparent 1px) !important;
+            filter: drop-shadow(0 0 3px rgba(5, 150, 105, 0.35)) !important;
+        }
+
+        .ambientGlowTop,
+        .ambientGlowCenter,
+        .ambientGlowBottom {
+            opacity: 0.2 !important;
+            filter: blur(100px) !important;
+        }
+
+        .topBadgeRow {
+            .badge {
+                background: rgba(16, 185, 129, 0.12) !important;
+                border: 1px solid rgba(5, 150, 105, 0.42) !important;
+                box-shadow: 0 2px 10px rgba(5, 150, 105, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+
+                &:hover {
+                    background: rgba(16, 185, 129, 0.22) !important;
+                    border-color: rgba(5, 150, 105, 0.65) !important;
+                    box-shadow: 0 4px 14px rgba(5, 150, 105, 0.22) !important;
+                }
+
+                .badgeText {
+                    color: #047857 !important;
+                    font-weight: 600 !important;
+                }
+            }
+        }
+
+        .heroTitle {
+            color: #0F172A !important;
+
+            .greenGradient {
+                background: linear-gradient(90deg, #0F172A 0%, #059669 35%, #047857 70%, #065F46 100%) !important;
+                -webkit-background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                background-clip: text !important;
+            }
+        }
+
+        .heroDesc {
+            color: #475569 !important;
+        }
     }
 
     @include respond-to("tab") {

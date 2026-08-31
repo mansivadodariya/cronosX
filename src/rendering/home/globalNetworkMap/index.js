@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import styles from './globalNetworkMap.module.scss';
-import Textbutton from '@/components/textbutton';
+import SectionHeader from '@/components/sectionHeader';
 import { hubs, routes, buildCurveD } from './networkData';
 
 const GlobeMapImage = '/assets/images/globe-map.svg';
@@ -21,32 +21,12 @@ export default function GlobalNetworkMap() {
   return (
     <section className={styles.networkMapSection}>
       <div className="container">
-        <motion.div
-          className={styles.header}
-          initial={{ opacity: 0, y: 35 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <motion.div
-            className={styles.badgeWrapper}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <Textbutton text="GLOBAL INFRASTRUCTURE" />
-          </motion.div>
-
-          <h2>
-            Ultra Low-Latency <br />
-            <span>AI Execution Mesh</span>
-          </h2>
-
-          <p className={styles.subtext}>
-            Connected directly to tier-1 liquidity providers and major financial exchanges worldwide for institutional-grade signal speed.
-          </p>
-        </motion.div>
+        <SectionHeader
+          badge="GLOBAL INFRASTRUCTURE"
+          title1="Ultra Low-Latency"
+          title2="AI Execution Mesh"
+          description="Connected directly to tier-1 liquidity providers and major financial exchanges worldwide for institutional-grade signal speed."
+        />
 
         <div className={styles.mapCard}>
         <div className={styles.scanlineTop} />

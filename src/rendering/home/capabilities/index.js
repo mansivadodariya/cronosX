@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { authNavigate } from '@/lib/authRedirect';
 import styles from './capabilities.module.scss';
-import Textbutton from '@/components/textbutton';
+import SectionHeader from '@/components/sectionHeader';
 
 export default function Capabilities() {
   const router = useRouter();
@@ -15,23 +15,13 @@ export default function Capabilities() {
       <div className="container">
 
         {/* Section Header */}
-        <div className={styles.headerLayout}>
-          <div className={styles.titleColumn}>
-            <div className={styles.badgeWrapper}>
-              <Textbutton text="PLATFORM CAPABILITIES" />
-            </div>
-            <h2>
-              Four Tools. <br />
-              <span>One Cockpit.</span>
-            </h2>
-          </div>
-
-          <div className={styles.descColumn}>
-            <p>
-              Four flagship tools, designed to chain. The Heat List narrows the universe down to what’s moving. Indicators time the entry. Breakout alerts catch the moment a level snaps. AI TRADE ANALYSIS proves the rule before you risk capital on it.
-            </p>
-          </div>
-        </div>
+        <SectionHeader
+          align="split"
+          badge="PLATFORM CAPABILITIES"
+          title1="Four Tools."
+          title2="One Cockpit."
+          description="Four flagship tools, designed to chain. The Heat List narrows the universe down to what’s moving. Indicators time the entry. Breakout alerts catch the moment a level snaps. AI TRADE ANALYSIS proves the rule before you risk capital on it."
+        />
 
         {/* Connected Cockpit Grid Container */}
         <div className={styles.cockpitContainer}>

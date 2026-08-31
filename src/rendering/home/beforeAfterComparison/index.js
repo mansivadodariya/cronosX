@@ -2,7 +2,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import styles from './beforeAfterComparison.module.scss';
-import Textbutton from '@/components/textbutton';
+import SectionHeader from '@/components/sectionHeader';
 
 // High-Density Realistic 60-Candle Wave Dataset matching TradingView Chart
 const candlesData = [
@@ -156,18 +156,12 @@ export default function BeforeAfterComparison() {
       <div className="container">
         
         {/* Standardized Header */}
-        <div className={styles.sectionHeader}>
-          <div className={styles.badgeWrapper}>
-            <Textbutton text="BEFORE vs AFTER ALGORITHM" />
-          </div>
-          <h2>
-            See the Difference. <br />
-            <span>Raw Chart vs ChronosX Algo.</span>
-          </h2>
-          <p className={styles.subtext}>
-            Transform noisy raw market price action into institutional trade execution setups. Drag the slider to reveal high-impact AI Buy/Sell signals, liquidity sweeps, and multi-timeframe backtest confluence.
-          </p>
-        </div>
+        <SectionHeader
+          badge="BEFORE vs AFTER ALGORITHM"
+          title1="See the Difference."
+          title2="Raw Chart vs ChronosX Algo."
+          description="Transform noisy raw market price action into institutional trade execution setups. Drag the slider to reveal high-impact AI Buy/Sell signals, liquidity sweeps, and multi-timeframe backtest confluence."
+        />
 
         {/* Interactive Comparison Card Container */}
         <div 

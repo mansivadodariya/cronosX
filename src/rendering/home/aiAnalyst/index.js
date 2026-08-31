@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './aiAnalyst.module.scss';
-import Textbutton from '@/components/textbutton';
+import SectionHeader from '@/components/sectionHeader';
 
 // Embedded Mini Sparkline Chart Component inside Bot Response
 function MiniTrendGraph({ symbol = "PLTR", entry = "85.80", target = "94.20", rr = "1:3.4" }) {
@@ -419,18 +419,13 @@ export default function AiAnalyst() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className={styles.header}>
-              <div className={styles.badgeWrapper}>
-                <Textbutton text="CHRONOSX · AI MARKET ANALYST" />
-              </div>
-              <h2>
-                AI on Top of Indicators. <br />
-                <span>Not Instead of Them.</span>
-              </h2>
-              <p className={styles.leadDesc}>
-                The signals come from the indicators and the institutional algorithms. ChronosX reads them back to you — ask why a breakout fired, sort the heat list by sector, or pull the last MACD reversal, in plain English.
-              </p>
-            </div>
+            <SectionHeader
+              align="left"
+              badge="CHRONOSX · AI MARKET ANALYST"
+              title1="AI on Top of Indicators."
+              title2="Not Instead of Them."
+              description="The signals come from the indicators and the institutional algorithms. ChronosX reads them back to you — ask why a breakout fired, sort the heat list by sector, or pull the last MACD reversal, in plain English."
+            />
 
             {/* Feature List Points */}
             <div className={styles.featureList}>

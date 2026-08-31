@@ -3,6 +3,7 @@ import React from 'react';
 import { motion, useMotionValue, useMotionTemplate } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { authNavigate } from '@/lib/authRedirect';
+import SectionHeader from '@/components/sectionHeader';
 import styles from './readytoPut.module.scss';
 
 const ArrowRightIcon = () => (
@@ -61,29 +62,12 @@ export default function ReadytoPut() {
 
         <div className="container">
           <div className={styles.content}>
-            <div className={styles.eyebrowBadge}>
-              <span className={styles.pulseDot} />
-              <span>INSTANT INSTITUTIONAL ACCESS</span>
-            </div>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            >
-              Ready to Put <span className={styles.goldText}>AI</span> in <br />
-              <span className={styles.goldGradient}>Your Trading Desk?</span>
-            </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            >
-              Experience institutional-grade AI chart intelligence, pattern detection, and quantitative strategies in just a few minutes.
-            </motion.p>
+            <SectionHeader
+              badge="INSTANT INSTITUTIONAL ACCESS"
+              title1="Ready to Put AI in"
+              title2="Your Trading Desk?"
+              description="Experience institutional-grade AI chart intelligence, pattern detection, and quantitative strategies in just a few minutes."
+            />
 
             <motion.div 
               className={styles.btnWrapper}

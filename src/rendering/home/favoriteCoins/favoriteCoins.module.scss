@@ -10,7 +10,51 @@
   background: radial-gradient(ellipse at 50% 50%, #040c09 0%, #020605 60%, #000000 100%);
 
   :global(html.light) & {
-    background: #F8FAFC !important;
+    background: #FFFFFF !important;
+
+    .assetCard {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: none !important;
+
+      &:hover {
+        background: #FFFFFF !important;
+        border-color: rgba(16, 185, 129, 0.45) !important;
+        box-shadow: none !important;
+      }
+
+      .iconWrapper {
+        background: #F1F5F9 !important;
+        border: 1px solid #E2E8F0 !important;
+        box-shadow: none !important;
+      }
+
+      .assetName {
+        color: #0F172A !important;
+      }
+
+      .symbolText {
+        color: #64748B !important;
+      }
+
+      .priceText {
+        color: #0F172A !important;
+      }
+
+      .signalPill {
+        background: rgba(16, 185, 129, 0.1) !important;
+        border: 1px solid rgba(5, 150, 105, 0.25) !important;
+        color: #047857 !important;
+      }
+    }
+
+    .fogLeft {
+      background: linear-gradient(90deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%) !important;
+    }
+
+    .fogRight {
+      background: linear-gradient(270deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%) !important;
+    }
   }
 
   @include respond-to("tab") {

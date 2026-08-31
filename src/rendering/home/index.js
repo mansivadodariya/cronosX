@@ -29,11 +29,10 @@ export default function HomePage() {
                 <Capabilities />
                 <FavoriteCoins />
                 <BeforeAfterComparison />
+                <AiAnalyst />
                 <MarketIntelligence />
                 <HowitWorks />
                 <BreakoutDetection />
-                <ChartAnalysis />
-                <AiAnalyst />
                 <TeamUp />
                 <Testimonials />
                 <GlobalNetworkMap />

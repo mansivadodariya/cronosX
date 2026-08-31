@@ -3,35 +3,46 @@
 @use '../../scss/font/font.scss' as *;
 
 .textbutton {
+    display: inline-flex;
+
     button {
         display: inline-flex;
         align-items: center;
-        gap: 14px;
-        padding: 8px 26px;
-        border-radius: 99px;
-        border: 1px solid rgba(24, 201, 139, 0.35);
-        color: #18c98b;
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 2px;
+        justify-content: center;
+        gap: 8px;
+        padding: 6px 20px;
+        border-radius: 999px;
+        border: 1px solid rgba(24, 201, 139, 0.32);
         background: rgba(24, 201, 139, 0.08);
-        box-shadow: inset 0 0 10px rgba(24, 201, 139, 0.08);
+        color: #18c98b;
+        font-size: 11.5px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        box-shadow: inset 0 0 10px rgba(24, 201, 139, 0.06);
+        cursor: default;
+        transition: all 0.3s ease;
 
         .labelText {
             color: #18c98b;
+            font-size: 11.5px;
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
+            font-family: var(--font-plus-jakarta), sans-serif;
+            white-space: nowrap;
         }
 
         :global(html.light) & {
             color: #047857 !important;
-            background: rgba(24, 201, 139, 0.16) !important;
-            border-color: rgba(24, 201, 139, 0.45) !important;
+            background: rgba(16, 185, 129, 0.1) !important;
+            border: 1px solid rgba(5, 150, 105, 0.35) !important;
+            box-shadow: none !important;
 
             .labelText {
                 color: #047857 !important;
                 font-weight: 800 !important;
+                -webkit-text-fill-color: #047857 !important;
+                background: none !important;
             }
         }
     }

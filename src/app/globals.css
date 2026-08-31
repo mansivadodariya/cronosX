@@ -47,8 +47,28 @@ a {
 }
 
 html {
-  scroll-behavior: smooth;
   background-color: #040605;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 
 .heading {
@@ -283,6 +303,7 @@ html.light .children-wrapper,
 html.light .sidebar-wrapper,
 html.light main,
 html.light section,
+html.light footer,
 html.light article {
   background-color: #F8FAFC !important;
   color: #0F172A !important;
@@ -342,18 +363,12 @@ html.light [class*="metricVal"] {
   opacity: 1 !important;
 }
 
-/* Bright Mint & Slate Gradient Text for Key Highlights */
-html.light h1 span,
-html.light h2 span,
-html.light h3 span,
-html.light [class*="title"] span,
-html.light [class*="Title"] span,
-html.light [class*="heading"] span,
-html.light [class*="Heading"] span,
+/* Mint & Slate Gradient Text for Key Highlights */
 html.light [class*="goldGradient"],
 html.light [class*="greenGradient"],
-html.light [class*="accentGradient"] {
-  background: linear-gradient(135deg, #0F172A 0%, #047857 35%, #18C98B 80%, #059669 100%) !important;
+html.light [class*="accentGradient"],
+html.light [class*="title2"] {
+  background: linear-gradient(90deg, #047857 0%, #059669 35%, #10B981 75%, #18C98B 100%) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
@@ -386,7 +401,6 @@ html.light [class*="actionGridBtn"],
 html.light [class*="navMenuCard"] {
   background: #FFFFFF !important;
   border-color: rgba(24, 201, 139, 0.28) !important;
-  box-shadow: 0 6px 25px rgba(15, 23, 42, 0.06) !important;
   color: #0F172A !important;
 }
 
@@ -493,7 +507,6 @@ html.light [class*="botMessage"] p {
 html.light [class*="footer"],
 html.light footer {
   background-color: #F1F5F9 !important;
-  border-top: 1px solid rgba(24, 201, 139, 0.25) !important;
   color: #334155 !important;
 }
 
@@ -506,4 +519,4 @@ html.light [class*="footer"] a:hover,
 html.light footer a:hover {
   color: #18C98B !important;
 }
-
+

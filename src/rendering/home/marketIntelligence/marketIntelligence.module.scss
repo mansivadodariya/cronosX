@@ -9,7 +9,71 @@
   overflow: hidden;
 
   :global(html.light) & {
-    background: #F8FAFC !important;
+    background: #FFFFFF !important;
+
+    .cardFace {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: none !important;
+
+      &:hover {
+        background: #FFFFFF !important;
+        border-color: rgba(16, 185, 129, 0.45) !important;
+        box-shadow: none !important;
+      }
+
+      .terminalTitle {
+        color: #0F172A !important;
+      }
+
+      .terminalFooter {
+        color: #64748B !important;
+      }
+
+      .footLeft {
+        color: #64748B !important;
+      }
+
+      .footRight {
+        color: #047857 !important;
+      }
+    }
+
+    .cardBack {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: none !important;
+
+      &:hover {
+        background: #FFFFFF !important;
+        border-color: rgba(16, 185, 129, 0.45) !important;
+        box-shadow: none !important;
+      }
+
+      .backTitle {
+        color: #0F172A !important;
+      }
+
+      .backDesc {
+        color: #64748B !important;
+      }
+
+      .specItem {
+        color: #64748B !important;
+      }
+
+      .specDot {
+        color: #047857 !important;
+      }
+
+      .backLayerTag {
+        color: #047857 !important;
+      }
+
+      .flipHint {
+        color: #64748B !important;
+      }
+    }
   }
 
   @include respond-to("tab") {

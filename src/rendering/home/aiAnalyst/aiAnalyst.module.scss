@@ -9,7 +9,126 @@
   overflow: hidden;
 
   :global(html.light) & {
-    background: #F8FAFC !important;
+    background: #FFFFFF !important;
+
+    .chatCard {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: none !important;
+    }
+
+    .chatBody {
+      scrollbar-width: thin;
+      scrollbar-color: #CBD5E1 transparent;
+
+      &::-webkit-scrollbar {
+        width: 4px;
+        background: transparent !important;
+      }
+      &::-webkit-scrollbar-track {
+        background: transparent !important;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: #CBD5E1 !important;
+        border-radius: 4px;
+      }
+    }
+
+    .chatHeader {
+      border-bottom-color: #E2E8F0 !important;
+    }
+
+    .botBubble {
+      box-shadow: none !important;
+
+      .botSenderLabel {
+        color: #047857 !important;
+      }
+      .botBadge {
+        background: rgba(16, 185, 129, 0.12) !important;
+        border-color: rgba(5, 150, 105, 0.3) !important;
+        color: #047857 !important;
+      }
+      .botContent {
+        background: #F8FAFC !important;
+        border: 1px solid #E2E8F0 !important;
+        box-shadow: none !important;
+      }
+      .botLine {
+        color: #0F172A !important;
+      }
+    }
+
+    .userBubble {
+      box-shadow: none !important;
+      .userSenderLabel {
+        color: #64748B !important;
+      }
+      .userText {
+        background: #F1F5F9 !important;
+        border: 1px solid #E2E8F0 !important;
+        color: #0F172A !important;
+        box-shadow: none !important;
+      }
+    }
+
+    .miniGraphCard {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: none !important;
+      .tickerTag { color: #0F172A !important; }
+      .trendStatus { color: #047857 !important; }
+      .rrPill {
+        background: rgba(16, 185, 129, 0.12) !important;
+        color: #047857 !important;
+      }
+      .miniGraphFooter {
+        border-top-color: #E2E8F0 !important;
+        .metaGroup span { color: #64748B !important; }
+        .metaGroup strong { color: #0F172A !important; }
+      }
+    }
+
+    .promptChip {
+      background: #F1F5F9 !important;
+      border: 1px solid #E2E8F0 !important;
+      color: #475569 !important;
+      &:hover {
+        background: rgba(16, 185, 129, 0.12) !important;
+        border-color: rgba(5, 150, 105, 0.35) !important;
+        color: #047857 !important;
+      }
+    }
+
+    .chatInputForm {
+      background: #F8FAFC !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: none !important;
+      .chatInput {
+        color: #0F172A !important;
+        &::placeholder {
+          color: #94A3B8 !important;
+        }
+      }
+      .sendButton {
+        background: #047857 !important;
+        color: #FFFFFF !important;
+      }
+    }
+
+    .featureItem {
+      .numBadge {
+        color: #047857 !important;
+      }
+      .featureContent {
+        h3 {
+          color: #0F172A !important;
+        }
+        p {
+          color: #64748B !important;
+        }
+      }
+    }
   }
 
   @include respond-to("tab") {

@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './breakoutDetection.module.scss';
-import Textbutton from '@/components/textbutton';
+import SectionHeader from '@/components/sectionHeader';
 
 const stepsData = [
   {
@@ -93,24 +93,13 @@ export default function BreakoutDetection() {
           {/* Left Column: Pinned Sticky Container with Heading & Interactive Chart */}
           <div className={styles.stickyColumn}>
             <div className={styles.stickyContent}>
-              <motion.div 
-                className={styles.header}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <div className={styles.badgeWrapper}>
-                  <Textbutton text="REAL-TIME BREAKOUT DETECTION" />
-                </div>
-                <h2>
-                  Catch the Move the <br />
-                  <span className={styles.goldText}>Second it Happens.</span>
-                </h2>
-                <p className={styles.subtext}>
-                  Scroll through one trade idea: from approach to confirmation to alert. The chart pins; the narrative scrolls past it.
-                </p>
-              </motion.div>
+              <SectionHeader
+                align="left"
+                badge="REAL-TIME BREAKOUT DETECTION"
+                title1="Catch the Move the"
+                title2="Second it Happens."
+                description="Scroll through one trade idea: from approach to confirmation to alert. The chart pins; the narrative scrolls past it."
+              />
 
               {/* Pinned Interactive Chart Card */}
               <div className={styles.chartCard}>

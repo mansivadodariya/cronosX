@@ -10,35 +10,76 @@
   align-items: center;
 
   :global(html.light) & {
+    .svgWrapper {
+      filter: drop-shadow(0 12px 35px rgba(15, 23, 42, 0.07)) !important;
+    }
+
     svg rect[fill="url(#glassCardBgRadial)"],
     svg rect[fill="url(#glassCardBgRadialBottom)"],
     svg rect[fill="url(#glassCardBg)"],
     svg path[fill="url(#glassCardBg)"] {
       fill: #FFFFFF !important;
-      stroke: rgba(24, 201, 139, 0.45) !important;
+      stroke: rgba(4, 120, 87, 0.45) !important;
     }
 
     /* Darker, High-Contrast Circuit Track Gradients in Light Mode */
-    svg linearGradient#circuitMintGrad stop:nth-child(1) { stop-color: #047857 !important; stop-opacity: 0.8 !important; }
-    svg linearGradient#circuitMintGrad stop:nth-child(2) { stop-color: #059669 !important; stop-opacity: 1 !important; }
-    svg linearGradient#circuitMintGrad stop:nth-child(3) { stop-color: #047857 !important; stop-opacity: 0.8 !important; }
+    svg linearGradient#circuitMintGrad stop:nth-child(1) { stop-color: #065F46 !important; stop-opacity: 0.9 !important; }
+    svg linearGradient#circuitMintGrad stop:nth-child(2) { stop-color: #047857 !important; stop-opacity: 1 !important; }
+    svg linearGradient#circuitMintGrad stop:nth-child(3) { stop-color: #065F46 !important; stop-opacity: 0.9 !important; }
 
-    svg linearGradient#circuitCyanGrad stop:nth-child(1) { stop-color: #0284C7 !important; stop-opacity: 0.8 !important; }
+    svg linearGradient#circuitCyanGrad stop:nth-child(1) { stop-color: #0369A1 !important; stop-opacity: 0.9 !important; }
     svg linearGradient#circuitCyanGrad stop:nth-child(2) { stop-color: #047857 !important; stop-opacity: 1 !important; }
-    svg linearGradient#circuitCyanGrad stop:nth-child(3) { stop-color: #0284C7 !important; stop-opacity: 0.8 !important; }
+    svg linearGradient#circuitCyanGrad stop:nth-child(3) { stop-color: #0369A1 !important; stop-opacity: 0.9 !important; }
+
+    svg linearGradient#hexBorderGrad stop:nth-child(1) { stop-color: #059669 !important; stop-opacity: 0.9 !important; }
+    svg linearGradient#hexBorderGrad stop:nth-child(2) { stop-color: #047857 !important; stop-opacity: 0.95 !important; }
+    svg linearGradient#hexBorderGrad stop:nth-child(3) { stop-color: #065F46 !important; stop-opacity: 0.9 !important; }
 
     :global(.circuitTracksGroup) path {
-      stroke-width: 2.4px !important;
+      stroke-width: 2.2px !important;
       opacity: 0.95 !important;
     }
 
+    .circuitTrackDashed,
+    .circuitTrackDashedReverse,
+    .circuitTrackSolid,
+    .circuitTrackShimmer {
+      filter: drop-shadow(0 0 1.5px rgba(4, 120, 87, 0.35)) !important;
+    }
+
+    /* Darker, Subdued Emerald Depth Glow for Central Core in Light Mode */
     svg radialGradient#centerGlowRadial stop:nth-child(1) {
-      stop-color: #047857 !important;
-      stop-opacity: 0.75 !important;
+      stop-color: #064e3b !important;
+      stop-opacity: 0.22 !important;
     }
     svg radialGradient#centerGlowRadial stop:nth-child(2) {
-      stop-color: #18C98B !important;
-      stop-opacity: 0.45 !important;
+      stop-color: #047857 !important;
+      stop-opacity: 0.08 !important;
+    }
+    svg radialGradient#centerGlowRadial stop:nth-child(3) {
+      stop-color: #047857 !important;
+      stop-opacity: 0 !important;
+    }
+
+    /* Center and Floating Hexagons: Darker, Refined Drop Shadow instead of Neon Glare */
+    .centerHexGroup {
+      filter: drop-shadow(0 4px 14px rgba(4, 120, 87, 0.4)) drop-shadow(0 8px 24px rgba(15, 23, 42, 0.08)) !important;
+    }
+
+    .hexFloatTopLeft,
+    .hexFloatBottomLeft,
+    .hexFloatTopRight,
+    .hexFloatBottomRight {
+      filter: drop-shadow(0 3px 10px rgba(4, 120, 87, 0.3)) drop-shadow(0 6px 16px rgba(15, 23, 42, 0.06)) !important;
+    }
+
+    .floatBoxLeft,
+    .floatBoxRight {
+      filter: drop-shadow(0 10px 30px rgba(15, 23, 42, 0.08)) !important;
+    }
+
+    svg circle[fill="#6EE7B7"] {
+      fill: #059669 !important;
     }
 
     svg path[fill="#FFFFFF"],
