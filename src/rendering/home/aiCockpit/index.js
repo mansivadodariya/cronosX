@@ -2,13 +2,13 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import SectionHeader from '@/components/sectionHeader';
+import { useLivePrice } from '@/lib/useLivePrice';
 import styles from './aiCockpit.module.scss';
 
-
 // Fallback generator for realistic XAU/USD gold candles (Deterministic for SSR Hydration)
-function generateFallbackGoldCandles(count = 38, base = 2934.50) {
+function generateFallbackGoldCandles(count = 38, base = 2748.50) {
   const candles = [];
-  let price = base * 0.985;
+  let price = base * 0.992;
   const baseTime = 1718000000000;
 
   for (let i = 0; i < count; i++) {
@@ -43,11 +43,11 @@ function generateFallbackGoldCandles(count = 38, base = 2934.50) {
 
 export default function AiCockpit({ isHero = false, showHeader = true }) {
   const [activeTimeframe, setActiveTimeframe] = useState('1H');
-  const [livePrice, setLivePrice] = useState(2934.50);
-  const [priceChangeText, setPriceChangeText] = useState('+$38.20 (+1.32%)');
+  const [livePrice, setLivePrice] = useState(2748.50);
+  const [priceChangeText, setPriceChangeText] = useState('+$14.20 (+0.52%)');
   const [isPositiveChange, setIsPositiveChange] = useState(true);
   const [priceFlash, setPriceFlash] = useState(null);
-  const [candles, setCandles] = useState(() => generateFallbackGoldCandles(38, 2934.50));
+  const [candles, setCandles] = useState(() => generateFallbackGoldCandles(38, 2748.50));
   const [volume24h, setVolume24h] = useState('$24.85B');
   const [lastUpdatedSec, setLastUpdatedSec] = useState(1.1);
   const [cockpitSubTab, setCockpitSubTab] = useState('overview');
@@ -83,62 +83,68 @@ export default function AiCockpit({ isHero = false, showHeader = true }) {
     return () => clearInterval(interval);
   }, []);
 
-  // Fetch Real Live XAU/USD (Gold) Market Data
+  // Connect directly to our backend MT5 WebSocket stream for XAUUSD
+  const { priceData, tickDirection } = useLivePrice('XAUUSD');
+
+  // React to live WebSocket prices from our socket
+  useEffect(() => {
+    if (!priceData || !priceData.price) return;
+    const current = parseFloat(priceData.price);
+    if (isNaN(current) || current <= 0) return;
+
+    setLivePrice(current);
+
+    const changePct = parseFloat(priceData.changePercent ?? 0);
+    const isUp = changePct >= 0;
+    setIsPositiveChange(isUp);
+    const changeVal = (current * (changePct / 100)).toFixed(2);
+    setPriceChangeText(`${isUp ? '+' : ''}$${Math.abs(changeVal)} (${isUp ? '+' : ''}${changePct.toFixed(2)}%)`);
+
+    // Dynamically adjust forming candle in real-time
+    setCandles((prevCandles) => {
+      if (!prevCandles || prevCandles.length === 0) return prevCandles;
+      const lastIndex = prevCandles.length - 1;
+      const last = { ...prevCandles[lastIndex] };
+      last.close = current;
+      last.high = Math.max(last.high, current);
+      last.low = Math.min(last.low, current);
+      last.isBullish = last.close >= last.open;
+      const next = [...prevCandles];
+      next[lastIndex] = last;
+      return next;
+    });
+
+    if (tickDirection) {
+      setPriceFlash(tickDirection);
+      const timer = setTimeout(() => setPriceFlash(null), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [priceData, tickDirection]);
+
+  // Seed baseline from market tickers if socket is connecting
   useEffect(() => {
     let isMounted = true;
-
-    const fetchLiveGoldData = async () => {
+    const fetchInitialGold = async () => {
       try {
-        const tickerRes = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbol=PAXGUSDT', { cache: 'no-store' });
-        if (tickerRes.ok) {
-          const tickerData = await tickerRes.json();
-          const current = parseFloat(tickerData.lastPrice);
-          const changeVal = parseFloat(tickerData.priceChange);
-          const changePct = parseFloat(tickerData.priceChangePercent);
-
-          if (isMounted && current > 0) {
-            setLivePrice(current);
-            setIsPositiveChange(changeVal >= 0);
-            setPriceChangeText(`${changeVal >= 0 ? '+' : ''}$${Math.abs(changeVal).toFixed(2)} (${changePct >= 0 ? '+' : ''}${changePct.toFixed(2)}%)`);
-            setVolume24h(`$${((parseFloat(tickerData.quoteVolume) * 2.8) / 1e9).toFixed(2)}B`);
+        const res = await fetch('/api/v1/market/tickers');
+        if (res.ok) {
+          const json = await res.json();
+          const goldData = json?.data?.XAUUSD || json?.data?.GOLD;
+          if (goldData && isMounted && (!priceData || !priceData.price)) {
+            const rawP = parseFloat(goldData.rawPrice);
+            if (rawP > 0) {
+              setLivePrice(rawP);
+              setIsPositiveChange(goldData.isUp);
+              setPriceChangeText(goldData.change);
+              setCandles(generateFallbackGoldCandles(38, rawP));
+            }
           }
         }
-
-        const klineRes = await fetch('https://api.binance.com/api/v3/klines?symbol=PAXGUSDT&interval=1h&limit=38', { cache: 'no-store' });
-        if (klineRes.ok) {
-          const klineData = await klineRes.json();
-          if (Array.isArray(klineData) && klineData.length > 0 && isMounted) {
-            const parsedCandles = klineData.map((k) => {
-              const open = parseFloat(k[1]);
-              const high = parseFloat(k[2]);
-              const low = parseFloat(k[3]);
-              const close = parseFloat(k[4]);
-              const volume = Math.min(100, Math.max(15, Math.floor(parseFloat(k[5]) / 12)));
-              return {
-                time: k[0],
-                open,
-                high,
-                low,
-                close,
-                volume,
-                isBullish: close >= open
-              };
-            });
-            setCandles(parsedCandles);
-          }
-        }
-      } catch (err) {
-        // Silent fallback to realistic simulation
-      }
+      } catch {}
     };
-
-    fetchLiveGoldData();
-    const interval = setInterval(fetchLiveGoldData, 8000);
-    return () => {
-      isMounted = false;
-      clearInterval(interval);
-    };
-  }, []);
+    fetchInitialGold();
+    return () => { isMounted = false; };
+  }, [priceData]);
 
   // Micro-tick price engine
   useEffect(() => {
@@ -187,8 +193,8 @@ export default function AiCockpit({ isHero = false, showHeader = true }) {
     const lows = candles.map(c => c.low);
     const highs = candles.map(c => c.high);
     
-    let min = Math.min(...lows);
-    let max = Math.max(...highs);
+    let min = Math.min(...lows, livePrice);
+    let max = Math.max(...highs, livePrice);
     const rawRange = max - min || 1;
     min -= rawRange * 0.08;
     max += rawRange * 0.08;
@@ -206,7 +212,7 @@ export default function AiCockpit({ isHero = false, showHeader = true }) {
       chartPadding: padding,
       candleSpacing: spacing
     };
-  }, [candles]);
+  }, [candles, livePrice]);
 
   const priceToY = (price) => {
     const usableHeight = svgHeight - chartPadding.top - chartPadding.bottom;
@@ -270,7 +276,7 @@ export default function AiCockpit({ isHero = false, showHeader = true }) {
 
                   {/* Fixed XAU/USD Gold Pill */}
                   <div className={styles.goldAssetPill}>
-                    <span className={styles.cryptoIconLetter}>G</span>
+                    <span className={styles.goldIconLetter}>G</span>
                     <span className={styles.dropdownSymbol}>XAU/USD</span>
                   </div>
 

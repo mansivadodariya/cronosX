@@ -55,3 +55,27 @@ export function authNavigate(router, targetPath = '/dashboard') {
         window.location.assign(destination);
     }
 }
+
+/**
+ * Returns the destination href for a feature link:
+ * - If user is logged in: dashboardPath (e.g. /trade-snap)
+ * - If user is logged out: publicPath (e.g. /ai-trade)
+ */
+export function getFeatureHref(publicPath, dashboardPath) {
+    if (typeof window === 'undefined') return publicPath;
+    return isUserLoggedIn() ? dashboardPath : publicPath;
+}
+
+/**
+ * Navigates to dashboardPath if user is logged in,
+ * otherwise navigates to publicPath if user is logged out.
+ */
+export function navigateFeature(router, publicPath, dashboardPath) {
+    const destination = isUserLoggedIn() ? dashboardPath : publicPath;
+    if (router && typeof router.push === 'function') {
+        router.push(destination);
+    } else if (typeof window !== 'undefined') {
+        window.location.assign(destination);
+    }
+}
+

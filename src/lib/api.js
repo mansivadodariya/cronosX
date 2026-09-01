@@ -251,17 +251,32 @@ export const fxApi = {
     },
 
     getQuestionHistory: (user_id) => {
-        const path = (!user_id || user_id === 'all') ? '/users/question-history' : `/users/question-history?user_id=${user_id}`;
-        return request(path, {
+        return request('/question-history', {
+            headers: getAuthHeaders(),
+        }).catch(() => {
+            const path = (!user_id || user_id === 'all') ? '/users/question-history' : `/users/question-history?user_id=${user_id}`;
+            return request(path, {
+                headers: getAuthHeaders(),
+            });
+        });
+    },
+
+    getConversationHistory: (conversation_id) => {
+        return request(`/conversation-history/${conversation_id}`, {
             headers: getAuthHeaders(),
         });
     },
 
     deleteQuestionHistoryItem: (user_id, history_id) =>
-        request(`/users/question-history/${history_id}?user_id=${user_id}`, {
+        request(`/question-history/${history_id}`, {
             method: 'DELETE',
             headers: getAuthHeaders(),
-        }),
+        }).catch(() =>
+            request(`/users/question-history/${history_id}?user_id=${user_id}`, {
+                method: 'DELETE',
+                headers: getAuthHeaders(),
+            })
+        ),
 
     deleteBlogHistoryItem: (user_id, history_id) =>
         request(`/users/blog-history/${history_id}?user_id=${user_id}`, {

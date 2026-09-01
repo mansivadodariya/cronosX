@@ -9,7 +9,7 @@ export const metadata = {
         "past trade audit",
         "trading mistake detection",
         "forex trade review",
-        "crypto trade analysis",
+        "market trade analysis",
         "risk management audit",
         "ChronosX AI",
         "algorithmic trade review",

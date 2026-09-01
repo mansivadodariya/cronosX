@@ -1,8 +1,8 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { authNavigate } from '@/lib/authRedirect';
+import { authNavigate, navigateFeature } from '@/lib/authRedirect';
 import styles from './favoriteCoins.module.scss';
 import SectionHeader from '@/components/sectionHeader';
 
@@ -51,56 +51,12 @@ function SparklineCurve({ isUp }) {
   );
 }
 
-// Row 1 Assets (Scrolling Left) - Official TradingView Symbol Logos & Truth Details
+// Row 1 Assets (Forex Majors & Gold) - Official TradingView Symbol Logos & Truth Details
 const row1Assets = [
-  {
-    name: 'Bitcoin',
-    symbol: 'BTCUSD',
-    price: '$74,064.50',
-    change: '+1.61%',
-    isUp: true,
-    signal: 'BULLISH',
-    logoUrl: 'https://s3-symbol-logo.tradingview.com/crypto/XTVCBTC.svg',
-    fallbackChar: '₿',
-    color: '#F7931A'
-  },
-  {
-    name: 'Ethereum',
-    symbol: 'ETHUSD',
-    price: '$3,842.10',
-    change: '+2.81%',
-    isUp: true,
-    signal: 'CONVICTION',
-    logoUrl: 'https://s3-symbol-logo.tradingview.com/crypto/XTVCETH.svg',
-    fallbackChar: 'Ξ',
-    color: '#627EEA'
-  },
-  {
-    name: 'Solana',
-    symbol: 'SOLUSD',
-    price: '$194.85',
-    change: '+5.34%',
-    isUp: true,
-    signal: 'BREAKOUT',
-    logoUrl: 'https://s3-symbol-logo.tradingview.com/crypto/XTVCSOL.svg',
-    fallbackChar: '◎',
-    color: '#14F195'
-  },
-  {
-    name: 'Binance',
-    symbol: 'BNBUSD',
-    price: '$615.20',
-    change: '+1.15%',
-    isUp: true,
-    signal: 'ACCUMULATE',
-    logoUrl: 'https://s3-symbol-logo.tradingview.com/crypto/XTVCBNB.svg',
-    fallbackChar: '⬡',
-    color: '#F3BA2F'
-  },
   {
     name: 'Gold',
     symbol: 'XAUUSD',
-    price: '$2,748.90',
+    price: '$2,748.50',
     change: '+0.95%',
     isUp: true,
     signal: 'SAFE HAVEN',
@@ -109,74 +65,140 @@ const row1Assets = [
     color: '#18C98B'
   },
   {
-    name: 'NVIDIA',
-    symbol: 'NVDA',
-    price: '$138.50',
-    change: '+4.20%',
-    isUp: true,
-    signal: 'SURGE',
-    logoUrl: 'https://s3-symbol-logo.tradingview.com/nvidia.svg',
-    fallbackChar: 'N',
-    color: '#76B900'
-  },
-  {
-    name: 'Apple',
-    symbol: 'AAPL',
-    price: '$228.40',
-    change: '+1.65%',
-    isUp: true,
-    signal: 'STABLE',
-    logoUrl: 'https://s3-symbol-logo.tradingview.com/apple.svg',
-    fallbackChar: '',
-    color: '#A2AAAD'
-  },
-  {
-    name: 'XRP',
-    symbol: 'XRPUSD',
-    price: '$0.5840',
-    change: '+3.12%',
-    isUp: true,
-    signal: 'MOMENTUM',
-    logoUrl: 'https://s3-symbol-logo.tradingview.com/crypto/XTVCXRP.svg',
-    fallbackChar: '✕',
-    color: '#23292F'
-  },
-];
-
-// Row 2 Assets (Scrolling Right) - Official TradingView Symbol Logos & Truth Details
-const row2Assets = [
-  {
-    name: 'Avalanche',
-    symbol: 'AVAXUSD',
-    price: '$38.60',
-    change: '+4.15%',
-    isUp: true,
-    signal: 'SURGE',
-    logoUrl: 'https://s3-symbol-logo.tradingview.com/crypto/XTVCAVAX.svg',
-    fallbackChar: '▲',
-    color: '#E84142'
-  },
-  {
-    name: 'Cardano',
-    symbol: 'ADAUSD',
-    price: '$0.4520',
-    change: '+2.10%',
-    isUp: true,
-    signal: 'CONFLUENCE',
-    logoUrl: 'https://s3-symbol-logo.tradingview.com/crypto/XTVCADA.svg',
-    fallbackChar: '₳',
-    color: '#0033AD'
-  },
-  {
     name: 'Euro / USD',
     symbol: 'EURUSD',
     price: '1.0854',
     change: '+0.25%',
     isUp: true,
-    signal: 'MACRO',
+    signal: 'BULLISH',
     logoUrl: 'https://s3-symbol-logo.tradingview.com/country/EU.svg',
     fallbackChar: '€',
     color: '#003399'
+  },
+  {
+    name: 'GBP / USD',
+    symbol: 'GBPUSD',
+    price: '1.2945',
+    change: '+0.42%',
+    isUp: true,
+    signal: 'BREAKOUT',
+    logoUrl: 'https://s3-symbol-logo.tradingview.com/country/GB.svg',
+    fallbackChar: '£',
+    color: '#C8102E'
+  },
+  {
+    name: 'USD / JPY',
+    symbol: 'USDJPY',
+    price: '152.840',
+    change: '+0.34%',
+    isUp: true,
+    signal: 'MOMENTUM',
+    logoUrl: 'https://s3-symbol-logo.tradingview.com/country/JP.svg',
+    fallbackChar: '¥',
+    color: '#BC002D'
+  },
+  {
+    name: 'AUD / USD',
+    symbol: 'AUDUSD',
+    price: '0.6580',
+    change: '+0.38%',
+    isUp: true,
+    signal: 'ACCUMULATE',
+    logoUrl: 'https://s3-symbol-logo.tradingview.com/country/AU.svg',
+    fallbackChar: 'A$',
+    color: '#00008B'
+  },
+  {
+    name: 'USD / CAD',
+    symbol: 'USDCAD',
+    price: '1.3850',
+    change: '-0.18%',
+    isUp: false,
+    signal: 'CONFLUENCE',
+    logoUrl: 'https://s3-symbol-logo.tradingview.com/country/CA.svg',
+    fallbackChar: 'C$',
+    color: '#FF0000'
+  },
+  {
+    name: 'USD / CHF',
+    symbol: 'USDCHF',
+    price: '0.8650',
+    change: '+0.12%',
+    isUp: true,
+    signal: 'STABLE',
+    logoUrl: 'https://s3-symbol-logo.tradingview.com/country/CH.svg',
+    fallbackChar: 'Fr',
+    color: '#D52B1E'
+  },
+  {
+    name: 'Silver',
+    symbol: 'XAGUSD',
+    price: '$33.80',
+    change: '+1.45%',
+    isUp: true,
+    signal: 'SURGE',
+    logoUrl: 'https://s3-symbol-logo.tradingview.com/metal/silver.svg',
+    fallbackChar: 'Ag',
+    color: '#C0C0C0'
+  }
+];
+
+// Row 2 Assets (Cross Currency Pairs & Global Benchmarks) - Official TradingView Symbol Logos & Truth Details
+const row2Assets = [
+  {
+    name: 'GBP / JPY',
+    symbol: 'GBPJPY',
+    price: '197.800',
+    change: '+0.65%',
+    isUp: true,
+    signal: 'BREAKOUT',
+    logoUrl: 'https://s3-symbol-logo.tradingview.com/country/GB.svg',
+    fallbackChar: '£',
+    color: '#C8102E'
+  },
+  {
+    name: 'EUR / JPY',
+    symbol: 'EURJPY',
+    price: '165.750',
+    change: '+0.45%',
+    isUp: true,
+    signal: 'TREND',
+    logoUrl: 'https://s3-symbol-logo.tradingview.com/country/EU.svg',
+    fallbackChar: '€',
+    color: '#003399'
+  },
+  {
+    name: 'EUR / GBP',
+    symbol: 'EURGBP',
+    price: '0.8385',
+    change: '-0.15%',
+    isUp: false,
+    signal: 'RANGE',
+    logoUrl: 'https://s3-symbol-logo.tradingview.com/country/EU.svg',
+    fallbackChar: '€',
+    color: '#003399'
+  },
+  {
+    name: 'NZD / USD',
+    symbol: 'NZDUSD',
+    price: '0.5975',
+    change: '+0.28%',
+    isUp: true,
+    signal: 'SWING',
+    logoUrl: 'https://s3-symbol-logo.tradingview.com/country/NZ.svg',
+    fallbackChar: 'NZ$',
+    color: '#00247D'
+  },
+  {
+    name: 'Crude Oil',
+    symbol: 'USOIL',
+    price: '$71.40',
+    change: '+1.15%',
+    isUp: true,
+    signal: 'ENERGY',
+    logoUrl: 'https://s3-symbol-logo.tradingview.com/crude-oil.svg',
+    fallbackChar: '🛢',
+    color: '#E056FD'
   },
   {
     name: 'S&P 500',
@@ -190,17 +212,6 @@ const row2Assets = [
     color: '#34D399'
   },
   {
-    name: 'Chainlink',
-    symbol: 'LINKUSD',
-    price: '$16.40',
-    change: '+6.12%',
-    isUp: true,
-    signal: 'ORACLE',
-    logoUrl: 'https://s3-symbol-logo.tradingview.com/crypto/XTVCLINK.svg',
-    fallbackChar: '⬢',
-    color: '#375BD2'
-  },
-  {
     name: 'Tesla',
     symbol: 'TSLA',
     price: '$242.80',
@@ -212,42 +223,66 @@ const row2Assets = [
     color: '#E82127'
   },
   {
-    name: 'Near',
-    symbol: 'NEARUSD',
-    price: '$5.90',
-    change: '+4.80%',
+    name: 'Apple',
+    symbol: 'AAPL',
+    price: '$228.40',
+    change: '+1.65%',
     isUp: true,
-    signal: 'AI PROTOCOL',
-    logoUrl: 'https://s3-symbol-logo.tradingview.com/crypto/XTVCNEAR.svg',
-    fallbackChar: 'N',
-    color: '#000000'
-  },
-  {
-    name: 'Polkadot',
-    symbol: 'DOTUSD',
-    price: '$6.85',
-    change: '+1.95%',
-    isUp: true,
-    signal: 'MULTI-CHAIN',
-    logoUrl: 'https://s3-symbol-logo.tradingview.com/crypto/XTVCDOT.svg',
-    fallbackChar: '●',
-    color: '#E6007A'
-  },
+    signal: 'STABLE',
+    logoUrl: 'https://s3-symbol-logo.tradingview.com/apple.svg',
+    fallbackChar: '',
+    color: '#A2AAAD'
+  }
 ];
 
 export default function FavoriteCoins() {
   const router = useRouter();
+  const [livePrices, setLivePrices] = useState({});
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchLiveTickers = async () => {
+      try {
+        const res = await fetch('/api/v1/market/tickers');
+        if (res.ok) {
+          const json = await res.json();
+          if (json?.data && isMounted) {
+            setLivePrices(json.data);
+          }
+        }
+      } catch {
+        // Fallback silently to baseline prices
+      }
+    };
+
+    fetchLiveTickers();
+    const interval = setInterval(fetchLiveTickers, 20000);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, []);
 
   // Duplicate arrays 3x for seamless infinite marquee loop
   const marqueeRow1 = [...row1Assets, ...row1Assets, ...row1Assets];
   const marqueeRow2 = [...row2Assets, ...row2Assets, ...row2Assets];
+
+  const getAssetData = (item) => {
+    const live = livePrices[item.symbol];
+    return {
+      price: live?.price || item.price,
+      change: live?.change || item.change,
+      isUp: live !== undefined ? live.isUp : item.isUp,
+      signal: live?.signal || item.signal
+    };
+  };
 
   return (
     <section className={styles.favoriteCoinsSection} aria-label="TradingView Verified Asset Markets">
       <div className="container">
         {/* Section Header */}
         <SectionHeader
-          badge="TRADINGVIEW VERIFIED SYMBOLS · 100+ MARKETS"
+          badge="TRADINGVIEW VERIFIED SYMBOLS · LIVE MARKETS"
           title1="Trade your"
           title2="favorite pairs & assets"
           breakLine={false}
@@ -259,66 +294,72 @@ export default function FavoriteCoins() {
       <div className={styles.marqueeContainer}>
         {/* Row 1: Scrolling Left */}
         <div className={`${styles.marqueeTrack} ${styles.trackLeft}`}>
-          {marqueeRow1.map((item, idx) => (
-            <div key={`row1-${idx}`} className={styles.assetCard} onClick={() => authNavigate(router, '/trade-snap')}>
-              <TradingViewLogo
-                logoUrl={item.logoUrl}
-                name={item.name}
-                color={item.color}
-                fallbackChar={item.fallbackChar}
-              />
-              <div className={styles.assetContent}>
-                <div className={styles.topRow}>
-                  <div className={styles.nameGroup}>
-                    <span className={styles.assetName}>{item.name}</span>
-                    <span className={styles.tvSymbol}>{item.symbol}</span>
+          {marqueeRow1.map((item, idx) => {
+            const data = getAssetData(item);
+            return (
+              <div key={`row1-${idx}`} className={styles.assetCard} onClick={() => navigateFeature(router, '/ai-trade', '/trade-snap')}>
+                <TradingViewLogo
+                  logoUrl={item.logoUrl}
+                  name={item.name}
+                  color={item.color}
+                  fallbackChar={item.fallbackChar}
+                />
+                <div className={styles.assetContent}>
+                  <div className={styles.topRow}>
+                    <div className={styles.nameGroup}>
+                      <span className={styles.assetName}>{item.name}</span>
+                      <span className={styles.tvSymbol}>{item.symbol}</span>
+                    </div>
+                    <span className={styles.signalTag}>{data.signal}</span>
                   </div>
-                  <span className={styles.signalTag}>{item.signal}</span>
-                </div>
-                <div className={styles.bottomRow}>
-                  <div className={styles.priceGroup}>
-                    <span className={styles.priceText}>{item.price}</span>
-                    <span className={`${styles.changeBadge} ${item.isUp ? styles.green : styles.red}`}>
-                      {item.change}
-                    </span>
+                  <div className={styles.bottomRow}>
+                    <div className={styles.priceGroup}>
+                      <span className={styles.priceText}>{data.price}</span>
+                      <span className={`${styles.changeBadge} ${data.isUp ? styles.green : styles.red}`}>
+                        {data.change}
+                      </span>
+                    </div>
+                    <SparklineCurve isUp={data.isUp} />
                   </div>
-                  <SparklineCurve isUp={item.isUp} />
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Row 2: Scrolling Right */}
         <div className={`${styles.marqueeTrack} ${styles.trackRight}`}>
-          {marqueeRow2.map((item, idx) => (
-            <div key={`row2-${idx}`} className={styles.assetCard} onClick={() => authNavigate(router, '/trade-snap')}>
-              <TradingViewLogo
-                logoUrl={item.logoUrl}
-                name={item.name}
-                color={item.color}
-                fallbackChar={item.fallbackChar}
-              />
-              <div className={styles.assetContent}>
-                <div className={styles.topRow}>
-                  <div className={styles.nameGroup}>
-                    <span className={styles.assetName}>{item.name}</span>
-                    <span className={styles.tvSymbol}>{item.symbol}</span>
+          {marqueeRow2.map((item, idx) => {
+            const data = getAssetData(item);
+            return (
+              <div key={`row2-${idx}`} className={styles.assetCard} onClick={() => navigateFeature(router, '/ai-trade', '/trade-snap')}>
+                <TradingViewLogo
+                  logoUrl={item.logoUrl}
+                  name={item.name}
+                  color={item.color}
+                  fallbackChar={item.fallbackChar}
+                />
+                <div className={styles.assetContent}>
+                  <div className={styles.topRow}>
+                    <div className={styles.nameGroup}>
+                      <span className={styles.assetName}>{item.name}</span>
+                      <span className={styles.tvSymbol}>{item.symbol}</span>
+                    </div>
+                    <span className={styles.signalTag}>{data.signal}</span>
                   </div>
-                  <span className={styles.signalTag}>{item.signal}</span>
-                </div>
-                <div className={styles.bottomRow}>
-                  <div className={styles.priceGroup}>
-                    <span className={styles.priceText}>{item.price}</span>
-                    <span className={`${styles.changeBadge} ${item.isUp ? styles.green : styles.red}`}>
-                      {item.change}
-                    </span>
+                  <div className={styles.bottomRow}>
+                    <div className={styles.priceGroup}>
+                      <span className={styles.priceText}>{data.price}</span>
+                      <span className={`${styles.changeBadge} ${data.isUp ? styles.green : styles.red}`}>
+                        {data.change}
+                      </span>
+                    </div>
+                    <SparklineCurve isUp={data.isUp} />
                   </div>
-                  <SparklineCurve isUp={item.isUp} />
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 

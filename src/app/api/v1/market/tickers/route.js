@@ -1,0 +1,129 @@
+import { NextResponse } from 'next/server';
+
+// In-memory cache for 15 seconds
+let cacheData = null;
+let lastFetchTime = 0;
+const CACHE_TTL_MS = 15000;
+
+export async function GET() {
+    const now = Date.now();
+    if (cacheData && now - lastFetchTime < CACHE_TTL_MS) {
+        return NextResponse.json({ success: true, data: cacheData, cached: true });
+    }
+
+    try {
+        const forexSymbols = [
+            'FX:EURUSD',
+            'FX:GBPUSD',
+            'FX:USDJPY',
+            'FX:AUDUSD',
+            'FX:USDCHF',
+            'FX:USDCAD',
+            'FX:NZDUSD',
+            'FX:GBPJPY',
+            'FX:EURJPY',
+            'FX:EURGBP'
+        ];
+
+        const cfdSymbols = [
+            'OANDA:XAUUSD',
+            'TVC:GOLD',
+            'TVC:SILVER',
+            'TVC:USOIL'
+        ];
+
+        const [forexRes, cfdRes] = await Promise.all([
+            fetch('https://scanner.tradingview.com/forex/scan', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    symbols: { tickers: forexSymbols },
+                    columns: ['close', 'change', 'Recommend.All']
+                }),
+                cache: 'no-store'
+            }).then(r => r.ok ? r.json() : { data: [] }).catch(() => ({ data: [] })),
+
+            fetch('https://scanner.tradingview.com/cfd/scan', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    symbols: { tickers: cfdSymbols },
+                    columns: ['close', 'change', 'Recommend.All']
+                }),
+                cache: 'no-store'
+            }).then(r => r.ok ? r.json() : { data: [] }).catch(() => ({ data: [] }))
+        ]);
+
+        const resultMap = {};
+
+        const processItems = (items = []) => {
+            items.forEach((item) => {
+                if (!item || !item.s || !Array.isArray(item.d)) return;
+                const rawSymbol = item.s;
+                const cleanKey = rawSymbol.split(':').pop().toUpperCase();
+                const [close, changePct, score] = item.d;
+
+                if (close === undefined || close === null) return;
+
+                let signal = 'BULLISH';
+                if (cleanKey === 'XAUUSD' || cleanKey === 'GOLD') {
+                    signal = 'SAFE HAVEN';
+                } else if (score > 0.5) {
+                    signal = 'STRONG BUY';
+                } else if (score > 0.1) {
+                    signal = 'BULLISH';
+                } else if (score < -0.5) {
+                    signal = 'STRONG SELL';
+                } else if (score < -0.1) {
+                    signal = 'BEARISH';
+                } else {
+                    signal = 'CONFLUENCE';
+                }
+
+                const isUp = (changePct ?? 0) >= 0;
+                const formattedChange = `${isUp ? '+' : ''}${(changePct ?? 0).toFixed(2)}%`;
+
+                // Format price appropriately
+                let formattedPrice = '';
+                if (cleanKey === 'XAUUSD' || cleanKey === 'GOLD') {
+                    formattedPrice = `$${Number(close).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                } else if (cleanKey.includes('JPY')) {
+                    formattedPrice = Number(close).toFixed(3);
+                } else if (cleanKey === 'SILVER' || cleanKey === 'XAGUSD') {
+                    formattedPrice = `$${Number(close).toFixed(2)}`;
+                } else if (cleanKey === 'USOIL') {
+                    formattedPrice = `$${Number(close).toFixed(2)}`;
+                } else {
+                    formattedPrice = Number(close).toFixed(4);
+                }
+
+                resultMap[cleanKey] = {
+                    price: formattedPrice,
+                    rawPrice: close,
+                    change: formattedChange,
+                    rawChange: changePct,
+                    isUp,
+                    signal
+                };
+
+                if (cleanKey === 'GOLD') {
+                    resultMap['XAUUSD'] = resultMap['GOLD'];
+                }
+                if (cleanKey === 'SILVER') {
+                    resultMap['XAGUSD'] = resultMap['SILVER'];
+                }
+            });
+        };
+
+        processItems(forexRes?.data);
+        processItems(cfdRes?.data);
+
+        cacheData = resultMap;
+        lastFetchTime = now;
+
+        return NextResponse.json({ success: true, data: resultMap });
+    } catch (err) {
+        console.error('TradingView scanner fetch error:', err);
+        return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+    }
+}

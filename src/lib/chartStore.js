@@ -9,7 +9,7 @@ export function getSymbolPrecision(symbol) {
     if (sym.includes('JPY')) {
         return { precision: 3, minMove: 0.001 };      // Yen Pairs (3 Decimals: USDJPY, GBPJPY)
     } else if (sym.includes('XAU') || sym.includes('BTC') || sym.includes('GOLD') || sym.includes('ETH')) {
-        return { precision: 2, minMove: 0.01 };       // Gold / Crypto / Commodities (2 Decimals: XAUUSD)
+        return { precision: 2, minMove: 0.01 };       // Gold / Commodities (2 Decimals: XAUUSD)
     } else {
         return { precision: 5, minMove: 0.00001 };    // Standard Forex (5 Decimals: EURUSD, NZDUSD, GBPUSD, AUDUSD, USDCAD, USDCHF)
     }

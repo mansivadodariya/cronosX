@@ -19,7 +19,7 @@ function parsePair(symbol) {
 
   const clean = raw.replace(/[^A-Z0-9]/g, '');
 
-  // 6-character forex/crypto pair e.g. "AUDUSD", "EURUSD", "GBPJPY", "BTCUSD"
+  // 6-character currency pair e.g. "AUDUSD", "EURUSD", "GBPJPY", "BTCUSD"
   if (clean.length === 6) {
     return { base: clean.slice(0, 3), quote: clean.slice(3, 6) };
   }

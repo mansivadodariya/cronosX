@@ -189,6 +189,7 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
     // Chat State
     const [chatHistory, setChatHistory] = useState([]);
     const [selectedChat, setSelectedChat] = useState(null);
+    const [currentConversationId, setCurrentConversationId] = useState(null);
     const [chatMessages, setChatMessages] = useState([]);
     const [chatInput, setChatInput] = useState('');
     const [selectedPair, setSelectedPair] = useState('XAU/USD');
@@ -449,6 +450,7 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
         setPendingRequest(false);
         setHistoryModalOpen(false);
         setSelectedChat(null);
+        setCurrentConversationId(null);
         setChatMessages([]);
         setChatInput('');
         setActiveAnalysisMode(null);
@@ -465,34 +467,97 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
         });
     };
 
-    const handleSelectChat = (item) => {
+    const handleSelectChat = async (item) => {
+        const convId = item?.id || item?.conversation_id || item?.history_id;
         setHistoryModalOpen(false);
         setSelectedChat(item);
+        setCurrentConversationId(convId || null);
         setChatWidthPercent(60);
         [100, 200, 300, 400].forEach((ms) => {
             setTimeout(() => window.dispatchEvent(new Event('resize')), ms);
         });
-        const question = item.question || item.message || '';
-        const rawResponse = item.response || item.answer || item;
-        // History items may store the response as a JSON string — parse it first
-        let resolvedResponse = rawResponse;
-        if (typeof rawResponse === 'string') {
-            try { resolvedResponse = JSON.parse(rawResponse); } catch { resolvedResponse = rawResponse; }
-        }
-        const parsed = parseAssistantResponse(resolvedResponse);
-        const rawPair = item.pair || '';
-        const isPairNone = !rawPair || rawPair === 'No Pair' || rawPair === 'NO_PAIR' || String(rawPair).toLowerCase().includes('no pair') || String(rawPair).toLowerCase() === 'none';
-        const pair = isPairNone ? '' : rawPair;
 
-        setChatMessages([
-            { role: 'user', content: question, pair: pair || null },
-            buildAssistantMessage(parsed)
-        ]);
+        if (convId) {
+            setPendingRequest(true);
+            try {
+                const res = await fxApi.getConversationHistory(convId);
+                const fullData = res?.data || res;
+                const rawMessages = fullData?.messages || (Array.isArray(fullData) ? fullData : []);
 
-        if (pair && ALL_PAIRS.includes(pair)) {
-            setSelectedPair(pair);
-        } else if (isPairNone) {
-            setSelectedPair('No Pair');
+                const loadedMessages = [];
+                let latestPair = item?.pair || null;
+
+                rawMessages.forEach((m) => {
+                    const userText = m.question || m.message || (m.role === 'user' ? m.content : null);
+                    const ans = m.answer || m.response || (m.role === 'assistant' ? (m.answer || m.content) : null);
+                    const p = m.pair || m.detected_pair;
+                    if (p) latestPair = p;
+
+                    if (userText) {
+                        loadedMessages.push({
+                            role: 'user',
+                            content: userText,
+                            pair: p || null,
+                            timeframe: m.timeframe || null
+                        });
+                    }
+
+                    if (ans) {
+                        let resolved = ans;
+                        if (typeof resolved === 'string') {
+                            try { resolved = JSON.parse(resolved); } catch {}
+                        }
+                        const parsed = parseAssistantResponse(resolved);
+                        loadedMessages.push(buildAssistantMessage(parsed));
+                    } else if (m.role === 'assistant' && m.content) {
+                        loadedMessages.push({
+                            role: 'assistant',
+                            content: m.content
+                        });
+                    }
+                });
+
+                if (loadedMessages.length > 0) {
+                    setChatMessages(loadedMessages);
+                } else {
+                    const question = item.question || item.message || '';
+                    const rawResponse = item.response || item.answer;
+                    if (question || rawResponse) {
+                        let resolved = rawResponse;
+                        if (typeof resolved === 'string') {
+                            try { resolved = JSON.parse(resolved); } catch {}
+                        }
+                        const parsed = parseAssistantResponse(resolved);
+                        setChatMessages([
+                            { role: 'user', content: question, pair: latestPair || null },
+                            buildAssistantMessage(parsed)
+                        ]);
+                    } else {
+                        setChatMessages([]);
+                    }
+                }
+
+                if (latestPair && ALL_PAIRS.includes(latestPair)) {
+                    setSelectedPair(latestPair);
+                }
+            } catch (err) {
+                console.error("Failed to load conversation history:", err);
+                const question = item.question || item.message || '';
+                const rawResponse = item.response || item.answer;
+                if (question || rawResponse) {
+                    let resolved = rawResponse;
+                    if (typeof resolved === 'string') {
+                        try { resolved = JSON.parse(resolved); } catch {}
+                    }
+                    const parsed = parseAssistantResponse(resolved);
+                    setChatMessages([
+                        { role: 'user', content: question, pair: item?.pair || null },
+                        buildAssistantMessage(parsed)
+                    ]);
+                }
+            } finally {
+                setPendingRequest(false);
+            }
         }
     };
 
@@ -616,6 +681,7 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
         try {
             const chatPayload = {
                 message: msg,
+                ...(currentConversationId ? { id: currentConversationId } : {}),
                 ...(cleanPair ? { pair: cleanPair, timeframe: activeTf } : {}),
                 image_base64: currentAttachment?.url || null,
                 stream: false,
@@ -624,6 +690,12 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
 
             const result = await fxApi.chat(chatPayload);
             if (activeRequestIdRef.current !== requestId) return;
+
+            // Save data.id from response as conversation identifier
+            const returnedId = result?.data?.id || result?.id || result?.conversation_id;
+            if (returnedId) {
+                setCurrentConversationId(returnedId);
+            }
 
             const parsed = parseAssistantResponse(result);
             const assistantMsg = buildAssistantMessage(parsed);
@@ -650,20 +722,137 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
         });
     };
 
-    const handleDownloadFullReport = (fullReportText, pairName) => {
+    const handleDownloadFullReport = async (fullReportText, pairName) => {
         if (!fullReportText) return;
         const cleanPair = (pairName && pairName !== 'No Pair' && !String(pairName).toLowerCase().includes('no pair'))
             ? pairName.replace('/', '').toUpperCase()
             : (selectedPair && selectedPair !== 'No Pair' ? selectedPair.replace('/', '').toUpperCase() : 'Forex');
-        const blob = new Blob([fullReportText], { type: 'text/markdown;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${cleanPair}_Trade_Report.md`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+
+        try {
+            const jspdfModule = await import('jspdf');
+            const jsPDF = jspdfModule.jsPDF || jspdfModule.default?.jsPDF || jspdfModule.default;
+            const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+            const pageWidth = 210;
+            const pageHeight = 297;
+            const margin = 16;
+            const maxLineWidth = pageWidth - margin * 2;
+
+            // Header Banner
+            doc.setFillColor(10, 18, 14);
+            doc.rect(0, 0, pageWidth, 42, 'F');
+
+            doc.setTextColor(24, 201, 139);
+            doc.setFontSize(18);
+            doc.setFont('helvetica', 'bold');
+            doc.text('CHRONOSX AI TRADING DESK', margin, 17);
+
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
+            doc.text(`Institutional Trade Setup & Analysis Report — ${cleanPair}`, margin, 26);
+
+            doc.setTextColor(150, 160, 155);
+            doc.setFontSize(8.5);
+            doc.setFont('helvetica', 'normal');
+            doc.text(`Generated: ${new Date().toUTCString()} | Engine: ChronosX Dual Vision AI v2`, margin, 34);
+
+            doc.setDrawColor(24, 201, 139);
+            doc.setLineWidth(0.7);
+            doc.line(margin, 42, pageWidth - margin, 42);
+
+            let y = 52;
+            const lineHeight = 5.5;
+            const rawLines = fullReportText.split('\n');
+
+            rawLines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) {
+                    y += 3.5;
+                    return;
+                }
+
+                if (y > pageHeight - 25) {
+                    doc.addPage();
+                    y = 20;
+                }
+
+                if (trimmed.startsWith('### ') || trimmed.startsWith('## ') || trimmed.startsWith('# ')) {
+                    const headerText = trimmed.replace(/^#+\s*/, '').replace(/\*\*/g, '');
+                    y += 3;
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(11.5);
+                    doc.setTextColor(16, 130, 90);
+                    doc.text(headerText, margin, y);
+                    y += 6;
+                    return;
+                }
+
+                const isBullet = trimmed.startsWith('- ') || trimmed.startsWith('* ') || /^\d+\.\s/.test(trimmed);
+                const cleanContent = trimmed.replace(/^[-*]\s+/, '').replace(/^\d+\.\s+/, '').replace(/\*\*/g, '');
+
+                doc.setFontSize(9.5);
+                if (isBullet) {
+                    doc.setFont('helvetica', 'normal');
+                    doc.setTextColor(40, 45, 50);
+                    const wrapped = doc.splitTextToSize(cleanContent, maxLineWidth - 6);
+                    if (y + wrapped.length * lineHeight > pageHeight - 20) {
+                        doc.addPage();
+                        y = 20;
+                    }
+                    doc.setFillColor(24, 201, 139);
+                    doc.circle(margin + 2, y - 1.2, 1, 'F');
+                    doc.text(wrapped, margin + 6, y);
+                    y += wrapped.length * lineHeight;
+                } else {
+                    doc.setFont('helvetica', 'normal');
+                    doc.setTextColor(30, 35, 40);
+                    const wrapped = doc.splitTextToSize(cleanContent, maxLineWidth);
+                    if (y + wrapped.length * lineHeight > pageHeight - 20) {
+                        doc.addPage();
+                        y = 20;
+                    }
+                    doc.text(wrapped, margin, y);
+                    y += wrapped.length * lineHeight;
+                }
+            });
+
+            const totalPages = doc.getNumberOfPages();
+            for (let i = 1; i <= totalPages; i++) {
+                doc.setPage(i);
+                doc.setDrawColor(220, 225, 222);
+                doc.setLineWidth(0.3);
+                doc.line(margin, pageHeight - 14, pageWidth - margin, pageHeight - 14);
+
+                doc.setFontSize(7.5);
+                doc.setTextColor(130, 135, 140);
+                doc.setFont('helvetica', 'normal');
+                doc.text(
+                    'ChronosX AI Intelligence • For Informational & Educational Purposes Only • Not Financial Advice',
+                    margin,
+                    pageHeight - 9
+                );
+                doc.text(
+                    `Page ${i} of ${totalPages}`,
+                    pageWidth - margin,
+                    pageHeight - 9,
+                    { align: 'right' }
+                );
+            }
+
+            doc.save(`${cleanPair}_Trade_Report.pdf`);
+        } catch (err) {
+            console.error('Failed to generate PDF report:', err);
+            const blob = new Blob([fullReportText], { type: 'text/markdown;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${cleanPair}_Trade_Report.md`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
     };
 
     const handleGenerateBlog = async () => {
@@ -818,7 +1007,7 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
     }, [exportData]);
 
     // Helper functions for safe rendering
-    const getQuestionText = (item) => item.question || item.message || item.input_data || 'Untitled interaction';
+    const getQuestionText = (item) => item.title || item.name || item.first_question || item.question || item.message || item.input_data || 'Untitled Conversation';
     const getBlogTopicText = (item) => item.input_data || item.topic || item.title || 'Untitled Blog';
     const getBlogContentText = (item) => {
         const source = item.data || item;
@@ -1204,7 +1393,7 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
                                                                                 className={styles.downloadFullReportBtn}
                                                                             >
                                                                                 <DownloadIcon size={15} />
-                                                                                <span>Download Full Report (.md)</span>
+                                                                                <span>Download Full Report (PDF)</span>
                                                                             </button>
                                                                         </div>
                                                                     </div>

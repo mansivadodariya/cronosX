@@ -89,8 +89,8 @@ const GbpJpyIcon = () => (
     </div>
 );
 
-const CryptoIcon = () => (
-    <div className={styles.cryptoBadge}>
+const DigitalAssetsIcon = () => (
+    <div className={styles.digitalAssetsBadge}>
         <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
             <circle cx="16" cy="16" r="15" fill="#F7931A" />
             <path d="M21.5 13.5C21.9 12.3 21.2 10.9 19.3 10.4L18.8 8.6L17.7 8.9L18.2 10.7C17.9 10.8 17.6 10.9 17.3 11L16.8 9.2L15.7 9.5L16.2 11.3C15.9 11.4 15.6 11.5 15.3 11.6L13.8 11.2L13.4 12.7C13.4 12.7 14.2 12.9 14.2 12.9C14.6 13 14.7 13.3 14.6 13.6L13.3 18.7C13.2 18.9 13 19 12.7 18.9C12.7 18.9 11.9 18.7 11.9 18.7L11.2 20.3L12.7 20.7C13 20.8 13.3 20.9 13.6 21L13.1 23L14.2 22.7L14.7 20.7C15 20.8 15.3 20.9 15.6 21L15.1 23L16.2 22.7L16.7 20.7C18.6 21 20.1 20.6 20.7 18.9C21.2 17.5 20.7 16.7 19.8 16.2C20.5 15.8 21 14.9 20.7 13.7M18.8 18.3C18.5 19.6 16.2 18.8 15.3 18.6L16 15.9C16.9 16.1 19.2 16.9 18.8 18.3M19.1 14.3C18.8 15.5 16.9 14.8 16.1 14.6L16.7 12.2C17.5 12.4 19.4 13.1 19.1 14.3Z" fill="white" />
@@ -152,9 +152,9 @@ const MARKET_OPTIONS = [
     },
     {
         id: 'crypto',
-        title: 'Crypto',
-        desc: 'Cryptocurrencies',
-        icon: CryptoIcon,
+        title: 'Digital Assets',
+        desc: 'Decentralized digital assets',
+        icon: DigitalAssetsIcon,
     },
     {
         id: 'indices',

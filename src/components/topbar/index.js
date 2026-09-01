@@ -165,7 +165,7 @@ const Topbar = ({ onMenuClick }) => {
 
       <div className={styles.right}>
         {/* Light / Dark Theme Toggle */}
-        <ThemeToggle />
+        {/* <ThemeToggle /> */}
 
         {/* Credits Badge */}
         <div

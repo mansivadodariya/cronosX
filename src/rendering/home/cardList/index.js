@@ -2,7 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { authNavigate } from '@/lib/authRedirect';
+import { navigateFeature } from '@/lib/authRedirect';
 import styles from './cardList.module.scss';
 import RightIcon from '@/icons/rightIcon';
 
@@ -11,26 +11,29 @@ const gridData = [
         icon: '/assets/icons/signals.svg',
         title: 'AI TRADE',
         desc: 'AI-powered market analysis and trading signals.',
-        target: '/trade-snap'
+        publicPath: '/ai-trade',
+        dashboardPath: '/trade-snap'
     },
     {
         icon: '/assets/icons/chat-square.svg',
         title: 'AI CHAT',
         desc: 'Ask AI about markets, strategies, signals, and trading decisions.',
-        target: '/ai-assistant'
+        publicPath: '/ai-chat',
+        dashboardPath: '/ai-assistant'
     },
     {
         icon: '/assets/icons/strategy-builder.svg',
         title: 'AI STRATEGY',
         desc: 'Build and analyze smarter trading strategies with AI.',
-        target: '/ai-strategy/live'
+        publicPath: '/strategy',
+        dashboardPath: '/ai-strategy/live'
     },
     {
         icon: '/assets/icons/analysis.svg',
         title: 'AI TRADE ANALYSIS',
         desc: 'Deep algorithmic trade breakdown, liquidity tracking, and risk metrics.',
-        target: '/ai-past-trade-analyzer',
-        isPublic: true
+        publicPath: '/ai-past-trade-analyzer',
+        dashboardPath: '/trade-analysis'
     }
 ];
 
@@ -38,11 +41,7 @@ export default function CardList() {
     const router = useRouter();
 
     const handleCardClick = (item) => {
-        if (item.isPublic) {
-            router.push(item.target);
-        } else {
-            authNavigate(router, item.target);
-        }
+        router.push(item.publicPath);
     };
 
     return (

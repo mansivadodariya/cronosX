@@ -247,7 +247,7 @@ export default function NetworkCircuitChart({ isBackground = false }) {
           </g>
 
           {/* ==========================================================================
-              3. LEFT CRYPTO HEXAGON NODES (TOP-LEFT & BOTTOM-LEFT)
+              3. LEFT ASSET HEXAGON NODES (TOP-LEFT & BOTTOM-LEFT)
              ========================================================================== */}
           {/* --- TOP-LEFT HEXAGON: GROWTH CHART ICON (PURE WHITE) --- */}
           <g className={styles.hexFloatTopLeft}>
@@ -289,7 +289,7 @@ export default function NetworkCircuitChart({ isBackground = false }) {
           </g>
 
           {/* ==========================================================================
-              4. RIGHT CRYPTO HEXAGON NODES (TOP-RIGHT & BOTTOM-RIGHT)
+              4. RIGHT ASSET HEXAGON NODES (TOP-RIGHT & BOTTOM-RIGHT)
              ========================================================================== */}
           {/* --- TOP-RIGHT HEXAGON: SPEEDOMETER / GAUGE ICON (PURE WHITE) --- */}
           <g className={styles.hexFloatTopRight}>
@@ -329,10 +329,7 @@ export default function NetworkCircuitChart({ isBackground = false }) {
             <circle cx="898.3" cy="308.0" r="2.5" fill="#6EE7B7" />
             <circle cx="898.3" cy="299.4" r="2.5" fill="#6EE7B7" />
             <circle cx="898.3" cy="290.8" r="2.5" fill="#6EE7B7" />
-            <path
-              d="M948.933 299.326C951.37 298.08 952.921 295.864 952.561 292.181C952.09 287.139 947.95 285.45 942.467 284.979V278H938.201V284.785C937.093 284.785 935.958 284.813 934.822 284.84V278H930.557V284.979C928.989 285.027 927.162 285.003 922 284.979V289.521C925.367 289.462 927.134 289.246 927.539 291.404V310.514C927.282 312.227 925.911 311.981 922.859 311.927L922.001 316.995C929.778 316.995 930.56 317.023 930.56 317.023V323H934.825V317.106C935.988 317.135 937.123 317.135 938.204 317.135V323.001H942.469V317.025C949.615 316.637 954.392 314.837 955.029 308.106C955.526 302.706 952.98 300.296 948.935 299.327ZM934.905 289.827C937.314 289.827 944.847 289.078 944.847 294.092C944.847 298.883 937.314 298.329 934.905 298.329V289.827ZM934.905 311.954V302.593C937.785 302.593 946.605 301.79 946.605 307.272C946.605 312.563 937.785 311.952 934.905 311.952V311.954Z"
-              fill="#FFFFFF"
-            />
+            <text x="938" y="311" fill="#FFFFFF" fontSize="26" fontWeight="700" textAnchor="middle" fontFamily="sans-serif">€</text>
           </g>
 
           {/* ==========================================================================
@@ -398,16 +395,16 @@ export default function NetworkCircuitChart({ isBackground = false }) {
               The combined growth is <tspan fill="#6EE7B7" fontWeight="600">↑ 2.39%</tspan>
             </text>
 
-            {/* --- METRIC 1: BTC ($6,780, ↑ 2.92%) --- */}
-            <text x="24" y="152" fill="#FFFFFF" fontSize="14" fontWeight="700" fontFamily="sans-serif">
-              $6,780
+            {/* --- METRIC 1: XAU/USD ($2,748.50, ↑ 0.95%) --- */}
+            <text x="24" y="152" fill="#FFFFFF" fontSize="13" fontWeight="700" fontFamily="sans-serif">
+              $2,748.50
             </text>
             <text x="24" y="167" fill="rgba(255,255,255,0.5)" fontSize="11" fontWeight="600" fontFamily="sans-serif">
-              BTC
+              XAU/USD
             </text>
-            {/* BTC Bar Backdrop Box - Taller Box (70px) */}
+            {/* XAU/USD Bar Backdrop Box - Taller Box (70px) */}
             <rect x="24" y="178" width="62" height="70" rx="10" fill="rgba(0,242,254,0.12)" stroke="rgba(0,242,254,0.35)" strokeWidth="1" />
-            {/* Fully Bounded SVG Viewport for BTC Bars */}
+            {/* Fully Bounded SVG Viewport for XAU Bars */}
             <svg x="24" y="178" width="62" height="70" overflow="hidden">
               <rect x="4" y="4" width="8" height="62" rx="4" fill="url(#cyanBarGrad)" className={styles.barCol1} />
               <rect x="15" y="4" width="8" height="62" rx="4" fill="url(#cyanBarGrad)" className={styles.barCol2} />
@@ -416,19 +413,19 @@ export default function NetworkCircuitChart({ isBackground = false }) {
               <rect x="48" y="4" width="8" height="62" rx="4" fill="url(#cyanBarGrad)" className={styles.barCol5} />
             </svg>
             <text x="24" y="270" fill="#6EE7B7" fontSize="11" fontWeight="600" fontFamily="sans-serif">
-              ↑ 2.92%
+              ↑ 0.95%
             </text>
 
-            {/* --- METRIC 2: XRP ($4,780, ↑ 1.38%) --- */}
-            <text x="114" y="152" fill="#FFFFFF" fontSize="14" fontWeight="700" fontFamily="sans-serif">
-              $4,780
+            {/* --- METRIC 2: EUR/USD (1.0852, ↑ 0.42%) --- */}
+            <text x="114" y="152" fill="#FFFFFF" fontSize="13" fontWeight="700" fontFamily="sans-serif">
+              1.0852
             </text>
             <text x="114" y="167" fill="rgba(255,255,255,0.5)" fontSize="11" fontWeight="600" fontFamily="sans-serif">
-              XRP
+              EUR/USD
             </text>
-            {/* XRP Bar Backdrop Box - Taller Box (70px) */}
+            {/* EUR/USD Bar Backdrop Box - Taller Box (70px) */}
             <rect x="114" y="178" width="62" height="70" rx="10" fill="rgba(224,86,253,0.12)" stroke="rgba(224,86,253,0.35)" strokeWidth="1" />
-            {/* Fully Bounded SVG Viewport for XRP Bars */}
+            {/* Fully Bounded SVG Viewport for EUR Bars */}
             <svg x="114" y="178" width="62" height="70" overflow="hidden">
               <rect x="4" y="4" width="8" height="62" rx="4" fill="url(#purpleBarGrad)" className={styles.barCol3} />
               <rect x="15" y="4" width="8" height="62" rx="4" fill="url(#purpleBarGrad)" className={styles.barCol1} />
@@ -437,19 +434,19 @@ export default function NetworkCircuitChart({ isBackground = false }) {
               <rect x="48" y="4" width="8" height="62" rx="4" fill="url(#purpleBarGrad)" className={styles.barCol4} />
             </svg>
             <text x="114" y="270" fill="#6EE7B7" fontSize="11" fontWeight="600" fontFamily="sans-serif">
-              ↑ 1.38%
+              ↑ 0.42%
             </text>
 
-            {/* --- METRIC 3: OTHER ($7,780, ↑ 2.56%) --- */}
-            <text x="204" y="152" fill="#FFFFFF" fontSize="14" fontWeight="700" fontFamily="sans-serif">
-              $7,780
+            {/* --- METRIC 3: GBP/USD (1.2945, ↑ 0.68%) --- */}
+            <text x="204" y="152" fill="#FFFFFF" fontSize="13" fontWeight="700" fontFamily="sans-serif">
+              1.2945
             </text>
             <text x="204" y="167" fill="rgba(255,255,255,0.5)" fontSize="11" fontWeight="600" fontFamily="sans-serif">
-              Other
+              GBP/USD
             </text>
-            {/* Other Bar Backdrop Box - Taller Box (70px) */}
+            {/* GBP/USD Bar Backdrop Box - Taller Box (70px) */}
             <rect x="204" y="178" width="62" height="70" rx="10" fill="rgba(110,231,183,0.12)" stroke="rgba(110,231,183,0.35)" strokeWidth="1" />
-            {/* Fully Bounded SVG Viewport for Other Bars */}
+            {/* Fully Bounded SVG Viewport for GBP Bars */}
             <svg x="204" y="178" width="62" height="70" overflow="hidden">
               <rect x="4" y="4" width="8" height="62" rx="4" fill="url(#mintBarGrad)" className={styles.barCol2} />
               <rect x="15" y="4" width="8" height="62" rx="4" fill="url(#mintBarGrad)" className={styles.barCol4} />
@@ -458,7 +455,7 @@ export default function NetworkCircuitChart({ isBackground = false }) {
               <rect x="48" y="4" width="8" height="62" rx="4" fill="url(#mintBarGrad)" className={styles.barCol5} />
             </svg>
             <text x="204" y="270" fill="#6EE7B7" fontSize="11" fontWeight="600" fontFamily="sans-serif">
-              ↑ 2.56%
+              ↑ 0.68%
             </text>
           </g>
 

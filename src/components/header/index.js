@@ -74,7 +74,7 @@ export default function Header() {
         {
             label: 'AI Trade Analysis',
             desc: 'Automated multi-timeframe pattern detection & key price levels',
-            href: '/ai-trade',
+            href: isLoggedIn ? '/trade-snap' : '/ai-trade',
             badge: 'POPULAR',
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -90,7 +90,7 @@ export default function Header() {
         {
             label: 'AI Chat Analysis',
             desc: 'Real-time conversational market intelligence & instant insights',
-            href: '/ai-chat',
+            href: isLoggedIn ? '/ai-assistant' : '/ai-chat',
             badge: 'LIVE AI',
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -104,7 +104,7 @@ export default function Header() {
         {
             label: 'AI Strategies / Indicators Analysis',
             desc: 'Algorithmic backtesting, momentum breakout & strategy signals',
-            href: '/strategy',
+            href: isLoggedIn ? '/ai-strategy/live' : '/strategy',
             badge: 'QUANT',
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -120,7 +120,7 @@ export default function Header() {
         {
             label: 'AI Past Trade Analyzer',
             desc: 'Review your historical trading data to evaluate performance, pinpoint mistakes, and track win rates.',
-            href: '/ai-past-trade-analyzer',
+            href: isLoggedIn ? '/trade-analysis' : '/ai-past-trade-analyzer',
             badge: 'AI AUDIT',
             icon: (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -395,7 +395,7 @@ export default function Header() {
 
                     {/* Right Desktop CTA */}
                     <div className={styles.desktopAction}>
-                        <ThemeToggle />
+                        {/* <ThemeToggle /> */}
                         <Button
                             text="Get Started"
                             icon={RightIcon}

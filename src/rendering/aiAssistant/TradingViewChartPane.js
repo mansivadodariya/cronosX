@@ -85,7 +85,7 @@ export const SYMBOL_DATABASE = [
     { symbol: 'GBP/AUD', name: 'British Pound / Australian Dollar', category: 'forex' },
     { symbol: 'AUD/JPY', name: 'Australian Dollar / Japanese Yen', category: 'forex' },
     { symbol: 'CAD/JPY', name: 'Canadian Dollar / Japanese Yen', category: 'forex' },
-    // Crypto
+    // Digital Assets
     { symbol: 'BTC/USD', name: 'Bitcoin / US Dollar', category: 'crypto' },
     { symbol: 'ETH/USD', name: 'Ethereum / US Dollar', category: 'crypto' },
     { symbol: 'SOL/USD', name: 'Solana / US Dollar', category: 'crypto' },

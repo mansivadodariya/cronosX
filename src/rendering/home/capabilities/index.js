@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { authNavigate } from '@/lib/authRedirect';
+import { navigateFeature } from '@/lib/authRedirect';
 import styles from './capabilities.module.scss';
 import SectionHeader from '@/components/sectionHeader';
 
@@ -31,12 +31,12 @@ export default function Capabilities() {
             className={`${styles.cockpitCard} ${hoveredIndex === 0 ? styles.cardActive : ''} ${hoveredIndex !== null && hoveredIndex !== 0 ? styles.cardDimmed : ''}`}
             onMouseEnter={() => setHoveredIndex(0)}
             onMouseLeave={() => setHoveredIndex(null)}
-            onClick={() => authNavigate(router, '/trade-snap')}
+            onClick={() => router.push('/ai-trade')}
             tabIndex={0}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                authNavigate(router, '/trade-snap');
+                router.push('/ai-trade');
               }
             }}
           >
@@ -110,12 +110,12 @@ export default function Capabilities() {
             className={`${styles.cockpitCard} ${hoveredIndex === 1 ? styles.cardActive : ''} ${hoveredIndex !== null && hoveredIndex !== 1 ? styles.cardDimmed : ''}`}
             onMouseEnter={() => setHoveredIndex(1)}
             onMouseLeave={() => setHoveredIndex(null)}
-            onClick={() => authNavigate(router, '/ai-assistant')}
+            onClick={() => router.push('/ai-chat')}
             tabIndex={0}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                authNavigate(router, '/ai-assistant');
+                router.push('/ai-chat');
               }
             }}
           >
@@ -295,12 +295,12 @@ export default function Capabilities() {
             className={`${styles.cockpitCard} ${hoveredIndex === 2 ? styles.cardActive : ''} ${hoveredIndex !== null && hoveredIndex !== 2 ? styles.cardDimmed : ''}`}
             onMouseEnter={() => setHoveredIndex(2)}
             onMouseLeave={() => setHoveredIndex(null)}
-            onClick={() => authNavigate(router, '/ai-strategy/live')}
+            onClick={() => router.push('/strategy')}
             tabIndex={0}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                authNavigate(router, '/ai-strategy/live');
+                router.push('/strategy');
               }
             }}
           >
