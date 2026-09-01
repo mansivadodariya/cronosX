@@ -623,16 +623,7 @@ export default function TradeAnalysis() {
                             >
                                 <UploadIcon />
                                 <span>{loading ? 'Analyzing Report...' : 'Choose PDF File'}</span>
-                            </button>
-                            <button
-                                type="button"
-                                className={styles.sampleFileBtn}
-                                onClick={(e) => { e.stopPropagation(); handleLoadSample(); }}
-                                disabled={loading}
-                            >
-                                <SparklesIcon />
-                                <span>Try Sample Report</span>
-                            </button>
+                            </button>                       
                         </div>
 
                         <span className={styles.dragDropText}>or drag and drop your file here</span>
