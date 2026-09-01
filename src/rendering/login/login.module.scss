@@ -239,3 +239,29 @@
         }
     }
 }
+
+/* Specific Light Mode Rules for Login */
+:global(html.light) {
+    .authCard {
+        background: #FFFFFF !important;
+        border-color: rgba(15, 23, 42, 0.09) !important;
+        box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.08) !important;
+
+        .text h2 {
+            background: linear-gradient(90deg, #047857 0%, #059669 35%, #10B981 75%, #18C98B 100%) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+        }
+
+        .text p,
+        .orText,
+        .switchText {
+            color: #475569 !important;
+        }
+
+        .orText::before,
+        .orText::after {
+            border-bottom-color: rgba(15, 23, 42, 0.1) !important;
+        }
+    }
+}

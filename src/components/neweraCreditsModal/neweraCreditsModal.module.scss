@@ -487,3 +487,46 @@ $border-gold: rgba(24, 201, 139, 0.28);
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
+
+/* Specific Light Mode Rules for Newera Credits Modal */
+:global(html.light) {
+    .box {
+        background: #FFFFFF !important;
+        border-color: rgba(15, 23, 42, 0.09) !important;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .title,
+    .criteriaTitle,
+    .successTitle,
+    .stepTitle {
+        color: #0F172A !important;
+    }
+
+    .welcomeText,
+    .criteriaDesc,
+    .stepDesc,
+    .modalDesc,
+    .noticeText,
+    .syncStatusText {
+        color: #475569 !important;
+    }
+
+    .criteriaCard,
+    .stepItem,
+    .statusIndicator,
+    .infoBox {
+        background: #F8FAFC !important;
+        border-color: rgba(15, 23, 42, 0.08) !important;
+    }
+
+    .closeBtn {
+        background: #F1F5F9 !important;
+        color: #0F172A !important;
+
+        &:hover {
+            background: #E2E8F0 !important;
+        }
+    }
+}
+

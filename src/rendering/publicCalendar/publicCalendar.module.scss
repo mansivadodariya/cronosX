@@ -9,6 +9,11 @@
     position: relative;
     overflow: hidden;
 
+    :global(html.light) & {
+        background: #F8FAFC !important;
+        color: #0F172A !important;
+    }
+
     @include respond-to('md') {
         padding: 110px 16px 60px;
     }
@@ -51,6 +56,12 @@
         padding: 28px 32px;
         box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(24, 201, 139, 0.1);
 
+        :global(html.light) & {
+            background: #FFFFFF !important;
+            border-color: rgba(15, 23, 42, 0.1) !important;
+            box-shadow: 0 10px 35px -10px rgba(0, 0, 0, 0.08) !important;
+        }
+
         @include respond-to('md') {
             flex-direction: column;
             align-items: flex-start;
@@ -59,17 +70,33 @@
 
         .ctaContent {
             h3 {
-                color: #FFFFFF;
                 font-size: 20px;
                 font-weight: 700;
+                color: #FFFFFF;
                 margin: 0 0 6px;
+
+                :global(html.light) & {
+                    color: #0F172A !important;
+                }
+
+                @include respond-to('sm') {
+                    font-size: 17px;
+                }
             }
 
             p {
+                font-size: 14px;
                 color: rgba(255, 255, 255, 0.65);
-                font-size: 13.5px;
                 margin: 0;
                 line-height: 1.5;
+
+                :global(html.light) & {
+                    color: #475569 !important;
+                }
+
+                @include respond-to('sm') {
+                    font-size: 13px;
+                }
             }
         }
 
@@ -77,20 +104,21 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: linear-gradient(180deg, #18C98B 0%, #10B981 100%);
-            color: #000000;
+            padding: 12px 24px;
+            background: #18C98B;
+            border: 1px solid rgba(24, 201, 139, 0.4);
+            border-radius: 10px;
+            color: #040605;
             font-size: 14px;
             font-weight: 700;
-            padding: 12px 24px;
-            border-radius: 10px;
             text-decoration: none;
-            flex-shrink: 0;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 15px rgba(24, 201, 139, 0.25);
+            white-space: nowrap;
+            flex-shrink: 0;
 
             &:hover {
+                box-shadow: 0 0 20px rgba(24, 201, 139, 0.4);
                 transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(24, 201, 139, 0.4);
             }
         }
     }

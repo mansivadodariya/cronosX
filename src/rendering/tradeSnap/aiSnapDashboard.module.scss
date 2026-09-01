@@ -1,7 +1,7 @@
 // AI Snap Ultra-Premium Trading Dashboard Styles with Complete Light & Dark Theme Support
 
 .dashboardWrapper {
-    // Theme Variables - Default: LIGHT MODE
+    // Theme Variables - Default / Dark Mode
     --card-bg: #0D0E13;
     --card-border: rgba(24, 201, 139, 0.35);
     --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
@@ -25,6 +25,32 @@
     --tp-card-bg: #0D0E13;
     --tp-card-border: rgba(16, 185, 129, 0.35);
 
+    :global(html.light) & {
+        // Theme Variables - LIGHT MODE
+        --card-bg: #FFFFFF;
+        --card-border: rgba(15, 23, 42, 0.09);
+        --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+        --box-bg: #F8FAFC;
+        --box-border: rgba(15, 23, 42, 0.08);
+        --title-color: #0F172A;
+        --text-primary: #0F172A;
+        --text-muted: #475569;
+        --text-faint: #94A3B8;
+        --wrapper-bg: #F8FAFC;
+        --wrapper-border: rgba(15, 23, 42, 0.08);
+        --pill-bg: rgba(24, 201, 139, 0.12);
+        --pill-border: rgba(24, 201, 139, 0.3);
+        --pill-color: #047857;
+        --stat-card-bg: #FFFFFF;
+        --code-bg: #F1F5F9;
+        --code-color: #334155;
+        --bull-hero-bg: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, #FFFFFF 100%);
+        --bear-hero-bg: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, #FFFFFF 100%);
+        --neutral-hero-bg: #FFFFFF;
+        --tp-card-bg: #FFFFFF;
+        --tp-card-border: rgba(16, 185, 129, 0.3);
+    }
+
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -42,32 +68,6 @@
     }
 }
 
-.dashboardWrapper {
-    :global(.dark) & {
-        // Theme Variables - DARK MODE
-        --card-bg: #111827;
-        --card-border: rgba(255, 255, 255, 0.1);
-        --card-shadow: none;
-        --box-bg: #1F2937;
-        --box-border: rgba(255, 255, 255, 0.08);
-        --title-color: #FFFFFF;
-        --text-primary: #F9FAFB;
-        --text-muted: #9CA3AF;
-        --text-faint: #6B7280;
-        --wrapper-bg: #0B0F19;
-        --wrapper-border: rgba(255, 255, 255, 0.1);
-        --pill-bg: rgba(24, 201, 139, 0.15);
-        --pill-border: rgba(24, 201, 139, 0.3);
-        --pill-color: #18C98B;
-        --stat-card-bg: rgba(17, 24, 39, 0.85);
-        --code-bg: #1F2937;
-        --code-color: #9CA3AF;
-        --bull-hero-bg: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(17, 24, 39, 0.95) 100%);
-        --bear-hero-bg: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(17, 24, 39, 0.95) 100%);
-        --neutral-hero-bg: #111827;
-        --tp-card-bg: #111827;
-        --tp-card-border: rgba(16, 185, 129, 0.25);
-    }
 
 
 // Top Split Layout (Section D Summary + Section A Technical Score Gauge)

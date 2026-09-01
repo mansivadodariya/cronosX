@@ -640,3 +640,55 @@
         }
     }
 }
+
+/* Specific Light Mode Rules for Header */
+:global(html.light) {
+    .headerAlignment {
+        background: rgba(255, 255, 255, 0.88) !important;
+        border-color: rgba(15, 23, 42, 0.08) !important;
+        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06) !important;
+
+        &.alignmentScrolled {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border-color: rgba(15, 23, 42, 0.12) !important;
+            box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.08) !important;
+        }
+
+        @include respond-to("tab") {
+            background: #FFFFFF !important;
+            border-bottom-color: rgba(15, 23, 42, 0.1) !important;
+
+            &.alignmentScrolled {
+                background: #FFFFFF !important;
+            }
+        }
+    }
+
+    .dropdownCard,
+    .mobileDrawer {
+        background: #FFFFFF !important;
+        border-color: rgba(15, 23, 42, 0.1) !important;
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .itemTitle,
+    .drawerLink,
+    .subTitle {
+        color: #0F172A !important;
+    }
+
+    .itemDesc,
+    .subDesc,
+    .dropdownHeaderTag {
+        color: #475569 !important;
+    }
+
+    .drawerSubItem {
+        background: #F8FAFC !important;
+        border-color: rgba(15, 23, 42, 0.08) !important;
+
+        &:hover {
+            background: #F1F5F9 !important;
+        }
+    }
+}

@@ -288,55 +288,91 @@ table th .bidi-rtl {
 }
 
 /* ============================================================
-   EVERY LANDING PAGE SECTION LIGHT MODE HIGH-CONTRAST OVERRIDES
+   CHRONOSX COMPREHENSIVE LIGHT MODE DESIGN SYSTEM
    ============================================================ */
-html.light, html[data-theme="light"] {
+html.light,
+html[data-theme="light"] {
   --bg-global: #F8FAFC;
   --text-white: #0F172A;
+  --primary-green: #059669;
+  --primary-green-glow: rgba(5, 150, 105, 0.25);
+  --primary-green-light: rgba(5, 150, 105, 0.1);
   color-scheme: light;
   background-color: #F8FAFC !important;
 }
 
+/* Global Canvas & Layout Containers */
 html.light body,
 html.light .user-layout,
 html.light .children-wrapper,
 html.light .sidebar-wrapper,
 html.light main,
 html.light section,
-html.light footer,
-html.light article {
+html.light article,
+html.light [class*="pageWrapper"],
+html.light [class*="PageWrapper"],
+html.light [class*="contactPage"],
+html.light [class*="aboutPage"],
+html.light [class*="plansPage"],
+html.light [class*="blogsWrapper"],
+html.light [class*="dashboardWrapper"],
+html.light [class*="profileContainer"],
+html.light [class*="calculatorWrapper"],
+html.light [class*="calendarWrapper"],
+html.light [class*="newsWrapper"],
+html.light [class*="tradeSnapWrapper"],
+html.light [class*="strategyWrapper"],
+html.light [class*="creditWrapper"],
+html.light [class*="brokerWrapper"],
+html.light [class*="legalWrapper"],
+html.light [class*="containerWrapper"],
+html.light [class*="termsContainer"],
+html.light [class*="privacyContainer"],
+html.light [class*="riskContainer"],
+html.light [class*="comingSoonWrapper"] {
   background-color: #F8FAFC !important;
   color: #0F172A !important;
 }
 
-/* Force dark slate text across all headings, titles, descriptions & body text */
+/* Headings & Titles */
 html.light h1,
 html.light h2,
 html.light h3,
 html.light h4,
 html.light h5,
 html.light h6,
-html.light p,
-html.light label,
-html.light strong,
-html.light b,
-html.light li,
-html.light td,
-html.light th,
 html.light [class*="title"],
 html.light [class*="Title"],
 html.light [class*="heading"],
 html.light [class*="Heading"],
+html.light [class*="headerTitle"],
+html.light [class*="sectionTitle"],
+html.light [class*="cardTitle"],
+html.light [class*="heroTitle"],
 html.light [class*="name"],
-html.light [class*="Name"] {
+html.light [class*="Name"],
+html.light [class*="mainHeading"] {
   color: #0F172A !important;
 }
 
-html.light span:not([class*="Badge"]):not([class*="badge"]):not([class*="pulse"]):not([class*="dot"]):not([class*="Pill"]):not([class*="pill"]):not([class*="tag"]):not([class*="Tag"]) {
+/* Body Text & Labels */
+html.light p,
+html.light li,
+html.light label,
+html.light strong,
+html.light b,
+html.light [class*="label"],
+html.light [class*="Label"],
+html.light [class*="content"] {
+  color: #334155 !important;
+}
+
+/* Generic spans */
+html.light span:not([class*="Badge"]):not([class*="badge"]):not([class*="pulse"]):not([class*="dot"]):not([class*="Pill"]):not([class*="pill"]):not([class*="tag"]):not([class*="Tag"]):not([class*="Gradient"]):not([class*="gradient"]):not([class*="count"]):not([class*="val"]):not([class*="Val"]):not([class*="price"]):not([class*="Price"]):not([class*="bullish"]):not([class*="bearish"]):not([class*="profit"]):not([class*="loss"]) {
   color: inherit;
 }
 
-/* Secondary & Muted Descriptions in Light Mode */
+/* Secondary & Muted Descriptions */
 html.light [class*="desc"],
 html.light [class*="Desc"],
 html.light [class*="subtitle"],
@@ -346,28 +382,39 @@ html.light [class*="Subtext"],
 html.light [class*="description"],
 html.light [class*="Description"],
 html.light [class*="meta"],
-html.light [class*="Meta"] {
-  color: #475569 !important;
+html.light [class*="Meta"],
+html.light [class*="helper"],
+html.light [class*="instruction"],
+html.light [class*="textMuted"],
+html.light [class*="subTitle"] {
+  color: #64748B !important;
 }
 
-/* Stat numbers and counts in Light Mode */
+/* Values, Metric Numbers, Counts, Prices */
 html.light [class*="rowVal"],
 html.light [class*="statValue"],
+html.light [class*="statVal"],
 html.light [class*="creditsAmount"],
 html.light [class*="count"],
 html.light [class*="Count"],
 html.light [class*="number"],
 html.light [class*="Number"],
-html.light [class*="metricVal"] {
+html.light [class*="metricVal"],
+html.light [class*="metricValue"],
+html.light [class*="price"]:not([class*="gradient"]):not([class*="Gradient"]),
+html.light [class*="Price"]:not([class*="gradient"]):not([class*="Gradient"]),
+html.light [class*="amount"] {
   color: #0F172A !important;
   opacity: 1 !important;
 }
 
-/* Mint & Slate Gradient Text for Key Highlights */
+/* Vibrant Emerald/Mint Gradient Text */
 html.light [class*="goldGradient"],
 html.light [class*="greenGradient"],
 html.light [class*="accentGradient"],
-html.light [class*="title2"] {
+html.light [class*="gradientText"],
+html.light [class*="title2"],
+html.light [class*="highlightText"] {
   background: linear-gradient(90deg, #047857 0%, #059669 35%, #10B981 75%, #18C98B 100%) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
@@ -405,11 +452,7 @@ html.light [class*="cockpitCard"],
 html.light [class*="panel"],
 html.light [class*="Panel"],
 html.light [class*="hologramHero"],
-html.light [class*="watchlistSection"],
-html.light [class*="sidebar"],
-html.light [class*="topbar"],
-html.light [class*="headerAlignment"],
-html.light [class*="statPillRow"],
+html.light [class*="glassCard"],
 html.light [class*="glassStatCard"],
 html.light [class*="detailPillBox"],
 html.light [class*="creditsCardBox"],
@@ -576,19 +619,94 @@ html.light [class*="navBtn"]:hover {
   box-shadow: none !important;
 }
 
-/* Sidebar Navigation in Light Mode */
-html.light [class*="sidebar"] {
+/* Form Controls & Inputs */
+html.light input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
+html.light textarea,
+html.light select,
+html.light [class*="inputField"],
+html.light [class*="inputWrapper"] input,
+html.light [class*="searchInput"],
+html.light [class*="customInput"],
+html.light [class*="formControl"],
+html.light [class*="phoneInput"] input {
   background-color: #FFFFFF !important;
   border-right-color: rgba(24, 201, 139, 0.2) !important;
   box-shadow: none !important;
 }
 
-html.light [class*="navMenuItem"],
-html.light [class*="menu"],
-html.light [class*="sidebarmenu"] a {
+html.light input::placeholder,
+html.light textarea::placeholder,
+html.light [class*="inputField"]::placeholder,
+html.light [class*="searchInput"]::placeholder {
+  color: #94A3B8 !important;
+  opacity: 1 !important;
+}
+
+html.light input:focus,
+html.light textarea:focus,
+html.light select:focus,
+html.light [class*="inputField"]:focus {
+  border-color: #18C98B !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(24, 201, 139, 0.22) !important;
+}
+
+/* Header & Top Navigation */
+html.light [class*="headerAlignment"],
+html.light header,
+html.light [class*="headerWrapper"] {
+  background-color: rgba(255, 255, 255, 0.88) !important;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08) !important;
+  backdrop-filter: blur(14px) !important;
+}
+
+html.light [class*="navLink"],
+html.light [class*="navItem"],
+html.light [class*="menuItem"],
+html.light [class*="navMenu"] a {
   color: #334155 !important;
 }
 
+html.light [class*="navLink"]:hover,
+html.light [class*="navItem"]:hover,
+html.light [class*="menuItem"]:hover {
+  color: #059669 !important;
+}
+
+/* Mega Dropdown & Mobile Drawer in Header */
+html.light [class*="dropdownWrapper"],
+html.light [class*="mobileMenuDrawer"],
+html.light [class*="mobileDrawer"],
+html.light [class*="megaMenu"] {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.1) !important;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Sidebar & Topbar */
+html.light [class*="sidebar"],
+html.light .sidebar-wrapper,
+html.light [class*="sidebarContainer"] {
+  background-color: #FFFFFF !important;
+  border-right: 1px solid rgba(15, 23, 42, 0.08) !important;
+}
+
+html.light [class*="topbar"],
+html.light [class*="topbarWrapper"] {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08) !important;
+  color: #0F172A !important;
+}
+
+html.light [class*="sidebarmenu"] a,
+html.light [class*="sidebarItem"],
+html.light [class*="navMenuItem"],
+html.light [class*="menu"] {
+  color: #475569 !important;
+}
+
+html.light [class*="sidebarmenu"] a:hover,
+html.light [class*="sidebarItem"]:hover,
 html.light [class*="navMenuItem"]:hover,
 html.light [class*="menu"]:hover {
   background: rgba(24, 201, 139, 0.1) !important;
@@ -596,16 +714,41 @@ html.light [class*="menu"]:hover {
   box-shadow: none !important;
 }
 
+html.light [class*="sidebarmenu"] a.active,
+html.light [class*="sidebarmenu"] a[class*="active"],
 html.light [class*="navMenuItemActive"],
+html.light [class*="sidebarItemActive"],
 html.light [data-active="true"],
 html.light [class*="menu"].active {
-  color: #047857 !important;
   background: rgba(24, 201, 139, 0.14) !important;
   border-color: rgba(24, 201, 139, 0.3) !important;
   box-shadow: none !important;
 }
 
-/* SVG Line & Path Contrast Overrides for Light Mode */
+/* Tables */
+html.light table {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+html.light th {
+  background-color: #F1F5F9 !important;
+  color: #334155 !important;
+  font-weight: 600 !important;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.1) !important;
+}
+
+html.light td {
+  color: #1E293B !important;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06) !important;
+}
+
+html.light tr:hover td {
+  background-color: #F8FAFC !important;
+}
+
+/* SVG Line & Path Contrast */
 html.light svg path[stroke="#ffffff"],
 html.light svg path[stroke="#FFFFFF"],
 html.light svg path[stroke="white"],
@@ -634,17 +777,20 @@ html.light text[fill*="rgba(255, 255, 255"] {
   fill: #475569 !important;
 }
 
-/* Ambient glow & backdrop grids in Light Mode */
+/* Ambient glow & backdrop grid softness in Light Mode */
 html.light [class*="ambient"],
 html.light [class*="gridOverlay"],
 html.light [class*="glow"] {
   opacity: 0.15 !important;
 }
 
-/* Eyebrow Badges & Section Tags in Light Mode */
+/* Eyebrow Badges & Section Tags */
 html.light [class*="eyebrowBadge"],
 html.light [class*="sectionTag"],
 html.light [class*="badgeWrapper"] span,
+html.light [class*="statusBadge"],
+html.light [class*="chip"],
+html.light [class*="badge"],
 html.light [class*="tag"] {
   color: #047857 !important;
   background: rgba(24, 201, 139, 0.12) !important;
@@ -652,10 +798,49 @@ html.light [class*="tag"] {
   box-shadow: none !important;
 }
 
-/* Chat bubble card inside AI Analyst in Light Mode */
+/* Secondary & Neutral Buttons */
+html.light [class*="secondaryBtn"],
+html.light [class*="outlineBtn"],
+html.light [class*="ghostBtn"],
+html.light [class*="btnSecondary"],
+html.light [class*="actionGridBtn"] {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1px solid rgba(15, 23, 42, 0.15) !important;
+}
+
+html.light [class*="secondaryBtn"]:hover,
+html.light [class*="outlineBtn"]:hover,
+html.light [class*="ghostBtn"]:hover,
+html.light [class*="actionGridBtn"]:hover {
+  background: #F1F5F9 !important;
+  border-color: rgba(24, 201, 139, 0.4) !important;
+}
+
+/* Auth & Onboarding Views */
+html.light .auth-layout,
+html.light [class*="authLayout"],
+html.light [class*="authPage"],
+html.light [class*="onboardingWrapper"] {
+  background-color: #F8FAFC !important;
+  background-image:
+    radial-gradient(circle at 50% 15%, rgba(24, 201, 139, 0.1) 0%, transparent 55%),
+    radial-gradient(circle at 50% 85%, rgba(24, 201, 139, 0.05) 0%, transparent 60%) !important;
+}
+
+html.light [class*="authCard"],
+html.light [class*="formCard"],
+html.light [class*="onboardingCard"] {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Chat & AI Analyst Bubbles */
 html.light [class*="chatBox"],
 html.light [class*="chatBubble"],
-html.light [class*="botMessage"] {
+html.light [class*="botMessage"],
+html.light [class*="assistantMessage"] {
   background: #F1F5F9 !important;
   color: #0F172A !important;
   border: 1px solid rgba(24, 201, 139, 0.25) !important;
@@ -664,26 +849,42 @@ html.light [class*="botMessage"] {
 
 html.light [class*="chatBox"] p,
 html.light [class*="chatBubble"] p,
-html.light [class*="botMessage"] p {
+html.light [class*="botMessage"] p,
+html.light [class*="assistantMessage"] p {
   color: #0F172A !important;
 }
 
-/* Footer Light Mode Support */
+html.light [class*="userMessage"],
+html.light [class*="userBubble"] {
+  background: #18C98B !important;
+  color: #040605 !important;
+}
+
+html.light [class*="userMessage"] p,
+html.light [class*="userBubble"] p {
+  color: #040605 !important;
+}
+
+/* Footer Light Mode */
 html.light [class*="footer"],
-html.light footer {
+html.light footer,
+html.light [class*="footerSection"],
+html.light [class*="footerWrapper"] {
   background-color: #F1F5F9 !important;
   color: #334155 !important;
   box-shadow: none !important;
 }
 
 html.light [class*="footer"] a,
-html.light footer a {
-  color: #334155 !important;
+html.light footer a,
+html.light [class*="footerWrapper"] a {
+  color: #475569 !important;
 }
 
 html.light [class*="footer"] a:hover,
-html.light footer a:hover {
-  color: #18C98B !important;
+html.light footer a:hover,
+html.light [class*="footerWrapper"] a:hover {
+  color: #059669 !important;
 }
 
 

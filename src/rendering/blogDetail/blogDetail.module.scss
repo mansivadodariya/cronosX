@@ -11,6 +11,11 @@
     font-family: "Euclid-Regular", sans-serif;
     box-sizing: border-box;
 
+    :global(html.light) & {
+        background: #F8FAFC !important;
+        color: #0F172A !important;
+    }
+
     @include respond-to('lg') {
         padding: 110px 20px 70px;
     }

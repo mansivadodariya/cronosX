@@ -424,3 +424,55 @@ $danger: #F87171;
         transform: rotate(360deg);
     }
 }
+
+/* Specific Light Mode Rules for Credit History */
+:global(html.light) {
+    .container {
+        color: #0F172A !important;
+    }
+
+    .headerTitleMeta h1,
+    .statValue,
+    .descCell,
+    .paginationInfo {
+        color: #0F172A !important;
+    }
+
+    .headerTitleMeta p,
+    .statLabel {
+        color: #475569 !important;
+    }
+
+    .statCard,
+    .tableContainer,
+    .emptyState {
+        background: #FFFFFF !important;
+        border-color: rgba(15, 23, 42, 0.09) !important;
+        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    .historyTable {
+        background: #FFFFFF !important;
+
+        th {
+            background: #F1F5F9 !important;
+            color: #334155 !important;
+        }
+
+        td {
+            border-bottom-color: rgba(15, 23, 42, 0.06) !important;
+        }
+    }
+
+    .paginationButton {
+        background: #FFFFFF !important;
+        border-color: rgba(15, 23, 42, 0.15) !important;
+        color: #0F172A !important;
+
+        &:hover:not(:disabled) {
+            background: #F1F5F9 !important;
+            color: #059669 !important;
+        }
+    }
+}
+

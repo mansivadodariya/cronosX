@@ -289,3 +289,53 @@
         }
     }
 }
+
+/* Specific Light Mode Rules for Onboarding */
+:global(html.light) {
+    .onboardingPage {
+        background-color: #F8FAFC !important;
+        color: #0F172A !important;
+    }
+
+    .stepText,
+    .optionTitle,
+    .sectionHeading {
+        color: #0F172A !important;
+    }
+
+    .stepSubtext,
+    .optionDesc {
+        color: #475569 !important;
+    }
+
+    .choiceCard,
+    .stepCard,
+    .onboardingCard,
+    .optionBox {
+        background: #FFFFFF !important;
+        border-color: rgba(15, 23, 42, 0.09) !important;
+        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05) !important;
+
+        &:hover {
+            border-color: rgba(24, 201, 139, 0.4) !important;
+        }
+
+        &.selected,
+        &[class*="selected"] {
+            border-color: #18C98B !important;
+            background: rgba(24, 201, 139, 0.06) !important;
+        }
+    }
+
+    .backBtn {
+        background: #FFFFFF !important;
+        border-color: rgba(15, 23, 42, 0.15) !important;
+        color: #0F172A !important;
+
+        &:hover {
+            background: #F1F5F9 !important;
+            color: #059669 !important;
+        }
+    }
+}
+

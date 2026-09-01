@@ -11,6 +11,11 @@
     overflow: hidden;
     color: #FFFFFF;
 
+    :global(html.light) & {
+        background: #F8FAFC !important;
+        color: #0F172A !important;
+    }
+
     .mainContent {
         flex: 1;
         position: relative;

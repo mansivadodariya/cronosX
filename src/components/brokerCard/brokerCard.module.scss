@@ -217,3 +217,51 @@ $success: #34D399;
         }
     }
 }
+
+/* Specific Light Mode Rules for Broker Card */
+:global(html.light) {
+    .brokerCard {
+        background: #FFFFFF !important;
+        border-color: rgba(15, 23, 42, 0.09) !important;
+        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05) !important;
+
+        &:hover {
+            box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.09) !important;
+        }
+
+        .bannerHeader {
+            background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%) !important;
+            border-color: rgba(15, 23, 42, 0.08) !important;
+
+            .logoWrapper img {
+                filter: none !important;
+            }
+        }
+
+        .cardTitle,
+        .hlMain {
+            color: #0F172A !important;
+        }
+
+        .ratingScore,
+        .hlSub {
+            color: #475569 !important;
+        }
+
+        .highlightItem {
+            background: #F8FAFC !important;
+            border-color: rgba(15, 23, 42, 0.08) !important;
+        }
+
+        .visitSiteBtn {
+            background: #FFFFFF !important;
+            border-color: rgba(15, 23, 42, 0.15) !important;
+            color: #0F172A !important;
+
+            &:hover {
+                background: #F1F5F9 !important;
+                color: #059669 !important;
+            }
+        }
+    }
+}

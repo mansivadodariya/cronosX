@@ -808,3 +808,80 @@
         @include font-normal;
     }
 }
+
+/* ========================================================================= */
+/* COMPLETE LIGHT MODE OVERRIDES FOR PLANS & PRICING */
+/* ========================================================================= */
+:global(html.light) {
+    .plansPage {
+        color: #0F172A !important;
+    }
+
+    .title,
+    .planName,
+    .amount,
+    .comparisonHeader h2,
+    .faqHeader h2,
+    .faqQuestionRow h3,
+    .featureItemText strong {
+        color: #0F172A !important;
+    }
+
+    .subtitle,
+    .planDesc,
+    .validityLabel,
+    .comparisonHeader p,
+    .faqHeader p,
+    .faqAnswer p,
+    .disclaimerBox p,
+    .featureItemText {
+        color: #475569 !important;
+    }
+
+    .planCard,
+    .featuredCard,
+    .premiumCard,
+    .comparisonTableWrapper,
+    .faqCard,
+    .disclaimerBox {
+        background: #FFFFFF !important;
+        border-color: rgba(15, 23, 42, 0.09) !important;
+        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    .featuredCard {
+        border-color: #18C98B !important;
+        box-shadow: 0 10px 30px rgba(24, 201, 139, 0.15) !important;
+    }
+
+    .priceContainer {
+        background: #F8FAFC !important;
+        border-color: rgba(15, 23, 42, 0.08) !important;
+    }
+
+    .cardFeaturesBox {
+        background: #F8FAFC !important;
+        border-color: rgba(15, 23, 42, 0.08) !important;
+    }
+
+    .billingToggleWrapper,
+    .switcherBox {
+        background: #F1F5F9 !important;
+        border-color: rgba(15, 23, 42, 0.1) !important;
+    }
+
+    .featureRow {
+        border-bottom-color: rgba(15, 23, 42, 0.08) !important;
+
+        &:hover {
+            background-color: #F8FAFC !important;
+        }
+    }
+
+    .tableColHeader {
+        background: #F8FAFC !important;
+        color: #0F172A !important;
+    }
+}
+
+

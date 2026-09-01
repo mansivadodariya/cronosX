@@ -1694,3 +1694,63 @@ $danger: #F87171;
         }
     }
 }
+
+/* Specific Light Mode Rules for Dashboard */
+:global(html.light) {
+    .modernDashboard {
+        color: #0F172A !important;
+    }
+
+    .marketBarometer,
+    .overviewCard,
+    .signalCard,
+    .cockpitCard,
+    .watchlistCard,
+    .tradesCard,
+    .statPillRow,
+    .chartCard,
+    .panelCard {
+        background: #FFFFFF !important;
+        border-color: rgba(15, 23, 42, 0.09) !important;
+        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05) !important;
+        color: #0F172A !important;
+    }
+
+    .rowTitle,
+    .statBigNum,
+    .cardHeaderTitle,
+    .signalPair,
+    .coinSymbol,
+    .metricTitle,
+    .valuePrimary {
+        color: #0F172A !important;
+    }
+
+    .rowDesc,
+    .baroLabel,
+    .cardHeaderSubtitle,
+    .signalDesc,
+    .coinName,
+    .metricSubtitle,
+    .valueSecondary {
+        color: #475569 !important;
+    }
+
+    .itemRow,
+    .scanItemRow,
+    .activityItemRow,
+    .subBox,
+    .pillBox {
+        background: #F8FAFC !important;
+        border-color: rgba(15, 23, 42, 0.08) !important;
+
+        &:hover {
+            background: #F1F5F9 !important;
+        }
+    }
+
+    .tableHeader {
+        background: #F1F5F9 !important;
+        color: #0F172A !important;
+    }
+}

@@ -381,10 +381,12 @@ $success: #10b981;
     }
 
     @keyframes pulse {
+
         0%,
         100% {
             opacity: 1;
         }
+
         50% {
             opacity: 0.4;
         }
@@ -1069,7 +1071,7 @@ $success: #10b981;
                 color: rgba(255, 255, 255, 0.6);
             }
 
-   
+
         }
 
         .tabSwitcher {
@@ -1260,6 +1262,7 @@ $success: #10b981;
         .btnGhost {
             background: #252529;
             color: #ffffff;
+
             &:hover {
                 background: #2d2d34;
             }
@@ -1310,6 +1313,7 @@ $success: #10b981;
         h2 {
             color: #ffffff;
         }
+
         p {
             color: rgba(255, 255, 255, 0.6);
         }
@@ -1318,6 +1322,7 @@ $success: #10b981;
     .modalClose {
         background: #252529;
         color: #ffffff;
+
         &:hover {
             background: #2d2d34;
             color: #18C98B;

@@ -29,67 +29,67 @@
   }
 
   &.lightTheme {
-    background: #0D0E13;
-    border-color: rgba(24, 201, 139, 0.4);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+    background: #FFFFFF;
+    border-color: rgba(15, 23, 42, 0.12);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
 
     .tickerSearchInput {
-      background: #040605;
-      border-color: rgba(24, 201, 139, 0.25);
-      color: #ffffff;
+      background: #F8FAFC;
+      border-color: rgba(15, 23, 42, 0.15);
+      color: #0F172A;
 
       &::placeholder {
-        color: rgba(255, 255, 255, 0.45);
+        color: #94A3B8;
       }
 
       &:focus {
         border-color: #18C98B;
-        background: #040605;
+        background: #FFFFFF;
       }
     }
 
     .searchIcon {
-      color: rgba(24, 201, 139, 0.7);
+      color: #047857;
     }
 
     .categoryTabBtn {
-      color: rgba(255, 255, 255, 0.65);
+      color: #475569;
 
       &:hover {
-        color: #18C98B;
-        background: rgba(24, 201, 139, 0.15);
+        color: #047857;
+        background: rgba(24, 201, 139, 0.12);
       }
 
       &.activeTab {
         background: #18C98B;
-        color: #000000;
+        color: #040605;
       }
     }
 
     .tickerMenuItem {
-      color: #ffffff;
+      color: #0F172A;
 
       &:hover {
-        background: rgba(24, 201, 139, 0.15);
-        color: #18C98B;
+        background: rgba(24, 201, 139, 0.12);
+        color: #047857;
       }
 
       &.activeTickerItem {
-        background: rgba(24, 201, 139, 0.25);
-        color: #18C98B;
+        background: rgba(24, 201, 139, 0.18);
+        color: #047857;
       }
     }
 
     .tickerSymbolTitle {
-      color: #ffffff;
+      color: #0F172A;
     }
 
     .tickerCheckmark {
-      color: #18C98B;
+      color: #047857;
     }
 
     .noSymbolsFound {
-      color: rgba(255, 255, 255, 0.65);
+      color: #64748B;
     }
   }
 }
