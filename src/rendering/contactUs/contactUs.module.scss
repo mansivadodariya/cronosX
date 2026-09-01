@@ -102,7 +102,7 @@
     gap: 10px;
     padding: 7px 18px;
     border-radius: 999px;
-    background: rgba(18, 15, 10, 0.9);
+    background: #0D1612;
     border: 1px solid rgba(24, 201, 139, 0.45);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 0 12px rgba(24, 201, 139, 0.1);
     backdrop-filter: blur(12px);
@@ -257,7 +257,7 @@
 }
 
 .infoCard {
-    background: linear-gradient(165deg, rgba(22, 18, 12, 0.92) 0%, rgba(10, 9, 8, 0.97) 100%);
+    background: linear-gradient(165deg, #0D1612 0%, #040806 100%);
     border: 1px solid rgba(24, 201, 139, 0.35);
     border-radius: 24px;
     padding: 40px 36px;
@@ -348,7 +348,7 @@
 
     &:hover {
         border-color: rgba(24, 201, 139, 0.5);
-        background: rgba(18, 14, 9, 0.65);
+        background: rgba(24, 201, 139, 0.08);
         transform: translateY(-2px);
     }
 }
@@ -468,7 +468,7 @@
 }
 
 .formGlassCard {
-    background: linear-gradient(165deg, rgba(20, 16, 10, 0.92) 0%, rgba(8, 7, 6, 0.97) 100%);
+    background: linear-gradient(165deg, #0D1612 0%, #040806 100%);
     border: 1px solid rgba(24, 201, 139, 0.35);
     border-radius: 24px;
     padding: 40px 38px 44px;
@@ -641,7 +641,7 @@
     align-items: center;
 
     option {
-        background: #14110B;
+        background: #0D1612;
         color: #FFFFFF;
         padding: 10px;
     }
@@ -744,12 +744,12 @@
         cursor: pointer !important;
         width: 100% !important;
         height: 100% !important;
-        background: #14110B !important;
+        background: #0D1612 !important;
         color: #FFFFFF !important;
         z-index: 5 !important;
 
         option {
-            background: #14110B !important;
+            background: #0D1612 !important;
             color: #FFFFFF !important;
             padding: 8px 12px !important;
         }
@@ -871,7 +871,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 20px rgba(216, 162, 59, 0.4);
+    box-shadow: 0 4px 20px rgba(24, 201, 139, 0.3);
     transition: all 0.25s ease;
     white-space: nowrap;
 
@@ -1032,7 +1032,7 @@
 }
 
 .faqCard {
-    background: linear-gradient(160deg, rgba(20, 16, 10, 0.8) 0%, rgba(10, 9, 8, 0.9) 100%);
+    background: linear-gradient(160deg, #0D1612 0%, #040806 100%);
     border: 1px solid rgba(24, 201, 139, 0.22);
     border-radius: 14px;
     overflow: hidden;
@@ -1044,7 +1044,7 @@
 
     &.faqCardOpen {
         border-color: rgba(24, 201, 139, 0.6);
-        background: linear-gradient(160deg, rgba(26, 21, 13, 0.92) 0%, rgba(12, 10, 8, 0.98) 100%);
+        background: linear-gradient(160deg, #0F1C16 0%, #060B08 100%);
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 20px rgba(24, 201, 139, 0.08);
     }
 }
@@ -1122,7 +1122,7 @@
 
 .ctaCard {
     position: relative;
-    background: radial-gradient(ellipse at 50% -20%, rgba(24, 201, 139, 0.25) 0%, rgba(20, 16, 10, 0.95) 70%);
+    background: radial-gradient(ellipse at 50% -20%, rgba(24, 201, 139, 0.25) 0%, #040806 70%);
     border: 1px solid rgba(24, 201, 139, 0.4);
     border-radius: 24px;
     padding: 44px 40px;
@@ -1196,12 +1196,97 @@
     font-weight: 800;
     font-family: var(--font-plus-jakarta), sans-serif;
     text-decoration: none;
-    box-shadow: 0 6px 25px rgba(216, 162, 59, 0.45);
+    box-shadow: 0 6px 25px rgba(24, 201, 139, 0.35);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     white-space: nowrap;
 
     &:hover {
         transform: translateY(-2px);
         box-shadow: 0 10px 35px rgba(24, 201, 139, 0.7);
+    }
+}
+
+:global(html.light) {
+    .contactPage {
+        background: #F8FAFC;
+        color: #0F172A;
+
+        .mainTitle,
+        .infoTitle,
+        .formTitle,
+        .faqTitle,
+        .ctaTitle {
+            color: #0F172A;
+        }
+
+        .mainSubtitle,
+        .infoSubtitle,
+        .formSubtitle,
+        .faqSubtitle,
+        .ctaSubtitle {
+            color: #475569;
+        }
+
+        .infoCard,
+        .formGlassCard,
+        .ctaCard {
+            background: #FFFFFF;
+            border-color: rgba(24, 201, 139, 0.28);
+            box-shadow: 0 10px 35px rgba(15, 23, 42, 0.08);
+        }
+
+        .infoItem {
+            background: #F8FAFC;
+            border-color: rgba(24, 201, 139, 0.2);
+
+            .infoValue,
+            .addressValue {
+                color: #0F172A;
+            }
+
+            .infoHelper {
+                color: #64748B;
+            }
+        }
+
+        .inputGroup label,
+        .labelRow label {
+            color: #1E293B;
+        }
+
+        .inputWrapper,
+        .phoneInputWrapper,
+        .textareaWrapper {
+            background: #F8FAFC;
+            border-color: rgba(24, 201, 139, 0.25);
+
+            input,
+            textarea,
+            select {
+                color: #0F172A;
+
+                &::placeholder {
+                    color: #94A3B8;
+                }
+            }
+        }
+
+        .faqCard {
+            background: #FFFFFF;
+            border-color: rgba(24, 201, 139, 0.25);
+
+            &.faqCardOpen {
+                background: #F0FDF4;
+                border-color: #10B981;
+            }
+
+            .faqQuestionText {
+                color: #0F172A;
+            }
+
+            .faqAnswerContent p {
+                color: #334155;
+            }
+        }
     }
 }

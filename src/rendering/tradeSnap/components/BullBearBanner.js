@@ -206,7 +206,7 @@ export default function BullBearBanner({ tradeDecision, technicalScore, marketAs
                     <div className={styles.bannerStatCardAmber}>
                         <span className={styles.bannerStatLabel}>MARKET BIAS</span>
                         <div className={styles.convictionCircleRow}>
-                            <ConvictionCircle value={50} color="#F59E0B" trackColor={trackColor} />
+                            <ConvictionCircle value={50} color="#38BDF8" trackColor={trackColor} />
                         </div>
                     </div>
                     <div className={styles.bannerStatCardAmber}>

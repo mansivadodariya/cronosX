@@ -214,9 +214,9 @@ function renderBadgeContent(code, cx, cy, r) {
   if (c === 'XAU' || c === 'GOLD') {
     return (
       <g key={idPrefix}>
-        <circle cx={cx} cy={cy} r={r} fill="#E5A900" />
+        <circle cx={cx} cy={cy} r={r} fill="#18C98B" />
         <path d={`M${cx - 6} ${cy - 2}L${cx} ${cy - 5}L${cx + 6} ${cy - 2}L${cx + 4} ${cy + 3}H${cx - 4}L${cx - 6} ${cy - 2}Z`} fill="#FFFFFF" opacity="0.95" />
-        <path d={`M${cx - 4} ${cy + 3}L${cx} ${cy + 1}L${cx + 4} ${cy + 3}L${cx + 2} ${cy + 6}H${cx - 2}L${cx - 4} ${cy + 3}Z`} fill="#FEF08A" />
+        <path d={`M${cx - 4} ${cy + 3}L${cx} ${cy + 1}L${cx + 4} ${cy + 3}L${cx + 2} ${cy + 6}H${cx - 2}L${cx - 4} ${cy + 3}Z`} fill="#A7F3D0" />
       </g>
     );
   }
@@ -278,7 +278,7 @@ function renderBadgeContent(code, cx, cy, r) {
     return (
       <g key={idPrefix}>
         <circle cx={cx} cy={cy} r={r} fill="#374151" />
-        <text x={cx} y={cy + 3.8} fontSize="8" fontWeight="bold" fill="#F59E0B" textAnchor="middle" fontFamily="sans-serif">OIL</text>
+        <text x={cx} y={cy + 3.8} fontSize="8" fontWeight="bold" fill="#38BDF8" textAnchor="middle" fontFamily="sans-serif">OIL</text>
       </g>
     );
   }

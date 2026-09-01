@@ -137,7 +137,7 @@ function getScoreColor(label = '') {
     const l = label.toLowerCase();
     if (l.includes('bullish') || l.includes('buying') || l.includes('buy') || l.includes('oversold')) return '#10b981';
     if (l.includes('bearish') || l.includes('selling') || l.includes('sell') || l.includes('overbought')) return '#ef4444';
-    return '#fbbf24'; // Neutral / Ranging
+    return '#38BDF8'; // Neutral / Ranging
 }
 
 function formatValue(val) {
@@ -867,7 +867,7 @@ const AnalysisSkeleton = () => (
                                         )}
                                         {ai_summary.volume && (
                                             <div className={styles.aiBulletSection}>
-                                                <span className={styles.sectionLabel} style={{ color: '#F59E0B' }}>VOLUME</span>
+                                                <span className={styles.sectionLabel} style={{ color: '#38BDF8' }}>VOLUME</span>
                                                 <p {...getBidiProps(ai_summary.volume)}>{ai_summary.volume}</p>
                                             </div>
                                         )}

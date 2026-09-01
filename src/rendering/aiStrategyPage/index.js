@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { authNavigate } from '@/lib/authRedirect';
 import { toast } from '@/components/toast';
+import CommonCta from '@/components/commonCta';
 import styles from './aiStrategyPage.module.scss';
 
 // Top Feature Highlights Data (4 Value Badges)
@@ -584,7 +585,7 @@ TOTAL AGGREGATE SCORE: ${selectedPair.score} / 100 [${selectedPair.bias}]
                                                     cy="80"
                                                     r="68"
                                                     fill="none"
-                                                    stroke={selectedPair.biasType === 'bullish' ? '#10B981' : selectedPair.biasType === 'bearish' ? '#EF4444' : '#E6B042'}
+                                                    stroke={selectedPair.biasType === 'bullish' ? '#10B981' : selectedPair.biasType === 'bearish' ? '#EF4444' : '#38BDF8'}
                                                     strokeWidth="12"
                                                     strokeDasharray="427"
                                                     strokeDashoffset={427 - (427 * selectedPair.score) / 100}
@@ -987,54 +988,23 @@ TOTAL AGGREGATE SCORE: ${selectedPair.score} / 100 [${selectedPair.bias}]
             </section>
 
             {/* ========================================================================= */}
-            {/* 7. BOTTOM CALL TO ACTION (CTA BANNER) */}
+            {/* 7. BOTTOM CALL TO ACTION (COMMON CTA COMPONENT) */}
             {/* ========================================================================= */}
-            <section className={styles.ctaSection}>
-                <div className="container">
-                    <motion.div
-                        className={styles.ctaCard}
-                        initial={{ opacity: 0, scale: 0.96, y: 30 }}
-                        whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.7 }}
-                    >
-                        <div className={styles.ctaGlowBackground} />
-                        <div className={styles.ctaTopBadge}>
-                            <span>✦ MULTI-PILLAR FX INTELLIGENCE</span>
-                        </div>
-
-                        <h2 className={styles.ctaTitle}>
-                            Deploy Quantitative AI Strategies <br />
-                            <span className={styles.goldGradient}>in Real Time</span>
-                        </h2>
-
-                        <p className={styles.ctaDesc}>
-                            Stop trading blind. Access 100-point scoring, multi-pillar analytics, and instant strategy setups now.
-                        </p>
-
-                        <div className={styles.ctaButtonsGroup}>
-                            <button
-                                type="button"
-                                onClick={() => authNavigate(router, '/ai-strategy/live')}
-                                className={styles.ctaPrimaryBtn}
-                            >
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                                </svg>
-                                <span>LAUNCH LIVE ANALYSIS FEED</span>
-                            </button>
-
-                            <button
-                                type="button"
-                                onClick={scrollToDemo}
-                                className={styles.ctaSecondaryBtn}
-                            >
-                                <span>SELECT STRATEGY</span>
-                            </button>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
+            <CommonCta
+                badge="MULTI-PILLAR FX INTELLIGENCE"
+                title1="Deploy Quantitative AI Strategies"
+                title2="in Real Time"
+                description="Stop trading blind. Access 100-point scoring, multi-pillar analytics, and instant strategy setups now."
+                primaryBtnText="LAUNCH LIVE ANALYSIS FEED"
+                primaryBtnAction="/ai-strategy/live"
+                primaryBtnIcon={
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                    </svg>
+                }
+                secondaryBtnText="SELECT STRATEGY"
+                secondaryBtnAction={scrollToDemo}
+            />
         </div>
     );
 }

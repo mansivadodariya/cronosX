@@ -3,13 +3,13 @@
 .navigationOverlay {
     position: fixed;
     inset: 0;
-    z-index: 9999;
+    z-index: 99999;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(4, 3, 0, 0.65);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(4, 6, 5, 0.75);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     pointer-events: all;
     user-select: none;
 
@@ -18,14 +18,17 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 18px;
-        background-color: transparent;
-        padding: 32px 40px;
+        gap: 16px;
+        background: transparent !important;
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0;
 
         .emblemContainer {
             position: relative;
-            width: 68px;
-            height: 68px;
+            width: 72px;
+            height: 72px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -37,16 +40,19 @@
                 border: 2.5px solid rgba(24, 201, 139, 0.15);
                 border-top-color: #18C98B;
                 border-right-color: #18C98B;
-                animation: spinLoader 0.9s linear infinite;
-                filter: drop-shadow(0 0 8px rgba(24, 201, 139, 0.4));
+                animation: spinLoader 0.85s linear infinite;
             }
 
-            .logoImg {
-                width: 36px;
-                height: 36px;
-                object-fit: contain;
-                filter: drop-shadow(0 0 10px rgba(24, 201, 139, 0.4));
-                animation: pulseEmblem 1.5s ease-in-out infinite;
+            .logoWrap {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                animation: pulseEmblem 1.6s ease-in-out infinite;
+
+                svg {
+                    width: 34px;
+                    height: 34px;
+                }
             }
         }
 
@@ -58,8 +64,8 @@
             span {
                 color: #FFFFFF;
                 font-size: 14px;
-                font-weight: 600;
-                font-family: "Euclid-SemiBold", sans-serif;
+                font-weight: 700;
+                font-family: var(--font-plus-jakarta), "Euclid-Bold", sans-serif;
                 letter-spacing: 0.5px;
             }
 
@@ -85,26 +91,57 @@
             }
         }
     }
+
+    :global(html.light) & {
+        background: rgba(248, 250, 252, 0.82) !important;
+        backdrop-filter: blur(14px) !important;
+        -webkit-backdrop-filter: blur(14px) !important;
+
+        .loaderBox {
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+
+            .emblemContainer {
+                .spinnerRing {
+                    border-color: rgba(16, 185, 129, 0.2);
+                    border-top-color: #10B981;
+                    border-right-color: #10B981;
+                }
+            }
+
+            .loaderTextRow {
+                span {
+                    color: #0F172A !important;
+                    font-weight: 800 !important;
+                }
+
+                .dotsPulse {
+                    span {
+                        background: #10B981 !important;
+                    }
+                }
+            }
+        }
+    }
 }
 
 @keyframes spinLoader {
     0% {
         transform: rotate(0deg);
     }
-
     100% {
         transform: rotate(360deg);
     }
 }
 
 @keyframes pulseEmblem {
-
     0%,
     100% {
         transform: scale(1);
-        opacity: 0.9;
+        opacity: 0.92;
     }
-
     50% {
         transform: scale(1.08);
         opacity: 1;
@@ -112,13 +149,11 @@
 }
 
 @keyframes dotFade {
-
     0%,
     100% {
         opacity: 0.2;
         transform: scale(0.8);
     }
-
     50% {
         opacity: 1;
         transform: scale(1.2);

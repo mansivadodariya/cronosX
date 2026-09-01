@@ -13,6 +13,7 @@ import BrokerCard from '@/components/brokerCard';
 import { BrokerCardSkeleton } from '@/components/brokerSkeleton';
 import { useLanguage } from '@/context/LanguageContext';
 import { getBidiProps } from '@/lib/bidi';
+import CommonCta from '@/components/commonCta';
 
 const BrokerHeroGraphic = '/assets/images/broker_infrastructure_hero.jpg';
 
@@ -202,17 +203,15 @@ export default function BrokerPage() {
                 </div>
             )}
 
-            {/* 4. Credits Sync Modal */}
-            {/* {showCreditsModal && (
-                <NeweraCreditsModal
-                    userId={userId}
-                    onClose={() => setShowCreditsModal(false)}
-                    onSuccess={() => {
-                        setShowCreditsModal(false);
-                        toast.success("Broker MT5 Account successfully synced!");
-                    }}
-                />
-            )} */}
+            {/* 4. Bottom Conversion CTA */}
+            <CommonCta
+                badge="SEAMLESS BROKER SYNC"
+                title1="Connect Your MetaTrader 5 Account"
+                title2="to ChronosX AI Desk"
+                description="Experience zero-delay live tick streams, automated risk parameters, and instant quantitative trade execution."
+                primaryBtnText="CONNECT BROKER NOW"
+                primaryBtnAction="/dashboard"
+            />
         </div>
     );
 }

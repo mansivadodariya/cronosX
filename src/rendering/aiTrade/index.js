@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { authNavigate } from '@/lib/authRedirect';
 import { toast } from '@/components/toast';
+import CommonCta from '@/components/commonCta';
 import styles from './aiTrade.module.scss';
 
 // Top Feature Highlights Badges Data (3-4 Badges)
@@ -1034,56 +1035,25 @@ Trade Rationale: ${selectedPreset.rationale}
             </section>
 
             {/* ========================================================================= */}
-            {/* 8. BOTTOM CALL TO ACTION (CTA) */}
+            {/* 8. BOTTOM CALL TO ACTION (COMMON CTA COMPONENT) */}
             {/* ========================================================================= */}
-            <section className={styles.ctaSection}>
-                <div className="container">
-                    <motion.div
-                        className={styles.ctaCard}
-                        initial={{ opacity: 0, scale: 0.96, y: 30 }}
-                        whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.7 }}
-                    >
-                        <div className={styles.ctaGlowBackground} />
-                        <div className={styles.ctaTopBadge}>
-                            <span>✦ ZERO GUESSWORK TRADING SCANNER</span>
-                        </div>
-
-                        <h2 className={styles.ctaTitle}>
-                            Ready to Scan Your <br />
-                            <span className={styles.goldGradient}>First Chart?</span>
-                        </h2>
-
-                        <p className={styles.ctaDesc}>
-                            Stop guessing market directions. Upload your chart screenshot now and trade with AI clarity.
-                        </p>
-
-                        <div className={styles.ctaButtonsGroup}>
-                            <button
-                                type="button"
-                                onClick={() => authNavigate(router, '/trade-snap')}
-                                className={styles.ctaPrimaryBtn}
-                            >
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                    <polyline points="17 8 12 3 7 8" />
-                                    <line x1="12" y1="3" x2="12" y2="15" />
-                                </svg>
-                                <span>UPLOAD CHART &amp; ANALYZE</span>
-                            </button>
-
-                            <button
-                                type="button"
-                                onClick={scrollToDemo}
-                                className={styles.ctaSecondaryBtn}
-                            >
-                                <span>TRY DEMO CHART</span>
-                            </button>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
+            <CommonCta
+                badge="ZERO GUESSWORK TRADING SCANNER"
+                title1="Ready to Scan Your"
+                title2="First Chart?"
+                description="Stop guessing market directions. Upload your chart screenshot now and trade with AI clarity."
+                primaryBtnText="UPLOAD CHART & ANALYZE"
+                primaryBtnAction="/trade-snap"
+                primaryBtnIcon={
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="17 8 12 3 7 8" />
+                        <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                }
+                secondaryBtnText="TRY DEMO CHART"
+                secondaryBtnAction={scrollToDemo}
+            />
         </div>
     );
 }

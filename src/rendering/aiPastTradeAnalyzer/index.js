@@ -8,6 +8,7 @@ import { authNavigate } from '@/lib/authRedirect';
 import { toast } from '@/components/toast';
 import AnimatedAreaChart from '@/components/animatedAreaChart';
 import SideRays from '@/components/sideRays';
+import CommonCta from '@/components/commonCta';
 import styles from './aiPastTradeAnalyzer.module.scss';
 
 // Sample audit presets for the interactive demo
@@ -898,56 +899,21 @@ export default function AiPastTradeAnalyzer() {
                 </div>
             </section>
 
-            {/* SECTION DIVIDER */}
-            <div className={styles.sectionDivider} aria-hidden="true" />
-
-            {/* 4. BOTTOM CALL TO ACTION BANNER */}
-            <motion.section
-                className={styles.ctaBannerSection}
-                initial={{ opacity: 0, scale: 0.97 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-            >
-                <div className="container">
-                    <div className={styles.ctaCard}>
-                        <div className={styles.ctaGlow} />
-
-                        <div className={styles.ctaContent}>
-                            <div className={styles.ctaRocketIcon}>
-                                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#18C98B" strokeWidth="2">
-                                    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
-                                    <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
-                                </svg>
-                            </div>
-                            <div className={styles.ctaTextWrap}>
-                                <h2 className={styles.ctaTitle}>
-                                    TURN YOUR PAST TRADES INTO FUTURE PROFITS
-                                </h2>
-                                <p className={styles.ctaSubtitle}>
-                                    Stop repeating the same mistakes. Let AI guide you to become a better, smarter, and more consistent trader.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className={styles.ctaActions}>
-                            <motion.button
-                                type="button"
-                                onClick={scrollToAudit}
-                                className={styles.ctaPrimaryBtn}
-                                whileHover={{ scale: 1.03 }}
-                                whileTap={{ scale: 0.98 }}
-                            >
-                                <span>START YOUR ANALYSIS</span>
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                    <line x1="5" y1="12" x2="19" y2="12" />
-                                    <polyline points="12 5 19 12 12 19" />
-                                </svg>
-                            </motion.button>
-                        </div>
-                    </div>
-                </div>
-            </motion.section>
+            {/* 4. BOTTOM CALL TO ACTION BANNER (COMMON CTA COMPONENT) */}
+            <CommonCta
+                badge="TURN YOUR PAST TRADES INTO PROFITS"
+                title1="Transform Your Trading Journal"
+                title2="with Institutional AI Auditing"
+                description="Stop repeating the same mistakes. Let AI guide you to become a better, smarter, and more consistent trader."
+                primaryBtnText="START YOUR ANALYSIS"
+                primaryBtnAction={scrollToAudit}
+                primaryBtnIcon={
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                }
+            />
         </div>
     );
 }

@@ -2,10 +2,12 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./economicCalendar.module.scss";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function EconomicCalendar() {
   const widgetContainerRef = useRef(null);
   const { t, language } = useLanguage();
+  const { theme } = useTheme();
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -13,7 +15,7 @@ export default function EconomicCalendar() {
     script.type = "text/javascript";
     script.async = true;
     script.innerHTML = JSON.stringify({
-      colorTheme: "dark",
+      colorTheme: theme === 'light' ? 'light' : 'dark',
       isTransparent: true,
       locale: language === 'ar' ? 'ar' : 'en',
       countryFilter: "ar,au,br,ca,cn,fr,de,in,id,it,jp,kr,mx,ru,sa,za,tr,gb,us,eu",
@@ -32,7 +34,7 @@ export default function EconomicCalendar() {
         widgetContainerRef.current.innerHTML = "";
       }
     };
-  }, [language]);
+  }, [language, theme]);
 
   return (
     <section className={styles.economicCalendar}>

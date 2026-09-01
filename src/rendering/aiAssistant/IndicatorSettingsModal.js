@@ -351,7 +351,7 @@ export default function IndicatorSettingsModal({
                                         <div className={styles.colorInputWrapper}>
                                             <input
                                                 type="color"
-                                                value={draft.signalColor ?? '#FFD600'}
+                                                value={draft.signalColor ?? '#38BDF8'}
                                                 onChange={(e) => setDraft(prev => ({ ...prev, signalColor: e.target.value }))}
                                             />
                                         </div>
@@ -377,7 +377,7 @@ export default function IndicatorSettingsModal({
                                         <div className={styles.colorInputWrapper}>
                                             <input
                                                 type="color"
-                                                value={draft.dColor ?? '#FFD600'}
+                                                value={draft.dColor ?? '#38BDF8'}
                                                 onChange={(e) => setDraft(prev => ({ ...prev, dColor: e.target.value }))}
                                             />
                                         </div>

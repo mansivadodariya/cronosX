@@ -12,7 +12,7 @@ export const AVAILABLE_INDICATORS = [
         category: 'overlays',
         categoryLabel: 'Main Overlay',
         tag: 'EMA',
-        dotColor: '#FFD600',
+        dotColor: '#38BDF8',
         searchTerms: ['ema', 'exponential moving average', 'ema 20', 'ema 50', 'ema 100', 'ema 200', 'moving average'],
     },
     {
@@ -39,7 +39,7 @@ export const AVAILABLE_INDICATORS = [
         category: 'overlays',
         categoryLabel: 'Main Overlay',
         tag: 'PIVOT',
-        dotColor: '#FFD600',
+        dotColor: '#38BDF8',
         searchTerms: ['pivot', 'pivot points', 'pivot points standard', 'support resistance'],
     },
     {

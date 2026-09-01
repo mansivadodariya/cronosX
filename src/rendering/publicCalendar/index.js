@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import styles from './publicCalendar.module.scss';
 import EconomicCalendar from '@/rendering/economicCalendar';
+import CommonCta from '@/components/commonCta';
 
 export default function PublicEconomicCalendar() {
     return (
@@ -11,21 +11,18 @@ export default function PublicEconomicCalendar() {
             <div className={styles.container}>
                 {/* Embedded TradingView Economic Calendar Core Component */}
                 <EconomicCalendar />
-
-                {/* Public Conversion CTA Banner */}
-                <div className={styles.heroCtaBanner}>
-                    <div className={styles.ctaContent}>
-                        <h3>Automate Your Trading Strategy Around High-Impact News</h3>
-                        <p>Analyze pre-news chart patterns with AI TradeSnap Vision, track central bank rates, and trade with algorithmic edge.</p>
-                    </div>
-                    <Link href="/signup" className={styles.ctaBtn}>
-                        <span>Get Started Free</span>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </Link>
-                </div>
             </div>
+
+            {/* Public Conversion CTA Banner */}
+            <CommonCta
+                badge="REAL-TIME MACRO DATA"
+                title1="Automate Your Trading Strategy Around"
+                title2="High-Impact News Events"
+                description="Analyze pre-news chart patterns with AI TradeSnap Vision, track central bank interest rates, and trade with quantitative clarity."
+                primaryBtnText="GET STARTED FREE"
+                primaryBtnAction="/signup"
+            />
         </div>
     );
 }
+

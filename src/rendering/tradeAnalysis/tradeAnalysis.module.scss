@@ -1545,7 +1545,7 @@ $cyanAccent: #38BDF8;
         left: 0;
         right: 0;
         height: 2px;
-        background: linear-gradient(90deg, transparent, #F4D17A, #10B981, transparent);
+        background: linear-gradient(90deg, transparent, #18C98B, #10B981, transparent);
     }
 
     .entryCardHeader {
@@ -1603,9 +1603,9 @@ $cyanAccent: #38BDF8;
                     }
 
                     &.qualityModerate {
-                        background: rgba(245, 158, 11, 0.15);
-                        border: 1px solid rgba(245, 158, 11, 0.45);
-                        color: #FBBF24;
+                        background: rgba(14, 165, 233, 0.15);
+                        border: 1px solid rgba(14, 165, 233, 0.45);
+                        color: #38BDF8;
                     }
                 }
             }
@@ -1673,7 +1673,7 @@ $cyanAccent: #38BDF8;
                 }
 
                 &.amberText {
-                    color: #FBBF24;
+                    color: #38BDF8;
                 }
 
                 &.redText {
@@ -1830,7 +1830,7 @@ $cyanAccent: #38BDF8;
                     line-height: 1.5;
 
                     .riskBullet {
-                        color: #F59E0B;
+                        color: #38BDF8;
                         font-weight: 800;
                         flex-shrink: 0;
                     }
@@ -2198,7 +2198,7 @@ $cyanAccent: #38BDF8;
                         gap: 2px;
 
                         .scoreGreen { color: #34D399; font-size: 15px; font-weight: 800; }
-                        .scoreAmber { color: #FBBF24; font-size: 15px; font-weight: 800; }
+                        .scoreAmber { color: #38BDF8; font-size: 15px; font-weight: 800; }
                         .scoreRed { color: #F87171; font-size: 15px; font-weight: 800; }
 
                         .subScoreDenom {
@@ -2302,7 +2302,7 @@ $cyanAccent: #38BDF8;
                         .eventBadge {
                             font-size: 10px;
                             font-weight: 800;
-                            color: #FBBF24;
+                            color: #38BDF8;
                         }
 
                         .eventName {

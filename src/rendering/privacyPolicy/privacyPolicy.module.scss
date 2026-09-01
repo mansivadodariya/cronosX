@@ -121,4 +121,32 @@
             }
         }
     }
+
+    :global(html.light) & {
+        background: #F8FAFC;
+        color: #0F172A;
+
+        .header {
+            h1 {
+                color: #0F172A;
+            }
+            p {
+                color: #475569;
+            }
+        }
+
+        .content {
+            section {
+                h2 {
+                    color: #0F172A;
+                }
+                p {
+                    color: #334155;
+                }
+                strong {
+                    color: #0F172A;
+                }
+            }
+        }
+    }
 }

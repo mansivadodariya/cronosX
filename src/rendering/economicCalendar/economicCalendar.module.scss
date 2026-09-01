@@ -64,6 +64,25 @@
       }
     }
   }
+
+  :global(html.light) & {
+    .header {
+      .titleArea {
+        h1 {
+          color: #0F172A;
+        }
+        p {
+          color: #475569;
+        }
+      }
+    }
+
+    .widgetCard {
+      background: #FFFFFF;
+      border-color: rgba(24, 201, 139, 0.25);
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+    }
+  }
 }
 
 @include respond-to("tab") {

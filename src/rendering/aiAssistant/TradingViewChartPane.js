@@ -29,13 +29,13 @@ export function formatPrice(val, sym) {
 
 export const DEFAULT_INDICATOR_CONFIGS = {
     ema10: { length: 10, source: 'close', color: '#00E5FF', lineWidth: 1.5 },
-    ema20: { length: 20, source: 'close', color: '#FFD600', lineWidth: 1.5 },
+    ema20: { length: 20, source: 'close', color: '#38BDF8', lineWidth: 1.5 },
     ema50: { length: 50, source: 'close', color: '#AA00FF', lineWidth: 1.5 },
     bollinger: { length: 20, stdDev: 2, source: 'close', color: 'rgba(24, 201, 139, 0.7)', lineWidth: 1 },
-    pivot: { type: 'Standard', pColor: '#FFD600', rColor: '#EF5350', sColor: '#26A69A', lineWidth: 1 },
+    pivot: { type: 'Standard', pColor: '#38BDF8', rColor: '#EF5350', sColor: '#26A69A', lineWidth: 1 },
     rsi: { length: 14, overbought: 70, oversold: 30, color: '#AA00FF', lineWidth: 1.8 },
-    macd: { fast: 12, slow: 26, signal: 9, macdColor: '#00E5FF', signalColor: '#FFD600', lineWidth: 1.8 },
-    stochastic: { kPeriod: 14, dPeriod: 3, smooth: 3, kColor: '#00E5FF', dColor: '#FFD600', lineWidth: 1.8 },
+    macd: { fast: 12, slow: 26, signal: 9, macdColor: '#00E5FF', signalColor: '#38BDF8', lineWidth: 1.8 },
+    stochastic: { kPeriod: 14, dPeriod: 3, smooth: 3, kColor: '#00E5FF', dColor: '#38BDF8', lineWidth: 1.8 },
 };
 
 const EyeIcon = () => (
@@ -235,7 +235,7 @@ function generateMockCandles(count = 600, basePrice = 2700, tf = '15m', symbolSt
 // 1-Year Analysis Standard Moving Average Presets
 export const DEFAULT_MAIN_OVERLAYS = [
     // EMA Presets
-    { id: 'ema_20',  name: 'EMA 20',  type: 'EMA', length: 20,  period: 20,  color: '#FFD600', source: 'close', lineWidth: 1.5, visible: true },
+    { id: 'ema_20',  name: 'EMA 20',  type: 'EMA', length: 20,  period: 20,  color: '#38BDF8', source: 'close', lineWidth: 1.5, visible: true },
     { id: 'ema_50',  name: 'EMA 50',  type: 'EMA', length: 50,  period: 50,  color: '#AA00FF', source: 'close', lineWidth: 1.5, visible: false },
     { id: 'ema_200', name: 'EMA 200', type: 'EMA', length: 200, period: 200, color: '#FF1744', source: 'close', lineWidth: 1.5, visible: true },
     // SMA Presets
@@ -283,7 +283,7 @@ export function getIndicatorData(candles, type, period = 20, source = 'close') {
     return calculateEMA(candles, period, source);
 }
 
-export const MA_COLOR_PALETTE = ['#FFD600', '#00E5FF', '#AA00FF', '#FF9100', '#FF1744', '#00E676', '#26A69A', '#E91E63', '#18C98B'];
+export const MA_COLOR_PALETTE = ['#38BDF8', '#00E5FF', '#AA00FF', '#0284C7', '#FF1744', '#00E676', '#26A69A', '#E91E63', '#18C98B'];
 
 function calculateBollingerBands(candles, period = 20, stdDevMult = 2, source = 'close') {
     const upper = [];
@@ -733,7 +733,7 @@ const TradingViewChartPane = forwardRef(function TradingViewChartPane(
             const standardLengths = [20, 50, 200, 10, 9, 21, 55, 89, 100];
             nextLength = standardLengths.find(l => !existingLengths.includes(l)) || (20 + (existingLengths.length * 10));
         }
-        const defaultColors = type === 'EMA' ? ['#FFD600', '#AA00FF', '#FF1744'] : ['#00E5FF', '#FF9100', '#00E676'];
+        const defaultColors = type === 'EMA' ? ['#38BDF8', '#AA00FF', '#FF1744'] : ['#00E5FF', '#0284C7', '#00E676'];
         const colorIndex = movingAverages.filter(m => m.type === type).length % defaultColors.length;
         const newMA = {
             id: `ma_${Date.now()}_${Math.floor(Math.random() * 1000)}`,
@@ -1341,7 +1341,7 @@ const TradingViewChartPane = forwardRef(function TradingViewChartPane(
             const isVis = indicatorVisibility.pivot;
             const pivots = calculatePivotPoints(candles);
             if (pivotSeriesRefs.current.length === 0) {
-                const pLine = chartRef.current.addSeries(LineSeries, { color: '#FFD600', lineWidth: 1, lineStyle: 1, visible: isVis });
+                const pLine = chartRef.current.addSeries(LineSeries, { color: '#38BDF8', lineWidth: 1, lineStyle: 1, visible: isVis });
                 const r1Line = chartRef.current.addSeries(LineSeries, { color: '#EF5350', lineWidth: 1, lineStyle: 2, visible: isVis });
                 const r2Line = chartRef.current.addSeries(LineSeries, { color: '#D32F2F', lineWidth: 1, lineStyle: 2, visible: isVis });
                 const s1Line = chartRef.current.addSeries(LineSeries, { color: '#26A69A', lineWidth: 1, lineStyle: 2, visible: isVis });
@@ -1929,7 +1929,7 @@ const TradingViewChartPane = forwardRef(function TradingViewChartPane(
                         )}
                         {activeIndicators.pivot && (
                             <div className={styles.indicatorWidgetPill}>
-                                <span className={styles.indicatorDot} style={{ background: '#FFD600' }} />
+                                <span className={styles.indicatorDot} style={{ background: '#38BDF8' }} />
                                 <span className={styles.indicatorWidgetTitle}>Pivot ({indicatorConfigs.pivot.type})</span>
                                 <button
                                     type="button"

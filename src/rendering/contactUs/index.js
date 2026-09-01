@@ -6,6 +6,7 @@ import { toast } from '@/components/toast';
 import PhoneInputLib from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { supabase } from '@/lib/supabaseClient';
+import CommonCta from '@/components/commonCta';
 import styles from './contactUs.module.scss';
 
 // Curated List of Global Countries
@@ -671,34 +672,15 @@ export default function ContactUs() {
                     </div>
                 </motion.section>
 
-                {/* 4. Bottom Call to Action Banner */}
-                <motion.section
-                    className={styles.ctaBannerSection}
-                    initial={{ opacity: 0, scale: 0.97 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
-                >
-                    <div className={styles.ctaCard}>
-                        <div className={styles.ctaGlow} />
-                        <div className={styles.ctaContent}>
-                            <h2 className={styles.ctaTitle}>
-                                Ready to Trade with Institutional AI Intelligence?
-                            </h2>
-                            <p className={styles.ctaSubtitle}>
-                                Join thousands of elite forex and crypto traders leveraging ChronosX real-time neural vision and high-probability signals.
-                            </p>
-                        </div>
-                        <div className={styles.ctaActionWrapper}>
-                            <Link href="/signup" className={styles.ctaButton}>
-                                <span>Get Started Now</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                    <path d="M5 12h14M12 5l7 7-7 7" />
-                                </svg>
-                            </Link>
-                        </div>
-                    </div>
-                </motion.section>
+                {/* 4. Bottom Call to Action Banner (Common CTA) */}
+                <CommonCta
+                    badge="READY FOR INSTITUTIONAL EXECUTION?"
+                    title1="Ready to Trade with"
+                    title2="Institutional AI Intelligence?"
+                    description="Join thousands of elite forex and crypto traders leveraging ChronosX real-time neural vision and high-probability signals."
+                    primaryBtnText="GET STARTED NOW"
+                    primaryBtnAction="/signup"
+                />
             </div>
         </div>
     );

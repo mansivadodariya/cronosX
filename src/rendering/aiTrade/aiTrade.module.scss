@@ -70,7 +70,7 @@
 }
 
 .goldGradient {
-    background: linear-gradient(135deg, #18C98B 0%, #E6B042 50%, #10B981 100%);
+    background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
@@ -297,7 +297,7 @@
     gap: 10px;
     padding: 16px 36px;
     border-radius: 12px;
-    background: linear-gradient(135deg, #18C98B 0%, #E6B042 50%, #10B981 100%);
+    background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
     color: #040300;
     font-size: 14px;
     font-weight: 800;
@@ -399,9 +399,9 @@
 }
 
 .iconAmber {
-    background: rgba(245, 158, 11, 0.15);
-    border: 1px solid rgba(245, 158, 11, 0.35);
-    color: #F59E0B;
+    background: rgba(14, 165, 233, 0.15);
+    border: 1px solid rgba(14, 165, 233, 0.35);
+    color: #38BDF8;
 }
 
 .iconGreen {
@@ -596,7 +596,7 @@
 }
 
 .dotYellow {
-    background: #FFBD2E;
+    background: #38BDF8;
 }
 
 .dotGreen {
@@ -1148,7 +1148,7 @@
     gap: 8px;
     padding: 12px;
     border-radius: 10px;
-    background: linear-gradient(135deg, #18C98B 0%, #E6B042 100%);
+    background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
     color: #040300;
     font-size: 13px;
     font-weight: 800;
@@ -1215,6 +1215,11 @@
             opacity: 1;
         }
     }
+}
+
+/* Section Glow Divider */
+.sectionDivider {
+    display: none !important;
 }
 
 .cardGlowHover {
@@ -1430,9 +1435,9 @@
             width: 20px;
             height: 20px;
             border-radius: 5px;
-            background: rgba(245, 158, 11, 0.12);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            color: #F59E0B;
+            background: rgba(14, 165, 233, 0.12);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            color: #38BDF8;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1715,7 +1720,7 @@
     gap: 10px;
     padding: 16px 36px;
     border-radius: 12px;
-    background: linear-gradient(135deg, #18C98B 0%, #E6B042 50%, #10B981 100%);
+    background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
     color: #040300;
     font-size: 14px;
     font-weight: 800;
@@ -1761,5 +1766,71 @@
     @include respond-to('sm') {
         width: 100%;
         padding: 13px 20px;
+    }
+}
+
+/* ============================================================
+   LIGHT MODE STYLING OVERRIDES FOR AI TRADE
+   ============================================================ */
+:global(html.light) {
+    .pageWrapper,
+    .aiTradeWrapper,
+    .mainWrapper {
+        background: #F8FAFC !important;
+        color: #0F172A !important;
+    }
+
+    .sectionDivider {
+        display: none !important;
+    }
+
+    .faqItem,
+    .faqItemOpen {
+        background: #FFFFFF !important;
+        background-color: #FFFFFF !important;
+        border: 1px solid rgba(24, 201, 139, 0.28) !important;
+        box-shadow: none !important;
+
+        .faqQuestionBtn {
+            color: #0F172A !important;
+            background: transparent !important;
+        }
+
+        .qText {
+            color: #0F172A !important;
+        }
+
+        .faqAnswerWrapper {
+            background: #FFFFFF !important;
+            background-color: #FFFFFF !important;
+        }
+
+        .faqAnswerContent {
+            border-top: 1px solid #F1F5F9 !important;
+            background: #FFFFFF !important;
+            background-color: #FFFFFF !important;
+
+            p {
+                color: #475569 !important;
+            }
+        }
+    }
+
+    .featureCard,
+    .valueBadgeCard,
+    .chartVisionCard,
+    .demoPreviewContainer,
+    .signalTerminalWrapper {
+        background: #FFFFFF !important;
+        border-color: rgba(24, 201, 139, 0.28) !important;
+        box-shadow: none !important;
+
+        h3, h4 {
+            color: #0F172A !important;
+        }
+
+        p {
+            color: #475569 !important;
+        }
     }
 }

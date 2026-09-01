@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { authNavigate } from '@/lib/authRedirect';
+import CommonCta from '@/components/commonCta';
 import styles from './aboutUs.module.scss';
 
 // Institutional Metrics
@@ -396,41 +397,17 @@ export default function AboutUs() {
                     </div>
                 </section>
 
-                {/* 8. Bottom Call to Action Banner */}
-                <motion.section
-                    className={styles.ctaBannerSection}
-                    initial={{ opacity: 0, scale: 0.97 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
-                >
-                    <div className={styles.ctaCard}>
-                        <div className={styles.ctaGlow} />
-                        <div className={styles.ctaContent}>
-                            <h2 className={styles.ctaTitle}>
-                                Experience the Power of ChronosX AI Today
-                            </h2>
-                            <p className={styles.ctaSubtitle}>
-                                Join thousands of elite traders leveraging automated chart pattern recognition, predictive signals, and conversational market copilot.
-                            </p>
-                        </div>
-                        <div className={styles.ctaActionWrapper}>
-                            <button
-                                type="button"
-                                onClick={() => authNavigate(router, '/dashboard')}
-                                className={styles.ctaButtonPrimary}
-                            >
-                                <span>Get Started Free</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                    <path d="M5 12h14M12 5l7 7-7 7" />
-                                </svg>
-                            </button>
-                            <Link href="/contact-us" className={styles.ctaButtonSecondary}>
-                                <span>Contact Desk</span>
-                            </Link>
-                        </div>
-                    </div>
-                </motion.section>
+                {/* 8. Bottom Call to Action Banner (Common CTA) */}
+                <CommonCta
+                    badge="ENTERPRISE FINANCIAL INTELLIGENCE"
+                    title1="Experience the Power of"
+                    title2="ChronosX AI Today"
+                    description="Join thousands of elite traders leveraging automated chart pattern recognition, predictive signals, and conversational market copilot."
+                    primaryBtnText="GET STARTED FREE"
+                    primaryBtnAction="/dashboard"
+                    secondaryBtnText="CONTACT DESK"
+                    secondaryBtnAction="/contact-us"
+                />
             </div>
         </div>
     );

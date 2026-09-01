@@ -374,6 +374,22 @@ html.light [class*="title2"] {
   background-clip: text !important;
 }
 
+/* ============================================================
+   LIGHT MODE: 100% COMPLETE BOX SHADOW REMOVAL & CLEAN SURFACES
+   ============================================================ */
+html.light,
+html.light *,
+html.light *::before,
+html.light *::after,
+html[data-theme="light"],
+html[data-theme="light"] *,
+html[data-theme="light"] *::before,
+html[data-theme="light"] *::after {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
 /* All Cards, Boxes, Testimonials, and Feature Containers in Light Mode */
 html.light [class*="card"],
 html.light [class*="Card"],
@@ -398,28 +414,173 @@ html.light [class*="glassStatCard"],
 html.light [class*="detailPillBox"],
 html.light [class*="creditsCardBox"],
 html.light [class*="actionGridBtn"],
-html.light [class*="navMenuCard"] {
+html.light [class*="navMenuCard"],
+html.light [class*="terminal"],
+html.light [class*="Terminal"],
+html.light [class*="console"],
+html.light [class*="codeBox"],
+html.light [class*="statCard"],
+html.light [class*="metricCard"],
+html.light [class*="summaryCard"],
+html.light [class*="detailCard"],
+html.light [class*="tableCard"],
+html.light [class*="historyCard"],
+html.light [class*="securityCard"],
+html.light [class*="activityCard"],
+html.light [class*="infoCard"],
+html.light [class*="glassCard"],
+html.light [class*="formGlassCard"],
+html.light [class*="heroCtaBanner"],
+html.light [class*="ctaCard"],
+html.light [class*="faqCard"],
+html.light [class*="faqItem"],
+html.light [class*="faqItemOpen"],
+html.light [class*="faqQuestionBtn"],
+html.light [class*="faqAnswerWrapper"],
+html.light [class*="faqAnswerContent"],
+html.light [class*="featuredCard"],
+html.light [class*="blogCard"],
+html.light [class*="newsletterCard"],
+html.light [class*="chartContainer"],
+html.light [class*="widgetCard"],
+html.light [class*="analysisPanel"],
+html.light [class*="strategyPanel"],
+html.light [class*="statusCard"],
+html.light [class*="modalContent"],
+html.light [class*="modalBox"] {
   background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
   border-color: rgba(24, 201, 139, 0.28) !important;
+  color: #0F172A !important;
+  box-shadow: none !important;
+}
+
+html.light [class*="qText"],
+html.light [class*="faqQuestionText"],
+html.light [class*="faqQuestionBtn"] {
   color: #0F172A !important;
 }
 
-/* Specific Containers & Section Backdrops */
+html.light [class*="faqAnswerContent"] p,
+html.light [class*="faqAnswer"] p {
+  color: #475569 !important;
+}
+
+/* Specific Inner Containers & Section Backdrops */
 html.light [class*="heroChartSection"],
 html.light [class*="activityItemRow"],
 html.light [class*="itemRow"],
 html.light [class*="scanItemRow"],
 html.light [class*="proAccountCard"],
-html.light [class*="userCard"] {
-  background: #F1F5F9 !important;
-  border-color: rgba(24, 201, 139, 0.25) !important;
+html.light [class*="userCard"],
+html.light [class*="activityItem"],
+html.light [class*="scanItem"],
+html.light [class*="infoItem"],
+html.light [class*="detailItem"],
+html.light [class*="statItem"],
+html.light [class*="featureItem"],
+html.light [class*="quickLinkItem"] {
+  background: #F8FAFC !important;
+  border-color: rgba(24, 201, 139, 0.22) !important;
   color: #0F172A !important;
+  box-shadow: none !important;
+}
+
+/* Light Mode Input & Select Dropdowns - No Dark Boxes */
+html.light input:not([type="checkbox"]):not([type="radio"]),
+html.light select,
+html.light textarea,
+html.light [class*="inputWrapper"],
+html.light [class*="selectWrapper"],
+html.light [class*="textareaWrapper"],
+html.light [class*="phoneInputWrapper"],
+html.light [class*="searchBox"],
+html.light [class*="searchInput"] {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  border-color: rgba(24, 201, 139, 0.28) !important;
+  color: #0F172A !important;
+  box-shadow: none !important;
+}
+
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+html.light select option {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+}
+
+/* Light Mode Modals & Dropdown Popups */
+html.light [class*="modalContent"],
+html.light [class*="modalBox"],
+html.light [class*="dialog"],
+html.light [class*="popover"],
+html.light [class*="dropdownMenu"],
+html.light [class*="dropdownList"],
+html.light [class*="menuList"],
+html.light [class*="drawer"] {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(24, 201, 139, 0.28) !important;
+  color: #0F172A !important;
+  box-shadow: none !important;
+}
+
+/* Light Mode Table Styling */
+html.light table,
+html.light thead,
+html.light tbody,
+html.light tr {
+  background: transparent !important;
+}
+
+html.light th {
+  background: #F1F5F9 !important;
+  color: #475569 !important;
+  border-bottom: 1px solid rgba(24, 201, 139, 0.2) !important;
+}
+
+html.light td {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  border-bottom: 1px solid #F1F5F9 !important;
+}
+
+/* Light Mode Secondary, Outline & Ghost Buttons */
+html.light [class*="secondaryBtn"],
+html.light [class*="SecondaryBtn"],
+html.light [class*="outlineBtn"],
+html.light [class*="ghostBtn"],
+html.light [class*="resetBtn"],
+html.light [class*="navBtn"],
+html.light [class*="statusPill"],
+html.light [class*="badge"],
+html.light [class*="Badge"] {
+  background: #FFFFFF !important;
+  border-color: rgba(24, 201, 139, 0.35) !important;
+  color: #047857 !important;
+  box-shadow: none !important;
+}
+
+html.light [class*="secondaryBtn"]:hover,
+html.light [class*="SecondaryBtn"]:hover,
+html.light [class*="outlineBtn"]:hover,
+html.light [class*="ghostBtn"]:hover,
+html.light [class*="resetBtn"]:hover,
+html.light [class*="navBtn"]:hover {
+  background: rgba(24, 201, 139, 0.1) !important;
+  border-color: #10B981 !important;
+  color: #047857 !important;
+  box-shadow: none !important;
 }
 
 /* Sidebar Navigation in Light Mode */
 html.light [class*="sidebar"] {
   background-color: #FFFFFF !important;
   border-right-color: rgba(24, 201, 139, 0.2) !important;
+  box-shadow: none !important;
 }
 
 html.light [class*="navMenuItem"],
@@ -432,6 +593,7 @@ html.light [class*="navMenuItem"]:hover,
 html.light [class*="menu"]:hover {
   background: rgba(24, 201, 139, 0.1) !important;
   color: #047857 !important;
+  box-shadow: none !important;
 }
 
 html.light [class*="navMenuItemActive"],
@@ -440,6 +602,7 @@ html.light [class*="menu"].active {
   color: #047857 !important;
   background: rgba(24, 201, 139, 0.14) !important;
   border-color: rgba(24, 201, 139, 0.3) !important;
+  box-shadow: none !important;
 }
 
 /* SVG Line & Path Contrast Overrides for Light Mode */
@@ -475,7 +638,7 @@ html.light text[fill*="rgba(255, 255, 255"] {
 html.light [class*="ambient"],
 html.light [class*="gridOverlay"],
 html.light [class*="glow"] {
-  opacity: 0.2 !important;
+  opacity: 0.15 !important;
 }
 
 /* Eyebrow Badges & Section Tags in Light Mode */
@@ -486,6 +649,7 @@ html.light [class*="tag"] {
   color: #047857 !important;
   background: rgba(24, 201, 139, 0.12) !important;
   border-color: rgba(24, 201, 139, 0.3) !important;
+  box-shadow: none !important;
 }
 
 /* Chat bubble card inside AI Analyst in Light Mode */
@@ -495,6 +659,7 @@ html.light [class*="botMessage"] {
   background: #F1F5F9 !important;
   color: #0F172A !important;
   border: 1px solid rgba(24, 201, 139, 0.25) !important;
+  box-shadow: none !important;
 }
 
 html.light [class*="chatBox"] p,
@@ -508,6 +673,7 @@ html.light [class*="footer"],
 html.light footer {
   background-color: #F1F5F9 !important;
   color: #334155 !important;
+  box-shadow: none !important;
 }
 
 html.light [class*="footer"] a,
@@ -519,4 +685,5 @@ html.light [class*="footer"] a:hover,
 html.light footer a:hover {
   color: #18C98B !important;
 }
+
 

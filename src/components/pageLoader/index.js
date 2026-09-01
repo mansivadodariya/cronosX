@@ -4,7 +4,6 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './pageLoader.module.scss';
 
-const SmallLogo = '/assets/logo/smallLogo.png';
 
 export default function PageLoader() {
     const pathname = usePathname();
@@ -27,14 +26,12 @@ export default function PageLoader() {
     // Listen to link clicks across the application
     useEffect(() => {
         const handleClick = (e) => {
-            // Find closest anchor tag
             const anchor = e.target.closest('a');
             if (!anchor) return;
 
             const href = anchor.getAttribute('href');
             if (!href) return;
 
-            // Ignore external links, anchor fragments (#), javascript, or modified clicks (Ctrl, Cmd, Shift)
             if (
                 href.startsWith('http://') ||
                 href.startsWith('https://') ||
@@ -51,15 +48,12 @@ export default function PageLoader() {
                 return;
             }
 
-            // Clean URLs for comparison
             const current = (currentPathRef.current || window.location.pathname).split('?')[0].replace(/\/$/, '') || '/';
             const target = href.split('?')[0].replace(/\/$/, '') || '/';
 
-            // Only trigger blur overlay if navigating to a different route
             if (current !== target) {
                 setIsNavigating(true);
 
-                // Fallback timeout to prevent permanent loader in case navigation is cancelled or fast
                 if (timeoutRef.current) clearTimeout(timeoutRef.current);
                 timeoutRef.current = setTimeout(() => {
                     setIsNavigating(false);
@@ -67,7 +61,6 @@ export default function PageLoader() {
             }
         };
 
-        // Custom event listeners for programmatic navigation
         const handleStartLoading = () => {
             setIsNavigating(true);
             if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -112,16 +105,15 @@ export default function PageLoader() {
                     >
                         <div className={styles.emblemContainer}>
                             <div className={styles.spinnerRing} />
-                            <img src={SmallLogo} alt="ChronosX" className={styles.logoImg} />
                         </div>
-                        <div className={styles.loaderTextRow}>
+                        {/* <div className={styles.loaderTextRow}>
                             <span>Loading</span>
                             <div className={styles.dotsPulse}>
                                 <span />
                                 <span />
                                 <span />
                             </div>
-                        </div>
+                        </div> */}
                     </motion.div>
                 </motion.div>
             )}

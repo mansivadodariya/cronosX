@@ -6,6 +6,7 @@ import Image from 'next/image';
 import styles from './blogs.module.scss';
 import { BLOG_POSTS, BLOG_CATEGORIES } from './data';
 import { useLanguage } from '@/context/LanguageContext';
+import CommonCta from '@/components/commonCta';
 
 export default function BlogsListing() {
     const { t } = useLanguage();
@@ -186,6 +187,16 @@ export default function BlogsListing() {
                     </div>
                 )}
             </div>
+
+            {/* Bottom Conversion CTA */}
+            <CommonCta
+                badge="STAY AHEAD OF THE MARKETS"
+                title1="Apply Institutional Research in"
+                title2="Live Market Conditions"
+                description="Harness deep chart pattern vision, quantitative risk modeling, and instant multi-asset alerts today."
+                primaryBtnText="GET STARTED NOW"
+                primaryBtnAction="/signup"
+            />
         </div>
     );
 }

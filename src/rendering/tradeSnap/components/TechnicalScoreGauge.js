@@ -46,7 +46,7 @@ export default function TechnicalScoreGauge({ technicalScore, marketAssessment }
     const getVerdictColor = () => {
         if (isStrongBuy || isBuy) return '#10B981'; // Emerald Green
         if (isStrongSell || isSell) return '#EF4444'; // Red
-        return '#F59E0B'; // Amber Gold Neutral
+        return '#38BDF8'; // Sky Cyan Neutral
     };
 
     const verdictColor = getVerdictColor();
@@ -66,11 +66,11 @@ export default function TechnicalScoreGauge({ technicalScore, marketAssessment }
                 {/* SVG Gauge Matching Platform Theme */}
                 <svg viewBox="0 0 280 148" className={styles.gaugeSvg}>
                     <defs>
-                        {/* Theme Red -> Orange -> Amber -> Emerald Gradient */}
+                        {/* Platform Gradient */}
                         <linearGradient id="refGaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                             <stop offset="0%" stopColor="#EF4444" />
-                            <stop offset="25%" stopColor="#F97316" />
-                            <stop offset="50%" stopColor="#F59E0B" />
+                            <stop offset="35%" stopColor="#F87171" />
+                            <stop offset="50%" stopColor="#38BDF8" />
                             <stop offset="75%" stopColor="#34D399" />
                             <stop offset="100%" stopColor="#10B981" />
                         </linearGradient>
@@ -132,7 +132,7 @@ export default function TechnicalScoreGauge({ technicalScore, marketAssessment }
                     <text
                         x="140"
                         y="22"
-                        fill={isNeutral ? '#F59E0B' : defaultTextColor}
+                        fill={isNeutral ? '#38BDF8' : defaultTextColor}
                         fontSize="11"
                         fontWeight={isNeutral ? '700' : '500'}
                         textAnchor="middle"

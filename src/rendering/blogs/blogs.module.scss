@@ -841,3 +841,36 @@
         }
     }
 }
+
+:global(html.light) {
+    .blogsWrapper {
+        background: #F8FAFC;
+        color: #0F172A;
+
+        .heroTitle {
+            color: #0F172A;
+        }
+
+        .heroSubtitle {
+            color: #475569;
+        }
+
+        .featuredCard,
+        .blogCard,
+        .newsletterCard {
+            background: #FFFFFF;
+            border-color: rgba(24, 201, 139, 0.28);
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+
+            .cardTitle,
+            .postTitle {
+                color: #0F172A;
+            }
+
+            .cardExcerpt,
+            .postExcerpt {
+                color: #475569;
+            }
+        }
+    }
+}

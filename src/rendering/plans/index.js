@@ -11,6 +11,7 @@ import { refreshCreditsFromServer } from '@/lib/credits';
 import { useLanguage } from '@/context/LanguageContext';
 import { getBidiProps } from '@/lib/bidi';
 import toast from 'react-hot-toast';
+import CommonCta from '@/components/commonCta';
 
 import { HexGiftBoxIcon, Gold3DGiftBox } from './GiftBoxIcon';
 
@@ -520,7 +521,19 @@ export default function SubscriptionPlansView() {
                     </div>
                 </div>
 
-                {/* 5. Footer Disclaimer Box */}
+                {/* 5. Bottom Conversion CTA */}
+                <CommonCta
+                    badge="UNLIMITED INSTITUTIONAL POTENTIAL"
+                    title1="Upgrade Your Trading Desk with"
+                    title2="Next-Gen AI Intelligence"
+                    description="Get higher compute limits, custom MT5 indicators, real-time chart OCR scans, and dedicated quant support."
+                    primaryBtnText="CHOOSE YOUR PLAN"
+                    primaryBtnAction={() => {
+                        window.scrollTo({ top: 300, behavior: 'smooth' });
+                    }}
+                />
+
+                {/* 6. Footer Disclaimer Box */}
                 <div className={styles.disclaimerBox}>
                     <p>
                         ChronosX provides software, technical tools, and market intelligence algorithms for educational and research purposes only. Subscription fees cover cloud server infrastructure and AI compute processing. Past performance in backtests or simulations is not indicative of future market results.

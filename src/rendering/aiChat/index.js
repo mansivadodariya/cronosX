@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { authNavigate } from '@/lib/authRedirect';
 import { toast } from '@/components/toast';
+import CommonCta from '@/components/commonCta';
 import styles from './aiChat.module.scss';
 
 // Pre-built Quick Prompts Data
@@ -1063,55 +1064,24 @@ Note: ${selectedPrompt.demoData.note}`;
             </section>
 
             {/* ========================================================================= */}
-            {/* 8. BOTTOM CALL TO ACTION (CTA) */}
+            {/* 8. BOTTOM CALL TO ACTION (COMMON CTA COMPONENT) */}
             {/* ========================================================================= */}
-            <section className={styles.ctaSection}>
-                <div className="container">
-                    <motion.div
-                        className={styles.ctaCard}
-                        initial={{ opacity: 0, scale: 0.96, y: 30 }}
-                        whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.7 }}
-                    >
-                        <div className={styles.ctaGlowBackground} />
-                        <div className={styles.ctaTopBadge}>
-                            <span>✦ ZERO-LATENCY AI TRADING INTELLIGENCE</span>
-                        </div>
-
-                        <h2 className={styles.ctaTitle}>
-                            Start Chatting with Your <br />
-                            <span className={styles.goldGradient}>AI Copilot Today</span>
-                        </h2>
-
-                        <p className={styles.ctaDesc}>
-                            Transform market noise into high-probability trading decisions in seconds.
-                        </p>
-
-                        <div className={styles.ctaButtonsGroup}>
-                            <button
-                                type="button"
-                                onClick={() => authNavigate(router, '/ai-assistant')}
-                                className={styles.ctaPrimaryBtn}
-                            >
-                                <span>LAUNCH AI CHAT NOW</span>
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                    <line x1="5" y1="12" x2="19" y2="12" />
-                                    <polyline points="12 5 19 12 12 19" />
-                                </svg>
-                            </button>
-
-                            <button
-                                type="button"
-                                onClick={scrollToDemo}
-                                className={styles.ctaSecondaryBtn}
-                            >
-                                <span>VIEW LIVE DEMO</span>
-                            </button>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
+            <CommonCta
+                badge="ZERO-LATENCY AI TRADING INTELLIGENCE"
+                title1="Start Chatting with Your"
+                title2="AI Copilot Today"
+                description="Transform market noise into high-probability trading decisions in seconds."
+                primaryBtnText="LAUNCH AI CHAT NOW"
+                primaryBtnAction="/ai-assistant"
+                primaryBtnIcon={
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                }
+                secondaryBtnText="VIEW LIVE DEMO"
+                secondaryBtnAction={scrollToDemo}
+            />
         </div>
     );
 }

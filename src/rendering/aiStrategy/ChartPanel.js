@@ -309,33 +309,34 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
         const initialHeight = rect.height > 100 ? rect.height : (containerRef.current.clientHeight || 480);
         const initialWidth = rect.width > 100 ? rect.width : (containerRef.current.clientWidth || 600);
 
+        const isLight = theme === 'light';
         const chart = createChart(containerRef.current, {
             width: initialWidth,
             height: initialHeight,
             layout: {
                 background: { type: 'solid', color: 'transparent' },
-                textColor: '#18C98B',
+                textColor: isLight ? '#334155' : '#18C98B',
                 fontSize: 11,
                 fontFamily: "'Euclid-Medium', sans-serif",
                 attributionLogo: false,
             },
             grid: {
-                vertLines: { color: 'rgba(24, 201, 139, 0.1)' },
-                horzLines: { color: 'rgba(24, 201, 139, 0.1)' },
+                vertLines: { color: isLight ? 'rgba(24, 201, 139, 0.08)' : 'rgba(24, 201, 139, 0.1)' },
+                horzLines: { color: isLight ? 'rgba(24, 201, 139, 0.08)' : 'rgba(24, 201, 139, 0.1)' },
             },
             crosshair: {
                 vertLine: { color: 'rgba(24, 201, 139, 0.4)', width: 1 },
                 horzLine: { color: 'rgba(24, 201, 139, 0.4)', width: 1 },
             },
             timeScale: {
-                borderColor: 'rgba(24, 201, 139, 0.25)',
+                borderColor: isLight ? 'rgba(24, 201, 139, 0.2)' : 'rgba(24, 201, 139, 0.25)',
                 timeVisible: true,
                 secondsVisible: false,
                 rightOffset: 10,
                 barSpacing: 8,
             },
             rightPriceScale: {
-                borderColor: 'rgba(24, 201, 139, 0.25)',
+                borderColor: isLight ? 'rgba(24, 201, 139, 0.2)' : 'rgba(24, 201, 139, 0.25)',
                 scaleMargins: { top: 0.05, bottom: 0.04 },
             },
         });
@@ -359,7 +360,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
         });
 
         const ema20Series = chart.addSeries(LineSeries, {
-            color: '#f59e0b',
+            color: '#38bdf8',
             lineWidth: 1.5,
             priceLineVisible: false,
             lastValueVisible: false,
@@ -463,7 +464,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                 if (x !== null) {
                     if (ema20 !== undefined && ema20 !== null) {
                         const y = seriesInstance.ema20.priceToCoordinate(ema20);
-                        if (y !== null) positions.ema20 = { x, y, color: '#f59e0b' };
+                        if (y !== null) positions.ema20 = { x, y, color: '#38bdf8' };
                     }
                     if (ema50 !== undefined && ema50 !== null) {
                         const y = seriesInstance.ema50.priceToCoordinate(ema50);

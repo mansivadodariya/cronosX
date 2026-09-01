@@ -69,20 +69,12 @@
 
 /* Section Glow Divider */
 .sectionDivider {
-    position: relative;
-    width: 100%;
-    max-width: 1240px;
-    height: 1px;
-    margin: 0 auto;
-    background: linear-gradient(90deg, transparent 0%, rgba(216, 162, 59, 0.35) 50%, transparent 100%);
-    box-shadow: 0 0 12px rgba(24, 201, 139, 0.2);
-    z-index: 5;
-    pointer-events: none;
+    display: none !important;
 }
 
 /* Gold Gradient Typography */
 .goldGradient {
-    background: linear-gradient(135deg, #FFFFFF 0%, #18C98B 45%, #E6B042 75%, #10B981 100%);
+    background: linear-gradient(135deg, #FFFFFF 0%, #A7F3D0 45%, #18C98B 75%, #10B981 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
@@ -271,7 +263,7 @@
     gap: 10px;
     padding: 15px 32px;
     border-radius: 999px;
-    background: linear-gradient(135deg, #18C98B 0%, #E6B042 50%, #10B981 100%);
+    background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
     color: #040300;
     font-size: 13.5px;
     font-weight: 800;
@@ -384,9 +376,9 @@
     }
 
     .iconAmber {
-        background: rgba(230, 176, 66, 0.12);
-        border-color: rgba(230, 176, 66, 0.35);
-        color: #18C98B;
+        background: rgba(14, 165, 233, 0.15);
+        border-color: rgba(14, 165, 233, 0.35);
+        color: #38BDF8;
     }
 
     .badgeContent {
@@ -669,7 +661,7 @@
 }
 
 .dotYellow {
-    background: #FFBD2E;
+    background: #38BDF8;
 }
 
 .dotGreen {
@@ -1021,7 +1013,7 @@
 .telNeutral {
     font-size: 13px;
     font-weight: 700;
-    color: #E6B042;
+    color: #38BDF8;
 }
 
 .telVal {
@@ -1289,7 +1281,7 @@
     gap: 6px;
     padding: 9px 18px;
     border-radius: 8px;
-    background: linear-gradient(135deg, #18C98B 0%, #E6B042 100%);
+    background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
     color: #040300;
     font-size: 12px;
     font-weight: 800;
@@ -1573,9 +1565,9 @@
             width: 20px;
             height: 20px;
             border-radius: 5px;
-            background: rgba(245, 158, 11, 0.12);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            color: #F59E0B;
+            background: rgba(14, 165, 233, 0.12);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            color: #38BDF8;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1870,7 +1862,7 @@
     gap: 10px;
     padding: 16px 36px;
     border-radius: 999px;
-    background: linear-gradient(135deg, #18C98B 0%, #E6B042 50%, #10B981 100%);
+    background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
     color: #040300;
     font-size: 14px;
     font-weight: 800;
@@ -1919,5 +1911,95 @@
     @include respond-to('sm') {
         width: 100%;
         padding: 13px 20px;
+    }
+}
+
+/* ============================================================
+   LIGHT MODE STYLING OVERRIDES FOR AI CHAT
+   ============================================================ */
+:global(html.light) {
+    .pageWrapper,
+    .aiChatWrapper,
+    .mainWrapper {
+        background: #F8FAFC !important;
+        color: #0F172A !important;
+    }
+
+    .sectionDivider {
+        display: none !important;
+    }
+
+    .faqItem,
+    .faqItemOpen {
+        background: #FFFFFF !important;
+        background-color: #FFFFFF !important;
+        border: 1px solid rgba(24, 201, 139, 0.28) !important;
+        box-shadow: none !important;
+
+        .faqQuestionBtn {
+            color: #0F172A !important;
+            background: transparent !important;
+        }
+
+        .qText {
+            color: #0F172A !important;
+        }
+
+        .faqAnswerWrapper {
+            background: #FFFFFF !important;
+            background-color: #FFFFFF !important;
+        }
+
+        .faqAnswerContent {
+            border-top: 1px solid #F1F5F9 !important;
+            background: #FFFFFF !important;
+            background-color: #FFFFFF !important;
+
+            p {
+                color: #475569 !important;
+            }
+        }
+    }
+
+    .tableCard {
+        background: #FFFFFF !important;
+        border-color: rgba(24, 201, 139, 0.28) !important;
+        box-shadow: none !important;
+
+        th {
+            background: #F1F5F9 !important;
+            color: #475569 !important;
+        }
+
+        td {
+            color: #1E293B !important;
+            border-bottom-color: #F1F5F9 !important;
+        }
+
+        .genericText {
+            color: #64748B !important;
+        }
+
+        .chronosText {
+            color: #047857 !important;
+        }
+    }
+
+    .featureCard,
+    .valueBadgeCard,
+    .terminalBox {
+        background: #FFFFFF !important;
+        border-color: rgba(24, 201, 139, 0.28) !important;
+        box-shadow: none !important;
+
+        .featureCardTitle,
+        .badgeContent h4 {
+            color: #0F172A !important;
+        }
+
+        .featureCardDesc,
+        .badgeContent p {
+            color: #475569 !important;
+        }
     }
 }

@@ -106,7 +106,7 @@ const row1Assets = [
     signal: 'SAFE HAVEN',
     logoUrl: 'https://s3-symbol-logo.tradingview.com/metal/gold.svg',
     fallbackChar: 'Au',
-    color: '#FFD700'
+    color: '#18C98B'
   },
   {
     name: 'NVIDIA',

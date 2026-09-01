@@ -40,3 +40,11 @@
     width: 100%;
     padding: 40px 0;
 }
+
+:global(html.light) {
+    .spinner {
+        border-color: rgba(16, 185, 129, 0.2);
+        border-top-color: #10B981;
+        box-shadow: none !important;
+    }
+}

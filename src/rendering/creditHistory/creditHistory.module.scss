@@ -348,7 +348,7 @@ $danger: #F87171;
         transition: all 0.2s ease;
 
         &:hover:not(:disabled) {
-            background: linear-gradient(180deg, #7A5620 0%, #3F2C0E 100%);
+            background: linear-gradient(180deg, #10B981 0%, #059669 100%);
             color: #FFFFFF;
             border-color: #18C98B;
             box-shadow: 0 0 12px rgba(24, 201, 139, 0.3);
@@ -366,6 +366,56 @@ $danger: #F87171;
         color: rgba(255, 255, 255, 0.65);
         font-size: 13px;
         font-weight: 600;
+    }
+}
+
+:global(html.light) {
+    .container {
+        color: #0F172A;
+
+        .header {
+            .headerTitleMeta {
+                h1 {
+                    color: #0F172A;
+                }
+                p {
+                    color: #475569;
+                }
+            }
+        }
+
+        .summaryCard,
+        .tableCard {
+            background: #FFFFFF;
+            border-color: rgba(24, 201, 139, 0.28);
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+
+            th {
+                color: #64748B;
+            }
+
+            td {
+                color: #1E293B;
+                border-bottom-color: #F1F5F9;
+            }
+        }
+
+        .pagination {
+            .paginationInfo {
+                color: #475569;
+            }
+
+            .pageBtn {
+                background: #FFFFFF;
+                border-color: rgba(24, 201, 139, 0.35);
+                color: #047857;
+
+                &:hover:not(:disabled) {
+                    background: #10B981;
+                    color: #FFFFFF;
+                }
+            }
+        }
     }
 }
 

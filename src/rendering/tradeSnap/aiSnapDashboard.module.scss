@@ -504,9 +504,9 @@
 .neutralVsBadge {
     font-size: 11px;
     font-weight: 900;
-    color: #F59E0B;
-    background: rgba(245, 158, 11, 0.18);
-    border: 1px solid rgba(245, 158, 11, 0.4);
+    color: #38BDF8;
+    background: rgba(14, 165, 233, 0.18);
+    border: 1px solid rgba(14, 165, 233, 0.4);
     padding: 3px 7px;
     border-radius: 2px;
 }
@@ -569,15 +569,16 @@
     .pulseDotAmber {
         width: 8px;
         height: 8px;
-        background: #F59E0B;
+        background: #38BDF8;
         border-radius: 50%;
+        box-shadow: 0 0 10px #38BDF8;
     }
 
     .bannerTagText {
         font-size: 11px;
         font-weight: 800;
         letter-spacing: 1px;
-        color: #F59E0B;
+        color: #38BDF8;
     }
 }
 
@@ -688,7 +689,7 @@
 
 .bannerStatCardAmber {
     background: var(--stat-card-bg);
-    border: 1px solid rgba(245, 158, 11, 0.35);
+    border: 1px solid rgba(14, 165, 233, 0.35);
     border-radius: 0 !important;
     padding: 8px 14px;
     display: flex;
@@ -709,13 +710,13 @@
     .bannerStatValueAmber {
         font-size: 15px;
         font-weight: 800;
-        color: #F59E0B;
+        color: #38BDF8;
     }
 
     .bannerStatBadgeAmber {
         font-size: 12px;
         font-weight: 800;
-        color: #F59E0B;
+        color: #38BDF8;
         display: flex;
         align-items: center;
         gap: 5px;
@@ -819,9 +820,9 @@
     }
 
     &.actionNeutral {
-        background: rgba(245, 158, 11, 0.2);
-        color: #F59E0B;
-        border: 1px solid #F59E0B;
+        background: rgba(14, 165, 233, 0.2);
+        color: #38BDF8;
+        border: 1px solid #38BDF8;
     }
 }
 
@@ -1117,8 +1118,8 @@
     }
 
     &.badgeAmber {
-        background: rgba(245, 158, 11, 0.15);
-        color: #F59E0B;
+        background: rgba(14, 165, 233, 0.15);
+        color: #38BDF8;
     }
 }
 
@@ -1223,7 +1224,7 @@
     }
 
     .flameIcon {
-        color: #F59E0B;
+        color: #38BDF8;
     }
 }
 
@@ -1488,7 +1489,7 @@
     }
 
     .pivotMainCell {
-        color: #F59E0B;
+        color: #38BDF8;
         font-weight: 700;
         font-family: monospace, sans-serif;
     }
