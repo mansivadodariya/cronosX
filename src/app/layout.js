@@ -98,9 +98,15 @@ export const metadata = {
     site: "@ChronosX",
   },
   icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.png",
-    apple: "/favicon.png",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/assets/logo/smallLogo.png", type: "image/png" },
+    ],
+    shortcut: "/favicon.svg",
+    apple: [
+      { url: "/assets/logo/smallLogo.png", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
   },
 };
 

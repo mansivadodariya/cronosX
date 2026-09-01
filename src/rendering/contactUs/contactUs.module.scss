@@ -1219,15 +1219,66 @@
 }
 
 :global(html.light) .contactPage {
-    background: #F8FAFC;
-    color: #0F172A;
+    background: #F8FAFC !important;
+    color: #0F172A !important;
+
+    .gridOverlay {
+        opacity: 0.08 !important;
+    }
+
+    .ambientGlowTop,
+    .ambientGlowCenter,
+    .ambientGlowBottom {
+        opacity: 0.1 !important;
+        filter: blur(120px) !important;
+    }
+
+    /* 1. Status Pill (Screenshot Fix 1) */
+    .statusPillWrapper {
+        .statusPill {
+            background: #FFFFFF !important;
+            border: 1px solid rgba(24, 201, 139, 0.45) !important;
+            box-shadow: 0 4px 18px rgba(24, 201, 139, 0.12) !important;
+
+            .pillTag {
+                color: #047857 !important;
+                font-weight: 800 !important;
+                background: transparent !important;
+                background-color: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+            }
+
+            .pillDivider {
+                color: rgba(15, 23, 42, 0.25) !important;
+            }
+
+            .pillText {
+                color: #0F172A !important;
+                font-weight: 600 !important;
+                background: transparent !important;
+                background-color: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+            }
+
+            .pillBadge {
+                background: #F0FDF4 !important;
+                border: 1px solid rgba(24, 201, 139, 0.35) !important;
+                color: #047857 !important;
+                font-weight: 700 !important;
+            }
+        }
+    }
 
     .mainTitle,
     .infoTitle,
     .formTitle,
     .faqTitle,
     .ctaTitle {
-        color: #0F172A;
+        color: #0F172A !important;
     }
 
     .mainSubtitle,
@@ -1235,68 +1286,180 @@
     .formSubtitle,
     .faqSubtitle,
     .ctaSubtitle {
-        color: #475569;
+        color: #475569 !important;
+    }
+
+    .goldGradient {
+        color: #18C98B !important;
+        background: none !important;
+        -webkit-background-clip: unset !important;
+        -webkit-text-fill-color: initial !important;
+    }
+
+    .infoBadge,
+    .formHeaderBadge,
+    .faqBadge {
+        background: rgba(24, 201, 139, 0.12) !important;
+        border: 1px solid rgba(24, 201, 139, 0.3) !important;
+        color: #047857 !important;
     }
 
     .infoCard,
     .formGlassCard,
     .ctaCard {
-        background: #FFFFFF;
-        border-color: rgba(24, 201, 139, 0.28);
-        box-shadow: 0 10px 35px rgba(15, 23, 42, 0.08);
+        background: #FFFFFF !important;
+        border: 1px solid rgba(24, 201, 139, 0.28) !important;
+        box-shadow: 0 10px 35px rgba(15, 23, 42, 0.08) !important;
     }
 
     .infoItem {
-        background: #F8FAFC;
-        border-color: rgba(24, 201, 139, 0.2);
+        background: #F8FAFC !important;
+        border: 1px solid rgba(24, 201, 139, 0.2) !important;
+
+        .infoIconBox {
+            background: #F0FDF4 !important;
+            border: 1px solid rgba(24, 201, 139, 0.35) !important;
+            color: #047857 !important;
+        }
+
+        .infoLabel {
+            color: #047857 !important;
+        }
 
         .infoValue,
         .addressValue {
-            color: #0F172A;
+            color: #0F172A !important;
         }
 
         .infoHelper {
-            color: #64748B;
+            color: #64748B !important;
         }
+
+        .itemCopyBtn {
+            background: #FFFFFF !important;
+            border: 1px solid rgba(15, 23, 42, 0.12) !important;
+            color: #475569 !important;
+
+            &:hover {
+                background: #F0FDF4 !important;
+                border-color: #18C98B !important;
+                color: #047857 !important;
+            }
+        }
+    }
+
+    .activeStatusPill {
+        background: #F0FDF4 !important;
+        border: 1px solid rgba(24, 201, 139, 0.3) !important;
+        color: #047857 !important;
     }
 
     .inputGroup label,
     .labelRow label {
-        color: #1E293B;
+        color: #1E293B !important;
     }
 
     .inputWrapper,
     .phoneInputWrapper,
     .textareaWrapper {
-        background: #F8FAFC;
-        border-color: rgba(24, 201, 139, 0.25);
+        background: #FFFFFF !important;
+        border: 1.5px solid rgba(15, 23, 42, 0.14) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02) !important;
+
+        &:focus-within {
+            border-color: #18C98B !important;
+            box-shadow: 0 0 0 3px rgba(24, 201, 139, 0.15) !important;
+        }
 
         input,
         textarea,
         select {
-            color: #0F172A;
+            color: #0F172A !important;
+            background: transparent !important;
 
             &::placeholder {
-                color: #94A3B8;
+                color: #94A3B8 !important;
+            }
+        }
+
+        .fieldIcon,
+        .dropdownChevron {
+            color: #047857 !important;
+        }
+    }
+
+    /* Phone Input Country Dropdown (Screenshot Fix 2) */
+    .phoneCustomInput {
+        :global(.PhoneInputCountry) {
+            background: transparent !important;
+            background-color: transparent !important;
+            border-right: 1px solid rgba(15, 23, 42, 0.14) !important;
+        }
+
+        :global(.PhoneInputCountryIcon) {
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+            border: 1px solid rgba(0, 0, 0, 0.1) !important;
+        }
+
+        :global(.PhoneInputCountrySelectArrow) {
+            border-color: #047857 !important;
+        }
+
+        :global(.PhoneInputCountrySelect) {
+            background: transparent !important;
+            background-color: transparent !important;
+            color: transparent !important;
+            opacity: 0 !important;
+
+            option {
+                background: #FFFFFF !important;
+                color: #0F172A !important;
+            }
+        }
+
+        :global(.PhoneInputInput) {
+            color: #0F172A !important;
+            background: transparent !important;
+            background-color: transparent !important;
+
+            &::placeholder {
+                color: #94A3B8 !important;
             }
         }
     }
 
+    .selectInput option {
+        background: #FFFFFF !important;
+        color: #0F172A !important;
+    }
+
     .faqCard {
-        background: #FFFFFF;
-        border-color: rgba(24, 201, 139, 0.25);
+        background: #FFFFFF !important;
+        border: 1px solid rgba(24, 201, 139, 0.25) !important;
+        box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04) !important;
+
+        &:hover {
+            border-color: #18C98B !important;
+            background: #F8FAFC !important;
+        }
 
         &.faqCardOpen {
-            background: #F0FDF4;
-            border-color: #10B981;
+            background: #FFFFFF !important;
+            border-color: #18C98B !important;
+            box-shadow: 0 6px 22px rgba(24, 201, 139, 0.1) !important;
         }
 
         .faqQuestionText {
-            color: #0F172A;
+            color: #0F172A !important;
+        }
+
+        .faqChevron {
+            color: #047857 !important;
         }
 
         .faqAnswerContent p {
-            color: #334155;
+            color: #475569 !important;
+            border-top: 1px solid #F1F5F9 !important;
         }
     }
 }

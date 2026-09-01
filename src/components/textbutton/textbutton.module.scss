@@ -34,15 +34,19 @@
 
         :global(html.light) & {
             color: #047857 !important;
-            background: rgba(16, 185, 129, 0.1) !important;
-            border: 1px solid rgba(5, 150, 105, 0.35) !important;
-            box-shadow: none !important;
+            background: #FFFFFF !important;
+            border: 1px solid rgba(24, 201, 139, 0.45) !important;
+            box-shadow: 0 4px 14px rgba(24, 201, 139, 0.1) !important;
 
             .labelText {
                 color: #047857 !important;
                 font-weight: 800 !important;
                 -webkit-text-fill-color: #047857 !important;
-                background: none !important;
+                background: transparent !important;
+                background-color: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
             }
         }
     }

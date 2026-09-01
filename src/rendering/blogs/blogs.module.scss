@@ -854,32 +854,206 @@
 }
 
 :global(html.light) .blogsWrapper {
-    background: #F8FAFC;
-    color: #0F172A;
+    background: #F8FAFC !important;
+    color: #0F172A !important;
 
-    .heroTitle {
-        color: #0F172A;
-    }
-
-    .heroSubtitle {
-        color: #475569;
-    }
-
-    .featuredCard,
-    .blogCard,
-    .newsletterCard {
-        background: #FFFFFF;
-        border-color: rgba(24, 201, 139, 0.28);
-        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
-
-        .cardTitle,
-        .postTitle {
-            color: #0F172A;
+    /* Hero Header */
+    .heroHeader {
+        .badgePill {
+            background: #FFFFFF !important;
+            border: 1px solid rgba(24, 201, 139, 0.45) !important;
+            color: #047857 !important;
+            box-shadow: 0 4px 18px rgba(24, 201, 139, 0.12) !important;
         }
 
-        .cardExcerpt,
-        .postExcerpt {
-            color: #475569;
+        h1 {
+            color: #0F172A !important;
+        }
+
+        p {
+            color: #475569 !important;
+        }
+    }
+
+    /* Controls Bar: Search & Category Pills (Screenshot Fix) */
+    .controlsBar {
+        .searchRow {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+
+            svg {
+                color: #047857 !important;
+                stroke: #047857 !important;
+            }
+
+            input {
+                background: #FFFFFF !important;
+                border: 1.5px solid rgba(15, 23, 42, 0.14) !important;
+                border-radius: 9999px !important;
+                color: #0F172A !important;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03) !important;
+
+                &::placeholder {
+                    color: #94A3B8 !important;
+                }
+
+                &:focus {
+                    border-color: #18C98B !important;
+                    box-shadow: 0 0 0 3px rgba(24, 201, 139, 0.15) !important;
+                }
+            }
+        }
+
+        /* Inactive Category Pills (Screenshot Fix) */
+        .categoryPills {
+            .catBtn {
+                background: #FFFFFF !important;
+                border: 1px solid rgba(15, 23, 42, 0.14) !important;
+                color: #475569 !important;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02) !important;
+
+                &:hover {
+                    background: #F8FAFC !important;
+                    color: #047857 !important;
+                    border-color: #18C98B !important;
+                }
+
+                &.activeCat {
+                    background: #18C98B !important;
+                    color: #040605 !important;
+                    border-color: #18C98B !important;
+                    font-weight: 800 !important;
+                    box-shadow: 0 4px 14px rgba(24, 201, 139, 0.25) !important;
+                }
+            }
+        }
+    }
+
+    /* Featured Blog Card (Screenshot Fix) */
+    .featuredCard {
+        background: #FFFFFF !important;
+        border: 1px solid rgba(24, 201, 139, 0.28) !important;
+        box-shadow: 0 10px 35px rgba(15, 23, 42, 0.06) !important;
+
+        .featuredTopMeta {
+            .featuredBadge {
+                background: #F0FDF4 !important;
+                border: 1px solid rgba(24, 201, 139, 0.35) !important;
+                color: #047857 !important;
+            }
+
+            .metaInfo {
+                color: #64748B !important;
+
+                .catTag {
+                    color: #047857 !important;
+                    font-weight: 700 !important;
+                    background: transparent !important;
+                    border: none !important;
+                    padding: 0 !important;
+                }
+            }
+        }
+
+        h2 {
+            color: #0F172A !important;
+        }
+
+        p {
+            color: #475569 !important;
+        }
+
+        .featuredFooter {
+            border-top: 1px solid #F1F5F9 !important;
+
+            .authorWrap {
+                .avatarCircle {
+                    background: #F0FDF4 !important;
+                    border: 1px solid rgba(24, 201, 139, 0.35) !important;
+                    color: #047857 !important;
+                }
+
+                .authorName {
+                    color: #0F172A !important;
+                    font-weight: 700 !important;
+                }
+
+                .authorRole {
+                    color: #64748B !important;
+                }
+            }
+
+            .readMoreLink {
+                color: #047857 !important;
+                font-weight: 700 !important;
+            }
+        }
+    }
+
+    /* Blog Cards Grid */
+    .blogsGrid {
+        .blogCard {
+            background: #FFFFFF !important;
+            border: 1px solid rgba(24, 201, 139, 0.22) !important;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04) !important;
+
+            &:hover {
+                border-color: #18C98B !important;
+                box-shadow: 0 10px 30px rgba(24, 201, 139, 0.12) !important;
+            }
+
+            .categoryBadgeOverlay {
+                background: rgba(255, 255, 255, 0.95) !important;
+                color: #047857 !important;
+                border: 1px solid rgba(24, 201, 139, 0.35) !important;
+            }
+
+            .cardMetaRow {
+                .publishDate,
+                .readTime {
+                    color: #64748B !important;
+                }
+            }
+
+            .cardTitle {
+                color: #0F172A !important;
+            }
+
+            .cardExcerpt {
+                color: #475569 !important;
+            }
+
+            .cardBottom {
+                border-top: 1px solid #F1F5F9 !important;
+
+                .authorInfo {
+                    .miniAvatar {
+                        background: #F0FDF4 !important;
+                        border: 1px solid rgba(24, 201, 139, 0.35) !important;
+                        color: #047857 !important;
+                    }
+
+                    .authorName {
+                        color: #0F172A !important;
+                    }
+                }
+
+                .cardArrow {
+                    color: #047857 !important;
+                }
+            }
+        }
+    }
+
+    /* Empty State */
+    .emptyState {
+        h3 {
+            color: #0F172A !important;
+        }
+
+        p {
+            color: #64748B !important;
         }
     }
 }

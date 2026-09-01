@@ -396,19 +396,19 @@ export default function AboutUs() {
                         </div>
                     </div>
                 </section>
-
-                {/* 8. Bottom Call to Action Banner (Common CTA) */}
-                <CommonCta
-                    badge="ENTERPRISE FINANCIAL INTELLIGENCE"
-                    title1="Experience the Power of"
-                    title2="ChronosX AI Today"
-                    description="Join thousands of elite traders leveraging automated chart pattern recognition, predictive signals, and conversational market copilot."
-                    primaryBtnText="GET STARTED FREE"
-                    primaryBtnAction="/dashboard"
-                    secondaryBtnText="CONTACT DESK"
-                    secondaryBtnAction="/contact-us"
-                />
             </div>
+            {/* 8. Bottom Call to Action Banner (Common CTA) */}
+            <CommonCta
+                badge="ENTERPRISE FINANCIAL INTELLIGENCE"
+                title1="Experience the Power of"
+                title2="ChronosX AI Today"
+                description="Join thousands of elite traders leveraging automated chart pattern recognition, predictive signals, and conversational market copilot."
+                primaryBtnText="GET STARTED FREE"
+                primaryBtnAction="/dashboard"
+                secondaryBtnText="CONTACT DESK"
+                secondaryBtnAction="/contact-us"
+            />
+
         </div>
     );
 }
