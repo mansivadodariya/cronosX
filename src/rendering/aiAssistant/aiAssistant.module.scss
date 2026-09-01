@@ -1733,6 +1733,8 @@
                 flex: 1;
                 padding: 20px;
                 overflow-y: auto;
+                overscroll-behavior: contain;
+                -webkit-overflow-scrolling: touch;
                 display: flex;
                 flex-direction: column;
                 gap: 20px;
@@ -3496,6 +3498,8 @@
 .reportPanelBody {
     flex: 1;
     overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
     padding: 16px 20px;
     min-height: 0;
 

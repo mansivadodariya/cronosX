@@ -320,7 +320,12 @@ export default function AiAnalyst() {
               </div>
 
               {/* Chat Messages Stream Viewport */}
-              <div className={styles.chatBody} ref={chatBodyRef}>
+              <div 
+                className={styles.chatBody} 
+                ref={chatBodyRef}
+                data-lenis-prevent="true"
+                onWheel={(e) => e.stopPropagation()}
+              >
                 <AnimatePresence mode="popLayout">
                   {messages.map((msg, i) => (
                     <motion.div

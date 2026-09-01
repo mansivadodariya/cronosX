@@ -1171,9 +1171,9 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
                 }}
             >
                 {/* Center / Left Panel: Chatbot conversation view */}
-                <div className={styles.chatSingleBody}>
+                <div className={styles.chatSingleBody} data-lenis-prevent="true">
                     {/* Chat interaction card */}
-                    <div className={styles.chatCard}>
+                    <div className={styles.chatCard} data-lenis-prevent="true">
                         <div className={`${styles.chatHeader} ${chatWidthPercent <= 42 ? styles.compactHeader : ''}`}>
                             <div className={styles.avatar}>
                                 <img src={Logo} alt='logo' />
@@ -1202,7 +1202,11 @@ const AiAssistant = ({ initialTab, initialOpenId } = {}) => {
                                 />
                             </div>
                         </div>
-                        <div className={styles.chatBody}>
+                        <div 
+                            className={styles.chatBody}
+                            data-lenis-prevent="true"
+                            onWheel={(e) => e.stopPropagation()}
+                        >
                             {chatMessages.length === 0 ? (
                                 <div className={styles.welcomeContainer}>
                                     {/* <div className={styles.welcomeHeroBadge}>

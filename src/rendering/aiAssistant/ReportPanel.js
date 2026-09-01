@@ -393,7 +393,12 @@ const ReportPanel = ({ fullReport, visualData, isLoading, scrollToTopSignal, onD
                 <h3>{fullReport ? 'Analysis Center' : 'No Report Selected'}</h3>
                 {fullReport && onDownload && <button type="button" className={styles.reportDownloadBtn} onClick={() => onDownload && onDownload(reportRef.current)}>Download Document</button>}
             </div>
-            <div className={styles.reportPanelBody} ref={scrollRef}>
+            <div 
+                className={styles.reportPanelBody} 
+                ref={scrollRef}
+                data-lenis-prevent="true"
+                onWheel={(e) => e.stopPropagation()}
+            >
                 {isLoading ? (
                     <div className={styles.reportLoading}>Analyzing market data...</div>
                 ) : fullReport ? (
