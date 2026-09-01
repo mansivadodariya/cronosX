@@ -322,8 +322,8 @@ const FAQS = [
         answer: "Yes. The Live Analysis Feed connects directly to high-speed MT5 price feeds via WebSocket to stream zero-delay candlestick ticks and indicator adjustments."
     },
     {
-        question: "Can I use this for commodities and crypto?",
-        answer: "Yes. In addition to major FX pairs, the engine computes 100-point scores and strategy setups for Gold (XAUUSD), Silver, Bitcoin, and Ethereum."
+        question: "Can I use this for commodities and indices?",
+        answer: "Yes. In addition to major FX pairs, the engine computes 100-point scores and strategy setups for Gold (XAUUSD), Silver, Oil, and Global Indices."
     },
     {
         question: "How do I deploy my own custom strategy parameters?",

@@ -3,9 +3,10 @@
 import { useState, useEffect, useRef } from 'react';
 
 /**
- * 1-Second Automatic Live MT5 Price Stream Hook
- * Connects to WebSocket /api/v1/websocket/live-price?symbol={symbol}
- * Fallback to 1-second REST polling /api/v1/chart/live-price if WebSocket fails or disconnects.
+ * Live MT5 Price Stream Hook (WebSocket Only)
+ * Connects directly to WebSocket /api/v1/websocket/live-price?symbol={symbol}
+ * and listens to browser-wide 'livePriceUpdate' events.
+ * Continuous REST polling has been removed as WebSocket provides real-time streaming.
  */
 export function useLivePrice(symbol = 'XAUUSD') {
     const cleanSymbol = (symbol || 'XAUUSD').replace(/[^A-Z0-9]/gi, '').toUpperCase();
@@ -13,8 +14,8 @@ export function useLivePrice(symbol = 'XAUUSD') {
     const [priceData, setPriceData] = useState(null);
     const [tickDirection, setTickDirection] = useState(null); // 'up' | 'down' | null
     const prevPriceRef = useRef(null);
-    const pollingIntervalRef = useRef(null);
     const wsRef = useRef(null);
+    const reconnectTimerRef = useRef(null);
 
     useEffect(() => {
         if (!cleanSymbol) return;
@@ -24,7 +25,7 @@ export function useLivePrice(symbol = 'XAUUSD') {
         const updatePrice = (newPrice, changePercent, timestamp, bid, ask) => {
             if (!isMounted) return;
             const numPrice = parseFloat(newPrice);
-            if (isNaN(numPrice)) return;
+            if (isNaN(numPrice) || numPrice <= 0) return;
 
             if (prevPriceRef.current !== null) {
                 if (numPrice > prevPriceRef.current) {
@@ -38,124 +39,119 @@ export function useLivePrice(symbol = 'XAUUSD') {
             setPriceData({
                 symbol: cleanSymbol,
                 price: numPrice,
-                bid: bid !== undefined ? parseFloat(bid) : numPrice,
-                ask: ask !== undefined ? parseFloat(ask) : numPrice,
-                changePercent: changePercent !== undefined ? parseFloat(changePercent) : 0,
+                bid: bid !== undefined && bid !== null ? parseFloat(bid) : numPrice,
+                ask: ask !== undefined && ask !== null ? parseFloat(ask) : numPrice,
+                changePercent: changePercent !== undefined && changePercent !== null ? parseFloat(changePercent) : 0,
                 timestamp: timestamp || new Date().toISOString(),
             });
         };
 
-        // 1. REST Polling Fallback Function
-        const startRestPolling = () => {
-            if (pollingIntervalRef.current) return;
-
-            const fetchLivePrice = async () => {
-                try {
-                    const baseUrl = (process.env.NEXT_PUBLIC_BACKEND_URL || '').replace(/\/+$/, '');
-                    const apiUrl = baseUrl
-                        ? `${baseUrl}/api/v1/chart/live-price?symbol=${cleanSymbol}`
-                        : `/api/v1/chart/live-price?symbol=${cleanSymbol}`;
-
-                    const res = await fetch(apiUrl, {
-                        headers: {
-                            'accept': 'application/json',
-                            'ngrok-skip-browser-warning': 'true'
-                        }
-                    });
-
-                    if (res.ok) {
-                        const json = await res.json();
-                        if (json && (json.price || json.last || json.data?.price)) {
-                            const p = json.price ?? json.last ?? json.data?.price;
-                            const cp = json.change_percent ?? json.changePercent ?? json.data?.change_percent ?? 0;
-                            const ts = json.timestamp ?? json.data?.timestamp;
-                            const b = json.bid ?? json.data?.bid;
-                            const a = json.ask ?? json.data?.ask;
-                            updatePrice(p, cp, ts, b, a);
-                        }
-                    }
-                } catch (e) {
-                    // Silently ignore or retry next tick
-                }
-            };
-
-            fetchLivePrice();
-            pollingIntervalRef.current = setInterval(fetchLivePrice, 1000);
+        // 1. Listen for global livePriceUpdate events (broadcasted by WebSocket consumers like CopilotHeaderPrice)
+        const handleGlobalPriceUpdate = (e) => {
+            const payload = e?.detail;
+            if (!payload || payload.price === undefined || payload.price === null) return;
+            if (payload.symbol) {
+                const eventSym = String(payload.symbol).replace(/[^A-Z0-9]/gi, '').toUpperCase();
+                if (eventSym && eventSym !== cleanSymbol) return;
+            }
+            updatePrice(
+                payload.price,
+                payload.change_percent ?? payload.changePercent,
+                payload.timestamp,
+                payload.bid,
+                payload.ask
+            );
         };
 
-        const stopRestPolling = () => {
-            if (pollingIntervalRef.current) {
-                clearInterval(pollingIntervalRef.current);
-                pollingIntervalRef.current = null;
-            }
-        };
-
-        // 2. WebSocket Connection Setup
-        let ws = null;
-        try {
-            let wsUrl = '';
-            const customWsUrl = process.env.NEXT_PUBLIC_WS_PRICE_URL;
-
-            if (customWsUrl) {
-                wsUrl = `${customWsUrl}${customWsUrl.includes('?') ? '&' : '?'}symbol=${cleanSymbol}`;
-            } else {
-                const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-                let wsScheme = 'ws:';
-                let wsHost = 'localhost:8000';
-
-                if (backendUrl) {
-                    wsScheme = backendUrl.startsWith('https') ? 'wss:' : 'ws:';
-                    wsHost = backendUrl.replace(/^https?:\/\//, '').replace(/\/+$/, '');
-                } else if (typeof window !== 'undefined') {
-                    wsScheme = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-                    wsHost = window.location.host || 'localhost:8000';
-                }
-
-                wsUrl = `${wsScheme}//${wsHost}/api/v1/websocket/live-price?symbol=${cleanSymbol}`;
-            }
-
-            ws = new WebSocket(wsUrl);
-            wsRef.current = ws;
-
-            ws.onopen = () => {
-                stopRestPolling();
-            };
-
-            ws.onmessage = (event) => {
-                try {
-                    const data = JSON.parse(event.data);
-                    if (data.type === 'price_update' || data.type === 'tick' || data.price !== undefined) {
-                        updatePrice(
-                            data.price ?? data.last ?? data.close,
-                            data.change_percent ?? data.changePercent,
-                            data.timestamp,
-                            data.bid,
-                            data.ask
-                        );
-                    }
-                } catch (err) {
-                    console.error('Error parsing WS live price message', err);
-                }
-            };
-
-            ws.onerror = () => {
-                startRestPolling();
-            };
-
-            ws.onclose = () => {
-                startRestPolling();
-            };
-        } catch (e) {
-            startRestPolling();
+        if (typeof window !== 'undefined') {
+            window.addEventListener('livePriceUpdate', handleGlobalPriceUpdate);
         }
+
+        // 2. Connect Dedicated WebSocket for cleanSymbol
+        const connectWs = () => {
+            if (!isMounted) return;
+
+            if (wsRef.current) {
+                try {
+                    wsRef.current.close();
+                } catch {
+                    /* ignore */
+                }
+                wsRef.current = null;
+            }
+
+            try {
+                let wsUrl = '';
+                const customWsUrl = process.env.NEXT_PUBLIC_WS_PRICE_URL;
+
+                if (customWsUrl) {
+                    wsUrl = `${customWsUrl}${customWsUrl.includes('?') ? '&' : '?'}symbol=${cleanSymbol}`;
+                } else {
+                    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+                    let wsScheme = 'ws:';
+                    let wsHost = 'localhost:8000';
+
+                    if (backendUrl) {
+                        wsScheme = backendUrl.startsWith('https') ? 'wss:' : 'ws:';
+                        wsHost = backendUrl.replace(/^https?:\/\//, '').replace(/\/+$/, '');
+                    } else if (typeof window !== 'undefined') {
+                        wsScheme = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+                        wsHost = window.location.host || 'localhost:8000';
+                    }
+
+                    wsUrl = `${wsScheme}//${wsHost}/api/v1/websocket/live-price?symbol=${cleanSymbol}`;
+                }
+
+                const ws = new WebSocket(wsUrl);
+                wsRef.current = ws;
+
+                ws.onmessage = (event) => {
+                    try {
+                        const data = JSON.parse(event.data);
+                        if (data.type === 'price_update' || data.type === 'tick' || data.price !== undefined) {
+                            const p = data.price ?? data.last ?? data.close;
+                            const cp = data.change_percent ?? data.changePercent;
+                            updatePrice(p, cp, data.timestamp, data.bid, data.ask);
+                        }
+                    } catch (err) {
+                        // ignore JSON parse errors
+                    }
+                };
+
+                ws.onerror = () => {
+                    // Handled in onclose
+                };
+
+                ws.onclose = () => {
+                    if (isMounted) {
+                        // Reconnect after 3 seconds without ANY REST polling
+                        reconnectTimerRef.current = setTimeout(connectWs, 3000);
+                    }
+                };
+            } catch (err) {
+                if (isMounted) {
+                    reconnectTimerRef.current = setTimeout(connectWs, 3000);
+                }
+            }
+        };
+
+        connectWs();
 
         return () => {
             isMounted = false;
-            stopRestPolling();
-            if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) {
-                ws.close();
+            if (typeof window !== 'undefined') {
+                window.removeEventListener('livePriceUpdate', handleGlobalPriceUpdate);
             }
-            wsRef.current = null;
+            if (reconnectTimerRef.current) {
+                clearTimeout(reconnectTimerRef.current);
+                reconnectTimerRef.current = null;
+            }
+            if (wsRef.current) {
+                if (wsRef.current.readyState === WebSocket.OPEN || wsRef.current.readyState === WebSocket.CONNECTING) {
+                    wsRef.current.close();
+                }
+                wsRef.current = null;
+            }
         };
     }, [cleanSymbol]);
 

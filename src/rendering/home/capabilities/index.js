@@ -20,7 +20,7 @@ export default function Capabilities() {
           badge="PLATFORM CAPABILITIES"
           title1="Four Tools."
           title2="One Cockpit."
-          description="Four flagship tools, designed to chain. The Heat List narrows the universe down to what’s moving. Indicators time the entry. Breakout alerts catch the moment a level snaps. AI TRADE ANALYSIS proves the rule before you risk capital on it."
+          description="Four powerful tools. One connected trading workflow. The Heat List finds where the action is. Indicators help you time the setup. Breakout alerts keep you ready when key levels give way."
         />
 
         {/* Connected Cockpit Grid Container */}

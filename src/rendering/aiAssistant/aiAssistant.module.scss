@@ -1174,7 +1174,20 @@
             width: 100%;
             height: 100%;
             position: relative;
+            cursor: crosshair !important;
             transition: filter 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+
+            :global(canvas) {
+                cursor: crosshair !important;
+            }
+
+            :global(.tv-lightweight-charts) {
+                cursor: crosshair !important;
+
+                :global(canvas) {
+                    cursor: crosshair !important;
+                }
+            }
 
             &.isChartLoading {
                 filter: blur(6px);

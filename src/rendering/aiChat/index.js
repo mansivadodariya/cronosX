@@ -211,7 +211,7 @@ const KEY_FEATURES = [
     {
         number: "04",
         title: "Pattern Recognition & Trade Setup Generator",
-        desc: "Identify key candlestick structures, liquidity sweeps, order blocks, and chart breakout signals across Forex, Metals, and Crypto pairs.",
+        desc: "Identify key candlestick structures, liquidity sweeps, order blocks, and chart breakout signals across Forex, Metals, and Global pairs.",
         icon: (
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
@@ -281,7 +281,7 @@ const FAQS = [
     },
     {
         question: "What currency pairs and asset classes are supported?",
-        answer: "ChronosX AI Chat supports all major, minor, and exotic Forex currency pairs (EURUSD, GBPUSD, USDJPY, AUDUSD, etc.), precious metals (XAUUSD Gold, XAGUSD Silver), energies (USOIL, UKOIL), and top cryptocurrencies (BTCUSD, ETHUSD)."
+        answer: "ChronosX AI Chat supports all major, minor, and exotic Forex currency pairs (EURUSD, GBPUSD, USDJPY, AUDUSD, etc.), precious metals (XAUUSD Gold, XAGUSD Silver), energies (USOIL, UKOIL), and global indices (US30, NAS100)."
     },
     {
         question: "Do I need coding experience or manual MT5 configuration?",

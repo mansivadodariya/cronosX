@@ -45,8 +45,8 @@ export const defaultSubscriptionPlans = [
         id: 'standard',
         name: 'Trader Pro',
         name_ar: 'المتداول المحترف',
-        description: 'Engineered for active Forex and Crypto traders demanding sniper accuracy and automated audits.',
-        description_ar: 'مصمم لمتداولي الفوركس والعملات الرقمية الذين يطلبون دقة متناهية وتدقيقاً آلياً.',
+        description: 'Engineered for active Forex and Global traders demanding sniper accuracy and automated audits.',
+        description_ar: 'مصمم لمتداولي الفوركس والأسواق العالمية الذين يطلبون دقة متناهية وتدقيقاً آلياً.',
         price: 149,
         originalPrice: 199,
         currency: '$',
@@ -65,7 +65,7 @@ export const defaultSubscriptionPlans = [
             'Full AI Past Trade Analyzer (Win-Rate & Leak Audit)',
             'Ultra-Fast Sub-Second Pattern Detection',
             '100+ Conversational AI Chat Queries',
-            'Multi-Asset Scanner (Forex, Crypto, Commodities)',
+            'Multi-Asset Scanner (Forex, Indices, Commodities)',
             'Automated Support & Resistance Key Level Marking',
             'Custom Strategy Indicator Tuning'
         ],
@@ -74,7 +74,7 @@ export const defaultSubscriptionPlans = [
             'محلل الصفقات السابقة بالذكاء الاصطناعي بالكامل',
             'كشف فائق السرعة للأنماط في أجزاء من الثانية',
             'أكثر من 100 استفسار ذكاء اصطناعي لمحادثات السوق',
-            'ماسح متعدد الأصول (فوركس، عملات رقمية، سلع)',
+            'ماسح متعدد الأصول (فوركس، مؤشرات، سلع)',
             'تحديد مستويات الدعم والمقاومة الرئيسية آلياً',
             'ضبط مؤشرات الاستراتيجيات المخصصة'
         ],

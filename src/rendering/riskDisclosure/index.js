@@ -12,7 +12,7 @@ export default function RiskDisclosure() {
                 <div className={styles.content}>
                     <section>
                         <h2>1. High-Risk Investment Warning</h2>
-                        <p>Trading in financial instruments, including foreign exchange (Forex), cryptocurrencies, commodities, indices, and derivatives, involves a high level of risk and may not be suitable for all investors. The high degree of leverage can work against you as well as for you. Before deciding to trade or invest in financial markets, you should carefully consider your investment objectives, level of experience, risk appetite, and financial situation.</p>
+                        <p>Trading in financial instruments, including foreign exchange (Forex), commodities, indices, and derivatives, involves a high level of risk and may not be suitable for all investors. The high degree of leverage can work against you as well as for you. Before deciding to trade or invest in financial markets, you should carefully consider your investment objectives, level of experience, risk appetite, and financial situation.</p>
                         <p>There is a possibility that you could sustain a loss of some or all of your initial investment and therefore you should not invest money that you cannot afford to lose. You should be aware of all the risks associated with financial market trading and seek advice from an independent financial advisor if you have any doubts.</p>
                     </section>
 

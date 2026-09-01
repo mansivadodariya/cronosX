@@ -88,11 +88,11 @@ const faqs = [
     },
     {
         q: "Which financial markets and instruments can I analyze?",
-        a: "ChronosX supports multi-asset analysis across major & minor Forex pairs (EUR/USD, GBP/USD, USD/JPY), Cryptocurrencies (BTC, ETH, SOL), Global Indices (US30, NAS100, SPX500), and Commodities (Gold/XAUUSD, Crude Oil)."
+        a: "ChronosX supports multi-asset analysis across major & minor Forex pairs (EUR/USD, GBP/USD, USD/JPY), Global Indices (US30, NAS100, SPX500), and Commodities (Gold/XAUUSD, Crude Oil)."
     },
     {
         q: "What payment methods are supported for checkout?",
-        a: "We support instant decentralized crypto deposits (USDT, USDC, SOL, BTC) as well as international card gateways. All transactions are securely processed with 256-bit institutional encryption and immediate autonomous activation."
+        a: "We support instant decentralized deposits (USDT, USDC, SOL, BTC) as well as international card gateways. All transactions are securely processed with 256-bit institutional encryption and immediate autonomous activation."
     }
 ];
 
@@ -387,9 +387,15 @@ export default function SubscriptionPlansView() {
                                                         {plan.currency || '$'}{plan.originalPrice}
                                                     </span>
                                                 ) : null}
-                                                <span className={styles.currency}>{plan.currency || '$'}</span>
-                                                <span className={styles.amount}>{plan.price}</span>
-                                                <span className={styles.validityLabel}>/ {validity}</span>
+                                                {Number(plan.price) === 0 || plan.price === 0 || plan.price === '0' || String(plan.price).toLowerCase() === 'free' || isBasic ? (
+                                                    <span className={styles.amount}>Free</span>
+                                                ) : (
+                                                    <>
+                                                        <span className={styles.currency}>{plan.currency || '$'}</span>
+                                                        <span className={styles.amount}>{plan.price}</span>
+                                                    </>
+                                                )}
+                                                <span className={styles.validityLabel}>/ {validity.replace(/^Free For /i, 'Valid ').replace(/^مجاناً لمدة /i, 'صالح لمدة ')}</span>
                                             </div>
                                             {plan.originalPrice ? (
                                                 <div className={styles.savingsBadge}>
@@ -418,7 +424,7 @@ export default function SubscriptionPlansView() {
                                         </p>
                                     </div>
 
-                                    {/* Bottom Features Box with Dynamic 3D Gift Box Graphic */}
+                                    {/* Bottom Features Box */}
                                     <div className={styles.cardFeaturesBox}>
                                         <div className={styles.featuresLeftContent}>
                                             <div className={styles.featuresHeader}>
@@ -434,11 +440,6 @@ export default function SubscriptionPlansView() {
                                                 ))}
                                             </ul>
                                         </div>
-                                        {(isBasic || plan.show_gift_box || plan.id === 'basic') && (
-                                            <div className={styles.featuresRightGraphic}>
-                                                <Gold3DGiftBox />
-                                            </div>
-                                        )}
                                     </div>
                                 </div>
                             );
@@ -466,7 +467,7 @@ export default function SubscriptionPlansView() {
                         <div className={styles.trustIcon}><LockIcon /></div>
                         <div>
                             <h4>256-Bit Encrypted Payments</h4>
-                            <p>Decentralized crypto & secure gateways</p>
+                            <p>Decentralized & secure gateways</p>
                         </div>
                     </div>
                     <div className={styles.trustDivider} />

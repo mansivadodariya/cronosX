@@ -1832,3 +1832,19 @@
         }
     }
 }
+
+.canvasContainer {
+    cursor: crosshair !important;
+
+    :global(canvas) {
+        cursor: crosshair !important;
+    }
+
+    :global(.tv-lightweight-charts) {
+        cursor: crosshair !important;
+
+        :global(canvas) {
+            cursor: crosshair !important;
+        }
+    }
+}

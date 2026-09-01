@@ -12,7 +12,7 @@ export default function PrivacyPolicy() {
                 <div className={styles.content}>
                     <section>
                         <h2>Introduction</h2>
-                        <p>ChronosX ("ChronosX", "we", "our", or "us") is committed to protecting your privacy and safeguarding the personal information you provide while using our platform. ChronosX provides AI-powered trading analysis, market insights, forex and cryptocurrency market information, economic calendar data, educational resources, chart analysis tools, and AI chatbot services. This Privacy Policy explains how we collect, use, process, store, and protect your information when you access or use our services. By accessing or using ChronosX, you agree to the collection and use of information in accordance with this Privacy Policy.</p>
+                        <p>ChronosX ("ChronosX", "we", "our", or "us") is committed to protecting your privacy and safeguarding the personal information you provide while using our platform. ChronosX provides AI-powered trading analysis, market insights, forex and global market information, economic calendar data, educational resources, chart analysis tools, and AI chatbot services. This Privacy Policy explains how we collect, use, process, store, and protect your information when you access or use our services. By accessing or using ChronosX, you agree to the collection and use of information in accordance with this Privacy Policy.</p>
                     </section>
 
                     <section>

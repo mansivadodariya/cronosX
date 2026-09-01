@@ -112,7 +112,7 @@ const KEY_FEATURES = [
     {
         number: "01",
         title: "Universal Chart Compatibility",
-        desc: "Supports screenshots from any broker, charting software, or mobile app. Detects major Forex pairs (XAUUSD, EURUSD, GBPUSD, USDJPY), Crypto (BTCUSD, ETHUSD), and Indices.",
+        desc: "Supports screenshots from any broker, charting software, or mobile app. Detects major Forex pairs (XAUUSD, EURUSD, GBPUSD, USDJPY), Metals, and Indices.",
         icon: (
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
@@ -412,7 +412,7 @@ Trade Rationale: ${selectedPreset.rationale}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
                         >
-                            Experience our Vision AI Chart Scanner. Simply snap or drag-and-drop a screenshot of any TradingView, MT4/MT5, or Crypto chart — our AI automatically detects the symbol, analyzes market structure, overlays live MT5 technical indicators, and delivers precise BUY / SELL / NO-TRADE setups in seconds.
+                            Experience our Vision AI Chart Scanner. Simply snap or drag-and-drop a screenshot of any TradingView, MT4/MT5, or broker chart — our AI automatically detects the symbol, analyzes market structure, overlays live MT5 technical indicators, and delivers precise BUY / SELL / NO-TRADE setups in seconds.
                         </motion.p>
 
                         {/* Hero Action CTAs */}

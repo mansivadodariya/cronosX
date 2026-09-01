@@ -199,7 +199,7 @@ export default function Header() {
         },
         {
             label: 'News',
-            desc: 'Curated financial headlines, crypto updates & breaking market catalysts',
+            desc: 'Curated financial headlines, market updates & breaking economic catalysts',
             href: '/market-news',
             badge: 'DAILY',
             icon: (

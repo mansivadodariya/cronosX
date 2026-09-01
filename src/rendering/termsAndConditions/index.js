@@ -29,7 +29,7 @@ export default function TermsAndConditions() {
 
                     <section>
                         <h2>Risk Disclosure</h2>
-                        <p>Trading and investing in financial markets, including foreign exchange, cryptocurrencies, stocks, commodities, futures, options, and other financial instruments, involves substantial risk and may result in the loss of some or all invested capital.</p>
+                        <p>Trading and investing in financial markets, including foreign exchange, stocks, commodities, futures, options, and other financial instruments, involves substantial risk and may result in the loss of some or all invested capital.</p>
                         <p>Past performance does not guarantee future results. Market conditions can change rapidly and unpredictably. Users acknowledge that all trading and investment decisions are made entirely at their own discretion and risk.</p>
                         <p>ChronosX shall not be responsible for any losses, damages, costs, expenses, or liabilities arising from trading activities, investment decisions, or reliance on information provided through the platform.</p>
                     </section>

@@ -144,7 +144,7 @@ export default function MetricsSection() {
                   <span className={styles.suffixGreen}>+</span>
                 </div>
                 <div className={styles.tileLabel}>Global Market Pairs</div>
-                <div className={styles.tileDesc}>Forex, Crypto, Indices &amp; Metals telemetry</div>
+                <div className={styles.tileDesc}>Forex, Indices &amp; Metals telemetry</div>
               </div>
             </motion.div>
 
@@ -155,7 +155,7 @@ export default function MetricsSection() {
               <div className={styles.tileBody}>
                 <div className={styles.bigNumber}>
                   <span className={styles.suffixGreen}>&lt; </span>
-                  <CountUp to={500} duration={2.0} />
+                  <CountUp to={300} duration={2.0} />
                   <span className={styles.suffixGreen}>ms</span>
                 </div>
                 <div className={styles.tileLabel}>AI Processing Speed</div>

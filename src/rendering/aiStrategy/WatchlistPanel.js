@@ -14,55 +14,89 @@ const PAIRS = [
     "USD/CAD"
 ];
 
-function formatPairCurrency(val, symbol) {
-    if (typeof val !== 'number' || isNaN(val)) return '-';
-    let symUpper = (symbol || '').toUpperCase().replace("/", "");
-    if (symUpper.endsWith("JPY")) return val.toFixed(3);
-    if (symUpper.includes("XAU") || symUpper.includes("GOLD") || symUpper.includes("XAG")) return val.toFixed(2);
-    if (symUpper.length === 6) return val.toFixed(5);
-    return val.toFixed(2);
-}
-
 function getMockInitialData(pair) {
-    const symUpper = pair.toUpperCase().replace("/", "");
-    let basePrice = 1.25000;
-    if (symUpper.endsWith("JPY")) basePrice = 155.250;
-    else if (symUpper.includes("XAU") || symUpper.includes("GOLD")) basePrice = 2335.50;
-    else if (symUpper === "USDCAD") basePrice = 1.36500;
-    else if (symUpper === "USDCHF") basePrice = 0.89500;
-    else if (symUpper === "AUDUSD") basePrice = 0.66500;
-    else if (symUpper === "NZDUSD") basePrice = 0.61200;
+    const symUpper = pair.toUpperCase().replace("/", "").replace(" ", "");
+    let basePrice = 1.16027;
+    let spread = 0.00001;
 
-    const multiplier = symUpper.endsWith("JPY") ? 100 : (symUpper.includes("XAU") || symUpper.includes("GOLD")) ? 1000 : 1;
+    if (symUpper === "EURUSD") {
+        basePrice = 1.16027;
+        spread = 0.00001;
+    } else if (symUpper === "GBPUSD") {
+        basePrice = 1.35431;
+        spread = 0.00004;
+    } else if (symUpper.includes("XAU") || symUpper.includes("GOLD")) {
+        basePrice = 4457.58;
+        spread = 0.25;
+    } else if (symUpper.includes("BTC")) {
+        basePrice = 78562.99;
+        spread = 5.00;
+    } else if (symUpper.includes("NIFTY")) {
+        basePrice = 23500.00;
+        spread = 0.05;
+    } else if (symUpper.endsWith("JPY")) {
+        basePrice = 155.247;
+        spread = 0.004;
+    } else if (symUpper === "USDCAD") {
+        basePrice = 1.36495;
+        spread = 0.00002;
+    }
+
     const now = Math.floor(Date.now() / 1000);
     return {
-        "5m": { time: now - 120, open: basePrice - 0.001 * multiplier, high: basePrice + 0.003 * multiplier, low: basePrice - 0.002 * multiplier, close: basePrice, tick_volume: 480 },
-        "15m": { time: now - 340, open: basePrice - 0.002 * multiplier, high: basePrice + 0.006 * multiplier, low: basePrice - 0.004 * multiplier, close: basePrice, tick_volume: 1250 },
-        "1h": { time: now - 1800, open: basePrice - 0.005 * multiplier, high: basePrice + 0.012 * multiplier, low: basePrice - 0.008 * multiplier, close: basePrice, tick_volume: 5240 },
-        "1d": { time: now - 43200, open: basePrice - 0.020 * multiplier, high: basePrice + 0.045 * multiplier, low: basePrice - 0.035 * multiplier, close: basePrice, tick_volume: 42100 }
+        "5m": { time: now - 120, open: basePrice, high: basePrice + spread * 2, low: basePrice - spread * 2, close: basePrice, tick_volume: 480 },
+        "15m": { time: now - 340, open: basePrice, high: basePrice + spread * 4, low: basePrice - spread * 4, close: basePrice, tick_volume: 1250 },
+        "1h": { time: now - 1800, open: basePrice, high: basePrice + spread * 8, low: basePrice - spread * 8, close: basePrice, tick_volume: 5240 },
+        "1d": { time: now - 43200, open: basePrice, high: basePrice + spread * 20, low: basePrice - spread * 20, close: basePrice, tick_volume: 42100 }
     };
 }
 
-// Stable hash score helper for other pairs
-function getHashedScore(pair) {
-    const hash = pair.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
-    return (hash % 50) + 30; // Score between 30 and 80
+function getBidAskPrices(candle, symbol) {
+    if (!candle || candle.close === undefined || candle.close === null) {
+        return { bid: '-', ask: '-' };
+    }
+    const close = Number(candle.close);
+    const symUpper = (symbol || '').toUpperCase().replace('/', '').replace(' ', '');
+    let spread = 0.00001;
+    let decimals = 5;
+
+    if (symUpper === 'EURUSD') {
+        spread = 0.00001;
+        decimals = 5;
+    } else if (symUpper === 'GBPUSD') {
+        spread = 0.00004;
+        decimals = 5;
+    } else if (symUpper.endsWith('JPY')) {
+        spread = 0.003;
+        decimals = 3;
+    } else if (symUpper.includes('XAU') || symUpper.includes('GOLD')) {
+        spread = 0.25;
+        decimals = 2;
+    } else if (symUpper.includes('BTC')) {
+        spread = 5.00;
+        decimals = 2;
+    } else if (symUpper.includes('NIFTY')) {
+        spread = 0.05;
+        decimals = 2;
+    } else if (symUpper.length === 6) {
+        spread = 0.00002;
+        decimals = 5;
+    } else {
+        spread = 0.01;
+        decimals = 2;
+    }
+
+    const bid = close;
+    const ask = close + spread;
+
+    return {
+        bid: bid.toFixed(decimals),
+        ask: ask.toFixed(decimals)
+    };
 }
 
-function getScoreSeverityClass(score) {
-    if (score >= 70) return styles.scoreBullish;
-    if (score >= 45) return styles.scoreNeutral;
-    return styles.scoreBearish;
-}
-
-function getScoreLabel(score) {
-    if (score >= 70) return 'Bullish';
-    if (score >= 45) return 'Neutral';
-    return 'Bearish';
-}
-
-// Separate component for watchlist list item
-const WatchlistItem = memo(({ pair, isActive, globalTimeframe, addLog, onClick, actualScore, onPriceUpdate }) => {
+// Separate component for watchlist list item matching image 2
+const WatchlistItem = memo(({ pair, isActive, globalTimeframe, addLog, onClick, onPriceUpdate }) => {
     const [liveData, setLiveData] = useState(null);
     const [wsStatus, setWsStatus] = useState('disconnected');
     const [tickClass, setTickClass] = useState('normal');
@@ -83,7 +117,7 @@ const WatchlistItem = memo(({ pair, isActive, globalTimeframe, addLog, onClick, 
 
         const connect = () => {
             if (!active) return;
-            const pairClean = pair.replace("/", "").toUpperCase();
+            const pairClean = pair.replace("/", "").replace(" ", "").toUpperCase();
 
             let base = process.env.NEXT_PUBLIC_WS_LIVE_URL;
             if (!base || base.includes('localhost') || base.includes('127.0.0.1')) {
@@ -187,8 +221,8 @@ const WatchlistItem = memo(({ pair, isActive, globalTimeframe, addLog, onClick, 
                 if (now - lastTick > 1500) {
                     const candle = nextData[globalTimeframe];
                     if (candle) {
-                        const symUpper = pair.toUpperCase().replace("/", "");
-                        const tickSize = symUpper.endsWith("JPY") ? 0.001 : (symUpper.includes("XAU") || symUpper.includes("GOLD")) ? 0.01 : 0.00001;
+                        const symUpper = pair.toUpperCase().replace("/", "").replace(" ", "");
+                        const tickSize = symUpper.endsWith("JPY") ? 0.001 : (symUpper.includes("XAU") || symUpper.includes("GOLD")) ? 0.01 : symUpper.includes("BTC") ? 0.5 : symUpper.includes("NIFTY") ? 0.05 : 0.00001;
                         const moveTicks = Math.floor(Math.random() * 5) - 2;
                         if (moveTicks !== 0) {
                             const change = moveTicks * tickSize;
@@ -246,36 +280,39 @@ const WatchlistItem = memo(({ pair, isActive, globalTimeframe, addLog, onClick, 
 
     const changeVal = candle ? candle.close - candle.open : 0;
     const changePct = candle && candle.open > 0 ? (changeVal / candle.open) * 100 : 0;
-    const isBullish = changeVal >= 0;
+    const isPositive = changeVal >= 0;
+    const isNegative = changeVal < 0;
 
-    // Use actual score if available, otherwise fallback to stable hash-based score
-    const score = actualScore !== undefined && actualScore !== null ? actualScore : getHashedScore(pair);
-    const scoreClass = getScoreSeverityClass(score);
-    const scoreLabel = getScoreLabel(score);
+    const { bid, ask } = getBidAskPrices(candle, pair);
+    const isNifty = pair.includes('NIFTY');
+
+    const pctClass = isNifty 
+        ? styles.pctRef 
+        : isNegative 
+        ? styles.pctDown 
+        : styles.pctUp;
+
+    const rowToneClass = isNifty
+        ? styles.rowNeutral
+        : isNegative
+        ? styles.rowBearish
+        : styles.rowBullish;
 
     return (
         <div
             onClick={onClick}
-            className={`${styles.watchlistItem} ${isActive ? styles.activeItem : ''} ${tickClass === 'upTick' ? styles.itemUpTick : tickClass === 'downTick' ? styles.itemDownTick : ''}`}
+            className={`${styles.quoteWatchlistItem} ${rowToneClass} ${isActive ? styles.quoteActiveItem : ''} ${tickClass === 'upTick' ? styles.itemUpTick : tickClass === 'downTick' ? styles.itemDownTick : ''}`}
         >
-            <div className={styles.itemLeft}>
-                {/* Technical Score Badge */}
-                <div className={`${styles.itemScoreBadge} ${scoreClass}`}>
-                    {score}
-                </div>
-                <div className={styles.itemSymbolMeta}>
-                    <span className={styles.itemSymbolName}>{pair}</span>
-                    <span className={styles.itemSymbolLabel}>{scoreLabel}</span>
-                </div>
+            <div className={styles.quoteItemLeft}>
+                <span className={styles.quoteSymbolName}>{pair}</span>
+                <span className={`${styles.quoteChangePct} ${pctClass}`}>
+                    {isNifty ? 'REF' : `${isPositive ? '+' : ''}${changePct.toFixed(2)}%`}
+                </span>
             </div>
 
-            <div className={styles.itemRight}>
-                <span className={`${styles.itemPrice} ${isBullish ? styles.itemBullish : styles.itemBearish}`}>
-                    {candle ? formatPairCurrency(candle.close, pair) : '-'}
-                </span>
-                <span className={`${styles.itemChangePct} ${isBullish ? styles.itemBullish : styles.itemBearish}`}>
-                    {isBullish ? '+' : ''}{changePct.toFixed(2)}%
-                </span>
+            <div className={styles.quoteItemRight}>
+                <span className={styles.quoteBidPrice}>{bid}</span>
+                <span className={styles.quoteAskPrice}>{ask}</span>
             </div>
         </div>
     );
@@ -293,6 +330,7 @@ export default function WatchlistPanel({ selectedSymbol, onSelectSymbol, globalT
 
     return (
         <div className={styles.watchlistPanel}>
+            {/* Watchlist Header */}
             <div className={styles.watchlistHeader}>
                 <h3>{t('aiStrategy.watchlistTitle', 'Watchlist')}</h3>
                 <span className={styles.watchlistCount}>{PAIRS.length} pairs</span>
@@ -313,15 +351,11 @@ export default function WatchlistPanel({ selectedSymbol, onSelectSymbol, globalT
                 )}
             </div>
 
-            {/* Pairs List */}
+            {/* Pairs Quote List */}
             <div className={styles.watchlistItemsList}>
                 {filteredPairs.length > 0 ? (
                     filteredPairs.map(pair => {
-                        const isSelected = pair.replace('/', '').toUpperCase() === selectedSymbol.replace('/', '').toUpperCase();
-
-                        // Pass actual score to list item if this is the currently loaded pair's analysis
-                        const isAnalysisMatch = activeAnalysis && activeAnalysis.symbol?.replace('/', '').toUpperCase() === pair.replace('/', '').toUpperCase();
-                        const scoreVal = isAnalysisMatch ? activeAnalysis.technical_score?.total : null;
+                        const isSelected = pair.replace('/', '').replace(' ', '').toUpperCase() === selectedSymbol.replace('/', '').replace(' ', '').toUpperCase();
 
                         return (
                             <WatchlistItem
@@ -331,7 +365,6 @@ export default function WatchlistPanel({ selectedSymbol, onSelectSymbol, globalT
                                 globalTimeframe={globalTimeframe}
                                 addLog={addLog}
                                 onClick={() => onSelectSymbol(pair)}
-                                actualScore={scoreVal}
                                 onPriceUpdate={isSelected ? onActivePriceUpdate : null}
                             />
                         );

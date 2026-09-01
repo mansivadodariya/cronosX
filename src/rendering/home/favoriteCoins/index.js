@@ -249,9 +249,9 @@ export default function FavoriteCoins() {
         <SectionHeader
           badge="TRADINGVIEW VERIFIED SYMBOLS · 100+ MARKETS"
           title1="Trade your"
-          title2="favorite coins & assets"
+          title2="favorite pairs & assets"
           breakLine={false}
-          description="Sub-second real-time neural telemetry across Crypto, Forex, Indices, and Commodities with institutional AI signals."
+          description="Sub-second real-time neural telemetry across Forex, Indices, and Commodities with institutional AI signals."
         />
       </div>
 

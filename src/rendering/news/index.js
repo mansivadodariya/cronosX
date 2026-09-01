@@ -207,7 +207,7 @@ export default function MarketNews() {
                         { id: 'ALL', label: 'All Catalysts' },
                         { id: 'HIGH_IMPACT', label: '⚡ High Impact (Score 3-5)' },
                         { id: 'FOREX', label: '💱 Forex Markets' },
-                        { id: 'CRYPTO', label: '🪙 Crypto & Web3' },
+                        { id: 'CRYPTO', label: '🪙 Digital Assets & Web3' },
                         { id: 'EQUITIES', label: '📊 Global Equities' },
                     ].map(cat => (
                         <button

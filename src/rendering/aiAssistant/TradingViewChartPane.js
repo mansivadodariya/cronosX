@@ -115,7 +115,7 @@ export const PAIR_GROUPS = [
         pairs: ['CHF/JPY', 'CAD/JPY', 'AUD/JPY', 'NZD/JPY'],
     },
     {
-        label: 'COMMODITIES & CRYPTO',
+        label: 'COMMODITIES & DIGITAL ASSETS',
         pairs: ['BTC/USD', 'ETH/USD', 'SOL/USD', 'XRP/USD', 'XAU/USD', 'XAG/USD', 'WTI/USD'],
     },
 ];
@@ -1138,7 +1138,7 @@ const TradingViewChartPane = forwardRef(function TradingViewChartPane(
                 currentChartTypeRef.current = chartType;
             }
 
-            // Apply Dynamic Symbol Precision (5 decimals for Forex, 3 for JPY, 2 for Gold/Crypto)
+            // Apply Dynamic Symbol Precision (5 decimals for Forex, 3 for JPY, 2 for Gold/Metals)
             const { precision, minMove } = getSymbolPrecision(activeSymbolClean);
             seriesRef.current.applyOptions({
                 priceFormat: {
@@ -1716,6 +1716,7 @@ const TradingViewChartPane = forwardRef(function TradingViewChartPane(
                 <div
                     ref={containerRef}
                     className={`${styles.mainChartContainer} ${hasSubPanes ? styles.hasSubPanes : ''} ${loading ? styles.isChartLoading : ''}`}
+                    style={{ cursor: 'crosshair' }}
                 >
                     {/* Inside Chart Floating Control Bar (Top Left) */}
                     <div className={styles.insideChartControlPill}>

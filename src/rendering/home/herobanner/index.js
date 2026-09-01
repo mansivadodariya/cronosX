@@ -13,8 +13,8 @@ import NetworkCircuitChart from '@/components/networkCircuitChart';
 const RightArrow = '/assets/icons/right.svg';
 
 const metrics = [
-  { target: 50, suffix: '+', decimals: 0, label: 'Global Market Pairs', sub: 'Forex, Crypto, Indices & Metals' },
-  { target: 500, prefix: '< ', suffix: 'ms', decimals: 0, label: 'AI Processing Speed', sub: 'Sub-second neural pattern analysis' },
+  { target: 50, suffix: '+', decimals: 0, label: 'Global Market Pairs', sub: 'Forex, Indices & Metals' },
+  { target: 300, prefix: '< ', suffix: 'ms', decimals: 0, label: 'AI Processing Speed', sub: 'Sub-second neural pattern analysis' },
   { target: 6, suffix: ' Timeframes', decimals: 0, label: 'Multi-TF Confluence', sub: 'From 1-minute scalping to daily swings' },
   { target: 99.9, suffix: '%', decimals: 1, label: 'Platform Availability', sub: '24/7 continuous market telemetry' }
 ];
@@ -146,7 +146,7 @@ export default function Herobanner() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            Real-time institutional-grade AI signals, multi-timeframe pattern recognition, and sniper trade setups engineered for elite Forex &amp; Crypto traders.
+            Real-time institutional-grade AI signals, multi-timeframe pattern recognition, and sniper trade setups engineered for elite Forex &amp; Global traders.
           </motion.p>
 
           {/* 4. Action Buttons */}

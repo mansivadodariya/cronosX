@@ -152,6 +152,7 @@ export async function analyzeTradesReport(files, _isRetry = false) {
         broker_metadata: data.broker_metadata || {},
         trades: Array.isArray(data.trades) ? data.trades : [],
         summary: data.summary || {},
+        scorecard: data.scorecard || data.summary?.scorecard || null,
         entry_analysis: data.entry_analysis || data.summary?.entry_analysis || null,
         report: data.report || data.summary?.formatted_report || '',
         raw_trades_count: data.raw_trades_count || data.trades?.length || 0,

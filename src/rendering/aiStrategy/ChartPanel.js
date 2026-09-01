@@ -14,45 +14,51 @@ function getMsUntilNextHourOOne() {
     next.setSeconds(0);
     next.setMilliseconds(0);
 
-    // If we are already past the 1st minute of this hour, schedule for the next hour
     if (now.getMinutes() >= 1) {
         next.setHours(now.getHours() + 1);
     }
 
     const diff = next.getTime() - now.getTime();
-    // Fallback safety (if diff is negative or 0, set to 1 hour)
     return diff > 0 ? diff : 3600000;
 }
 
 function formatPairCurrency(val, symbol) {
     if (typeof val !== 'number' || isNaN(val)) return '-';
-    let symUpper = (symbol || '').toUpperCase().replace("/", "");
+    let symUpper = (symbol || '').toUpperCase().replace("/", "").replace(" ", "");
     if (symUpper.endsWith("JPY")) return val.toFixed(3);
     if (symUpper.includes("XAU") || symUpper.includes("GOLD") || symUpper.includes("XAG")) return val.toFixed(2);
+    if (symUpper.includes("BTC")) return val.toFixed(2);
+    if (symUpper.includes("NIFTY")) return val.toFixed(2);
     if (symUpper.length === 6) return val.toFixed(5);
     return val.toFixed(2);
 }
 
 function generateFallbackCandles(symbol = 'XAUUSD', timeframe = '1H') {
     const candlesList = [];
-    let basePrice = 2700.00;
+    let basePrice = 4457.50;
     let step = 1.5;
 
-    const symUpper = (symbol || '').toUpperCase().replace('/', '');
+    const symUpper = (symbol || '').toUpperCase().replace('/', '').replace(' ', '');
     if (symUpper.endsWith('JPY')) {
-        basePrice = 155.40;
+        basePrice = 155.25;
         step = 0.15;
     } else if (symUpper.includes('EUR') || symUpper === 'EURUSD') {
-        basePrice = 1.08500;
-        step = 0.0008;
+        basePrice = 1.16027;
+        step = 0.0004;
     } else if (symUpper.includes('GBP') || symUpper === 'GBPUSD') {
-        basePrice = 1.29200;
-        step = 0.0009;
+        basePrice = 1.35431;
+        step = 0.0005;
     } else if (symUpper.includes('USDCAD')) {
-        basePrice = 1.38500;
-        step = 0.0008;
+        basePrice = 1.36495;
+        step = 0.0004;
+    } else if (symUpper.includes('BTC')) {
+        basePrice = 78562.99;
+        step = 45.0;
+    } else if (symUpper.includes('NIFTY')) {
+        basePrice = 23500.00;
+        step = 12.0;
     } else if (symUpper.includes('XAU') || symUpper.includes('GOLD')) {
-        basePrice = 2735.50;
+        basePrice = 4457.58;
         step = 2.5;
     }
 
@@ -99,6 +105,8 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
     const containerRef = useRef(null);
     const chartRef = useRef(null);
     const { theme } = useTheme();
+    const isDark = theme !== 'light';
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [priceInfo, setPriceInfo] = useState(null);
@@ -122,7 +130,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
         setLoading(true);
         setError(null);
 
-        const cleanSymbol = symbol.replace('/', '').toUpperCase();
+        const cleanSymbol = symbol.replace('/', '').replace(' ', '').toUpperCase();
         const baseUrl = (process.env.NEXT_PUBLIC_BACKEND_URL || '').replace(/\/+$/, '');
         const effectiveStrategyId = strategyId || '3e8d2b78-0e86-4fdf-9759-338276db1742';
         let url = `${baseUrl}/api/v1/chart/candles?symbol=${cleanSymbol}&timeframe=${timeframe}&strategy_id=${effectiveStrategyId}`;
@@ -144,13 +152,11 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
             console.error('Error fetching candles from API:', err);
         }
 
-        try {
-            if (candlesList.length === 0) {
-                setError('No candle data returned');
-                setLoading(false);
-                return;
-            }
+        if (candlesList.length === 0) {
+            candlesList = generateFallbackCandles(cleanSymbol, timeframe);
+        }
 
+        try {
             if (!chartRef.current || !containerRef.current) {
                 setLoading(false);
                 return;
@@ -159,7 +165,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
             const chart = chartRef.current.chart;
             const series = chartRef.current.series;
 
-            // Format candles for Lightweight Charts
+            // Format candles for Lightweight Charts (AI Chat Palette: Bullish #26a69a, Bearish #ef5350)
             const candleData = [];
             const volumeData = [];
             const ema20Data = [];
@@ -185,7 +191,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                 volumeData.push({
                     time: ts,
                     value: vol,
-                    color: cl >= o ? 'rgba(16, 185, 129, 0.25)' : 'rgba(239, 68, 68, 0.25)',
+                    color: cl >= o ? 'rgba(38, 166, 154, 0.35)' : 'rgba(239, 83, 80, 0.35)',
                 });
 
                 if (c.ema20 !== null && c.ema20 !== undefined) {
@@ -198,7 +204,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                     supertrendData.push({
                         time: ts,
                         value: c.supertrend_value,
-                        color: c.supertrend_direction === 1 ? '#10b981' : '#ef4444',
+                        color: c.supertrend_direction === 1 ? '#26a69a' : '#ef5350',
                     });
                 }
             });
@@ -255,7 +261,6 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
             }
 
             // S/R price lines
-            // Clear previous price lines
             if (chartRef.current.priceLines) {
                 chartRef.current.priceLines.forEach(pl => {
                     try { series.candle.removePriceLine(pl); } catch (e) { }
@@ -266,9 +271,9 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
             if (nearestSupport !== undefined && nearestSupport !== null) {
                 const sLine = series.candle.createPriceLine({
                     price: nearestSupport,
-                    color: 'rgba(16, 185, 129, 0.6)',
+                    color: 'rgba(38, 166, 154, 0.8)',
                     lineWidth: 1,
-                    lineStyle: 2, // dashed
+                    lineStyle: 2,
                     title: `S: ${nearestSupport.toFixed(4)}`,
                 });
                 chartRef.current.priceLines.push(sLine);
@@ -277,9 +282,9 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
             if (nearestResistance !== undefined && nearestResistance !== null) {
                 const rLine = series.candle.createPriceLine({
                     price: nearestResistance,
-                    color: 'rgba(239, 68, 68, 0.6)',
+                    color: 'rgba(239, 83, 80, 0.8)',
                     lineWidth: 1,
-                    lineStyle: 2, // dashed
+                    lineStyle: 2,
                     title: `R: ${nearestResistance.toFixed(4)}`,
                 });
                 chartRef.current.priceLines.push(rLine);
@@ -294,14 +299,14 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
             chart.timeScale().fitContent();
 
         } catch (err) {
-            console.error('Error fetching candles:', err);
+            console.error('Error rendering candles:', err);
             setError(err.message);
         } finally {
             setLoading(false);
         }
     };
 
-    // Initialize Chart
+    // Initialize Chart (Matching AI Chat Dark Background & Theme)
     useEffect(() => {
         if (!containerRef.current) return;
 
@@ -317,7 +322,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                 background: { type: 'solid', color: 'transparent' },
                 textColor: isLight ? '#334155' : '#18C98B',
                 fontSize: 11,
-                fontFamily: "'Euclid-Medium', sans-serif",
+                fontFamily: "'Inter', sans-serif",
                 attributionLogo: false,
             },
             grid: {
@@ -325,8 +330,8 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                 horzLines: { color: isLight ? 'rgba(24, 201, 139, 0.08)' : 'rgba(24, 201, 139, 0.1)' },
             },
             crosshair: {
-                vertLine: { color: 'rgba(24, 201, 139, 0.4)', width: 1 },
-                horzLine: { color: 'rgba(24, 201, 139, 0.4)', width: 1 },
+                vertLine: { color: isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)', width: 1 },
+                horzLine: { color: isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)', width: 1 },
             },
             timeScale: {
                 borderColor: isLight ? 'rgba(24, 201, 139, 0.2)' : 'rgba(24, 201, 139, 0.25)',
@@ -341,14 +346,14 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
             },
         });
 
-        // Add series
+        // Add series with AI Chat color palette (#26a69a / #ef5350)
         const candleSeries = chart.addSeries(CandlestickSeries, {
-            upColor: '#10b981',
-            downColor: '#ef4444',
-            borderUpColor: '#10b981',
-            borderDownColor: '#ef4444',
-            wickUpColor: '#10b98180',
-            wickDownColor: '#ef444480',
+            upColor: '#26a69a',
+            downColor: '#ef5350',
+            borderUpColor: '#26a69a',
+            borderDownColor: '#ef5350',
+            wickUpColor: '#26a69a',
+            wickDownColor: '#ef5350',
         });
 
         const volumeSeries = chart.addSeries(HistogramSeries, {
@@ -368,7 +373,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
         });
 
         const ema50Series = chart.addSeries(LineSeries, {
-            color: '#3b82f6',
+            color: '#00E5FF',
             lineWidth: 1.5,
             priceLineVisible: false,
             lastValueVisible: false,
@@ -411,7 +416,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
             resizeObserver.observe(containerRef.current);
         }
 
-        // Subscribe to crosshair hover moves to dynamically show OHLC
+        // Crosshair move subscription
         chart.subscribeCrosshairMove((param) => {
             if (!param.time) {
                 setHoveredData(null);
@@ -454,7 +459,6 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                     supertrendColor: supertrendObj?.color
                 });
 
-                // Calculate pixel coordinates for the dots overlay
                 const chartInstance = chartRef.current.chart;
                 const seriesInstance = chartRef.current.series;
                 const timeScale = chartInstance.timeScale();
@@ -468,7 +472,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                     }
                     if (ema50 !== undefined && ema50 !== null) {
                         const y = seriesInstance.ema50.priceToCoordinate(ema50);
-                        if (y !== null) positions.ema50 = { x, y, color: '#3b82f6' };
+                        if (y !== null) positions.ema50 = { x, y, color: '#00E5FF' };
                     }
                     if (supertrendObj?.value !== undefined && supertrendObj?.value !== null) {
                         const y = seriesInstance.supertrend.priceToCoordinate(supertrendObj.value);
@@ -482,7 +486,6 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
             }
         });
 
-        // Fetch data initially
         fetchAndPlotData();
 
         return () => {
@@ -491,16 +494,14 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
             chart.remove();
             chartRef.current = null;
         };
-    }, [symbol, timeframe, theme]);
+    }, [symbol, timeframe, theme, isDark]);
 
-    // Update data when parameters or support/resistance props change
     useEffect(() => {
         if (chartRef.current) {
             fetchAndPlotData();
         }
     }, [symbol, strategyId, timeframe, nearestSupport, nearestResistance]);
 
-    // Handle dynamic next-hour timeout refresh
     useEffect(() => {
         const scheduleNextRefresh = () => {
             const delay = getMsUntilNextHourOOne();
@@ -510,11 +511,9 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
             }
 
             refreshTimeoutRef.current = setTimeout(() => {
-                // Trigger refresh callback in parent component
                 if (onRefreshNeeded) {
                     onRefreshNeeded();
                 }
-                // Reschedule for next hour
                 scheduleNextRefresh();
             }, delay);
         };
@@ -562,11 +561,6 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
 
     const colorClass = isBullish ? styles.itemBullish : styles.itemBearish;
 
-    const displayEma20 = hoveredData ? hoveredData.ema20 : activePrice?.ema20;
-    const displayEma50 = hoveredData ? hoveredData.ema50 : activePrice?.ema50;
-    const displaySupertrend = hoveredData ? hoveredData.supertrend : activePrice?.supertrend;
-    const displaySupertrendColor = hoveredData ? hoveredData.supertrendColor : activePrice?.supertrendColor;
-
     return (
         <div className={styles.chartPanel}>
             <div className={styles.chartPanelHeader}>
@@ -612,7 +606,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                 )}
             </div>
 
-            <div className={styles.chartCanvasContainer}>
+            <div className={styles.chartCanvasContainer} style={{ cursor: 'crosshair' }}>
                 {loading && (
                     <div className={styles.chartOverlay}>
                         <div className={styles.chartSpinner} />
@@ -625,7 +619,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                         <button onClick={fetchAndPlotData} className={styles.chartRetryBtn}>Retry</button>
                     </div>
                 )}
-                <div ref={containerRef} className={styles.chartCanvas} />
+                <div ref={containerRef} className={styles.chartCanvas} style={{ cursor: 'crosshair' }} />
 
                 {/* Render Indicator Dots Overlay tracking the crosshair */}
                 {dotPositions && (
@@ -645,7 +639,7 @@ export default function ChartPanel({ symbol, strategyId, timeframe = '1H', neare
                 )}
             </div>
 
-            {/* Custom Chart Legend */}
+            {/* Custom Chart Legend with AI Chat Indicator Colors */}
             <div className={styles.chartLegendContainer}>
                 <div className={styles.chartLegend}>
                     <div className={styles.legendItem}>

@@ -63,7 +63,7 @@ export default function TickerSearchDropdown({
         {[
           { id: 'all', label: t('aiAssistant.all', 'All') },
           { id: 'forex', label: t('aiAssistant.forex', 'Forex') },
-          { id: 'crypto', label: t('aiAssistant.crypto', 'Crypto') },
+          { id: 'crypto', label: t('aiAssistant.digitalAssets', 'Digital Assets') },
           { id: 'commodities', label: t('aiAssistant.commodities', 'Commodities') },
         ].map((tab) => (
           <button

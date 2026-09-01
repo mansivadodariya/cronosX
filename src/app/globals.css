@@ -1254,3 +1254,34 @@ html.light [class*="mobileTechAtmosphere"],
 html.light [class*="mobileQuantumHalo"] {
   display: none !important;
 }
+
+/* ========================================================================= */
+/* GLOBAL CHART CROSSHAIR (+) CURSOR */
+/* ========================================================================= */
+/* Ensures the mouse cursor displays as a crosshair (+) over any chart across the web app */
+.tv-lightweight-charts,
+.tv-lightweight-charts canvas,
+.tv-lightweight-charts table,
+.tv-lightweight-charts table tr,
+.tv-lightweight-charts table td,
+.chartCanvas,
+.chartCanvasContainer,
+[class*="chartCanvas"],
+[class*="canvasContainer"],
+[class*="mainChartContainer"],
+.apexcharts-canvas,
+.apexcharts-canvas svg,
+.apexcharts-canvas canvas {
+  cursor: crosshair !important;
+}
+
+/* Ensure clickable control buttons / inputs overlaying charts retain pointer cursor */
+.tv-lightweight-charts button,
+[class*="chartCanvas"] button,
+[class*="chartCanvasContainer"] button,
+[class*="canvasContainer"] button,
+[class*="mainChartContainer"] button,
+[class*="insideChartControlPill"],
+[class*="insideChartControlPill"] * {
+  cursor: pointer;
+}

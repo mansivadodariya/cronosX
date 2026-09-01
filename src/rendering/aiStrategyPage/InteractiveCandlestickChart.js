@@ -350,7 +350,7 @@ export default function InteractiveCandlestickChart() {
             )}
 
             {/* Interactive Canvas Container */}
-            <div ref={containerRef} className={styles.canvasContainer} />
+            <div ref={containerRef} className={styles.canvasContainer} style={{ cursor: 'crosshair' }} />
 
             {/* Chart Footer Indicator Legend */}
             <div className={styles.chartFooterLegend}>
