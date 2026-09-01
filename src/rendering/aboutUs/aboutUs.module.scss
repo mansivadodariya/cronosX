@@ -3,7 +3,7 @@
 
 .aboutPage {
     position: relative;
-    padding: 150px 0 90px 0;
+    padding: 150px 0 0 0;
     min-height: 100vh;
     background: #040605;
     color: #ffffff;
@@ -991,9 +991,270 @@
 }
 
 :global(html.light) .aboutPage {
-    background: #F8FAFC;
-    color: #0F172A;
+    background: #F8FAFC !important;
+    color: #0F172A !important;
 
+    .gridOverlay {
+        opacity: 0.08 !important;
+    }
+
+    .ambientGlowTop,
+    .ambientGlowCenter,
+    .ambientGlowBottom {
+        opacity: 0.1 !important;
+        filter: blur(120px) !important;
+    }
+
+    /* 1. Hero Section & Status Pill (Screenshot Fix 1) */
+    .statusPillWrapper {
+        .statusPill {
+            background: #FFFFFF !important;
+            border: 1px solid rgba(24, 201, 139, 0.45) !important;
+            box-shadow: 0 4px 18px rgba(24, 201, 139, 0.12) !important;
+
+            .pillTag {
+                color: #047857 !important;
+                font-weight: 800 !important;
+                background: transparent !important;
+                background-color: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+            }
+
+            .pillDivider {
+                color: rgba(15, 23, 42, 0.25) !important;
+            }
+
+            .pillText {
+                color: #0F172A !important;
+                font-weight: 600 !important;
+                background: transparent !important;
+                background-color: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+            }
+
+            .pillBadge {
+                background: #F0FDF4 !important;
+                border: 1px solid rgba(24, 201, 139, 0.35) !important;
+                color: #047857 !important;
+                font-weight: 700 !important;
+            }
+        }
+    }
+
+    .mainTitle {
+        color: #0F172A !important;
+    }
+
+    .mainSubtitle {
+        color: #475569 !important;
+    }
+
+    .goldGradient {
+        color: #18C98B !important;
+        background: none !important;
+        -webkit-background-clip: unset !important;
+        -webkit-text-fill-color: initial !important;
+    }
+
+    /* Common Section Headings */
+    .sectionTitle {
+        color: #0F172A !important;
+    }
+
+    .sectionSubtitle {
+        color: #475569 !important;
+    }
+
+    .sectionBadge,
+    .hubsBadge {
+        background: rgba(24, 201, 139, 0.12) !important;
+        border: 1px solid rgba(24, 201, 139, 0.3) !important;
+        color: #047857 !important;
+    }
+
+    /* 2. Institutional Metrics Strip */
+    .metricCard {
+        background: #FFFFFF !important;
+        border: 1px solid rgba(24, 201, 139, 0.25) !important;
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05) !important;
+
+        &:hover {
+            border-color: #18C98B !important;
+            box-shadow: 0 10px 28px rgba(24, 201, 139, 0.12) !important;
+        }
+
+        .metricNumber {
+            color: #047857 !important;
+        }
+
+        .metricLabel {
+            color: #0F172A !important;
+        }
+
+        .metricSub {
+            color: #64748B !important;
+        }
+    }
+
+    /* 3. Mission & Vision Bento Cards */
+    .missionCard {
+        background: #FFFFFF !important;
+        border: 1px solid rgba(24, 201, 139, 0.25) !important;
+        box-shadow: 0 8px 25px rgba(15, 23, 42, 0.05) !important;
+
+        &:hover {
+            border-color: #18C98B !important;
+            box-shadow: 0 12px 30px rgba(24, 201, 139, 0.12) !important;
+        }
+
+        .missionCardIcon {
+            background: #F0FDF4 !important;
+            border-color: rgba(24, 201, 139, 0.35) !important;
+        }
+
+        .missionCardTitle {
+            color: #0F172A !important;
+        }
+
+        .missionCardDesc {
+            color: #475569 !important;
+        }
+
+        .missionHighlight {
+            background: #F0FDF4 !important;
+            border-color: rgba(24, 201, 139, 0.3) !important;
+            color: #047857 !important;
+        }
+    }
+
+    /* 4. Core Technology Pillars */
+    .pillarCard {
+        background: #FFFFFF !important;
+        border: 1px solid rgba(24, 201, 139, 0.25) !important;
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05) !important;
+
+        &:hover {
+            border-color: #18C98B !important;
+            box-shadow: 0 10px 28px rgba(24, 201, 139, 0.12) !important;
+        }
+
+        .pillarIconBox {
+            background: #F0FDF4 !important;
+            border-color: rgba(24, 201, 139, 0.35) !important;
+            color: #047857 !important;
+        }
+
+        .pillarTitle {
+            color: #0F172A !important;
+        }
+
+        .pillarDesc {
+            color: #475569 !important;
+        }
+    }
+
+    /* 5. Evolutionary Timeline */
+    .timelineCard {
+        background: #FFFFFF !important;
+        border: 1px solid rgba(24, 201, 139, 0.25) !important;
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05) !important;
+
+        .timelineYear {
+            background: rgba(24, 201, 139, 0.12) !important;
+            border-color: rgba(24, 201, 139, 0.35) !important;
+            color: #047857 !important;
+        }
+
+        .timelineTitle {
+            color: #0F172A !important;
+        }
+
+        .timelineDesc {
+            color: #475569 !important;
+        }
+    }
+
+    .timelineDot {
+        background: #FFFFFF !important;
+        border-color: #18C98B !important;
+        box-shadow: 0 0 10px rgba(24, 201, 139, 0.3) !important;
+    }
+
+    /* 6. Executive & Quant Leadership */
+    .teamCard {
+        background: #FFFFFF !important;
+        border: 1px solid rgba(24, 201, 139, 0.25) !important;
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05) !important;
+
+        &:hover {
+            border-color: #18C98B !important;
+            box-shadow: 0 10px 28px rgba(24, 201, 139, 0.12) !important;
+        }
+
+        .avatarPlaceholder {
+            background: #F0FDF4 !important;
+            border-color: rgba(24, 201, 139, 0.35) !important;
+            color: #047857 !important;
+            box-shadow: none !important;
+        }
+
+        .teamTag {
+            background: rgba(24, 201, 139, 0.12) !important;
+            border-color: rgba(24, 201, 139, 0.3) !important;
+            color: #047857 !important;
+        }
+
+        .memberName {
+            color: #0F172A !important;
+        }
+
+        .memberRole {
+            color: #047857 !important;
+        }
+
+        .memberBio {
+            color: #475569 !important;
+        }
+    }
+
+    /* 7. Global Financial Hubs (Screenshot Fix 2) */
+    .hubsCard {
+        background: #FFFFFF !important;
+        border: 1px solid rgba(24, 201, 139, 0.28) !important;
+        box-shadow: 0 10px 35px rgba(15, 23, 42, 0.06) !important;
+
+        .hubsTitle {
+            color: #0F172A !important;
+        }
+
+        .hubsSubtitle {
+            color: #475569 !important;
+        }
+
+        .hubItem {
+            background: #F8FAFC !important;
+            border: 1px solid #E2E8F0 !important;
+
+            .hubCity {
+                color: #047857 !important;
+                font-weight: 800 !important;
+            }
+
+            .hubTz {
+                color: #64748B !important;
+            }
+
+            .hubRole {
+                color: #475569 !important;
+            }
+        }
+    }
+
+    /* 8. CTA Buttons */
     .ctaButtonPrimary {
         background: #18C98B !important;
         color: #040605 !important;
@@ -1007,14 +1268,14 @@
     }
 
     .ctaButtonSecondary {
-        background: #FFFFFF;
-        border-color: rgba(15, 23, 42, 0.15);
-        color: #0F172A;
+        background: #FFFFFF !important;
+        border-color: rgba(15, 23, 42, 0.15) !important;
+        color: #0F172A !important;
 
         &:hover {
-            background: #F1F5F9;
-            border-color: #18C98B;
-            color: #047857;
+            background: #F1F5F9 !important;
+            border-color: #18C98B !important;
+            color: #047857 !important;
         }
     }
 }

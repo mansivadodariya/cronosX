@@ -604,10 +604,7 @@ html.light [class*="SecondaryBtn"],
 html.light [class*="outlineBtn"],
 html.light [class*="ghostBtn"],
 html.light [class*="resetBtn"],
-html.light [class*="navBtn"],
-html.light [class*="statusPill"],
-html.light [class*="badge"],
-html.light [class*="Badge"] {
+html.light [class*="navBtn"] {
   background: #FFFFFF !important;
   border-color: rgba(24, 201, 139, 0.35) !important;
   color: #047857 !important;
@@ -658,23 +655,37 @@ html.light [class*="inputField"]:focus {
   box-shadow: 0 0 0 3px rgba(24, 201, 139, 0.22) !important;
 }
 /* Light Theme Section & Card Depth Overrides */
-html.light [class*="sectionCard"],
+html.light [class*="sectionCard"]:not([class*="Title"]):not([class*="title"]):not([class*="Desc"]):not([class*="desc"]):not([class*="Text"]):not([class*="text"]):not([class*="Stat"]):not([class*="stat"]):not([class*="Header"]):not([class*="header"]):not([class*="Body"]):not([class*="body"]):not([class*="Footer"]):not([class*="footer"]):not([class*="Icon"]):not([class*="icon"]),
 html.light [class*="cardWrapper"],
-html.light [class*="featureCard"],
-html.light [class*="bentoCard"],
-html.light [class*="assetCard"],
-html.light [class*="cockpitCard"],
-html.light [class*="comparisonCard"],
-html.light [class*="chatCard"],
-html.light [class*="marketCard"],
-html.light [class*="stepCard"],
-html.light [class*="testimonialCard"],
-html.light [class*="planCard"],
-html.light [class*="pricingCard"],
-html.light [class*="brokerCard"] {
+html.light [class*="featureCard"]:not([class*="Title"]):not([class*="title"]):not([class*="Desc"]):not([class*="desc"]):not([class*="Text"]):not([class*="text"]):not([class*="Stat"]):not([class*="stat"]):not([class*="Header"]):not([class*="header"]):not([class*="Body"]):not([class*="body"]):not([class*="Footer"]):not([class*="footer"]):not([class*="Icon"]):not([class*="icon"]):not([class*="Badge"]):not([class*="badge"]),
+html.light [class*="bentoCard"]:not([class*="Title"]):not([class*="title"]):not([class*="Desc"]):not([class*="desc"]):not([class*="Text"]):not([class*="text"]):not([class*="Stat"]):not([class*="stat"]):not([class*="Header"]):not([class*="header"]):not([class*="Body"]):not([class*="body"]):not([class*="Footer"]):not([class*="footer"]):not([class*="Icon"]):not([class*="icon"]),
+html.light [class*="assetCard"]:not([class*="Title"]):not([class*="title"]):not([class*="Desc"]):not([class*="desc"]):not([class*="Text"]):not([class*="text"]):not([class*="Stat"]):not([class*="stat"]):not([class*="Header"]):not([class*="header"]):not([class*="Body"]):not([class*="body"]):not([class*="Footer"]):not([class*="footer"]):not([class*="Icon"]):not([class*="icon"]),
+html.light [class*="cockpitCard"]:not([class*="Title"]):not([class*="title"]):not([class*="Desc"]):not([class*="desc"]):not([class*="Text"]):not([class*="text"]):not([class*="Stat"]):not([class*="stat"]):not([class*="Header"]):not([class*="header"]):not([class*="Body"]):not([class*="body"]):not([class*="Footer"]):not([class*="footer"]):not([class*="Icon"]):not([class*="icon"]),
+html.light [class*="comparisonCard"]:not([class*="Title"]):not([class*="title"]):not([class*="Desc"]):not([class*="desc"]):not([class*="Text"]):not([class*="text"]):not([class*="Stat"]):not([class*="stat"]):not([class*="Header"]):not([class*="header"]):not([class*="Body"]):not([class*="body"]):not([class*="Footer"]):not([class*="footer"]):not([class*="Icon"]):not([class*="icon"]),
+html.light [class*="chatCard"]:not([class*="Title"]):not([class*="title"]):not([class*="Desc"]):not([class*="desc"]):not([class*="Text"]):not([class*="text"]):not([class*="Stat"]):not([class*="stat"]):not([class*="Header"]):not([class*="header"]):not([class*="Body"]):not([class*="body"]):not([class*="Footer"]):not([class*="footer"]):not([class*="Icon"]):not([class*="icon"]),
+html.light [class*="marketCard"]:not([class*="Title"]):not([class*="title"]):not([class*="Desc"]):not([class*="desc"]):not([class*="Text"]):not([class*="text"]):not([class*="Stat"]):not([class*="stat"]):not([class*="Header"]):not([class*="header"]):not([class*="Body"]):not([class*="body"]):not([class*="Footer"]):not([class*="footer"]):not([class*="Icon"]):not([class*="icon"]),
+html.light [class*="stepCard"]:not([class*="Title"]):not([class*="title"]):not([class*="Desc"]):not([class*="desc"]):not([class*="Text"]):not([class*="text"]):not([class*="Stat"]):not([class*="stat"]):not([class*="Header"]):not([class*="header"]):not([class*="Body"]):not([class*="body"]):not([class*="Footer"]):not([class*="footer"]):not([class*="Icon"]):not([class*="icon"]),
+html.light [class*="testimonialCard"]:not([class*="Title"]):not([class*="title"]):not([class*="Desc"]):not([class*="desc"]):not([class*="Text"]):not([class*="text"]):not([class*="Stat"]):not([class*="stat"]):not([class*="Header"]):not([class*="header"]):not([class*="Body"]):not([class*="body"]):not([class*="Footer"]):not([class*="footer"]):not([class*="Icon"]):not([class*="icon"]),
+html.light [class*="planCard"]:not([class*="Title"]):not([class*="title"]):not([class*="Desc"]):not([class*="desc"]):not([class*="Text"]):not([class*="text"]):not([class*="Stat"]):not([class*="stat"]):not([class*="Header"]):not([class*="header"]):not([class*="Body"]):not([class*="body"]):not([class*="Footer"]):not([class*="footer"]):not([class*="Icon"]):not([class*="icon"]),
+html.light [class*="pricingCard"]:not([class*="Title"]):not([class*="title"]):not([class*="Desc"]):not([class*="desc"]):not([class*="Text"]):not([class*="text"]):not([class*="Stat"]):not([class*="stat"]):not([class*="Header"]):not([class*="header"]):not([class*="Body"]):not([class*="body"]):not([class*="Footer"]):not([class*="footer"]):not([class*="Icon"]):not([class*="icon"]),
+html.light [class*="brokerCard"]:not([class*="Title"]):not([class*="title"]):not([class*="Desc"]):not([class*="desc"]):not([class*="Text"]):not([class*="text"]):not([class*="Stat"]):not([class*="stat"]):not([class*="Header"]):not([class*="header"]):not([class*="Body"]):not([class*="body"]):not([class*="Footer"]):not([class*="footer"]):not([class*="Icon"]):not([class*="icon"]) {
   background: #FFFFFF !important;
   border: 1px solid rgba(24, 201, 139, 0.22) !important;
   box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05) !important;
+}
+
+html.light [class*="featureCardTitle"],
+html.light [class*="featureCardDesc"],
+html.light [class*="featureCardStat"],
+html.light [class*="featureTitle"],
+html.light [class*="featureDesc"],
+html.light [class*="statLabel"],
+html.light [class*="statVal"],
+html.light [class*="statValue"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 html.light [class*="sectionDivider"] {
@@ -830,14 +841,44 @@ html.light [class*="glow"] {
 /* Eyebrow Badges & Section Tags */
 html.light [class*="eyebrowBadge"],
 html.light [class*="sectionTag"],
-html.light [class*="badgeWrapper"] span,
 html.light [class*="statusBadge"],
 html.light [class*="chip"],
-html.light [class*="badge"],
-html.light [class*="tag"] {
+html.light span[class*="badge"]:not([class*="Text"]):not([class*="text"]):not([class*="Title"]):not([class*="title"]):not([class*="Icon"]):not([class*="icon"]):not([class*="Wrap"]):not([class*="wrap"]):not([class*="Content"]):not([class*="content"]):not([class*="Label"]):not([class*="label"]),
+html.light span[class*="Badge"]:not([class*="Text"]):not([class*="text"]):not([class*="Title"]):not([class*="title"]):not([class*="Icon"]):not([class*="icon"]):not([class*="Wrap"]):not([class*="wrap"]):not([class*="Content"]):not([class*="content"]):not([class*="Label"]):not([class*="label"]),
+html.light span[class*="tag"]:not([class*="Text"]):not([class*="text"]):not([class*="Title"]):not([class*="title"]):not([class*="Wrap"]):not([class*="wrap"]):not([class*="Content"]):not([class*="content"]):not([class*="pill"]):not([class*="Pill"]):not([class*="faq"]):not([class*="Faq"]):not([class*="Label"]):not([class*="label"]),
+html.light span[class*="Tag"]:not([class*="Text"]):not([class*="text"]):not([class*="Title"]):not([class*="title"]):not([class*="Wrap"]):not([class*="wrap"]):not([class*="Content"]):not([class*="content"]):not([class*="pill"]):not([class*="Pill"]):not([class*="faq"]):not([class*="Faq"]):not([class*="Label"]):not([class*="label"]),
+html.light [class*="pillBadge"],
+html.light [class*="statBadge"] {
   color: #047857 !important;
   background: rgba(24, 201, 139, 0.12) !important;
-  border-color: rgba(24, 201, 139, 0.3) !important;
+  border: 1px solid rgba(24, 201, 139, 0.3) !important;
+  box-shadow: none !important;
+}
+
+html.light [class*="badgeText"],
+html.light span[class*="badgeText"],
+html.light [class*="badgeTitle"],
+html.light [class*="labelText"],
+html.light span[class*="labelText"],
+html.light [class*="stepTag"],
+html.light span[class*="stepTag"],
+html.light [class*="pillTag"],
+html.light span[class*="pillTag"],
+html.light [class*="pillText"],
+html.light span[class*="pillText"],
+html.light [class*="pillDivider"],
+html.light span[class*="pillDivider"],
+html.light [class*="faqTag"],
+html.light span[class*="faqTag"],
+html.light [class*="badgeContent"],
+html.light [class*="badgeContent"] h4,
+html.light [class*="badgeContent"] p,
+html.light [class*="badgeWrapper"],
+html.light [class*="badgeRow"],
+html.light [class*="cardHeaderMeta"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
   box-shadow: none !important;
 }
 

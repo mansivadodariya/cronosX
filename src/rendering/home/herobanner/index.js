@@ -62,9 +62,9 @@ export default function Herobanner() {
         <div className={styles.ambientGlowTop} aria-hidden="true" />
         <div className={styles.ambientGlowCenter} aria-hidden="true" />
         <div className={styles.ambientGlowBottom} aria-hidden="true" />
-        
+
         {/* Interactive Cursor Spotlight Glow */}
-        <div 
+        <div
           className={styles.interactiveSpotlight}
           style={{
             left: `${mousePos.x}%`,
@@ -75,9 +75,9 @@ export default function Herobanner() {
         />
 
         <div className={styles.gridOverlay} aria-hidden="true" />
-        
+
         {/* Localized Green Grid Spotlight (Small, tight area around pointer) */}
-        <div 
+        <div
           className={styles.greenSpotlightGrid}
           style={{
             opacity: mousePos.isHovered ? 1 : 0,
@@ -123,7 +123,8 @@ export default function Herobanner() {
           >
             <div className={styles.badge} onClick={() => authNavigate(router, '/dashboard')}>
               <span className={styles.badgeText}>
-                 Trading Bots
+
+                Next-Gen AI Algorithmic Trading Terminal
               </span>
             </div>
           </motion.div>
@@ -146,7 +147,7 @@ export default function Herobanner() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            Real-time institutional-grade AI signals, multi-timeframe pattern recognition, and sniper trade setups engineered for elite Forex &amp; Crypto traders.
+            Real-time institutional-grade AI signals, multi-timeframe pattern recognition, and sniper trade setups engineered for elite Forex  traders.
           </motion.p>
 
           {/* 4. Action Buttons */}

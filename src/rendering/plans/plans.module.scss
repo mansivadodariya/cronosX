@@ -831,7 +831,15 @@
 /* COMPLETE LIGHT MODE OVERRIDES FOR PLANS & PRICING */
 /* ========================================================================= */
 :global(html.light) .plansPage {
+    background: #F8FAFC !important;
     color: #0F172A !important;
+
+    .eyebrowBadge {
+        background: #FFFFFF !important;
+        border: 1px solid rgba(24, 201, 139, 0.45) !important;
+        color: #047857 !important;
+        box-shadow: 0 4px 18px rgba(24, 201, 139, 0.12) !important;
+    }
 
     .title,
     .planName,
@@ -843,6 +851,13 @@
         color: #0F172A !important;
     }
 
+    .goldGradient {
+        color: #18C98B !important;
+        background: none !important;
+        -webkit-background-clip: unset !important;
+        -webkit-text-fill-color: initial !important;
+    }
+
     .subtitle,
     .planDesc,
     .validityLabel,
@@ -850,34 +865,159 @@
     .faqHeader p,
     .faqAnswer p,
     .disclaimerBox p,
+    .subCtaNote,
     .featureItemText {
         color: #475569 !important;
     }
 
+    .tierCategoryRow {
+        .tierCategory {
+            color: #047857 !important;
+            font-weight: 800 !important;
+        }
+
+        .creditsTag {
+            background: rgba(24, 201, 139, 0.12) !important;
+            border: 1px solid rgba(24, 201, 139, 0.3) !important;
+            color: #047857 !important;
+            font-weight: 800 !important;
+        }
+    }
+
     .planCard,
-    .featuredCard,
+    .basicCard,
     .premiumCard,
     .comparisonTableWrapper,
     .faqCard,
     .disclaimerBox {
         background: #FFFFFF !important;
-        border-color: rgba(15, 23, 42, 0.09) !important;
-        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05) !important;
+        border: 1px solid rgba(24, 201, 139, 0.25) !important;
+        box-shadow: 0 6px 25px rgba(15, 23, 42, 0.05) !important;
     }
 
     .featuredCard {
-        border-color: #18C98B !important;
-        box-shadow: 0 10px 30px rgba(24, 201, 139, 0.15) !important;
+        background: #FFFFFF !important;
+        border: 2px solid #18C98B !important;
+        box-shadow: 0 12px 35px rgba(24, 201, 139, 0.18) !important;
     }
 
     .priceContainer {
         background: #F8FAFC !important;
-        border-color: rgba(15, 23, 42, 0.08) !important;
+        border: 1px solid rgba(15, 23, 42, 0.08) !important;
     }
 
     .cardFeaturesBox {
         background: #F8FAFC !important;
-        border-color: rgba(15, 23, 42, 0.08) !important;
+        border: 1px solid rgba(15, 23, 42, 0.08) !important;
+
+        .featuresHeader {
+            color: #047857 !important;
+            font-weight: 800 !important;
+        }
+
+        .featuresList li {
+            color: #334155 !important;
+        }
+    }
+
+    .buyBtn {
+        &.featuredBuyBtn,
+        &.premiumBuyBtn {
+            background: #18C98B !important;
+            color: #040605 !important;
+            font-weight: 800 !important;
+            box-shadow: 0 4px 18px rgba(24, 201, 139, 0.25) !important;
+
+            &:hover {
+                background: #15B77E !important;
+            }
+        }
+
+        &.basicBuyBtn {
+            background: #F1F5F9 !important;
+            border: 1px solid #E2E8F0 !important;
+            color: #0F172A !important;
+            font-weight: 700 !important;
+
+            &:hover {
+                background: #E2E8F0 !important;
+            }
+        }
+    }
+
+    /* 3. Trust & Security Strip (Screenshot Fix 1) */
+    .trustStrip {
+        background: #FFFFFF !important;
+        border: 1px solid rgba(24, 201, 139, 0.28) !important;
+        box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06) !important;
+
+        .trustItem {
+            .trustIcon {
+                background: #F0FDF4 !important;
+                border: 1px solid rgba(24, 201, 139, 0.35) !important;
+                color: #047857 !important;
+            }
+
+            h4 {
+                color: #0F172A !important;
+                font-weight: 700 !important;
+            }
+
+            p {
+                color: #475569 !important;
+            }
+        }
+
+        .trustDivider {
+            background: rgba(15, 23, 42, 0.1) !important;
+        }
+    }
+
+    /* 4. FAQ Section (Screenshot Fix 2) */
+    .faqHeader {
+        .faqTag {
+            color: #047857 !important;
+            font-weight: 800 !important;
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            margin-bottom: 8px !important;
+            display: block !important;
+        }
+    }
+
+    .faqCard {
+        background: #FFFFFF !important;
+        border: 1px solid rgba(24, 201, 139, 0.25) !important;
+        box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04) !important;
+
+        &:hover {
+            border-color: #18C98B !important;
+            background: #F8FAFC !important;
+        }
+
+        .faqQuestionRow {
+            h3 {
+                color: #0F172A !important;
+            }
+
+            .faqChevron {
+                color: #047857 !important;
+            }
+        }
+
+        .faqAnswer p {
+            color: #475569 !important;
+            border-top: 1px solid #F1F5F9 !important;
+        }
+    }
+
+    .faqCardOpen {
+        border-color: #18C98B !important;
+        background: #FFFFFF !important;
+        box-shadow: 0 6px 22px rgba(24, 201, 139, 0.1) !important;
     }
 
     .billingToggleWrapper,

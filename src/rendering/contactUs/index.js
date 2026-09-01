@@ -671,17 +671,17 @@ export default function ContactUs() {
                         })}
                     </div>
                 </motion.section>
-
-                {/* 4. Bottom Call to Action Banner (Common CTA) */}
-                <CommonCta
-                    badge="READY FOR INSTITUTIONAL EXECUTION?"
-                    title1="Ready to Trade with"
-                    title2="Institutional AI Intelligence?"
-                    description="Join thousands of elite forex and crypto traders leveraging ChronosX real-time neural vision and high-probability signals."
-                    primaryBtnText="GET STARTED NOW"
-                    primaryBtnAction="/signup"
-                />
             </div>
+            {/* 4. Bottom Call to Action Banner (Common CTA) */}
+            <CommonCta
+                badge="READY FOR INSTITUTIONAL EXECUTION?"
+                title1="Ready to Trade with"
+                title2="Institutional AI Intelligence?"
+                description="Join thousands of elite forex and crypto traders leveraging ChronosX real-time neural vision and high-probability signals."
+                primaryBtnText="GET STARTED NOW"
+                primaryBtnAction="/signup"
+            />
+
         </div>
     );
 }

@@ -18,42 +18,45 @@
 
         .gridOverlay {
             background-image:
-                linear-gradient(to right, rgba(15, 42, 34, 0.14) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(15, 23, 42, 0.14) 1px, transparent 1px) !important;
-            mask-image: radial-gradient(ellipse at 50% 35%, #000 80%, transparent 100%) !important;
-            -webkit-mask-image: radial-gradient(ellipse at 50% 35%, #000 80%, transparent 100%) !important;
-            opacity: 0.2 !important;
+                linear-gradient(to right, rgba(15, 23, 42, 0.08) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(15, 23, 42, 0.08) 1px, transparent 1px) !important;
+            mask-image: radial-gradient(ellipse at 50% 35%, #000 70%, transparent 95%) !important;
+            -webkit-mask-image: radial-gradient(ellipse at 50% 35%, #000 70%, transparent 95%) !important;
+            opacity: 0.08 !important;
         }
 
         .greenSpotlightGrid {
-            background-image:
-                linear-gradient(to right, rgba(5, 150, 105, 0.45) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(5, 150, 105, 0.45) 1px, transparent 1px) !important;
-            filter: drop-shadow(0 0 3px rgba(5, 150, 105, 0.35)) !important;
+            opacity: 0 !important;
+            display: none !important;
         }
 
         .ambientGlowTop,
         .ambientGlowCenter,
         .ambientGlowBottom {
-            opacity: 0.2 !important;
-            filter: blur(100px) !important;
+            opacity: 0.1 !important;
+            filter: blur(120px) !important;
         }
 
         .topBadgeRow {
             .badge {
-                background: rgba(16, 185, 129, 0.12) !important;
-                border: 1px solid rgba(5, 150, 105, 0.42) !important;
-                box-shadow: 0 2px 10px rgba(5, 150, 105, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+                background: #FFFFFF !important;
+                border: 1px solid rgba(24, 201, 139, 0.45) !important;
+                box-shadow: 0 4px 18px rgba(24, 201, 139, 0.12) !important;
 
                 &:hover {
-                    background: rgba(16, 185, 129, 0.22) !important;
-                    border-color: rgba(5, 150, 105, 0.65) !important;
-                    box-shadow: 0 4px 14px rgba(5, 150, 105, 0.22) !important;
+                    background: #F0FDF4 !important;
+                    border-color: #18C98B !important;
+                    box-shadow: 0 6px 22px rgba(24, 201, 139, 0.2) !important;
                 }
 
                 .badgeText {
                     color: #047857 !important;
-                    font-weight: 600 !important;
+                    font-weight: 700 !important;
+                    background: transparent !important;
+                    background-color: transparent !important;
+                    border: none !important;
+                    box-shadow: none !important;
+                    padding: 0 !important;
                 }
             }
         }
@@ -71,6 +74,36 @@
 
         .heroDesc {
             color: #475569 !important;
+        }
+
+        .socialProofBar {
+            background: #FFFFFF !important;
+            border: 1px solid rgba(24, 201, 139, 0.28) !important;
+            box-shadow: 0 6px 25px rgba(15, 23, 42, 0.06) !important;
+
+            .proofText {
+                .starCluster .scoreText {
+                    color: #0F172A !important;
+                }
+
+                .verifiedSub {
+                    color: #64748B !important;
+                }
+            }
+
+            .proofDivider {
+                background: rgba(15, 23, 42, 0.12) !important;
+            }
+
+            .proofSpeed {
+                .speedHeader .speedLabel {
+                    color: #0F172A !important;
+                }
+
+                .speedSub {
+                    color: #047857 !important;
+                }
+            }
         }
     }
 
