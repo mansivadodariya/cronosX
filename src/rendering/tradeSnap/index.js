@@ -834,6 +834,7 @@ export default function TradeSnap() {
             <Modal
                 open={isDetailModalOpen}
                 onClose={() => setIsDetailModalOpen(false)}
+                size="large"
                 title="AI Snap Technical Analysis Dashboard"
                 description="State-of-the-art AI market diagnosis and trade signal setup"
             >

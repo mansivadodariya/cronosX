@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useRef, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -200,6 +200,23 @@ export default function TradeAnalysis() {
     const [analyzingTradeId, setAnalyzingTradeId] = useState(null);
     const [singleTradeModalData, setSingleTradeModalData] = useState(null);
     const [singleTradeActiveTab, setSingleTradeActiveTab] = useState('summary'); // 'summary' | 'deepdive'
+
+    // Coordinate modal scroll with Lenis and document body
+    useEffect(() => {
+        if (singleTradeModalData || showHistoryModal) {
+            const originalOverflow = document.body.style.overflow;
+            document.body.style.overflow = 'hidden';
+            if (typeof window !== 'undefined' && window.lenis) {
+                window.lenis.stop();
+            }
+            return () => {
+                document.body.style.overflow = originalOverflow;
+                if (typeof window !== 'undefined' && window.lenis) {
+                    window.lenis.start();
+                }
+            };
+        }
+    }, [singleTradeModalData, showHistoryModal]);
 
     // Filter states for ledger
     const [searchQuery, setSearchQuery] = useState('');
@@ -1429,10 +1446,12 @@ export default function TradeAnalysis() {
             {/* 4. HISTORY POPUP MODAL */}
             <AnimatePresence>
                 {showHistoryModal && (
-                    <div className={styles.modalBackdrop} onClick={() => setShowHistoryModal(false)}>
+                    <div className={styles.modalBackdrop} onClick={() => setShowHistoryModal(false)} data-lenis-prevent="true">
                         <motion.div
                             className={styles.historyModalContainer}
                             onClick={(e) => e.stopPropagation()}
+                            onWheel={(e) => e.stopPropagation()}
+                            data-lenis-prevent="true"
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95 }}
@@ -1526,10 +1545,12 @@ export default function TradeAnalysis() {
                     const tradePnl = tDetails.pnl !== undefined ? Number(tDetails.pnl) : Number(singleTradeModalData.trade.pnl || 0);
 
                     return (
-                        <div className={styles.modalBackdrop} onClick={() => setSingleTradeModalData(null)}>
+                        <div className={styles.modalBackdrop} onClick={() => setSingleTradeModalData(null)} data-lenis-prevent="true">
                             <motion.div
                                 className={styles.tradeAuditModalContainer}
                                 onClick={(e) => e.stopPropagation()}
+                                onWheel={(e) => e.stopPropagation()}
+                                data-lenis-prevent="true"
                                 initial={{ opacity: 0, scale: 0.94, y: 15 }}
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.94, y: 15 }}
