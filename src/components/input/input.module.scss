@@ -55,6 +55,7 @@
             justify-content: center;
             color: #18C98B;
             z-index: 2;
+            object-fit: contain;
 
             img {
                 width: 100%;
@@ -136,7 +137,7 @@
             align-items: center !important;
             justify-content: center !important;
             cursor: pointer !important;
-            color: #10B981 !important;
+            color: #18C98B !important;
             transition: color 0.2s ease-in-out, transform 0.15s ease !important;
             outline: none !important;
             box-shadow: none !important;
@@ -145,7 +146,7 @@
             user-select: none !important;
 
             &:hover {
-                color: #18C98B !important;
+                color: #22E7A0 !important;
             }
 
             &:active {
