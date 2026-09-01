@@ -47,16 +47,15 @@
     }
 
     span {
-      background: linear-gradient(90deg, #FFFFFF 0%, #6EE7B7 50%, #18c98b 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: #18c98b;
+      background: none;
+      -webkit-text-fill-color: initial;
       display: inline;
 
       :global(html.light) & {
-        background: linear-gradient(135deg, #047857 0%, #18C98B 60%, #059669 100%) !important;
-        -webkit-background-clip: text !important;
-        -webkit-text-fill-color: transparent !important;
+        color: #18C98B !important;
+        background: none !important;
+        -webkit-text-fill-color: initial !important;
       }
     }
 

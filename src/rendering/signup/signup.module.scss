@@ -247,9 +247,10 @@
     box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.08) !important;
 
     .text h2 {
-        background: linear-gradient(90deg, #047857 0%, #059669 35%, #10B981 75%, #18C98B 100%) !important;
-        -webkit-background-clip: text !important;
-        -webkit-text-fill-color: transparent !important;
+        color: #18C98B !important;
+        background: none !important;
+        -webkit-background-clip: unset !important;
+        -webkit-text-fill-color: initial !important;
     }
 
     .text p,

@@ -37,10 +37,9 @@
 }
 
 @mixin text-gradient {
-    background: linear-gradient(180deg, #A7F3D0 0%, #6EE7B7 40%, #18C98B 80%, #10B981 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #18c98b;
+    background: none;
+    -webkit-text-fill-color: initial;
 }
 
 @mixin heading-white-gradient {
@@ -48,10 +47,9 @@
 }
 
 @mixin heading-gold-gradient {
-    background: linear-gradient(90deg, #FFFFFF 0%, #A7F3D0 50%, #18C98B 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #18c98b;
+    background: none;
+    -webkit-text-fill-color: initial;
 }
 
 @mixin common-title-heading {
@@ -62,10 +60,9 @@
     color: #FFFFFF;
 
     span {
-        background: linear-gradient(90deg, #FFFFFF 0%, #A7F3D0 50%, #18C98B 100%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: #18c98b;
+        background: none;
+        -webkit-text-fill-color: initial;
         display: inline;
     }
 }

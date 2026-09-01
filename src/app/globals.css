@@ -408,17 +408,24 @@ html.light [class*="amount"] {
   opacity: 1 !important;
 }
 
-/* Vibrant Emerald/Mint Gradient Text */
+/* Solid #18c98b Accent Text */
+[class*="goldGradient"],
+[class*="greenGradient"],
+[class*="accentGradient"],
+[class*="gradientText"],
+[class*="title2"],
+[class*="highlightText"],
 html.light [class*="goldGradient"],
 html.light [class*="greenGradient"],
 html.light [class*="accentGradient"],
 html.light [class*="gradientText"],
 html.light [class*="title2"],
 html.light [class*="highlightText"] {
-  background: linear-gradient(90deg, #047857 0%, #059669 35%, #10B981 75%, #18C98B 100%) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: initial !important;
+  background-clip: unset !important;
+  color: #18C98B !important;
 }
 
 /* ============================================================

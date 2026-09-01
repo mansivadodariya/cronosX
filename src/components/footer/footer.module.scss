@@ -87,9 +87,9 @@
             top: 16px;
             left: 0;
             right: 0;
-            background: linear-gradient(135deg, #FFFFFF 0%, #A7F3D0 20%, #6EE7B7 50%, #18c98b 75%, #059669 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #18c98b;
+            background: none;
+            -webkit-text-fill-color: #18c98b;
             z-index: 2;
             text-shadow: none;
             filter: none;

@@ -81,10 +81,9 @@
       margin: 0 0 22px;
 
       span {
-        background: linear-gradient(90deg, #6EE7B7 0%, #18c98b 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: #18c98b;
+        background: none;
+        -webkit-text-fill-color: initial;
       }
 
       @include respond-to("tab") {

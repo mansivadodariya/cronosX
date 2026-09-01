@@ -72,11 +72,11 @@
     display: none !important;
 }
 
-/* Gold Gradient Typography */
+/* Solid Typography */
 .goldGradient {
-    background: linear-gradient(135deg, #FFFFFF 0%, #A7F3D0 45%, #18C98B 75%, #10B981 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #18C98B;
+    background: none;
+    -webkit-text-fill-color: initial;
     display: inline-block;
 }
 

@@ -104,9 +104,9 @@
         line-height: 1.2;
         margin: 0 0 16px;
         font-family: "Euclid-Bold", sans-serif;
-        background: linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 60%, #94A3B8 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: #FFFFFF;
+        background: none;
+        -webkit-text-fill-color: initial;
         word-break: break-word;
 
         @include respond-to('lg') {

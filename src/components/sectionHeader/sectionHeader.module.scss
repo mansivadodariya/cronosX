@@ -104,10 +104,11 @@
     }
 
     .title2 {
-      background: linear-gradient(90deg, #6EE7B7 0%, #18C98B 50%, #10B981 100%) !important;
-      -webkit-background-clip: text !important;
-      -webkit-text-fill-color: transparent !important;
-      background-clip: text !important;
+      color: #18C98B !important;
+      background: none !important;
+      -webkit-background-clip: unset !important;
+      -webkit-text-fill-color: initial !important;
+      background-clip: unset !important;
       display: inline;
     }
 
@@ -123,10 +124,11 @@
       }
 
       .title2 {
-        background: linear-gradient(90deg, #047857 0%, #059669 35%, #10B981 75%, #18C98B 100%) !important;
-        -webkit-background-clip: text !important;
-        -webkit-text-fill-color: transparent !important;
-        background-clip: text !important;
+        color: #18C98B !important;
+        background: none !important;
+        -webkit-background-clip: unset !important;
+        -webkit-text-fill-color: initial !important;
+        background-clip: unset !important;
       }
     }
   }

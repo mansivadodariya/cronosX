@@ -1773,9 +1773,9 @@
                         letter-spacing: 0.2px;
 
                         span {
-                            background: linear-gradient(135deg, #18C98B 0%, #18C98B 50%, #10B981 100%);
-                            -webkit-background-clip: text;
-                            -webkit-text-fill-color: transparent;
+                            color: #18C98B;
+                            background: none;
+                            -webkit-text-fill-color: initial;
                         }
                     }
 
@@ -1789,10 +1789,10 @@
                         font-family: var(--font-plus-jakarta), var(--font-roboto), sans-serif;
 
                         .titleGradient {
-                            background: linear-gradient(135deg, #6EE7B7 0%, #18C98B 45%, #10B981 100%);
-                            -webkit-background-clip: text;
-                            -webkit-text-fill-color: transparent;
-                            filter: drop-shadow(0 2px 8px rgba(24, 201, 139, 0.2));
+                            color: #18C98B;
+                            background: none;
+                            -webkit-text-fill-color: initial;
+                            filter: none;
                         }
                     }
 
@@ -4715,9 +4715,9 @@
                         letter-spacing: 0.2px;
 
                         span {
-                            background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
-                            -webkit-background-clip: text;
-                            -webkit-text-fill-color: transparent;
+                            color: #18C98B;
+                            background: none;
+                            -webkit-text-fill-color: initial;
                         }
                     }
 
@@ -4731,10 +4731,10 @@
                         font-family: var(--font-plus-jakarta), var(--font-roboto), sans-serif;
 
                         .titleGradient {
-                            background: linear-gradient(135deg, #6EE7B7 0%, #18C98B 45%, #10B981 100%);
-                            -webkit-background-clip: text;
-                            -webkit-text-fill-color: transparent;
-                            filter: drop-shadow(0 2px 8px rgba(24, 201, 139, 0.2));
+                            color: #18C98B;
+                            background: none;
+                            -webkit-text-fill-color: initial;
+                            filter: none;
                         }
                     }
 

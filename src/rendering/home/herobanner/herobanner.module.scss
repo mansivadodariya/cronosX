@@ -62,10 +62,10 @@
             color: #0F172A !important;
 
             .greenGradient {
-                background: linear-gradient(90deg, #0F172A 0%, #059669 35%, #047857 70%, #065F46 100%) !important;
-                -webkit-background-clip: text !important;
-                -webkit-text-fill-color: transparent !important;
-                background-clip: text !important;
+                color: #18C98B !important;
+                background: none !important;
+                -webkit-background-clip: unset !important;
+                -webkit-text-fill-color: initial !important;
             }
         }
 
@@ -390,11 +390,9 @@
 
         .greenGradient,
         .goldGradient {
-            background: linear-gradient(90deg, #ffffff 0%, #6EE7B7 30%, #18c98b 65%, #6EE7B7 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: greenShimmer 4s linear infinite;
+            color: #18c98b;
+            background: none;
+            -webkit-text-fill-color: initial;
             display: inline-block;
         }
 

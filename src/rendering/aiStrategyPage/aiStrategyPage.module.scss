@@ -72,9 +72,9 @@
 }
 
 .goldGradient {
-    background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #18C98B;
+    background: none;
+    -webkit-text-fill-color: initial;
     display: inline-block;
 }
 
