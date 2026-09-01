@@ -32,7 +32,6 @@ export default function Capabilities() {
             onMouseEnter={() => setHoveredIndex(0)}
             onMouseLeave={() => setHoveredIndex(null)}
             onClick={() => authNavigate(router, '/trade-snap')}
-            role="button"
             tabIndex={0}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
@@ -58,7 +57,7 @@ export default function Capabilities() {
                     AI-powered market analysis and trading signals.
                   </p>
                 </div>
-         
+
               </div>
 
               {/* Right Side: Interactive Animation Box */}
@@ -112,7 +111,6 @@ export default function Capabilities() {
             onMouseEnter={() => setHoveredIndex(1)}
             onMouseLeave={() => setHoveredIndex(null)}
             onClick={() => authNavigate(router, '/ai-assistant')}
-            role="button"
             tabIndex={0}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
@@ -128,7 +126,7 @@ export default function Capabilities() {
                   <div className={styles.topRowHeader}>
                     <div className={styles.capLabelRow}>
                       <span className={styles.watermarkNum}>02</span>
-                    </div>                
+                    </div>
                   </div>
                   <h3>AI CHAT</h3>
                 </div>
@@ -298,7 +296,6 @@ export default function Capabilities() {
             onMouseEnter={() => setHoveredIndex(2)}
             onMouseLeave={() => setHoveredIndex(null)}
             onClick={() => authNavigate(router, '/ai-strategy/live')}
-            role="button"
             tabIndex={0}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
@@ -439,7 +436,6 @@ export default function Capabilities() {
             onMouseEnter={() => setHoveredIndex(3)}
             onMouseLeave={() => setHoveredIndex(null)}
             onClick={() => router.push('/ai-past-trade-analyzer')}
-            role="button"
             tabIndex={0}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {

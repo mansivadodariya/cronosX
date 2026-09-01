@@ -387,7 +387,8 @@
 
     :global(html.light) & {
         background: #F8FAFC !important;
-        border-top: 1px solid #E2E8F0 !important;
+        border-top: none !important;
+        border: none !important;
 
         .brandCol {
             .brandDesc {
@@ -404,7 +405,7 @@
             h4 {
                 color: #0F172A !important;
                 &::after {
-                    background: #047857 !important;
+                    background: #18C98B !important;
                 }
             }
             ul li a {
@@ -431,7 +432,7 @@
         }
 
         .divider {
-            background: #E2E8F0 !important;
+            background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.25) 50%, transparent 100%) !important;
         }
 
         .bottomSection {
@@ -441,20 +442,23 @@
 
             .socialList .socialBtn {
                 background: #FFFFFF !important;
-                border: 1px solid #CBD5E1 !important;
-                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+                border: 1px solid rgba(24, 201, 139, 0.3) !important;
+                border-radius: 9999px !important;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
 
                 .socialIcon {
-                    background-color: #0F172A !important;
+                    background-color: #047857 !important;
                     opacity: 1 !important;
                 }
 
                 &:hover {
-                    background: #F1F5F9 !important;
-                    border-color: #047857 !important;
+                    background: #18C98B !important;
+                    border-color: #18C98B !important;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 14px rgba(24, 201, 139, 0.35) !important;
 
                     .socialIcon {
-                        background-color: #047857 !important;
+                        background-color: #040605 !important;
                     }
                 }
             }

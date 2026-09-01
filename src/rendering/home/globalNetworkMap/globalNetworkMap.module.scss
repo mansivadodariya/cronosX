@@ -11,6 +11,7 @@
 
   :global(html.light) & {
     background: #FFFFFF !important;
+    border-bottom: 1px solid rgba(24, 201, 139, 0.15) !important;
 
     .mapCard {
       background: radial-gradient(circle at 75% 30%, rgba(24, 201, 139, 0.14) 0%, transparent 60%), #07130F !important;

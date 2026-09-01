@@ -262,26 +262,29 @@
     justify-content: center;
     gap: 10px;
     padding: 15px 32px;
-    border-radius: 999px;
-    background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
-    color: #040300;
+    border-radius: 9999px;
+    background: #18C98B;
+    color: #040605;
     font-size: 13.5px;
     font-weight: 800;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    border: none;
+    border: 1px solid #18C98B;
     cursor: pointer;
-    box-shadow: 0 4px 25px rgba(24, 201, 139, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.6);
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 18px rgba(24, 201, 139, 0.35);
+    transition: all 0.25s ease;
 
     &:hover {
+        background: #15b77e;
+        border-color: #15b77e;
         transform: translateY(-2px);
-        box-shadow: 0 8px 32px rgba(24, 201, 139, 0.55);
+        box-shadow: 0 8px 24px rgba(24, 201, 139, 0.5);
     }
 
     @include respond-to('sm') {
         width: 100%;
         padding: 14px 24px;
+        border-radius: 9999px;
     }
 }
 
@@ -1917,16 +1920,18 @@
 /* ============================================================
    LIGHT MODE STYLING OVERRIDES FOR AI CHAT
    ============================================================ */
-:global(html.light) {
-    .pageWrapper,
-    .aiChatWrapper,
-    .mainWrapper {
-        background: #F8FAFC !important;
-        color: #0F172A !important;
-    }
+:global(html.light) .pageWrapper,
+:global(html.light) .aiChatWrapper,
+:global(html.light) .mainWrapper {
+    background: #F8FAFC !important;
+    color: #0F172A !important;
 
     .sectionDivider {
-        display: none !important;
+        display: block !important;
+        width: 100% !important;
+        height: 1px !important;
+        background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.35) 50%, transparent 100%) !important;
+        margin: 40px 0 !important;
     }
 
     .faqItem,

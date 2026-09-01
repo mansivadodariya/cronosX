@@ -91,23 +91,25 @@
             }
 
             button {
-                border: 1px solid rgba(11, 86, 219, 0.10);
-                background: rgba(11, 86, 219, 0.04);
-                backdrop-filter: blur(18.299999237060547px);
+                border: 1px solid rgba(24, 201, 139, 0.25);
+                background: rgba(24, 201, 139, 0.08);
+                border-radius: 9999px;
+                backdrop-filter: blur(18px);
                 display: flex;
                 align-items: center;
-                color: var(--P-Color, #0B56DB);
-                font-size: 16px;
+                color: #18C98B;
+                font-size: 14px;
                 font-style: normal;
-                font-weight: 500;
-                line-height: 28px;
+                font-weight: 600;
+                line-height: 24px;
                 gap: 8px;
-                padding: 6px 12px;
+                padding: 6px 16px;
 
                 @include respond-to('sm') {
                     font-size: 12px;
-                    padding: 4px 10px;
-                    line-height: 24px;
+                    padding: 4px 12px;
+                    line-height: 20px;
+                    border-radius: 9999px;
                 }
             }
 

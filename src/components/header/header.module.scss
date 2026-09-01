@@ -45,7 +45,7 @@
         border-radius: 99px;
         position: relative;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        background: 
+        background:
             radial-gradient(ellipse 70% 80% at 100% 0%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 80%),
             radial-gradient(ellipse 70% 80% at 0% 100%, rgba(0, 242, 254, 0.12) 0%, transparent 75%),
             rgba(18, 21, 20, 0.85);
@@ -55,7 +55,7 @@
         box-shadow: 0 10px 32px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(24, 201, 139, 0.08);
 
         &.alignmentScrolled {
-            background: 
+            background:
                 radial-gradient(ellipse 80% 90% at 100% 0%, rgba(24, 201, 139, 0.25) 0%, rgba(16, 185, 129, 0.08) 55%, transparent 80%),
                 radial-gradient(ellipse 70% 70% at 0% 100%, rgba(0, 242, 254, 0.14) 0%, transparent 70%),
                 rgba(18, 21, 20, 0.95);
@@ -221,6 +221,10 @@
                             visibility: hidden;
                             pointer-events: none;
                             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+                            background: transparent !important;
+                            border: none !important;
+                            box-shadow: none !important;
+                            border-radius: 20px;
 
                             // Invisible bridge so hovering mouse from link to card never breaks
                             &::before {
@@ -233,12 +237,12 @@
                             }
 
                             .dropdownCard {
-                                background: 
+                                background:
                                     radial-gradient(ellipse 70% 80% at 100% 0%, rgba(24, 201, 139, 0.2) 0%, rgba(16, 185, 129, 0.06) 50%, transparent 80%),
                                     radial-gradient(ellipse 70% 80% at 0% 100%, rgba(0, 242, 254, 0.12) 0%, transparent 75%),
                                     #121514;
                                 border: 1px solid rgba(24, 201, 139, 0.35);
-                                border-radius: 18px;
+                                border-radius: 20px;
                                 padding: 14px;
                                 box-shadow:
                                     0 25px 60px rgba(0, 0, 0, 0.92),
@@ -247,6 +251,7 @@
                                 backdrop-filter: blur(28px);
                                 -webkit-backdrop-filter: blur(28px);
                                 text-align: left;
+                                overflow: hidden;
 
                                 .dropdownHeaderTag {
                                     padding: 2px 8px 10px 8px;
@@ -641,35 +646,135 @@
     }
 }
 
-/* Specific Light Mode Rules for Header */
-:global(html.light) {
-    .headerAlignment {
-        background: rgba(255, 255, 255, 0.88) !important;
-        border-color: rgba(15, 23, 42, 0.08) !important;
-        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06) !important;
+/* Specific Light Mode Rules for Header (Pure Selectors) */
+:global(html.light) .headerAlignment {
+    background: rgba(255, 255, 255, 0.88) !important;
+    border-color: rgba(15, 23, 42, 0.08) !important;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06) !important;
+
+    &.alignmentScrolled {
+        background: rgba(255, 255, 255, 0.95) !important;
+        border-color: rgba(15, 23, 42, 0.12) !important;
+        box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    @include respond-to("tab") {
+        background: #FFFFFF !important;
+        border-bottom-color: rgba(15, 23, 42, 0.1) !important;
 
         &.alignmentScrolled {
-            background: rgba(255, 255, 255, 0.95) !important;
-            border-color: rgba(15, 23, 42, 0.12) !important;
-            box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.08) !important;
-        }
-
-        @include respond-to("tab") {
             background: #FFFFFF !important;
-            border-bottom-color: rgba(15, 23, 42, 0.1) !important;
+        }
+    }
 
-            &.alignmentScrolled {
-                background: #FFFFFF !important;
+    /* Navbar items & hover */
+    .menu {
+        background: transparent !important;
+        background-color: transparent !important;
+
+        li {
+            background: transparent !important;
+            background-color: transparent !important;
+
+            a,
+            .dropdownTrigger {
+                background: transparent !important;
+                background-color: transparent !important;
+                color: #0F172A !important;
+
+                .chevron {
+                    color: #475569 !important;
+                }
+            }
+
+            &:hover,
+            &.active,
+            &.dropdownOpen {
+                background: transparent !important;
+                background-color: transparent !important;
+
+                a,
+                .dropdownTrigger {
+                    background: transparent !important;
+                    background-color: transparent !important;
+                    color: #047857 !important;
+
+                    .chevron {
+                        color: #047857 !important;
+                    }
+                }
+
+                &::after {
+                    background: #18C98B !important;
+                    box-shadow: 0 0 8px rgba(24, 201, 139, 0.35) !important;
+                }
             }
         }
     }
+}
 
-    .dropdownCard,
-    .mobileDrawer {
-        background: #FFFFFF !important;
-        border-color: rgba(15, 23, 42, 0.1) !important;
-        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1) !important;
+:global(html.light) .dropdownMenu {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 20px !important;
+}
+
+:global(html.light) .dropdownCard {
+    background: #FFFFFF !important;
+    border: 1px solid rgba(15, 23, 42, 0.1) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12) !important;
+    overflow: hidden;
+
+    .dropdownHeaderTag {
+        color: #475569 !important;
+        border-bottom-color: rgba(15, 23, 42, 0.08) !important;
     }
+
+    .dropdownItem {
+        background: transparent !important;
+
+        &:hover {
+            background: rgba(24, 201, 139, 0.08) !important;
+
+            .itemIconBox {
+                background: #18C98B !important;
+                border-color: #18C98B !important;
+                color: #040605 !important;
+            }
+
+            .itemTitle {
+                color: #047857 !important;
+            }
+        }
+
+        .itemIconBox {
+            background: #F8FAFC !important;
+            border-color: rgba(24, 201, 139, 0.25) !important;
+            color: #18C98B !important;
+        }
+
+        .itemTitle {
+            color: #0F172A !important;
+        }
+
+        .itemDesc {
+            color: #64748B !important;
+        }
+
+        .itemBadge {
+            background: rgba(24, 201, 139, 0.12) !important;
+            border-color: rgba(24, 201, 139, 0.35) !important;
+            color: #047857 !important;
+        }
+    }
+}
+
+:global(html.light) .mobileDrawer {
+    background: #FFFFFF !important;
+    border-color: rgba(15, 23, 42, 0.1) !important;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1) !important;
 
     .itemTitle,
     .drawerLink,
@@ -691,4 +796,4 @@
             background: #F1F5F9 !important;
         }
     }
-}
+}

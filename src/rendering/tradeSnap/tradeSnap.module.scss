@@ -253,17 +253,19 @@ $success: #10b981;
     .btnPrimary,
     .btnAnalyze {
         padding: 12px 28px;
-        background: linear-gradient(135deg, #6EE7B7 0%, #18C98B 45%, #10B981 100%);
-        color: #000000;
+        background: #18C98B;
+        color: #040605;
         font-weight: 700;
         font-family: "Euclid-Bold", sans-serif;
-        border-radius: 10px;
-        box-shadow: 0 4px 20px rgba(24, 201, 139, 0.35);
+        border-radius: 9999px;
+        border: 1px solid #18C98B;
+        box-shadow: 0 4px 16px rgba(24, 201, 139, 0.35);
 
         &:hover:not(:disabled) {
             transform: translateY(-1px);
-            box-shadow: 0 6px 26px rgba(24, 201, 139, 0.5);
-            filter: brightness(1.03);
+            background: #15b77e;
+            border-color: #15b77e;
+            box-shadow: 0 6px 22px rgba(24, 201, 139, 0.45);
         }
 
         &:active:not(:disabled) {
@@ -279,7 +281,7 @@ $success: #10b981;
         }
 
         svg {
-            color: #000000;
+            color: #040605;
         }
     }
 
@@ -288,25 +290,28 @@ $success: #10b981;
         width: 100%;
         max-width: 360px;
         padding: 13px 28px;
+        border-radius: 9999px;
     }
 
     .btnSecondary {
-        padding: 10px 20px;
-        background: #040605;
-        color: $primary;
-        border: 1px solid rgba(24, 201, 139, 0.2);
+        padding: 10px 22px;
+        background: rgba(255, 255, 255, 0.05);
+        color: #18C98B;
+        border-radius: 9999px;
+        border: 1px solid rgba(24, 201, 139, 0.3);
 
         &:hover:not(:disabled) {
             background: rgba(24, 201, 139, 0.15);
+            border-color: #18C98B;
         }
     }
 
     .btnDanger {
-        padding: 8px 18px;
-        border-radius: 8px;
-        background: rgba(255, 87, 87, 0.15);
-        border: 1px solid rgba(255, 87, 87, 0.4);
-        color: #FF7070;
+        padding: 8px 20px;
+        border-radius: 9999px;
+        background: rgba(239, 68, 68, 0.15);
+        border: 1px solid rgba(239, 68, 68, 0.4);
+        color: #EF4444;
         font-size: 13px;
         font-weight: 600;
         cursor: pointer;
@@ -314,10 +319,10 @@ $success: #10b981;
         font-family: "Euclid-Medium", sans-serif;
 
         &:hover {
-            background: #FF5757;
-            border-color: #FF5757;
+            background: #EF4444;
+            border-color: #EF4444;
             color: #ffffff;
-            box-shadow: 0 0 12px rgba(255, 87, 87, 0.35);
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.35);
         }
     }
 

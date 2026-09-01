@@ -177,8 +177,8 @@ $success: #34D399;
             gap: 6px;
             background: rgba(22, 19, 14, 0.95);
             border: 1px solid rgba(24, 201, 139, 0.4);
-            border-radius: 10px;
-            padding: 9px 12px;
+            border-radius: 9999px;
+            padding: 9px 16px;
             color: #18C98B;
             font-size: 12.5px;
             font-weight: 600;
@@ -198,11 +198,11 @@ $success: #34D399;
             align-items: center;
             justify-content: center;
             gap: 6px;
-            background: linear-gradient(180deg, #18C98B 0%, #10B981 100%);
-            border: 1px solid transparent;
-            border-radius: 10px;
-            padding: 9px 14px;
-            color: #000000;
+            background: #18C98B;
+            border: 1px solid #18C98B;
+            border-radius: 9999px;
+            padding: 9px 18px;
+            color: #040605;
             font-size: 12.5px;
             font-weight: 700;
             font-family: "Euclid-Bold", sans-serif;
@@ -211,6 +211,8 @@ $success: #34D399;
             transition: all 0.2s ease;
 
             &:hover {
+                background: #15b77e;
+                border-color: #15b77e;
                 transform: translateY(-1px);
                 box-shadow: 0 6px 18px rgba(24, 201, 139, 0.4);
             }
@@ -219,49 +221,47 @@ $success: #34D399;
 }
 
 /* Specific Light Mode Rules for Broker Card */
-:global(html.light) {
-    .brokerCard {
+:global(html.light) .brokerCard {
+    background: #FFFFFF !important;
+    border-color: rgba(15, 23, 42, 0.09) !important;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05) !important;
+
+    &:hover {
+        box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.09) !important;
+    }
+
+    .bannerHeader {
+        background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%) !important;
+        border-color: rgba(15, 23, 42, 0.08) !important;
+
+        .logoWrapper img {
+            filter: none !important;
+        }
+    }
+
+    .cardTitle,
+    .hlMain {
+        color: #0F172A !important;
+    }
+
+    .ratingScore,
+    .hlSub {
+        color: #475569 !important;
+    }
+
+    .highlightItem {
+        background: #F8FAFC !important;
+        border-color: rgba(15, 23, 42, 0.08) !important;
+    }
+
+    .visitSiteBtn {
         background: #FFFFFF !important;
-        border-color: rgba(15, 23, 42, 0.09) !important;
-        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05) !important;
+        border-color: rgba(15, 23, 42, 0.15) !important;
+        color: #0F172A !important;
 
         &:hover {
-            box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.09) !important;
-        }
-
-        .bannerHeader {
-            background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%) !important;
-            border-color: rgba(15, 23, 42, 0.08) !important;
-
-            .logoWrapper img {
-                filter: none !important;
-            }
-        }
-
-        .cardTitle,
-        .hlMain {
-            color: #0F172A !important;
-        }
-
-        .ratingScore,
-        .hlSub {
-            color: #475569 !important;
-        }
-
-        .highlightItem {
-            background: #F8FAFC !important;
-            border-color: rgba(15, 23, 42, 0.08) !important;
-        }
-
-        .visitSiteBtn {
-            background: #FFFFFF !important;
-            border-color: rgba(15, 23, 42, 0.15) !important;
-            color: #0F172A !important;
-
-            &:hover {
-                background: #F1F5F9 !important;
-                color: #059669 !important;
-            }
+            background: #F1F5F9 !important;
+            color: #059669 !important;
         }
     }
 }

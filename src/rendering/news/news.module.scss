@@ -298,10 +298,10 @@
                 align-items: center;
                 justify-content: center;
                 gap: 6px;
-                padding: 8px 14px;
+                padding: 8px 16px;
                 background: #101210;
                 border: 1px solid rgba(255, 255, 255, 0.12);
-                border-radius: 10px;
+                border-radius: 9999px;
                 color: rgba(255, 255, 255, 0.7);
                 font-size: 12.5px;
                 cursor: pointer;
@@ -309,9 +309,9 @@
                 white-space: nowrap;
 
                 @include respond-to('sm') {
-                    padding: 8px 10px;
+                    padding: 8px 12px;
                     font-size: 11.5px;
-                    border-radius: 8px;
+                    border-radius: 9999px;
                     text-align: center;
                 }
 
@@ -321,7 +321,7 @@
                 }
 
                 &.activeToggle {
-                    background: rgba(24, 201, 139, 0.12);
+                    background: rgba(24, 201, 139, 0.15);
                     border-color: #18C98B;
                     color: #18C98B;
                     font-weight: 600;
@@ -329,10 +329,10 @@
             }
 
             .refreshBtn {
-                padding: 8px 14px;
+                padding: 8px 18px;
                 background: #161814;
                 border: 1px solid rgba(24, 201, 139, 0.3);
-                border-radius: 10px;
+                border-radius: 9999px;
                 color: #18C98B;
                 font-size: 12.5px;
                 font-weight: 600;
@@ -346,14 +346,15 @@
 
                 @include respond-to('sm') {
                     grid-column: span 2;
-                    padding: 8px 12px;
+                    padding: 8px 14px;
                     font-size: 12px;
-                    border-radius: 8px;
+                    border-radius: 9999px;
                 }
 
                 &:hover {
-                    background: rgba(24, 201, 139, 0.15);
+                    background: #18C98B;
                     border-color: #18C98B;
+                    color: #040605;
                 }
 
                 svg.spinning {
@@ -374,10 +375,10 @@
         }
 
         .catBtn {
-            padding: 6px 14px;
+            padding: 6px 16px;
             background: #101210;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
+            border-radius: 9999px;
             color: rgba(255, 255, 255, 0.65);
             font-size: 12.5px;
             cursor: pointer;
@@ -386,13 +387,13 @@
 
             @include respond-to('tab') {
                 font-size: 12px;
-                padding: 6px 12px;
+                padding: 6px 14px;
             }
 
             @include respond-to('sm') {
                 font-size: 11px;
-                padding: 5px 10px;
-                border-radius: 6px;
+                padding: 5px 12px;
+                border-radius: 9999px;
             }
 
             &:hover {
@@ -401,10 +402,10 @@
             }
 
             &.activeCat {
-                background: linear-gradient(135deg, rgba(24, 201, 139, 0.2) 0%, rgba(24, 201, 139, 0.1) 100%);
+                background: #18C98B;
                 border-color: #18C98B;
-                color: #18C98B;
-                font-weight: 600;
+                color: #040605;
+                font-weight: 700;
             }
         }
     }
@@ -1294,10 +1295,8 @@
 /* ========================================================================= */
 /* COMPLETE LIGHT MODE OVERRIDES FOR NEWS */
 /* ========================================================================= */
-:global(html.light) {
-    .newsContainer {
-        color: #0F172A !important;
-    }
+:global(html.light) .newsContainer {
+    color: #0F172A !important;
 
     .heroHeader {
         border-bottom-color: rgba(15, 23, 42, 0.08) !important;

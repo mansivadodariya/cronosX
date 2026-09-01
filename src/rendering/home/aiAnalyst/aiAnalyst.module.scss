@@ -10,11 +10,12 @@
 
   :global(html.light) & {
     background: #FFFFFF !important;
+    border-bottom: 1px solid rgba(24, 201, 139, 0.15) !important;
 
     .chatCard {
       background: #FFFFFF !important;
-      border: 1px solid #E2E8F0 !important;
-      box-shadow: none !important;
+      border: 1px solid rgba(24, 201, 139, 0.22) !important;
+      box-shadow: 0 10px 40px rgba(15, 23, 42, 0.06) !important;
     }
 
     .chatBody {

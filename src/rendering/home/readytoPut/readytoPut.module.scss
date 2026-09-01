@@ -151,11 +151,11 @@
                 justify-content: center;
 
                 .ctaGoldBtn {
-                    background: linear-gradient(135deg, #6EE7B7 0%, #18c98b 50%, #10b981 100%);
+                    background: #18c98b;
                     color: #040605;
-                    border: none;
+                    border: 1px solid #18c98b;
                     padding: 15px 36px;
-                    border-radius: 99px;
+                    border-radius: 9999px;
                     font-size: 14px;
                     font-weight: 900;
                     letter-spacing: 0.8px;
@@ -163,16 +163,25 @@
                     display: inline-flex;
                     align-items: center;
                     gap: 12px;
-                    box-shadow: 0 6px 24px rgba(24, 201, 139, 0.4);
+                    box-shadow: 0 4px 18px rgba(24, 201, 139, 0.35);
                     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+                    :global(html.light) & {
+                        background: #18C98B !important;
+                        color: #040605 !important;
+                        border-color: #18C98B !important;
+                        box-shadow: 0 2px 10px rgba(24, 201, 139, 0.2) !important;
+                    }
 
                     svg {
                         transition: transform 0.25s ease;
                     }
 
                     &:hover {
-                        transform: translateY(-2px) scale(1.02);
-                        box-shadow: 0 10px 32px rgba(24, 201, 139, 0.65);
+                        background: #15b77e;
+                        border-color: #15b77e;
+                        transform: translateY(-2px);
+                        box-shadow: 0 8px 24px rgba(24, 201, 139, 0.5);
 
                         svg {
                             transform: translateX(4px);

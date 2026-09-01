@@ -296,26 +296,29 @@
     justify-content: center;
     gap: 10px;
     padding: 16px 36px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #18C98B 0%, #10B981 100%);
-    color: #040300;
+    border-radius: 9999px;
+    background: #18C98B;
+    color: #040605;
     font-size: 14px;
     font-weight: 800;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    border: none;
+    border: 1px solid #18C98B;
     cursor: pointer;
-    box-shadow: 0 4px 25px rgba(24, 201, 139, 0.35);
-    transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
+    box-shadow: 0 4px 18px rgba(24, 201, 139, 0.35);
+    transition: all 0.25s cubic-bezier(0.2, 0, 0.38, 0.9);
 
     &:hover {
+        background: #15b77e;
+        border-color: #15b77e;
         transform: translateY(-2px);
-        box-shadow: 0 8px 35px rgba(24, 201, 139, 0.55);
+        box-shadow: 0 8px 24px rgba(24, 201, 139, 0.5);
     }
 
     @include respond-to('sm') {
         width: 100%;
         padding: 14px 20px;
+        border-radius: 9999px;
     }
 }
 
@@ -325,7 +328,7 @@
     justify-content: center;
     gap: 8px;
     padding: 15px 28px;
-    border-radius: 12px;
+    border-radius: 9999px;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(24, 201, 139, 0.3);
     color: #18C98B;
@@ -345,6 +348,7 @@
     @include respond-to('sm') {
         width: 100%;
         padding: 13px 20px;
+        border-radius: 9999px;
     }
 }
 
@@ -1772,16 +1776,18 @@
 /* ============================================================
    LIGHT MODE STYLING OVERRIDES FOR AI TRADE
    ============================================================ */
-:global(html.light) {
-    .pageWrapper,
-    .aiTradeWrapper,
-    .mainWrapper {
-        background: #F8FAFC !important;
-        color: #0F172A !important;
-    }
+:global(html.light) .pageWrapper,
+:global(html.light) .aiTradeWrapper,
+:global(html.light) .mainWrapper {
+    background: #F8FAFC !important;
+    color: #0F172A !important;
 
     .sectionDivider {
-        display: none !important;
+        display: block !important;
+        width: 100% !important;
+        height: 1px !important;
+        background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.35) 50%, transparent 100%) !important;
+        margin: 40px 0 !important;
     }
 
     .faqItem,

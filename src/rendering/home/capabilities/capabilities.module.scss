@@ -11,18 +11,17 @@
 
   :global(html.light) & {
     background: #F8FAFC !important;
-
-
+    border-bottom: 1px solid rgba(24, 201, 139, 0.15) !important;
 
     .cockpitCard {
       background: #FFFFFF !important;
-      border: 1px solid #E2E8F0 !important;
-      box-shadow: none !important;
+      border: 1px solid rgba(24, 201, 139, 0.22) !important;
+      box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05) !important;
 
       &:hover, &.cardActive {
         background: #FFFFFF !important;
-        border-color: rgba(16, 185, 129, 0.5) !important;
-        box-shadow: none !important;
+        border-color: #18C98B !important;
+        box-shadow: 0 12px 36px rgba(24, 201, 139, 0.12) !important;
 
         .cardHeaderMeta h3 {
           color: #0F172A !important;

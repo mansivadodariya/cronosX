@@ -70,8 +70,8 @@ $cyanAccent: #38BDF8;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 18px;
-            border-radius: 8px;
+            padding: 10px 22px;
+            border-radius: 9999px;
             background: rgba(24, 201, 139, 0.08);
             border: 1px solid rgba(24, 201, 139, 0.4);
             color: $primaryGold;
@@ -81,8 +81,9 @@ $cyanAccent: #38BDF8;
             transition: all 0.2s ease;
 
             &:hover {
-                background: rgba(24, 201, 139, 0.2);
-                border-color: $primaryGold;
+                background: #18C98B;
+                border-color: #18C98B;
+                color: #040605;
                 box-shadow: 0 0 16px rgba(24, 201, 139, 0.25);
                 transform: translateY(-1px);
             }
@@ -238,11 +239,11 @@ $cyanAccent: #38BDF8;
             margin-top: 4px;
 
             .viewTradesBtn {
-                background: linear-gradient(135deg, #10B981 0%, #9B701D 100%);
-                border: 1px solid rgba(24, 201, 139, 0.5);
-                color: #FFFFFF;
+                background: #18C98B;
+                border: 1px solid #18C98B;
+                color: #040605;
                 padding: 10px 24px;
-                border-radius: 8px;
+                border-radius: 9999px;
                 font-size: 13px;
                 font-weight: 800;
                 letter-spacing: 0.5px;
@@ -255,7 +256,8 @@ $cyanAccent: #38BDF8;
                 transition: all 0.2s ease;
 
                 &:hover {
-                    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+                    background: #15b77e;
+                    border-color: #15b77e;
                     box-shadow: 0 6px 20px rgba(24, 201, 139, 0.4);
                     transform: translateY(-1px);
                 }
@@ -265,8 +267,8 @@ $cyanAccent: #38BDF8;
                 background: rgba(255, 255, 255, 0.05);
                 border: 1px solid rgba(255, 255, 255, 0.12);
                 color: $textWhite;
-                padding: 10px 18px;
-                border-radius: 8px;
+                padding: 10px 20px;
+                border-radius: 9999px;
                 font-size: 12.5px;
                 font-weight: 600;
                 cursor: pointer;
@@ -2531,5 +2533,38 @@ $cyanAccent: #38BDF8;
 @include respond-to('sm') {
     .strengthsImprovementsGrid {
         grid-template-columns: 1fr;
+    }
+}
+
+:global(html.light) .container {
+    background: #F8FAFC !important;
+    color: #0F172A !important;
+
+    .headerBar,
+    .reportSuccessBannerCard,
+    .historyModalCard,
+    [class*="Card"],
+    [class*="card"] {
+        background: #FFFFFF !important;
+        border-color: rgba(15, 23, 42, 0.09) !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+        color: #0F172A !important;
+
+        h1, h2, h3, h4, h5 {
+            color: #0F172A !important;
+        }
+
+        p, span {
+            color: #475569;
+        }
+    }
+
+    .reportTakeawayBox {
+        background: #F1F5F9 !important;
+        border-color: #CBD5E1 !important;
+
+        p {
+            color: #1E293B !important;
+        }
     }
 }

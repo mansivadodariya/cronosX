@@ -9,17 +9,18 @@
   overflow: hidden;
 
   :global(html.light) & {
-    background: #FFFFFF !important;
+    background: #F8FAFC !important;
+    border-bottom: 1px solid rgba(24, 201, 139, 0.15) !important;
 
     .cardFace {
       background: #FFFFFF !important;
-      border: 1px solid #E2E8F0 !important;
-      box-shadow: none !important;
+      border: 1px solid rgba(24, 201, 139, 0.22) !important;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05) !important;
 
       &:hover {
         background: #FFFFFF !important;
-        border-color: rgba(16, 185, 129, 0.45) !important;
-        box-shadow: none !important;
+        border-color: #18C98B !important;
+        box-shadow: 0 8px 25px rgba(24, 201, 139, 0.15) !important;
       }
 
       .terminalTitle {

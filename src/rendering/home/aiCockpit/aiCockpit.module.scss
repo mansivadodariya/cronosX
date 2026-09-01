@@ -1596,4 +1596,32 @@
       opacity: 0;
     }
   }
+
+  :global(html.light) & {
+    background: #F8FAFC !important;
+
+    .sectionHeader {
+      h2 {
+        color: #0F172A !important;
+      }
+      p {
+        color: #475569 !important;
+      }
+    }
+
+    [class*="cockpitCard"],
+    [class*="metricCard"],
+    [class*="signalCard"],
+    [class*="terminalCard"] {
+      background: #FFFFFF !important;
+      border-color: rgba(15, 23, 42, 0.09) !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+      color: #0F172A !important;
+    }
+
+    .cockpitFooterBar {
+      border-top-color: #E2E8F0 !important;
+      color: #64748B !important;
+    }
+  }
 }

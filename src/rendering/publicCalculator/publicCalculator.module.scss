@@ -125,18 +125,18 @@
         }
 
         .ctaBtn {
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #18C98B 0%, #059669 100%);
-            color: #FFFFFF;
+            padding: 12px 28px;
+            background: #18C98B;
+            color: #040605;
             font-size: 14px;
             font-weight: 700;
-            border-radius: 10px;
+            border-radius: 9999px;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            box-shadow: 0 4px 18px rgba(24, 201, 139, 0.3);
+            box-shadow: 0 4px 16px rgba(24, 201, 139, 0.3);
             transition: all 0.25s ease;
             white-space: nowrap;
             flex-shrink: 0;
@@ -146,15 +146,17 @@
                 box-sizing: border-box;
                 padding: 11px 20px;
                 font-size: 13.5px;
+                border-radius: 9999px;
             }
 
             @include respond-to('sm') {
                 font-size: 13px;
                 padding: 10px 16px;
-                border-radius: 8px;
+                border-radius: 9999px;
             }
 
             &:hover {
+                background: #15b77e;
                 transform: translateY(-2px);
                 box-shadow: 0 6px 24px rgba(24, 201, 139, 0.45);
 

@@ -10,12 +10,13 @@
   background: radial-gradient(ellipse at 50% 50%, #040c09 0%, #020605 60%, #000000 100%);
 
   :global(html.light) & {
-    background: #FFFFFF !important;
+    background: #F8FAFC !important;
+    border-bottom: 1px solid rgba(24, 201, 139, 0.15) !important;
 
     .chartCard {
       background: #FFFFFF !important;
-      border: 1px solid #E2E8F0 !important;
-      box-shadow: none !important;
+      border: 1px solid rgba(24, 201, 139, 0.22) !important;
+      box-shadow: 0 10px 40px rgba(15, 23, 42, 0.06) !important;
 
       .tickerTag {
         color: #0F172A !important;

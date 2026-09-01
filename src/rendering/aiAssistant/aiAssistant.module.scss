@@ -8502,10 +8502,8 @@
 }
 
 /* Specific Light Mode Rules for AI Assistant */
-:global(html.light) {
-    .aiAssistant {
-        color: #0F172A !important;
-    }
+:global(html.light) .aiAssistant {
+    color: #0F172A !important;
 
     .reportPanelCard,
     .chartPanelCard,

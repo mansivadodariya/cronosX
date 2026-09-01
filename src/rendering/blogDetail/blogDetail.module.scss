@@ -705,10 +705,10 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        padding: 10px 18px;
+        padding: 10px 22px;
         background: #0D0F0C;
         border: 1px solid rgba(24, 201, 139, 0.3);
-        border-radius: 10px;
+        border-radius: 9999px;
         color: #18C98B;
         font-size: 13px;
         font-weight: 700;
@@ -719,8 +719,9 @@
         @include respond-to('sm') {
             width: 100%;
             justify-content: center;
-            padding: 9px 14px;
+            padding: 9px 16px;
             font-size: 12px;
+            border-radius: 9999px;
             box-sizing: border-box;
         }
 
@@ -731,56 +732,54 @@
     }
 }
 
-:global(html.light) {
-    .detailWrapper {
-        background: #F8FAFC;
-        color: #0F172A;
+:global(html.light) .detailWrapper {
+    background: #F8FAFC;
+    color: #0F172A;
 
-        .articleHeader {
-            h1 {
-                color: #0F172A;
-            }
+    .articleHeader {
+        h1 {
+            color: #0F172A;
+        }
+    }
+
+    .articleBody {
+        color: #334155;
+
+        h2, h3, h4 {
+            color: #0F172A;
         }
 
-        .articleBody {
+        p {
             color: #334155;
-
-            h2, h3, h4 {
-                color: #0F172A;
-            }
-
-            p {
-                color: #334155;
-            }
-
-            blockquote {
-                background: #F1F5F9;
-                border-left-color: #10B981;
-                color: #1E293B;
-            }
         }
 
-        .shareBox,
-        .authorCard,
-        .relatedSection {
+        blockquote {
+            background: #F1F5F9;
+            border-left-color: #10B981;
+            color: #1E293B;
+        }
+    }
+
+    .shareBox,
+    .authorCard,
+    .relatedSection {
+        background: #FFFFFF;
+        border-color: rgba(24, 201, 139, 0.28);
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+
+        h3, h4 {
+            color: #0F172A;
+        }
+    }
+
+    .bottomNav {
+        .navBtn {
             background: #FFFFFF;
-            border-color: rgba(24, 201, 139, 0.28);
-            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+            border-color: rgba(24, 201, 139, 0.35);
+            color: #047857;
 
-            h3, h4 {
-                color: #0F172A;
-            }
-        }
-
-        .bottomNav {
-            .navBtn {
-                background: #FFFFFF;
-                border-color: rgba(24, 201, 139, 0.35);
-                color: #047857;
-
-                &:hover {
-                    background: rgba(24, 201, 139, 0.08);
-                }
+            &:hover {
+                background: rgba(24, 201, 139, 0.08);
             }
         }
     }

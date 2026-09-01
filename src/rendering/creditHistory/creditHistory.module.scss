@@ -339,8 +339,8 @@ $danger: #F87171;
         background: rgba(22, 19, 14, 0.95);
         border: 1px solid rgba(24, 201, 139, 0.4);
         color: #18C98B;
-        border-radius: 8px;
-        padding: 8px 18px;
+        border-radius: 9999px;
+        padding: 8px 20px;
         font-size: 12.5px;
         font-weight: 600;
         font-family: "Euclid-Medium", sans-serif;
@@ -348,8 +348,8 @@ $danger: #F87171;
         transition: all 0.2s ease;
 
         &:hover:not(:disabled) {
-            background: linear-gradient(180deg, #10B981 0%, #059669 100%);
-            color: #FFFFFF;
+            background: #18C98B;
+            color: #040605;
             border-color: #18C98B;
             box-shadow: 0 0 12px rgba(24, 201, 139, 0.3);
         }
@@ -369,67 +369,8 @@ $danger: #F87171;
     }
 }
 
-:global(html.light) {
-    .container {
-        color: #0F172A;
-
-        .header {
-            .headerTitleMeta {
-                h1 {
-                    color: #0F172A;
-                }
-                p {
-                    color: #475569;
-                }
-            }
-        }
-
-        .summaryCard,
-        .tableCard {
-            background: #FFFFFF;
-            border-color: rgba(24, 201, 139, 0.28);
-            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
-
-            th {
-                color: #64748B;
-            }
-
-            td {
-                color: #1E293B;
-                border-bottom-color: #F1F5F9;
-            }
-        }
-
-        .pagination {
-            .paginationInfo {
-                color: #475569;
-            }
-
-            .pageBtn {
-                background: #FFFFFF;
-                border-color: rgba(24, 201, 139, 0.35);
-                color: #047857;
-
-                &:hover:not(:disabled) {
-                    background: #10B981;
-                    color: #FFFFFF;
-                }
-            }
-        }
-    }
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* Specific Light Mode Rules for Credit History */
-:global(html.light) {
-    .container {
-        color: #0F172A !important;
-    }
+:global(html.light) .container {
+    color: #0F172A !important;
 
     .headerTitleMeta h1,
     .statValue,
@@ -445,6 +386,8 @@ $danger: #F87171;
 
     .statCard,
     .tableContainer,
+    .tableCard,
+    .summaryCard,
     .emptyState {
         background: #FFFFFF !important;
         border-color: rgba(15, 23, 42, 0.09) !important;
@@ -461,6 +404,7 @@ $danger: #F87171;
 
         td {
             border-bottom-color: rgba(15, 23, 42, 0.06) !important;
+            color: #1E293B !important;
         }
     }
 
@@ -473,6 +417,12 @@ $danger: #F87171;
             background: #F1F5F9 !important;
             color: #059669 !important;
         }
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
     }
 }
 

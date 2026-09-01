@@ -248,15 +248,15 @@
                     align-items: center;
                     justify-content: center;
                     gap: 10px;
-                    padding: 13px 20px;
-                    background: #0B56DB;
-                    color: #FFFFFF;
-                    border-radius: 12px;
+                    padding: 13px 24px;
+                    background: #18C98B;
+                    color: #040605;
+                    border-radius: 9999px;
                     font-size: 15px;
-                    font-weight: 600;
+                    font-weight: 700;
                     text-decoration: none;
                     transition: all 0.2s ease;
-                    box-shadow: 0 4px 14px rgba(11, 86, 219, 0.25);
+                    box-shadow: 0 4px 14px rgba(24, 201, 139, 0.3);
 
                     svg {
                         :global([dir="rtl"]) & {
@@ -265,26 +265,26 @@
                     }
 
                     &:hover {
-                        background: #0843AD;
+                        background: #15b77e;
                         transform: translateY(-2px);
-                        box-shadow: 0 6px 18px rgba(11, 86, 219, 0.35);
+                        box-shadow: 0 6px 18px rgba(24, 201, 139, 0.45);
                     }
                 }
 
                 .syncBtn {
-                    padding: 12px 20px;
-                    background: linear-gradient(135deg, #0e0f12 0%, #072a6b 100%);
-                    color: #FFFFFF;
-                    border: none;
-                    border-radius: 12px;
+                    padding: 12px 24px;
+                    background: #0E1210;
+                    border: 1px solid rgba(24, 201, 139, 0.3);
+                    color: #18C98B;
+                    border-radius: 9999px;
                     font-size: 14px;
                     font-weight: 600;
                     cursor: pointer;
                     transition: all 0.2s ease;
 
                     &:hover {
-                        opacity: 0.92;
-                        transform: translateY(-1px);
+                        background: rgba(24, 201, 139, 0.15);
+                        border-color: #18C98B;
                     }
                 }
             }

@@ -36,7 +36,7 @@
         width: 100%;
         min-height: 52px;
         height: 52px;
-        border-radius: 8px;
+        border-radius: 9999px;
         background: #08080A;
         border: 1.5px solid rgba(24, 201, 139, 0.4);
         overflow: hidden;
@@ -47,6 +47,17 @@
             border-color: #18C98B;
             background: #111319;
             box-shadow: 0 0 14px rgba(24, 201, 139, 0.22);
+        }
+
+        :global(html.light) & {
+            background: #FFFFFF !important;
+            border: 1.5px solid rgba(15, 23, 42, 0.15) !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+
+            &:hover {
+                background: #F8FAFC !important;
+                border-color: #18C98B !important;
+            }
         }
     }
 
@@ -66,8 +77,12 @@
         line-height: normal;
         background: transparent;
         border: none;
-        border-radius: 8px;
+        border-radius: 9999px;
         font-family: "Euclid-Medium", sans-serif;
+
+        :global(html.light) & {
+            color: #0F172A !important;
+        }
 
         img {
             width: 20px;

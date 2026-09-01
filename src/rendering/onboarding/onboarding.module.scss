@@ -291,11 +291,9 @@
 }
 
 /* Specific Light Mode Rules for Onboarding */
-:global(html.light) {
-    .onboardingPage {
-        background-color: #F8FAFC !important;
-        color: #0F172A !important;
-    }
+:global(html.light) .onboardingPage {
+    background-color: #F8FAFC !important;
+    color: #0F172A !important;
 
     .stepText,
     .optionTitle,

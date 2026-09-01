@@ -159,8 +159,8 @@ $danger: #F87171;
             .tabBtn {
                 background: #0D0E13;
                 border: 1px solid $borderSubtle;
-                border-radius: 8px;
-                padding: 8px 16px;
+                border-radius: 9999px;
+                padding: 8px 18px;
                 color: rgba(255, 255, 255, 0.7);
                 font-size: 12.5px;
                 font-weight: 600;
@@ -203,8 +203,8 @@ $danger: #F87171;
         .searchBox {
             background: #0D0E13;
             border: 1px solid rgba(24, 201, 139, 0.25);
-            border-radius: 10px;
-            padding: 8px 14px;
+            border-radius: 9999px;
+            padding: 8px 18px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -323,42 +323,40 @@ $danger: #F87171;
     }
 }
 
-:global(html.light) {
-    .brokerPage {
-        color: #0F172A;
+:global(html.light) .brokerPage {
+    color: #0F172A;
 
-        .heroBanner {
-            background: #FFFFFF;
-            border-color: rgba(24, 201, 139, 0.3);
-            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+    .heroBanner {
+        background: #FFFFFF;
+        border-color: rgba(24, 201, 139, 0.3);
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
 
-            .heroTitleMeta {
-                h1 {
-                    color: #0F172A;
-                }
-                p {
-                    color: #475569;
-                }
-            }
-        }
-
-        .brokerCard {
-            background: #FFFFFF;
-            border-color: rgba(24, 201, 139, 0.28);
-            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
-
-            .brokerName {
+        .heroTitleMeta {
+            h1 {
                 color: #0F172A;
             }
-
-            .brokerDesc {
+            p {
                 color: #475569;
             }
+        }
+    }
 
-            .brokerFeatureItem {
-                background: #F8FAFC;
-                color: #1E293B;
-            }
+    .brokerCard {
+        background: #FFFFFF;
+        border-color: rgba(24, 201, 139, 0.28);
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+
+        .brokerName {
+            color: #0F172A;
+        }
+
+        .brokerDesc {
+            color: #475569;
+        }
+
+        .brokerFeatureItem {
+            background: #F8FAFC;
+            color: #1E293B;
         }
     }
 }

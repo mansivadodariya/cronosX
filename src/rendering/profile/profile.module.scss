@@ -1142,66 +1142,64 @@ $danger: #ef4444;
     }
 }
 
-:global(html.light) {
-    .profile {
-        color: #0F172A;
+:global(html.light) .profile {
+    color: #0F172A;
 
-        .pageHeader {
-            .headerTitleMeta {
-                h1 {
-                    color: #0F172A;
-                }
-                p {
-                    color: #475569;
-                }
-            }
-        }
-
-        .userCard,
-        .proAccountCard,
-        .activityCard,
-        .securityCard,
-        .historyCard,
-        .modalContent {
-            background: #FFFFFF;
-            border-color: rgba(24, 201, 139, 0.28);
-            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
-
-            h2, h3 {
+    .pageHeader {
+        .headerTitleMeta {
+            h1 {
                 color: #0F172A;
             }
-
             p {
                 color: #475569;
             }
         }
+    }
 
-        .detailItem {
-            background: #F8FAFC;
-            border-color: rgba(24, 201, 139, 0.2);
+    .userCard,
+    .proAccountCard,
+    .activityCard,
+    .securityCard,
+    .historyCard,
+    .modalContent {
+        background: #FFFFFF;
+        border-color: rgba(24, 201, 139, 0.28);
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
 
-            .detailVal {
-                color: #0F172A;
-            }
-
-            .detailLabel {
-                color: #64748B;
-            }
+        h2, h3 {
+            color: #0F172A;
         }
 
-        .inputGroup {
-            label {
-                color: #1E293B;
-            }
+        p {
+            color: #475569;
+        }
+    }
 
-            input {
-                background: #F8FAFC;
-                border-color: rgba(24, 201, 139, 0.25);
-                color: #0F172A;
+    .detailItem {
+        background: #F8FAFC;
+        border-color: rgba(24, 201, 139, 0.2);
 
-                &::placeholder {
-                    color: #94A3B8;
-                }
+        .detailVal {
+            color: #0F172A;
+        }
+
+        .detailLabel {
+            color: #64748B;
+        }
+    }
+
+    .inputGroup {
+        label {
+            color: #1E293B;
+        }
+
+        input {
+            background: #F8FAFC;
+            border-color: rgba(24, 201, 139, 0.25);
+            color: #0F172A;
+
+            &::placeholder {
+                color: #94A3B8;
             }
         }
     }

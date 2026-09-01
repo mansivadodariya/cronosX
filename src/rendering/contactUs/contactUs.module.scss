@@ -859,10 +859,10 @@
 
 .submitButton {
     width: 100%;
-    background: linear-gradient(135deg, #A7F3D0 0%, #18C98B 50%, #10B981 100%);
-    color: #040300;
-    border: none;
-    border-radius: 12px;
+    background: #18C98B;
+    color: #040605;
+    border: 1px solid #18C98B;
+    border-radius: 9999px;
     padding: 14px 32px;
     font-size: 15px;
     font-weight: 700;
@@ -871,17 +871,31 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 20px rgba(24, 201, 139, 0.3);
+    box-shadow: 0 4px 18px rgba(24, 201, 139, 0.35);
     transition: all 0.25s ease;
     white-space: nowrap;
 
     &:hover:not(:disabled) {
-        box-shadow: 0 6px 28px rgba(24, 201, 139, 0.6);
+        background: #15b77e;
+        border-color: #15b77e;
+        box-shadow: 0 6px 24px rgba(24, 201, 139, 0.5);
     }
 
     &:disabled {
         opacity: 0.7;
         cursor: not-allowed;
+    }
+
+    :global(html.light) & {
+        background: #18C98B !important;
+        color: #040605 !important;
+        border-color: #18C98B !important;
+        box-shadow: 0 2px 10px rgba(24, 201, 139, 0.25) !important;
+
+        &:hover:not(:disabled) {
+            background: #15B77E !important;
+            border-color: #15B77E !important;
+        }
     }
 
     .btnContent {
@@ -1206,87 +1220,85 @@
     }
 }
 
-:global(html.light) {
-    .contactPage {
-        background: #F8FAFC;
-        color: #0F172A;
+:global(html.light) .contactPage {
+    background: #F8FAFC;
+    color: #0F172A;
 
-        .mainTitle,
-        .infoTitle,
-        .formTitle,
-        .faqTitle,
-        .ctaTitle {
+    .mainTitle,
+    .infoTitle,
+    .formTitle,
+    .faqTitle,
+    .ctaTitle {
+        color: #0F172A;
+    }
+
+    .mainSubtitle,
+    .infoSubtitle,
+    .formSubtitle,
+    .faqSubtitle,
+    .ctaSubtitle {
+        color: #475569;
+    }
+
+    .infoCard,
+    .formGlassCard,
+    .ctaCard {
+        background: #FFFFFF;
+        border-color: rgba(24, 201, 139, 0.28);
+        box-shadow: 0 10px 35px rgba(15, 23, 42, 0.08);
+    }
+
+    .infoItem {
+        background: #F8FAFC;
+        border-color: rgba(24, 201, 139, 0.2);
+
+        .infoValue,
+        .addressValue {
             color: #0F172A;
         }
 
-        .mainSubtitle,
-        .infoSubtitle,
-        .formSubtitle,
-        .faqSubtitle,
-        .ctaSubtitle {
-            color: #475569;
+        .infoHelper {
+            color: #64748B;
         }
+    }
 
-        .infoCard,
-        .formGlassCard,
-        .ctaCard {
-            background: #FFFFFF;
-            border-color: rgba(24, 201, 139, 0.28);
-            box-shadow: 0 10px 35px rgba(15, 23, 42, 0.08);
-        }
+    .inputGroup label,
+    .labelRow label {
+        color: #1E293B;
+    }
 
-        .infoItem {
-            background: #F8FAFC;
-            border-color: rgba(24, 201, 139, 0.2);
+    .inputWrapper,
+    .phoneInputWrapper,
+    .textareaWrapper {
+        background: #F8FAFC;
+        border-color: rgba(24, 201, 139, 0.25);
 
-            .infoValue,
-            .addressValue {
-                color: #0F172A;
-            }
+        input,
+        textarea,
+        select {
+            color: #0F172A;
 
-            .infoHelper {
-                color: #64748B;
+            &::placeholder {
+                color: #94A3B8;
             }
         }
+    }
 
-        .inputGroup label,
-        .labelRow label {
-            color: #1E293B;
+    .faqCard {
+        background: #FFFFFF;
+        border-color: rgba(24, 201, 139, 0.25);
+
+        &.faqCardOpen {
+            background: #F0FDF4;
+            border-color: #10B981;
         }
 
-        .inputWrapper,
-        .phoneInputWrapper,
-        .textareaWrapper {
-            background: #F8FAFC;
-            border-color: rgba(24, 201, 139, 0.25);
-
-            input,
-            textarea,
-            select {
-                color: #0F172A;
-
-                &::placeholder {
-                    color: #94A3B8;
-                }
-            }
+        .faqQuestionText {
+            color: #0F172A;
         }
 
-        .faqCard {
-            background: #FFFFFF;
-            border-color: rgba(24, 201, 139, 0.25);
-
-            &.faqCardOpen {
-                background: #F0FDF4;
-                border-color: #10B981;
-            }
-
-            .faqQuestionText {
-                color: #0F172A;
-            }
-
-            .faqAnswerContent p {
-                color: #334155;
-            }
+        .faqAnswerContent p {
+            color: #334155;
         }
     }
 }

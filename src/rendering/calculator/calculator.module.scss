@@ -159,7 +159,7 @@
     padding: 6px;
     background: #08080B;
     border: 1px solid rgba(24, 201, 139, 0.22);
-    border-radius: 14px;
+    border-radius: 9999px;
     margin-bottom: 28px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -176,7 +176,7 @@
     }
 
     @include respond-to('sm') {
-        border-radius: 10px;
+        border-radius: 9999px;
         gap: 4px;
         padding: 4px;
         margin-bottom: 18px;
@@ -189,10 +189,10 @@
         align-items: center;
         justify-content: center;
         gap: 8px;
-        padding: 12px 16px;
+        padding: 12px 18px;
         background: transparent;
         border: 1px solid transparent;
-        border-radius: 10px;
+        border-radius: 9999px;
         color: rgba(255, 255, 255, 0.65);
         font-size: 14px;
         font-weight: 600;
@@ -201,17 +201,17 @@
         white-space: nowrap;
 
         @include respond-to('tab') {
-            padding: 10px 14px;
+            padding: 10px 16px;
             font-size: 13px;
             min-width: 95px;
             gap: 6px;
         }
 
         @include respond-to('sm') {
-            padding: 8px 10px;
+            padding: 8px 12px;
             font-size: 12px;
             min-width: 85px;
-            border-radius: 8px;
+            border-radius: 9999px;
 
             svg {
                 width: 14px;
@@ -225,10 +225,11 @@
         }
 
         &.activeTab {
-            background: radial-gradient(130% 100% at 50% 0%, #2A2415 0%, #171510 100%);
-            border-color: rgba(24, 201, 139, 0.45);
-            color: #18C98B;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 12px rgba(24, 201, 139, 0.12);
+            background: #18C98B;
+            border-color: #18C98B;
+            color: #040605;
+            font-weight: 700;
+            box-shadow: 0 4px 16px rgba(24, 201, 139, 0.3);
         }
     }
 }
@@ -540,8 +541,8 @@
     flex-wrap: wrap;
 
     .chipBtn {
-        padding: 4px 10px;
-        border-radius: 6px;
+        padding: 5px 14px;
+        border-radius: 9999px;
         background: rgba(255, 255, 255, 0.04);
         border: 1px solid rgba(255, 255, 255, 0.1);
         color: rgba(255, 255, 255, 0.7);
@@ -551,8 +552,9 @@
         transition: all 0.15s ease;
 
         @include respond-to('sm') {
-            padding: 3px 8px;
+            padding: 4px 10px;
             font-size: 10.5px;
+            border-radius: 9999px;
         }
 
         &:hover {
@@ -576,19 +578,19 @@
     padding: 4px;
     background: #040406;
     border: 1px solid rgba(24, 201, 139, 0.2);
-    border-radius: 10px;
+    border-radius: 9999px;
 
     @include respond-to('sm') {
         gap: 6px;
         padding: 3px;
-        border-radius: 8px;
+        border-radius: 9999px;
     }
 
     .switchBtn {
         flex: 1;
-        padding: 10px;
+        padding: 10px 18px;
         border: none;
-        border-radius: 8px;
+        border-radius: 9999px;
         font-size: 13px;
         font-weight: 700;
         cursor: pointer;
@@ -598,8 +600,9 @@
         text-align: center;
 
         @include respond-to('sm') {
-            padding: 8px 6px;
+            padding: 8px 10px;
             font-size: 12px;
+            border-radius: 9999px;
         }
 
         &.buyActive {
@@ -633,10 +636,10 @@
     .calculateBtn {
         width: 100%;
         height: 48px;
-        background: linear-gradient(135deg, #18C98B 0%, #059669 50%, #047857 100%);
-        border: none;
-        border-radius: 12px;
-        color: #0B0B0E;
+        background: #18C98B;
+        border: 1px solid #18C98B;
+        border-radius: 9999px;
+        color: #040605;
         font-size: 15px;
         font-weight: 700;
         cursor: pointer;
@@ -644,23 +647,20 @@
         align-items: center;
         justify-content: center;
         gap: 8px;
-        box-shadow: 0 8px 24px rgba(24, 201, 139, 0.25);
+        box-shadow: 0 4px 18px rgba(24, 201, 139, 0.25);
         transition: all 0.22s ease;
 
         @include respond-to('sm') {
             height: 44px;
             font-size: 14px;
-            border-radius: 10px;
+            border-radius: 9999px;
         }
 
         &:hover {
+            background: #15b77e;
+            border-color: #15b77e;
             transform: translateY(-1px);
-            box-shadow: 0 10px 28px rgba(24, 201, 139, 0.35);
-            filter: brightness(1.05);
-
-            @include respond-to('sm') {
-                transform: none;
-            }
+            box-shadow: 0 8px 24px rgba(24, 201, 139, 0.4);
         }
 
         &:active {
@@ -934,27 +934,108 @@
     }
 }
 
-:global(html.light) {
-    .calculatorContainer {
-        color: #0F172A;
+:global(html.light) .calculatorContainer {
+    color: #0F172A;
 
-        .heroHeader {
-            border-bottom-color: rgba(24, 201, 139, 0.2);
+    .heroHeader {
+        border-bottom-color: rgba(24, 201, 139, 0.2);
 
-            .titleWrap {
-                .calcIconBadge {
-                    background: #FFFFFF;
-                    border-color: rgba(24, 201, 139, 0.35);
-                    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
-                }
+        .titleWrap {
+            .calcIconBadge {
+                background: #FFFFFF;
+                border-color: rgba(24, 201, 139, 0.35);
+                box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+            }
 
-                h1 {
-                    color: #0F172A;
-                }
+            h1 {
+                color: #0F172A;
+            }
 
-                p {
-                    color: #475569;
-                }
+            p {
+                color: #475569;
+            }
+        }
+    }
+
+    .tabBarWrapper {
+        background: #FFFFFF;
+        border-color: rgba(15, 23, 42, 0.1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+
+        .tabBtn {
+            color: #64748B;
+
+            &:hover {
+                color: #0F172A;
+                background: #F1F5F9;
+            }
+
+            &.activeTab {
+                background: #18C98B;
+                color: #040605;
+            }
+        }
+    }
+
+    .formCard,
+    .resultCard {
+        background: #FFFFFF !important;
+        border-color: rgba(15, 23, 42, 0.09) !important;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05) !important;
+
+        .cardHeader h2,
+        .resultHeader h3 {
+            color: #0F172A !important;
+        }
+
+        .formGroup label {
+            color: #334155 !important;
+        }
+
+        .inputWrap input,
+        .dropdownTrigger {
+            background: #F8FAFC !important;
+            border-color: #CBD5E1 !important;
+            color: #0F172A !important;
+        }
+
+        .toggleSwitchRow {
+            background: #F1F5F9 !important;
+            border-color: #CBD5E1 !important;
+
+            .switchBtn {
+                color: #64748B !important;
+            }
+        }
+
+        .primaryMetricBox,
+        .metricTile,
+        .breakdownCard {
+            background: #F8FAFC !important;
+            border-color: #E2E8F0 !important;
+            color: #0F172A !important;
+        }
+
+        .metricLabel {
+            color: #64748B !important;
+        }
+
+        .metricValue {
+            color: #0F172A !important;
+        }
+
+        .levelsTable {
+            background: #F8FAFC !important;
+            border-color: #E2E8F0 !important;
+
+            th {
+                background: #F1F5F9 !important;
+                color: #475569 !important;
+            }
+
+            td {
+                color: #0F172A !important;
+                border-bottom-color: #E2E8F0 !important;
             }
         }
     }

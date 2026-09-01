@@ -499,27 +499,30 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: linear-gradient(135deg, #A7F3D0 0%, #18C98B 50%, #10B981 100%);
-    color: #040300;
-    border: none;
-    border-radius: 12px;
+    background: #18C98B;
+    color: #040605;
+    border: 1px solid #18C98B;
+    border-radius: 9999px;
     padding: 16px 36px;
     font-size: 15px;
     font-weight: 800;
     font-family: var(--font-plus-jakarta), sans-serif;
     cursor: pointer;
-    box-shadow: 0 6px 28px rgba(216, 162, 59, 0.5);
+    box-shadow: 0 4px 18px rgba(24, 201, 139, 0.35);
     transition: all 0.25s ease;
     white-space: nowrap;
 
     &:hover {
-        box-shadow: 0 10px 40px rgba(24, 201, 139, 0.7);
+        background: #15b77e;
+        border-color: #15b77e;
+        box-shadow: 0 8px 24px rgba(24, 201, 139, 0.5);
         transform: translateY(-2px);
     }
 
     @include respond-to('sm') {
         width: 100%;
         justify-content: center;
+        border-radius: 9999px;
     }
 }
 
@@ -530,7 +533,7 @@
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.16);
     color: rgba(255, 255, 255, 0.9);
-    border-radius: 12px;
+    border-radius: 9999px;
     padding: 16px 28px;
     font-size: 14px;
     font-weight: 700;
@@ -546,6 +549,7 @@
 
     @include respond-to('sm') {
         width: 100%;
+        border-radius: 9999px;
     }
 }
 
@@ -1944,65 +1948,67 @@
 /* ============================================================
    LIGHT MODE STYLING OVERRIDES FOR AI PAST TRADE ANALYZER
    ============================================================ */
-:global(html.light) {
-    .analyzerWrapper,
-    .mainWrapper {
-        background: #F8FAFC !important;
-        color: #0F172A !important;
+:global(html.light) .analyzerWrapper,
+:global(html.light) .mainWrapper {
+    background: #F8FAFC !important;
+    color: #0F172A !important;
 
-        .sectionDivider {
-            display: none !important;
+    .sectionDivider {
+        display: block !important;
+        width: 100% !important;
+        height: 1px !important;
+        background: linear-gradient(90deg, transparent 0%, rgba(24, 201, 139, 0.35) 50%, transparent 100%) !important;
+        margin: 40px 0 !important;
+    }
+
+    .faqItem,
+    .faqItemOpen {
+        background: #FFFFFF !important;
+        border: 1px solid rgba(24, 201, 139, 0.28) !important;
+        box-shadow: none !important;
+
+        .qText {
+            color: #0F172A !important;
         }
 
-        .faqItem,
-        .faqItemOpen {
+        .faqAnswerContent {
+            border-top: 1px solid #F1F5F9 !important;
             background: #FFFFFF !important;
-            border: 1px solid rgba(24, 201, 139, 0.28) !important;
-            box-shadow: none !important;
-
-            .qText {
-                color: #0F172A !important;
-            }
-
-            .faqAnswerContent {
-                border-top: 1px solid #F1F5F9 !important;
-                background: #FFFFFF !important;
-
-                p {
-                    color: #475569 !important;
-                }
-            }
-        }
-
-        .ctaCard {
-            background: #FFFFFF !important;
-            border-color: rgba(24, 201, 139, 0.28) !important;
-            box-shadow: none !important;
-
-            .ctaTitle {
-                color: #0F172A !important;
-            }
-
-            .ctaSubtitle {
-                color: #475569 !important;
-            }
-        }
-
-        .featureCard,
-        .stepCard,
-        .previewCard,
-        .metricCard {
-            background: #FFFFFF !important;
-            border-color: rgba(24, 201, 139, 0.28) !important;
-            box-shadow: none !important;
-
-            h3, h4 {
-                color: #0F172A !important;
-            }
 
             p {
                 color: #475569 !important;
             }
+        }
+    }
+
+    .ctaCard {
+        background: #FFFFFF !important;
+        border-color: rgba(24, 201, 139, 0.28) !important;
+        box-shadow: none !important;
+
+        .ctaTitle {
+            color: #0F172A !important;
+        }
+
+        .ctaSubtitle {
+            color: #475569 !important;
+        }
+    }
+
+    .featureCard,
+    .stepCard,
+    .previewCard,
+    .metricCard {
+        background: #FFFFFF !important;
+        border-color: rgba(24, 201, 139, 0.28) !important;
+        box-shadow: none !important;
+
+        h3, h4 {
+            color: #0F172A !important;
+        }
+
+        p {
+            color: #475569 !important;
         }
     }
 }
